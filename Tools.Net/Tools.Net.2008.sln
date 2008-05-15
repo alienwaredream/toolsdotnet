@@ -9,23 +9,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Tools.Net.20084.vsmdi = Tools.Net.20084.vsmdi
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common", "src\Tools.Common\Tools.Common.csproj", "{831E554E-72C5-4076-A1A2-1E4D9E896CF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common", "src\Tools.Common\Tools.Common.csproj", "{EDF6395D-98B7-45D7-834F-493D215F8B14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common.Tests", "src\Tools.Common.Tests\Tools.Common.Tests.csproj", "{5BE04DA2-F4A0-40F5-9C5C-8A30771C9B80}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Tools.Net.20084.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{831E554E-72C5-4076-A1A2-1E4D9E896CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{831E554E-72C5-4076-A1A2-1E4D9E896CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{831E554E-72C5-4076-A1A2-1E4D9E896CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{831E554E-72C5-4076-A1A2-1E4D9E896CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF6395D-98B7-45D7-834F-493D215F8B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF6395D-98B7-45D7-834F-493D215F8B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF6395D-98B7-45D7-834F-493D215F8B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF6395D-98B7-45D7-834F-493D215F8B14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BE04DA2-F4A0-40F5-9C5C-8A30771C9B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5BE04DA2-F4A0-40F5-9C5C-8A30771C9B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE04DA2-F4A0-40F5-9C5C-8A30771C9B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
