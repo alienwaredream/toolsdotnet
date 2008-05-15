@@ -4,8 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B9DE9DF-35B2-415D-B4FF-1D92F63B5E77}"
 	ProjectSection(SolutionItems) = preProject
 		localrun.testrunconfig = localrun.testrunconfig
-		Tools.Net.20082.vsmdi = Tools.Net.20082.vsmdi
-		Tools.Net.20083.vsmdi = Tools.Net.20083.vsmdi
+		Tools.Net.2008.vsmdi = Tools.Net.2008.vsmdi
 		Tools.Net.20084.vsmdi = Tools.Net.20084.vsmdi
 	EndProjectSection
 EndProject
@@ -14,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common.Tests", "src\Tools.Common.Tests\Tools.Common.Tests.csproj", "{5BE04DA2-F4A0-40F5-9C5C-8A30771C9B80}"
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Tools.Net.2008.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
