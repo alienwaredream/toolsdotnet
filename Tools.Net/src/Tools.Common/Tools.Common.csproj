@@ -31,22 +31,228 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Asserts\ErrorTrap.cs" />
+    <Compile Include="Authorisation\EncryptionTokenProvider.cs" />
+    <Compile Include="Authorisation\EncryptionTokenVerifier.cs" />
+    <Compile Include="Authorisation\ITokenAuthorisationService.cs" />
+    <Compile Include="Authorisation\ITokenProvider.cs" />
+    <Compile Include="Authorisation\ITokenVerifier.cs" />
+    <Compile Include="Authorisation\ITokenVolatileDataProvider.cs" />
+    <Compile Include="Authorisation\ITokenVolatileDataVerifier.cs" />
+    <Compile Include="Authorisation\TokenAuthorisationClient.cs" />
+    <Compile Include="Authorisation\TokenAuthorisationService.cs" />
+    <Compile Include="Authorisation\TokenDateTimeProvider.cs" />
+    <Compile Include="Authorisation\TokenDateTimeVerifier.cs" />
+    <Compile Include="Authorisation\TokenVerificationResult.cs" />
+    <Compile Include="Authorisation\VerificationResultType.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="Cache\CacheManagerConfigSection.cs" />
+    <Compile Include="Cache\CacheOffProvider.cs" />
+    <Compile Include="Cache\CacheWebProvider.cs" />
+    <Compile Include="Cache\CacheWindowsProvider.cs" />
+    <Compile Include="Cache\CommonCacheResource.Designer.cs" />
+    <Compile Include="Cache\DualGenericKey.cs" />
+    <Compile Include="Cache\DualRefTypeGenericKey.cs" />
+    <Compile Include="Cache\GenericCacheProvider.cs" />
+    <Compile Include="Cache\GenericKeyedCacheProvider.cs" />
+    <Compile Include="Cache\ICacheProvider.cs" />
+    <Compile Include="Cache\IGenericCacheProvider.cs" />
+    <Compile Include="Change\GenericChangeEventArgs.cs" />
+    <Compile Include="Change\IValidityToken.cs" />
+    <Compile Include="Change\NumericValidityToken.cs" />
+    <Compile Include="ConfigSectionsResource.Designer.cs" />
+    <Compile Include="Config\ActivationArgument.cs" />
+    <Compile Include="Config\ActivationArgumentSource.cs" />
+    <Compile Include="Config\HashActivationArgument.cs" />
+    <Compile Include="Config\IConfigurationValueProvider.cs" />
+    <Compile Include="Config\NameValueSectionConfigurationProvider.cs" />
+    <Compile Include="Config\SingleTagSectionConfigurationProvider.cs" />
+    <Compile Include="Config\TextActivationArgument.cs" />
+    <Compile Include="Config\TypeActivationSource.cs" />
+    <Compile Include="Config\TypeLocator.cs" />
+    <Compile Include="Config\TypesSectionReader.cs" />
+    <Compile Include="Context\ContextIdentifier.cs" />
+    <Compile Include="Context\IContextIdentifierHolder.cs" />
+    <Compile Include="Context\IContextSite.cs" />
+    <Compile Include="Cryptography\IStringCryptoTransformer.cs" />
+    <Compile Include="Cryptography\StringCryptoTransformer.cs" />
+    <Compile Include="DataAccess\DbFactoryExtensions.cs" />
+    <Compile Include="DataTables\DataContextChangeEventHandler.cs" />
+    <Compile Include="DataTables\DataContextEntry.cs" />
+    <Compile Include="DataTables\DataTableService.cs" />
+    <Compile Include="DataTables\DataTableServiceClient.cs" />
+    <Compile Include="DataTables\IDataTableProvider.cs" />
+    <Compile Include="DataTables\IDataTableTransformer.cs" />
+    <Compile Include="DataTables\JavaScriptDataTableConverter.cs" />
+    <Compile Include="DataTables\QueryDetails.cs" />
+    <Compile Include="DataTables\ReportDataProvider.cs" />
+    <Compile Include="DataTables\SampleDataProvider.cs" />
+    <Compile Include="DataTables\SampleDataProvider2.cs" />
+    <Compile Include="DataTables\TransposeDataTableTransformer.cs" />
+    <Compile Include="DataTables\TransposeDefinition.cs" />
+    <Compile Include="DescriptiveNameValue.cs" />
+    <Compile Include="DescriptiveNameValueCollection.cs" />
+    <Compile Include="Descriptor.cs" />
+    <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\DateTimeSuffixedTicketGenerator.cs" />
+    <Compile Include="Exceptions\ITicketGenerator.cs" />
+    <Compile Include="GenericValueProvider.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IDescriptor.cs" />
+    <Compile Include="IEnabled.cs" />
+    <Compile Include="IGenericKeyValueProvider.cs" />
+    <Compile Include="IGenericValueProvider.cs" />
+    <Compile Include="IIdentifierHolder.cs" />
+    <Compile Include="IXPathFormatter.cs" />
+    <Compile Include="Logging\ContextualLogEntry.cs" />
+    <Compile Include="Logging\DatabaseTraceListener2.cs" />
+    <Compile Include="Logging\HttpFilter.cs" />
+    <Compile Include="Logging\HttpLoggerFilter.cs" />
+    <Compile Include="Logging\HttpLoggerModule.cs" />
+    <Compile Include="Logging\IActivityContextTransformer.cs" />
+    <Compile Include="Logging\IoCWrapperTraceListener.cs" />
+    <Compile Include="Logging\ITraceListener.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\LogDataXPathFormatter.cs" />
+    <Compile Include="Logging\SampleTraceListener.cs" />
+    <Compile Include="Logging\TicketGenerator.cs" />
+    <Compile Include="Logging\XmlWriterRollingTraceListener.cs" />
+    <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\MessageExtension.cs" />
+    <Compile Include="Messaging\MessageType.cs" />
+    <Compile Include="Messaging\MessagingResource.Designer.cs" />
+    <Compile Include="NameValue.cs" />
+    <Compile Include="OrderDirection.cs" />
+    <Compile Include="ParameterlessPredicate.cs" />
+    <Compile Include="Process\IdleThreadedProcess.cs" />
+    <Compile Include="Process\IProcess.cs" />
+    <Compile Include="Process\IProcessCollection.cs" />
+    <Compile Include="Process\IProcessEnumerator.cs" />
+    <Compile Include="Process\Process.cs" />
+    <Compile Include="Process\ProcessCompletionStatus.cs" />
+    <Compile Include="Process\ProcessConfiguration.cs" />
+    <Compile Include="Process\ProcessExecutionState.cs" />
+    <Compile Include="Process\ProcessExitCode.cs" />
+    <Compile Include="Process\ProcessExitEventArgs.cs" />
+    <Compile Include="Process\ProcessManager.cs" />
+    <Compile Include="Process\ProcessManagerWrapper.cs" />
+    <Compile Include="Process\ProcessMessage.cs" />
+    <Compile Include="Process\ThreadedProcess.cs" />
+    <Compile Include="Process\VoidAction.cs" />
+    <Compile Include="Process\VoidStringArgsAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceHost\HostMode.cs" />
+    <Compile Include="ServiceHost\Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceHost\MessagesResource.Designer.cs" />
+    <Compile Include="ServiceHost\ProcessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServiceHost\ProcessForm.Designer.cs">
+      <DependentUpon>ProcessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceHost\ProcessServiceHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceHost\Program.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceHost\ServiceHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceHost\ServiceHostInstallConfigSection.cs" />
+    <Compile Include="ServiceHost\ServiceHostMessage.cs" />
+    <Compile Include="ServiceHost\ServiceHostResource.Designer.cs" />
+    <Compile Include="ServiceHost\TextControlTextWriter.cs" />
+    <Compile Include="SortOrder.cs" />
+    <Compile Include="Threading\SynchronizedCounter.cs" />
+    <Compile Include="TypeFieldBaseComparer.cs" />
+    <Compile Include="Utils\AppDomainUtility.cs" />
+    <Compile Include="Utils\BinaryOperatorUtility.cs" />
+    <Compile Include="Utils\CompareUtility.cs" />
+    <Compile Include="Utils\ConversionUtility.cs" />
+    <Compile Include="Utils\DataContractSerializationOptions.cs" />
+    <Compile Include="Utils\DataContractSerializationUtility.cs" />
+    <Compile Include="Utils\DecodingUtility.cs" />
+    <Compile Include="Utils\FormatProviderUtility.cs" />
+    <Compile Include="Utils\FormatterUtility.cs" />
+    <Compile Include="Utils\IoUtility.cs" />
+    <Compile Include="Utils\PathUtility.cs" />
+    <Compile Include="Utils\ReflectionUtility.cs" />
+    <Compile Include="Utils\SerializationUtility.cs" />
+    <Compile Include="Utils\SortUtility.cs" />
+    <Compile Include="Utils\TypeActivationUtility.cs" />
+    <Compile Include="Utils\XmlNoStartDeclarationWriter.cs" />
+    <Compile Include="ValueTypeBaseComparer.cs" />
+    <Compile Include="Wcf\DependencyInjectionElement.cs" />
+    <Compile Include="Wcf\DependencyInjectionInstanceProvider.cs" />
+    <Compile Include="Wcf\DependencyInjectionServiceBehavior.cs" />
+    <Compile Include="Wcf\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Wcf\ExceptionHandlingBehavior.cs" />
+    <Compile Include="Wcf\ExceptionHandlingElement.cs" />
+    <Compile Include="Wcf\ExceptionHandlingOperationInvoker.cs" />
+    <Compile Include="Wcf\SafeClientInvoker.cs" />
+    <Compile Include="Wcf\ServiceEnterpriseLibraryErrorHandler.cs" />
+    <Compile Include="Wcf\ServiceTypeMappingConfigElement.cs" />
+    <Compile Include="Wcf\ServiceTypeMappingConfigElementCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Authorisation\ActionScript\client.js" />
+    <Content Include="Authorisation\ActionScript\main.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cache\CommonCacheResource.resx" />
+    <EmbeddedResource Include="ConfigSectionsResource.resx" />
+    <EmbeddedResource Include="Messaging\MessagingResource.resx" />
+    <EmbeddedResource Include="ServiceHost\Installer.resx">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceHost\MessagesResource.resx" />
+    <EmbeddedResource Include="ServiceHost\ProcessForm.resx">
+      <DependentUpon>ProcessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceHost\ServiceHost.resx">
+      <DependentUpon>ServiceHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceHost\ServiceHostResource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Logging\CreateLoggingSchema.2000.sql" />
+    <None Include="Logging\CreateLoggingSchema.2005.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
