@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="OrderedTest1" storage="c:\gdev\tools.net\src\tools.common.tests\orderedtest1.orderedtest" id="c20f4cf0-46a2-4adc-9911-c8d97d479b30" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <Css projectStructure="" iteration="" />
+  <Execution timeOut="2147483647" />
+  <Owners>
+    <Owner name="" />
+  </Owners>
+  <TestLinks>
+    <TestLink id="72c86f26-6d31-8e28-12b3-f94270c54b94" name="AddContextParametersTest" storage="bin\debug\tools.common.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>
