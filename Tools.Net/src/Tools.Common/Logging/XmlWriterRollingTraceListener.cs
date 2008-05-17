@@ -105,6 +105,10 @@ namespace Tools.Common.Logging
             this.machineName = Environment.MachineName;
             this.fileName = fileName;
         }
+        public XmlWriterRollingTraceListener(int maxFileSizeBytes, string name)
+            : this(maxFileSizeBytes, null, "dd-MMM-yyTHH-mm-ss", name + "_", name)
+        {
+        }
         public XmlWriterRollingTraceListener(int maxFileSizeBytes, string logRootLocation, string name)
             : this(maxFileSizeBytes, logRootLocation, "dd-MMM-yyTHH-mm-ss", "log_", name)
         {
@@ -123,7 +127,7 @@ namespace Tools.Common.Logging
         #endregion
 
         #region Methods - Disposable implementation
-        
+
         public override void Close()
         {
             if (this.writer != null)
@@ -139,18 +143,18 @@ namespace Tools.Common.Logging
             this.xmlBlobWriter = null;
             this.strBldr = null;
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 this.Close();
             }
-        } 
+        }
         #endregion
 
         #region Methods - TraceListener trace methods
-        
+
         public override void Fail(string message, string detailMessage)
         {
             StringBuilder builder = new StringBuilder(message);
@@ -229,7 +233,7 @@ namespace Tools.Common.Logging
         {
             DoWrite(() => TraceEvent2(eventCache, source, eventType, id, format, args));
         }
-        
+
         private void TraceEvent2(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
         {
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, format, args, null, null))
@@ -248,10 +252,10 @@ namespace Tools.Common.Logging
                 this.WriteFooter(eventCache);
             }
         }
-        
+
         public override void TraceTransfer(TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId)
         {
-            DoWrite(()=>TraceTransfer2(eventCache, source, id, message, relatedActivityId));
+            DoWrite(() => TraceTransfer2(eventCache, source, id, message, relatedActivityId));
         }
 
         private void TraceTransfer2(TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId)
@@ -299,7 +303,7 @@ namespace Tools.Common.Logging
 
         private void CreateLogDirectory()
         {
-             if (String.IsNullOrEmpty(logRootLocation))
+            if (String.IsNullOrEmpty(logRootLocation))
             {
 
                 logRootLocation = AppDomain.CurrentDomain.SetupInformation.ApplicationBase
@@ -309,15 +313,15 @@ namespace Tools.Common.Logging
             {
                 Directory.CreateDirectory(logRootLocation);
             }
-            
+
             isDirectoryCreated = true;
             CreateNewWriter();
-        } 
+        }
 
         private void InternalWrite(string message)
         {
             // only call EnsureWriter if file is not rolling which is a default.
-            if (!isRolling)  
+            if (!isRolling)
             {
                 EnsureWriter();
 
@@ -397,7 +401,7 @@ namespace Tools.Common.Logging
                 if (this.strBldr == null)
                 {
                     this.strBldr = new StringBuilder();
-                    
+
                     this.xmlBlobWriter = new XmlTextWriter(new StringWriter(this.strBldr, CultureInfo.CurrentCulture));
                 }
                 else
@@ -619,7 +623,7 @@ namespace Tools.Common.Logging
                 writer.Flush();
                 writer.Close();
                 //writer = null;
-                
+
             }
 
             string targetFileName = fileStaticName + DateTime.UtcNow.ToString(fileDatetimePattern);
@@ -669,11 +673,11 @@ namespace Tools.Common.Logging
                 }
             }
         }
-        
+
         #endregion
 
         #region Methods - Helper information methods
-        
+
         private int GetThreadId()
         {
             return Thread.CurrentThread.ManagedThreadId;
@@ -703,8 +707,9 @@ namespace Tools.Common.Logging
                     processName = process.ProcessName;
                 }
             }
-        } 
+        }
         #endregion
     }
+
 
 }
