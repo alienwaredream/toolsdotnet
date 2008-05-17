@@ -75,9 +75,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="DataTable\App.config" />
-    <None Include="OrderedTest1.orderedtest">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Shadow Include="Test References\Tools.Common.accessor" />
   </ItemGroup>
   <ItemGroup>

@@ -69,7 +69,7 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void AddRaisableAssertionTestForExceptionType()
         {
-            string testExceptionMessage = "Test Exception Message";
+            string testExceptionMessage = "Conditions are not met: Test Exception Message";
 
             try
             {

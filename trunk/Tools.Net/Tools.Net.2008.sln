@@ -5,6 +5,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		localrun.testrunconfig = localrun.testrunconfig
 		Tools.Net.2008.vsmdi = Tools.Net.2008.vsmdi
+		Tools.Net.20081.vsmdi = Tools.Net.20081.vsmdi
+		Tools.Net.20082.vsmdi = Tools.Net.20082.vsmdi
 		Tools.Net.20084.vsmdi = Tools.Net.20084.vsmdi
 	EndProjectSection
 EndProject
@@ -14,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common.Tests", "src\T
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Tools.Net.2008.vsmdi
+		CategoryFile = Tools.Net.20082.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

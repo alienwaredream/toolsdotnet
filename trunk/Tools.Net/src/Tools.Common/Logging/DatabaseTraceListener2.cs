@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Data;
-using System.Reflection;
 using System.Threading;
 using System.Data.Common;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Tools.Common.Asserts;
 using System.Configuration;
 using Tools.Common.DataAccess;
 using System.Security.Principal;
+using Tools.Common.Logging;
 
 namespace Tools.Common.Logging
 {
@@ -33,13 +32,52 @@ namespace Tools.Common.Logging
         private string modulePath;
         private string appDomainName;
 
+        private object initSyncObject = new object();
+        private bool initializedInFailedMode;
+        private string initializationFailureString;
+        private bool initialized;
+
+        private void Initialize()
+        {
+            if (!initialized)
+            {
+                lock (initSyncObject)
+                {
+                    initialized = true;
+                    initializedInFailedMode = true;
+
+                    if (
+                        (ConfigurationManager.ConnectionStrings[connectionStringName] == null)
+                        )
+                    {
+                        initializationFailureString = String.Format(CultureInfo.InvariantCulture,
+                        "Connection string with name {0} is required for logging purposes!" +
+                        " Review configuration settings.", connectionStringName);
+                        return;
+                    }
+
+                    this.connectionString =
+                        ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+
+                    if (String.IsNullOrEmpty(this.connectionString))
+                    {
+                        initializationFailureString += String.Format(CultureInfo.InvariantCulture,
+                        "Non empty connection string with name {0} is required for logging purposes!" +
+                        " Review configuration settings.", connectionStringName);
+                        return;
+                        
+                    }
+                    initializedInFailedMode = false;
+                }
+            }
+        }
 
         /// <summary>
         /// Initalizes a new instance of <see cref="CorrelatedTraceListener"/>.
         /// </summary>
         public DatabaseTraceListener2()
         {
-            this.fallbackTraceListener = new XmlWriterRollingTraceListener(2000000, AppDomain.CurrentDomain.SetupInformation.ApplicationBase, this.Name + "_fallback");
+            this.fallbackTraceListener = new XmlWriterRollingTraceListener(2000000, "dblogfallback");
             this.machineName = Environment.MachineName;
             this.modulePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             this.appDomainName = AppDomain.CurrentDomain.FriendlyName;
@@ -50,29 +88,10 @@ namespace Tools.Common.Logging
             )
             : this()
         {
-
-            ErrorTrap.AddRaisableAssertion<ConfigurationErrorsException>
-                (ConfigurationManager.ConnectionStrings[connectionStringName] != null,
-                String.Format(CultureInfo.InvariantCulture,
-                "Connection string with name {0} is required for logging purposes!" +
-                " Review configuration settings.",
-                connectionStringName));
-
-            this.connectionString =
-                ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-
-            ErrorTrap.AddRaisableAssertion<ConfigurationErrorsException>
-                (!String.IsNullOrEmpty(this.connectionString),
-                String.Format(CultureInfo.InvariantCulture,
-                "Connection string with name {0} is required for logging purposes!" +
-                " Review configuration settings.",
-                connectionStringName));
-
             this.storedProcedureName = storedProcedureName;
             this.connectionStringName = connectionStringName;
             this.fallbackTraceListener = fallbackListener;
             this.extraLogDataProvider = extraLogDataTransformer;
-
         }
 
         #region Trace listener methods
@@ -112,7 +131,7 @@ namespace Tools.Common.Logging
         {
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, data, null))
             {
-                WriteInternal(eventCache, source, eventType, id, data);
+                WriteInternal(() => WriteInternal(eventCache, source, eventType, id, data));
             }
         }
 
@@ -121,7 +140,7 @@ namespace Tools.Common.Logging
         {
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, null, data))
             {
-                WriteInternal(eventCache, source, eventType, id, data);
+                WriteInternal(() => WriteInternal(eventCache, source, eventType, id, data));
             }
         }
 
@@ -130,16 +149,13 @@ namespace Tools.Common.Logging
         {
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, message, null, null, null))
             {
-                WriteInternal(eventCache, source, eventType, id, message); 
+                WriteInternal(() => WriteInternal(eventCache, source, eventType, id, message));
             }
         }
 
         public override void TraceTransfer(TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId)
         {
-            WriteInternal(eventCache, source, TraceEventType.Transfer, id, message, relatedActivityId); 
-            //this.WriteHeader(source, TraceEventType.Transfer, id, eventCache, relatedActivityId);
-            //this.WriteEscaped(message);
-            //this.WriteFooter(eventCache);
+            WriteInternal(() => WriteInternal(eventCache, source, TraceEventType.Transfer, id, message, relatedActivityId));
         }
 
         public override void Write(string message)
@@ -156,67 +172,132 @@ namespace Tools.Common.Logging
 
         #region Private implementation methods
 
+        private void WriteInternal(Action write)
+        {
+            write();
+            //throw new NotImplementedException("Method WriteInternal(Action write) is not implemented!");
+        }
+
         private void WriteInternal(
             TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
-            using (IDbConnection conn =
-                factory.CreateConnection((c) => c.ConnectionString = connectionString))
+            if (!initialized)
             {
-                using (IDbCommand command = factory.CreateCommand((c) =>
-                    {
-                        c.CommandText = this.storedProcedureName;
-                        c.CommandType = CommandType.StoredProcedure;
-                        c.Connection = conn as DbConnection;
-                    }))
+                Initialize();
+            }
+            if (!initializedInFailedMode)
+            {
+                try
                 {
-                    AddContextParameters(eventCache, eventType, id, command);
-
-                    AddTransformerParameters(data, command);
-
-                    if (!command.Parameters.Contains("Message") && data != null)
+                    using (IDbConnection conn =
+                        factory.CreateConnection((c) => c.ConnectionString = connectionString))
                     {
-                        command.Parameters.Add(factory.CreateParameter(
-                            (p) => { p.DbType = DbType.String; p.Value = data.ToString(); p.ParameterName = "Message"; }));
+                        using (IDbCommand command = factory.CreateCommand((c) =>
+                            {
+                                c.CommandText = this.storedProcedureName;
+                                c.CommandType = CommandType.StoredProcedure;
+                                c.Connection = conn as DbConnection;
+                            }))
+                        {
+                            AddContextParameters(eventCache, eventType, id, command);
+
+                            AddTransformerParameters(data, command);
+
+                            if (!command.Parameters.Contains("Message") && data != null)
+                            {
+                                command.Parameters.Add(factory.CreateParameter(
+                                    (p) => { p.DbType = DbType.String; p.Value = data.ToString(); p.ParameterName = "Message"; }));
+                            }
+
+                            conn.Open();
+
+                            int n = command.ExecuteNonQuery();
+                            return;
+                        }
                     }
-
-                    conn.Open();
-
-                    int n = command.ExecuteNonQuery();
                 }
+                catch (Exception ex)
+                {
+                    if (fallbackTraceListener != null)
+                    {
+                        fallbackTraceListener.TraceData(null, Log.Source.Name, eventType, id, ex);
+                        fallbackTraceListener.TraceData(null, Log.Source.Name, eventType, id, data);
+                        return;
+                    }
+                    throw;
+                }
+            }
+
+            if (fallbackTraceListener != null)
+            {
+                if (initializedInFailedMode)
+                {
+                    fallbackTraceListener.TraceData(eventCache, source, TraceEventType.Error, 301, initializationFailureString);
+                }
+                fallbackTraceListener.TraceData(eventCache, source, eventType, id, data);
             }
         }
 
         private void WriteInternal(
     TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message, Guid correlationId)
         {
-            using (IDbConnection conn =
-                factory.CreateConnection((c) => c.ConnectionString = connectionString))
+            if (!initialized)
             {
-                using (IDbCommand command = factory.CreateCommand((c) =>
+                Initialize();
+            }
+            if (!initializedInFailedMode)
+            {
+                try
                 {
-                    c.CommandText = this.storedProcedureName;
-                    c.CommandType = CommandType.StoredProcedure;
-                    c.Connection = conn as DbConnection;
-                }))
-                {
-                    AddContextParameters(eventCache, eventType, id, command);
-
-                    AddTransformerParameters(message, command);
-
-                    if (!command.Parameters.Contains("Message"))
+                    using (IDbConnection conn =
+                        factory.CreateConnection((c) => c.ConnectionString = connectionString))
                     {
-                        command.Parameters.Add(factory.CreateParameter(
-                            (p) => { p.DbType = DbType.String; p.Value = message; p.ParameterName = "Message"; }));
+                        using (IDbCommand command = factory.CreateCommand((c) =>
+                        {
+                            c.CommandText = this.storedProcedureName;
+                            c.CommandType = CommandType.StoredProcedure;
+                            c.Connection = conn as DbConnection;
+                        }))
+                        {
+                            AddContextParameters(eventCache, eventType, id, command);
+
+                            AddTransformerParameters(message, command);
+
+                            if (!command.Parameters.Contains("Message"))
+                            {
+                                command.Parameters.Add(factory.CreateParameter(
+                                    (p) => { p.DbType = DbType.String; p.Value = message; p.ParameterName = "Message"; }));
+                            }
+
+                            command.Parameters.Add(factory.CreateParameter(
+                                    (p) => { p.DbType = DbType.Guid; p.Value = correlationId; p.ParameterName = "CorrelationId"; }));
+
+
+                            conn.Open();
+
+                            int n = command.ExecuteNonQuery();
+                            return;
+                        }
                     }
-
-                    command.Parameters.Add(factory.CreateParameter(
-                            (p) => { p.DbType = DbType.Guid; p.Value = correlationId; p.ParameterName = "CorrelationId"; }));
-
-
-                    conn.Open();
-
-                    int n = command.ExecuteNonQuery();
                 }
+                catch (Exception ex)
+                {
+                    if (fallbackTraceListener != null)
+                    {
+                        fallbackTraceListener.TraceData(eventCache, Log.Source.Name, eventType, id, ex);
+                        fallbackTraceListener.TraceTransfer(eventCache, Log.Source.Name, id, message, correlationId);
+                        return;
+                    }
+                    throw;
+                }
+            }
+            if (fallbackTraceListener != null)
+            {
+                if (initializedInFailedMode)
+                {
+                    fallbackTraceListener.TraceData(eventCache, source, TraceEventType.Error, 301, initializationFailureString);
+                }
+                fallbackTraceListener.TraceTransfer(eventCache, Log.Source.Name, id, message, correlationId);
             }
         }
 

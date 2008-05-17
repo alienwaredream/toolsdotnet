@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using System.Text;
 using System.Xml.XPath;
 using System.IO;
@@ -8,6 +8,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using Tools.Common;
 
 namespace Tools.Common.Logging
 {
@@ -44,7 +45,7 @@ namespace Tools.Common.Logging
                 StringBuilder exInfo = new StringBuilder();
 
                 using (XmlWriter xWriter = XmlWriter.Create(exInfo,
-                    new XmlWriterSettings { OmitXmlDeclaration = false }))
+                    new XmlWriterSettings { OmitXmlDeclaration = false, ConformanceLevel = ConformanceLevel.Fragment }))
                 {
                     AddExceptionToTraceString(xWriter, exEntry);
                     sb.Append("<TraceRecord xmlns=\"http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord\">").
@@ -53,7 +54,7 @@ namespace Tools.Common.Logging
                         Append("<Description>Exception</Description>").
                         Append("<Exception>").Append(exInfo.ToString()).
                         Append("</Exception>").
-                        Append("</Description></TraceRecord>");
+                        Append("</TraceRecord>");
                     return new XPathDocument(new StringReader(sb.ToString())).CreateNavigator();
                 }
             }
