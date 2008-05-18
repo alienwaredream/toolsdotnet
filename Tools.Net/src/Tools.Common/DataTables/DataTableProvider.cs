@@ -17,14 +17,14 @@ namespace Tools.Common.DataTables
 
 
 
-    public class ReportDataProvider : IDataTableProvider
+    public class DataTableProvider : IDataTableProvider
     {
         private IDataTableTransformer tableTransformer;
 
-        public ReportDataProvider()
+        public DataTableProvider()
         {
         }
-        public ReportDataProvider(IDataTableTransformer tableTransformer) : this()
+        public DataTableProvider(IDataTableTransformer tableTransformer) : this()
         {
             this.tableTransformer = tableTransformer;
         }

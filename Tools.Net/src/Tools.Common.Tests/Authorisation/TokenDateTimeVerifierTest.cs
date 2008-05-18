@@ -77,7 +77,7 @@ namespace Tools.Common.UnitTests
             MockRepository mocks = new MockRepository();
 
             IConfigurationValueProvider configProvider = 
-                mocks.CreateMock<IConfigurationValueProvider>();
+                mocks.StrictMock<IConfigurationValueProvider>();
 
             Expect.Call(configProvider["timeWindowSeconds"]).Return("200");
 
@@ -99,7 +99,7 @@ namespace Tools.Common.UnitTests
             MockRepository mocks = new MockRepository();
 
             IConfigurationValueProvider configProvider =
-                mocks.CreateMock<IConfigurationValueProvider>();
+                mocks.StrictMock<IConfigurationValueProvider>();
 
             Expect.Call(configProvider["timeWindowSeconds"]).Return("300");
 
