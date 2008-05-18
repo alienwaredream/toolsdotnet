@@ -120,8 +120,8 @@ namespace Tools.Common.UnitTests
             IDbCommand command = new SqlCommand();
             //MockRepository mocks = new MockRepository();
 
-            //IDbCommand command = mocks.CreateMock<IDbCommand>();
-            //IDataParameterCollection parameters = mocks.CreateMock<IDataParameterCollection>();
+            //IDbCommand command = mocks.StrictMock<IDbCommand>();
+            //IDataParameterCollection parameters = mocks.StrictMock<IDataParameterCollection>();
 
             //Expect.Call(command.Parameters).Return(parameters);
 

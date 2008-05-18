@@ -75,7 +75,7 @@ namespace Tools.Common.UnitTests
         {
             MockRepository mocks = new MockRepository();
 
-            ITokenVolatileDataProvider volatileDataProvider = mocks.CreateMock<ITokenVolatileDataProvider>();
+            ITokenVolatileDataProvider volatileDataProvider = mocks.StrictMock<ITokenVolatileDataProvider>();
             Expect.Call(volatileDataProvider.GetVolatileData()).Return("testVolatileData");
 
             mocks.ReplayAll();

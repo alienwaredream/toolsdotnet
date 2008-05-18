@@ -9,11 +9,11 @@ namespace Tools.Common.UnitTests
     
     
     /// <summary>
-    ///This is a test class for ReportDataProviderTest and is intended
-    ///to contain all ReportDataProviderTest Unit Tests
+    ///This is a test class for DataTableProviderTest and is intended
+    ///to contain all DataTableProviderTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class ReportDataProviderTest
+    public class DataTableProviderTest
     {
 
 
@@ -72,7 +72,7 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void GetNamedDataTableTest()
         {
-            ReportDataProvider target = new ReportDataProvider();
+            DataTableProvider target = new DataTableProvider();
             string dataTableName = "getAreas";
             string[] parameters = new string[] { "517" };
             DataTable actual;
@@ -85,7 +85,7 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void GetDivisionsDataTableTest()
         {
-            ReportDataProvider target = new ReportDataProvider();
+            DataTableProvider target = new DataTableProvider();
             string dataTableName = "getDivisions";
             string[] parameters = new string[] { "517", "003" };
             DataTable actual;

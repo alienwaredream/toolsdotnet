@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using Rhino.Mocks;
 using Tools.Common.DataAccess;
 using System.Collections;
+using System.Data.Common;
 
 namespace Tools.Common.UnitTests
 {
@@ -81,8 +82,32 @@ namespace Tools.Common.UnitTests
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
                 storedProcedureName, logConnectionStringName, null, null);
 
+            target.connectionString = "Test of connection string";
+
+            target.factory = MockRepository.GenerateStub<DbProviderFactory>();
+            
+            DbConnection connection = MockRepository.GenerateStub<DbConnection>();
+            DbCommand command = MockRepository.GenerateStub<DbCommand>();
+            DbParameterCollection parameters = MockRepository.GenerateStub<DbParameterCollection>();
+
+
+            target.factory.Stub(
+                (f) => f.CreateConnection()).Return(connection);
+            target.factory.Stub((f) => f.CreateCommand()).Return(command);
+
+            for (int i = 0; i < 20; i++)
+            {
+                DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
+                target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
+                command.Stub((c) => c.Parameters).Return(parameters);
+            }
+
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
+
+            Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
+            Trace.WriteLine(String.Format("Parameters count: {0}", command.Parameters.Count));
+
         }
 
         /// <summary>
@@ -276,8 +301,8 @@ namespace Tools.Common.UnitTests
             IDbCommand command = new SqlCommand();
             //MockRepository mocks = new MockRepository();
 
-            //IDbCommand command = mocks.CreateMock<IDbCommand>();
-            //IDataParameterCollection parameters = mocks.CreateMock<IDataParameterCollection>();
+            //IDbCommand command = mocks.StrictMock<IDbCommand>();
+            //IDataParameterCollection parameters = mocks.StrictMock<IDataParameterCollection>();
 
             //Expect.Call(command.Parameters).Return(parameters);
 

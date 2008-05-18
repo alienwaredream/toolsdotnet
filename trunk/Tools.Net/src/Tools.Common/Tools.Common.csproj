@@ -122,7 +122,7 @@
     <Compile Include="DataTables\IDataTableTransformer.cs" />
     <Compile Include="DataTables\JavaScriptDataTableConverter.cs" />
     <Compile Include="DataTables\QueryDetails.cs" />
-    <Compile Include="DataTables\ReportDataProvider.cs" />
+    <Compile Include="DataTables\DataTableProvider.cs" />
     <Compile Include="DataTables\SampleDataProvider.cs" />
     <Compile Include="DataTables\SampleDataProvider2.cs" />
     <Compile Include="DataTables\TransposeDataTableTransformer.cs" />

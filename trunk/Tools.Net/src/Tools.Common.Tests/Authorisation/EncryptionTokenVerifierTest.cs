@@ -80,7 +80,7 @@ namespace Tools.Common.UnitTests
             MockRepository mocks = new MockRepository();
 
             ITokenVolatileDataVerifier volatileDataVerifier = 
-                mocks.CreateMock<ITokenVolatileDataVerifier>();
+                mocks.StrictMock<ITokenVolatileDataVerifier>();
             Expect.Call(volatileDataVerifier.VerifyVolatileData("testVolatileData")).Return(
                 new TokenVerificationResult { 
                     ResultType = VerificationResultType.Success, Message = "Success" });
@@ -111,7 +111,7 @@ namespace Tools.Common.UnitTests
             MockRepository mocks = new MockRepository();
 
             ITokenVolatileDataVerifier volatileDataVerifier =
-                mocks.CreateMock<ITokenVolatileDataVerifier>();
+                mocks.StrictMock<ITokenVolatileDataVerifier>();
             Expect.Call(volatileDataVerifier.VerifyVolatileData("testVolatileData")).Return(
                 new TokenVerificationResult
                 {
@@ -147,7 +147,7 @@ namespace Tools.Common.UnitTests
             MockRepository mocks = new MockRepository();
 
             ITokenVolatileDataVerifier volatileDataVerifier =
-                mocks.CreateMock<ITokenVolatileDataVerifier>();
+                mocks.StrictMock<ITokenVolatileDataVerifier>();
             Expect.Call(volatileDataVerifier.VerifyVolatileData("testVolatileData")).Return(
                 new TokenVerificationResult
                 {
