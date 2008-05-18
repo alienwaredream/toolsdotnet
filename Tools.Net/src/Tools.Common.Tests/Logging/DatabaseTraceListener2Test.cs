@@ -23,6 +23,7 @@ namespace Tools.Common.UnitTests
     {
         private string storedProcedureName = "[Common].[uspInsertLogMessage]";
         private string logConnectionStringName = "LogDatabase";
+        private int paramsCount = 0;
 
         private TestContext testContextInstance;
 
@@ -72,6 +73,11 @@ namespace Tools.Common.UnitTests
         //
         #endregion
 
+        private int GetParamsCurrentCount(object val)
+        {
+            return ++paramsCount;
+        }
+        private delegate int VoidReturnNoArgsDelegate(object val);
 
         /// <summary>
         ///A test for WriteLine
@@ -100,13 +106,14 @@ namespace Tools.Common.UnitTests
                 DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
                 target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
                 command.Stub((c) => c.Parameters).Return(parameters);
+                parameters.Stub((p) => p.Add(parameter)).Do(new VoidReturnNoArgsDelegate(GetParamsCurrentCount));
             }
 
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
 
             Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
-            Trace.WriteLine(String.Format("Parameters count: {0}", command.Parameters.Count));
+            Trace.WriteLine(String.Format("Parameters count: {0}", paramsCount));
 
         }
 
