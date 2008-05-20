@@ -9,6 +9,7 @@ using Rhino.Mocks;
 using Tools.Common.DataAccess;
 using System.Collections;
 using System.Data.Common;
+using Tools.Common.Utils;
 
 namespace Tools.Common.UnitTests
 {
@@ -73,11 +74,12 @@ namespace Tools.Common.UnitTests
         //
         #endregion
 
-        private int GetParamsCurrentCount(object val)
+        private int HandleParameter(object parameter)
         {
+            Trace.WriteLine(ReflectionUtility.DumpObjectFieldsAndProperties(parameter));
             return ++paramsCount;
         }
-        private delegate int VoidReturnNoArgsDelegate(object val);
+        private delegate int HandleParameterDelegate(object parameter);
 
         /// <summary>
         ///A test for WriteLine
@@ -101,19 +103,26 @@ namespace Tools.Common.UnitTests
                 (f) => f.CreateConnection()).Return(connection);
             target.factory.Stub((f) => f.CreateCommand()).Return(command);
 
-            for (int i = 0; i < 20; i++)
-            {
+            connection.Stub((c)=>connection.Open());
+            connection.Stub((c) => connection.Dispose());
+            command.Stub((c) => command.ExecuteNonQuery()).Return(1);
+            command.Stub((c) => c.Dispose());
+
                 DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
-                target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
-                command.Stub((c) => c.Parameters).Return(parameters);
-                parameters.Stub((p) => p.Add(parameter)).Do(new VoidReturnNoArgsDelegate(GetParamsCurrentCount));
-            }
+                target.factory.Stub((f) => f.CreateParameter()).Repeat.Any().
+                    Return(MockRepository.GenerateStub<DbParameter>());
+                command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
+                parameters.Stub((p) => p.Add(parameter)).Repeat.Any().Do(
+                    new HandleParameterDelegate(HandleParameter));
+            
 
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
 
             Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
             Trace.WriteLine(String.Format("Parameters count: {0}", paramsCount));
+            connection.AssertWasCalled((c)=>c.Open());
+            command.AssertWasCalled((c)=>c.ExecuteNonQuery());
 
         }
 
