@@ -73,34 +73,5 @@ namespace Tools.Common.Utils
 
             return values;
         }
-
-		/// <summary>
-		/// Copies the values of the second parameter on to the first parameter to to one level without
-		/// with recursion. 
-		/// So at the end you will have two identical object with different references that helps 
-		/// linq not to loose the track.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="toBeCopiedOn">To be copied on.</param>
-		/// <param name="toCopy">To copy.</param>
-        //public static void ReflectionCopy<T>(T toBeCopiedOn, T toCopy)
-        //{
-        //    PropertyInfo[] propertyInfos = typeof(T).GetProperties();
-
-        //    foreach (var pi in propertyInfos)
-        //    {
-
-        //        if (pi.GetIndexParameters() != null && pi.GetIndexParameters().Length > 0)
-        //        {
-        //            continue;
-        //        }
-
-        //        if (pi.CanWrite)
-        //        {
-        //            pi.SetValue(toBeCopiedOn, pi.GetValue(toCopy, null), null);
-        //        }
-				
-        //    }
-        //}
     }
 }
