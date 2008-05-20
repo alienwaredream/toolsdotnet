@@ -13,8 +13,8 @@ using Tools.Common.Utils;
 
 namespace Tools.Common.UnitTests
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for DatabaseTraceListener2Test and is intended
     ///to contain all DatabaseTraceListener2Test Unit Tests
@@ -93,7 +93,7 @@ namespace Tools.Common.UnitTests
             target.connectionString = "Test of connection string";
 
             target.factory = MockRepository.GenerateStub<DbProviderFactory>();
-            
+
             DbConnection connection = MockRepository.GenerateStub<DbConnection>();
             DbCommand command = MockRepository.GenerateStub<DbCommand>();
             DbParameterCollection parameters = MockRepository.GenerateStub<DbParameterCollection>();
@@ -103,26 +103,25 @@ namespace Tools.Common.UnitTests
                 (f) => f.CreateConnection()).Return(connection);
             target.factory.Stub((f) => f.CreateCommand()).Return(command);
 
-            connection.Stub((c)=>connection.Open());
+            connection.Stub((c) => connection.Open());
             connection.Stub((c) => connection.Dispose());
             command.Stub((c) => command.ExecuteNonQuery()).Return(1);
             command.Stub((c) => c.Dispose());
 
-                DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
-                target.factory.Stub((f) => f.CreateParameter()).Repeat.Any().
-                    Return(MockRepository.GenerateStub<DbParameter>());
-                command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
-                parameters.Stub((p) => p.Add(parameter)).Repeat.Any().Do(
-                    new HandleParameterDelegate(HandleParameter));
-            
+            target.factory.Stub((f) => f.CreateParameter()).Repeat.Any().
+                Return(MockRepository.GenerateStub<DbParameter>());
+            command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
+            parameters.Stub((p) => p.Add(null)).IgnoreArguments().Repeat.Any().Do(
+                new HandleParameterDelegate(HandleParameter));
+
 
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
 
             Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
             Trace.WriteLine(String.Format("Parameters count: {0}", paramsCount));
-            connection.AssertWasCalled((c)=>c.Open());
-            command.AssertWasCalled((c)=>c.ExecuteNonQuery());
+            connection.AssertWasCalled((c) => c.Open());
+            command.AssertWasCalled((c) => c.ExecuteNonQuery());
 
         }
 
@@ -134,7 +133,7 @@ namespace Tools.Common.UnitTests
         public void WriteInternalTestWithNullData()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
+                storedProcedureName, logConnectionStringName, null, null);
 
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
@@ -151,7 +150,7 @@ namespace Tools.Common.UnitTests
         public void WriteInternalTestWithNonNullData()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
+                storedProcedureName, logConnectionStringName, null, null);
 
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
@@ -170,7 +169,7 @@ namespace Tools.Common.UnitTests
         public void WriteInternalTestForActivityTransfer()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
+                storedProcedureName, logConnectionStringName, null, null);
 
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
@@ -200,8 +199,8 @@ namespace Tools.Common.UnitTests
         public void TraceTransferTest()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             TraceEventCache eventCache = null;
 
             string source = Log.Source.Name;
@@ -223,13 +222,13 @@ namespace Tools.Common.UnitTests
             Trace.CorrelationManager.StartLogicalOperation(Guid.NewGuid());
 
             TraceEventCache eventCache = new TraceEventCache();
-            
+
             string source = string.Empty;
             TraceEventType eventType = TraceEventType.Information;
             int id = 0;
             string format = "format string with placeholder [{0}] and [{1}]";
-            object[] args = new object[] {"filler 1", new {filler2f1="filler 2 field 1", filler2f2 = "filler 2 field 1"}};
-            
+            object[] args = new object[] { "filler 1", new { filler2f1 = "filler 2 field 1", filler2f2 = "filler 2 field 1" } };
+
             target.TraceEvent(eventCache, source, eventType, id, format, args);
 
             Trace.CorrelationManager.StopLogicalOperation();
@@ -242,8 +241,8 @@ namespace Tools.Common.UnitTests
         public void TraceEventTest()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
             TraceEventType eventType = TraceEventType.Verbose;
@@ -259,13 +258,13 @@ namespace Tools.Common.UnitTests
         public void TraceDataTest1()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
             TraceEventType eventType = TraceEventType.Critical;
             int id = 11;
-            object[] data = new object[]{"test", "of", "object", "array", "data"};
+            object[] data = new object[] { "test", "of", "object", "array", "data" };
 
             target.TraceData(eventCache, source, eventType, id, data);
         }
@@ -277,8 +276,8 @@ namespace Tools.Common.UnitTests
         public void TraceDataTest()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             TraceEventCache eventCache = null;
             string source = Log.Source.Name;
             TraceEventType eventType = TraceEventType.Error;
@@ -294,8 +293,8 @@ namespace Tools.Common.UnitTests
         public void FailTest()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             string message = "Test of Fail message.";
             string detailMessage = "Failure detail";
             target.Fail(message, detailMessage);
@@ -328,7 +327,7 @@ namespace Tools.Common.UnitTests
             //Expect.Call(command.Parameters.Add(target.factory.CreateParameter(
             //        (p) => { p.DbType = DbType.String; p.Value = 54321; p.ParameterName = "RepId"; })));
             //mocks.ReplayAll();
-            
+
             target.AddTransformerParameters(data, command);
 
             //mocks.VerifyAll();
@@ -340,8 +339,8 @@ namespace Tools.Common.UnitTests
             IDataParameter repParam = command.Parameters["RepId"] as IDataParameter;
             Assert.IsNotNull(repParam);
             Assert.IsNotNull(repParam.Value);
-            Assert.AreEqual<string>(repParam.Value.ToString(), "54321");     
-            
+            Assert.AreEqual<string>(repParam.Value.ToString(), "54321");
+
         }
 
         /// <summary>
@@ -352,8 +351,8 @@ namespace Tools.Common.UnitTests
         public void AddContextParametersTest()
         {
             DatabaseTraceListener2_Accessor target = new DatabaseTraceListener2_Accessor(
-                storedProcedureName, logConnectionStringName, null, null); 
-            
+                storedProcedureName, logConnectionStringName, null, null);
+
             TraceEventCache eventCache = null;
             TraceEventType eventType = TraceEventType.Information;
             int id = 101;
