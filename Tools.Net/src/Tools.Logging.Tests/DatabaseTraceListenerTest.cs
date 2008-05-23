@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using Rhino.Mocks;
 using Tools.Core.Configuration;
+using System.Linq;
 
 namespace Tools.Logging.Tests
 {
@@ -21,7 +22,6 @@ namespace Tools.Logging.Tests
     {
         private string storedProcedureName = "[Common].[uspInsertLogMessage]";
         private string logConnectionStringName = "LogDatabase";
-        private int paramsCount = 0;
         List<DbParameter> parametersList;
 
         private TestContext testContextInstance;
@@ -78,7 +78,7 @@ namespace Tools.Logging.Tests
         private int HandleParameter(object parameter)
         {
             parametersList.Add(parameter as DbParameter);
-            return 0;
+            return parametersList.Count;
         }
         private delegate int HandleParameterDelegate(object parameter);
         /// <summary>
@@ -116,12 +116,15 @@ namespace Tools.Logging.Tests
             command.Stub((c) => c.Dispose());
             // Setup repetitive stub for the command parameters
             //DbParameter parameter = null;
-            target.factory.Stub((f) => f.CreateParameter()).Repeat.Any().
-                Return(MockRepository.GenerateStub<DbParameter>());
-            command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
-            parameters.Stub((p) => p.Add(null)).IgnoreArguments().Repeat.Any().Do(
-                new HandleParameterDelegate(HandleParameter));
 
+            command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
+
+            for (int i = 0; i < 12; i++)
+            {
+                DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
+                target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
+                parameters.Stub((p) => p.Add(parameter)).Do(new HandleParameterDelegate(HandleParameter));
+            }
 
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
@@ -132,11 +135,25 @@ namespace Tools.Logging.Tests
             Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
 
             Trace.WriteLine(String.Format("Parameters count: {0}", parametersList.Count));
+            Trace.WriteLine("Parameters:" + parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
 
             connection.AssertWasCalled((c) => c.Open());
             command.AssertWasCalled((c) => c.ExecuteNonQuery());
+
+            Assert.AreEqual<string>("Date,MessageId,TypeId,TypeName,MachineName,ModulePath,ModuleName,ThreadName,ThreadIdentity,OSIdentity,ActivityId,Message,",
+                parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
+
             //target.connectionStringProvider.AssertWasCalled((p) => p[target.connectionStringName]);
-            //Assert.IsTrue(parametersList.Find((p) => { return p.ParameterName == "Date"; }).Value != null);
+            Assert.IsTrue(parametersList.Find((p) => { return p.ParameterName == "Date"; }).Value != null);
+
+            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "MessageId"; }).Value), 0);
+            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "TypeId"; }).Value), (int)TraceEventType.Information);
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "TypeName"; }).Value.ToString(), TraceEventType.Information.ToString());
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "MachineName"; }).Value.ToString(), Environment.MachineName);
+            
+            
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "Message"; }).Value.ToString(), message);
+
         }
 
 
