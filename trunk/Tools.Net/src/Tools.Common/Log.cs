@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace Tools.Common.Logging
+namespace Tools.Common
 {
-    public static class Log
+    internal static class Log
     {
         private static TraceSource traceSource =
             new TraceSource((typeof(Log).Assembly.GetName().Name));
 
-        public static TraceSource Source { get { return traceSource; } }
+        internal static TraceSource Source { get { return traceSource; } }
 
-        public static void TraceData(this TraceSource source, TraceEventType eventType,
+        internal static void TraceData(this TraceSource source, TraceEventType eventType,
             Enum eventId, object data)
         {
             source.TraceData(eventType, Convert.ToInt32(eventId), data);

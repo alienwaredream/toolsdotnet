@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using Tools.Common.Asserts;
 using System.Globalization;
-using Tools.Common.Logging;
 using System.Diagnostics;
 
 namespace Tools.Common.Config

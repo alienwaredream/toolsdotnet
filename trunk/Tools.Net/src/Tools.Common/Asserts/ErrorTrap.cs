@@ -6,7 +6,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Tools.Common.Utils;
-using Tools.Common.Logging;
 
 namespace Tools.Common.Asserts
 {

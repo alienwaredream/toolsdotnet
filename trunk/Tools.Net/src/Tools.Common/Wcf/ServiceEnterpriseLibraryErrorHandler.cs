@@ -4,7 +4,6 @@ using System.Text;
 using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Channels;
 using System.Diagnostics;
-using Tools.Common.Logging;
 
 namespace Tools.Common.Wcf
 {

@@ -12,7 +12,6 @@ namespace Tools.Common.Cache
 
     using EventArgsType = GenericChangeEventArgs<NumericValidityToken>;
     using Tools.Common.Exceptions;
-    using Tools.Common.Logging;
     using System.Diagnostics;
 
     /// <summary>

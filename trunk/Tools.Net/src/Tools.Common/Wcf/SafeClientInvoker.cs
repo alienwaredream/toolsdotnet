@@ -5,7 +5,6 @@ using System.ServiceModel;
 using Tools.Common.Exceptions;
 using Tools.Common.Asserts;
 using System.Diagnostics;
-using Tools.Common.Logging;
 
 namespace Tools.Common.Wcf
 {

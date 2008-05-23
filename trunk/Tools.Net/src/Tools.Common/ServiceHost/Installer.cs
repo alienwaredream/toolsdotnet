@@ -7,7 +7,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Xml;
 using System.Reflection;
-using Tools.Common.Logging;
 using Tools.Common.Exceptions;
 using System.Xml.XPath;
 using Tools.Common.Utils;

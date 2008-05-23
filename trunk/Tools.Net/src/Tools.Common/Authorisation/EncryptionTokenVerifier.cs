@@ -7,7 +7,6 @@ using Tools.Common.Config;
 using System.Xml.Linq;
 using Tools.Common.Asserts;
 using System.Globalization;
-using Tools.Common.Logging;
 using System.Diagnostics;
 
 namespace Tools.Common.Authorisation

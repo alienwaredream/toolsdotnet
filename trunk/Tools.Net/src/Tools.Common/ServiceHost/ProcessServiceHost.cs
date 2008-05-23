@@ -5,7 +5,6 @@ using Tools.Common.Process;
 using Tools.Common.Exceptions;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics;
-using Tools.Common.Logging;
 
 namespace Tools.Common.ServiceHost
 {
