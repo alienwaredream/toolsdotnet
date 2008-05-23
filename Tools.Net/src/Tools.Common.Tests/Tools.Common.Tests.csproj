@@ -61,16 +61,10 @@
     <Compile Include="DataTable\SampleDataTableProviderTest.cs" />
     <Compile Include="DataTable\SampleTransposeDataProvider.cs" />
     <Compile Include="DataTable\TransposeDataTableTransformerTest.cs" />
-    <Compile Include="Logging\DatabaseTraceListener2Test.cs" />
-    <Compile Include="Logging\DatabaseTraceListener2TraceSourceTest.cs" />
-    <Compile Include="Logging\DatabaseTraceListener2TraceTest.cs" />
-    <Compile Include="Logging\IoCWrapperTraceListenerTest.cs" />
     <Compile Include="ParentChildSerializationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SortUtilityTest.cs" />
     <Compile Include="XmlWriter.cs" />
-    <Compile Include="XmlWriterRollingTraceListenerTest.cs" />
-    <Compile Include="XmlWriterRollingTraceSourceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

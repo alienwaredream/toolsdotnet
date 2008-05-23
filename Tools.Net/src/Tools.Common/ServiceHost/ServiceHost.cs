@@ -10,7 +10,6 @@ using System.Runtime.Remoting.Channels;
 using System.Configuration;
 using System.Windows.Forms;
 using Tools.Common.Exceptions;
-using Tools.Common.Logging;
 using System.Threading;
 using Tools.Common.Process;
 using System.Diagnostics.CodeAnalysis;

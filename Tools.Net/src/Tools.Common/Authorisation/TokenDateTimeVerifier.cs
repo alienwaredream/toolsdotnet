@@ -7,7 +7,6 @@ using Tools.Common.Config;
 using Tools.Common.Asserts;
 using System.Configuration;
 using System.Diagnostics;
-using Tools.Common.Logging;
 using Tools.Common.Utils;
 
 namespace Tools.Common.Authorisation
