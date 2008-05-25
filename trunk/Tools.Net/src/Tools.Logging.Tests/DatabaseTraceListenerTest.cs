@@ -8,6 +8,7 @@ using System.Data.Common;
 using Rhino.Mocks;
 using Tools.Core.Configuration;
 using System.Linq;
+using System.Globalization;
 
 namespace Tools.Logging.Tests
 {
@@ -23,6 +24,12 @@ namespace Tools.Logging.Tests
         private string storedProcedureName = "[Common].[uspInsertLogMessage]";
         private string logConnectionStringName = "LogDatabase";
         List<DbParameter> parametersList;
+
+        DatabaseTraceListener_Accessor target;
+        DbConnection connection;
+        DbCommand command;
+        DbParameterCollection parameters;
+        string paramsAggregateList = "Date,MessageId,TypeId,TypeName,MachineName,ModulePath,ModuleName,ThreadName,ThreadIdentity,OSIdentity,ActivityId,Message,";
 
         private TestContext testContextInstance;
 
@@ -62,7 +69,8 @@ namespace Tools.Logging.Tests
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            parametersList = new List<DbParameter>();
+
+            Setup();
         }
         //
         //Use TestCleanup to run code after each test has run
@@ -87,73 +95,10 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void WriteLineTest()
         {
-            DatabaseTraceListener_Accessor target = new DatabaseTraceListener_Accessor(
-                storedProcedureName, logConnectionStringName, null, null);
-
-            target.connectionStringName = "TestConnectionString";
-
-            target.factory = MockRepository.GenerateStub<DbProviderFactory>();
-            target.connectionStringProvider = MockRepository.GenerateStub<IConfigurationValueProvider>();
-            target.connectionStringProvider.Stub((p) => p[target.connectionStringName]).
-                Return(target.connectionStringName);
-            
-
-            DbConnection connection = MockRepository.GenerateStub<DbConnection>();
-            DbCommand command = MockRepository.GenerateStub<DbCommand>();
-            DbParameterCollection parameters = MockRepository.GenerateStub<DbParameterCollection>();
-
-            // Stubs for the connection and command
-            target.factory.Stub(
-                (f) => f.CreateConnection()).Return(connection);
-            target.factory.Stub((f) => f.CreateCommand()).Return(command);
-
-            // Definitely want to verify that Open is called
-            connection.Stub((c) => connection.Open());
-            // Unfortunately can't verify Dispose got called
-            connection.Stub((c) => connection.Dispose());
-            // Will verify later if ExecuteNonQuery is called
-            command.Stub((c) => command.ExecuteNonQuery()).Return(1);
-            command.Stub((c) => c.Dispose());
-            // Setup repetitive stub for the command parameters
-            //DbParameter parameter = null;
-
-            command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
-
-            for (int i = 0; i < 12; i++)
-            {
-                DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
-                target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
-                parameters.Stub((p) => p.Add(parameter)).Do(new HandleParameterDelegate(HandleParameter));
-            }
-
             string message = "Test of listener message for WriteLine";
             target.WriteLine(message);
 
-            Assert.IsTrue(!target.initializedInFailedMode, "Per current setup, listener is not expected to be initialized in the failed mode!");
-           
-            // verify connection string got assigned
-            Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
-
-            Trace.WriteLine(String.Format("Parameters count: {0}", parametersList.Count));
-            Trace.WriteLine("Parameters:" + parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
-
-            connection.AssertWasCalled((c) => c.Open());
-            command.AssertWasCalled((c) => c.ExecuteNonQuery());
-
-            Assert.AreEqual<string>("Date,MessageId,TypeId,TypeName,MachineName,ModulePath,ModuleName,ThreadName,ThreadIdentity,OSIdentity,ActivityId,Message,",
-                parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
-
-            //target.connectionStringProvider.AssertWasCalled((p) => p[target.connectionStringName]);
-            Assert.IsTrue(parametersList.Find((p) => { return p.ParameterName == "Date"; }).Value != null);
-
-            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "MessageId"; }).Value), 0);
-            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "TypeId"; }).Value), (int)TraceEventType.Information);
-            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "TypeName"; }).Value.ToString(), TraceEventType.Information.ToString());
-            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "MachineName"; }).Value.ToString(), Environment.MachineName);
-            
-            
-            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "Message"; }).Value.ToString(), message);
-
+            Verify(message, TraceEventType.Information, 0);
         }
 
 
@@ -198,10 +143,10 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void WriteTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
+            string message = "Test of listener message for Write";
             target.Write(message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Verify(message, TraceEventType.Information, 0);
         }
 
         /// <summary>
@@ -210,14 +155,23 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void TraceTransferTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
             string source = string.Empty; // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            Guid relatedActivityId = new Guid(); // TODO: Initialize to an appropriate value
-            target.TraceTransfer(eventCache, source, id, message, relatedActivityId);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            int id = 300; // TODO: Initialize to an appropriate value
+            string message = "Test of transfer message";
+            Guid relatedActivityId = Guid.NewGuid();
+            // Setup extra one for the Guid
+            DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
+            target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
+            parameters.Stub((p) => p.Add(parameter)).Do(new HandleParameterDelegate(HandleParameter));
+            paramsAggregateList += "CorrelationId,";
+            // Call the test method
+            target.TraceTransfer(null, source, id, message, relatedActivityId);
+            // Verify standard expectations
+            Verify(message, TraceEventType.Transfer, 300);
+            // Verify specific to Transfer expectations
+            Assert.AreEqual<string>(parametersList.Find(
+                (p) => { return p.ParameterName == "CorrelationId"; }).Value.ToString(),
+                relatedActivityId.ToString());
         }
 
         /// <summary>
@@ -226,15 +180,16 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void TraceEventTest1()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
             TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
             string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string format = string.Empty; // TODO: Initialize to an appropriate value
-            object[] args = null; // TODO: Initialize to an appropriate value
-            target.TraceEvent(eventCache, source, eventType, id, format, args);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            int id = 400; // TODO: Initialize to an appropriate value
+            string format = "Test of TraceEvent with arg1 [{0}] and arg2 [{1}]";
+            object[] args = new object[] {"argument1 value", 10};
+
+            target.TraceEvent(eventCache, source, TraceEventType.Verbose, id, format, args);
+
+            Verify(String.Format(CultureInfo.InvariantCulture, format, args), TraceEventType.Verbose, 400);
+ 
         }
 
         /// <summary>
@@ -243,14 +198,17 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void TraceEventTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            target.TraceEvent(eventCache, source, eventType, id, message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            TraceEventCache eventCache = null;
+            string source = string.Empty;
+            int id = 500;
+            string format = "Test of TraceEvent with arg1 [{0}] and arg2 [{1}]";
+            object[] args = new object[] { "argument1 value", 10 };
+            string message = String.Format(CultureInfo.InvariantCulture, format, args);
+
+            target.TraceEvent(eventCache, source, TraceEventType.Start, id, format, args);
+
+            Verify(message, TraceEventType.Start, 500);
+
         }
 
         /// <summary>
@@ -259,14 +217,14 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void TraceDataTest1()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            object[] data = null; // TODO: Initialize to an appropriate value
-            target.TraceData(eventCache, source, eventType, id, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            TraceEventCache eventCache = null;
+            string source = string.Empty;
+
+            int id = 600;
+            object[] data = new object[] {"data1", 100};
+            target.TraceData(eventCache, source, TraceEventType.Stop, id, data);
+
+            Verify(data.ToString(), TraceEventType.Stop, id);
         }
 
         /// <summary>
@@ -275,14 +233,14 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void TraceDataTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            object data = null; // TODO: Initialize to an appropriate value
-            target.TraceData(eventCache, source, eventType, id, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            TraceEventCache eventCache = null;
+            string source = string.Empty;
+
+            int id = 100;
+            var data = new { Message = "Test message", Detail = "Test details" };
+            target.TraceData(eventCache, source, TraceEventType.Information, id, data);
+
+            Verify(data.ToString(), TraceEventType.Information, id);
         }
 
         /// <summary>
@@ -303,11 +261,13 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void FailTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener(); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            string detailMessage = string.Empty; // TODO: Initialize to an appropriate value
+            string message = "Fail message";
+            string detailMessage = "Fail detail message";
+
             target.Fail(message, detailMessage);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Verify(message+ " " + detailMessage, TraceEventType.Error, 0);
+
         }
 
         /// <summary>
@@ -397,6 +357,78 @@ namespace Tools.Logging.Tests
             }
 
             #endregion
+        }
+
+        private void Setup()
+        {
+            parametersList = new List<DbParameter>();
+
+            target = new DatabaseTraceListener_Accessor(
+    storedProcedureName, logConnectionStringName, null, null);
+
+            target.connectionStringName = "TestConnectionString";
+
+            target.factory = MockRepository.GenerateStub<DbProviderFactory>();
+            target.connectionStringProvider = MockRepository.GenerateStub<IConfigurationValueProvider>();
+            target.connectionStringProvider.Stub((p) => p[target.connectionStringName]).
+                Return(target.connectionStringName);
+
+
+            connection = MockRepository.GenerateStub<DbConnection>();
+            command = MockRepository.GenerateStub<DbCommand>();
+            parameters = MockRepository.GenerateStub<DbParameterCollection>();
+
+            // Stubs for the connection and command
+            target.factory.Stub(
+                (f) => f.CreateConnection()).Return(connection);
+            target.factory.Stub((f) => f.CreateCommand()).Return(command);
+
+            // Definitely want to verify that Open is called
+            connection.Stub((c) => connection.Open());
+            // Unfortunately can't verify Dispose got called
+            connection.Stub((c) => connection.Dispose());
+            // Will verify later if ExecuteNonQuery is called
+            command.Stub((c) => command.ExecuteNonQuery()).Return(1);
+            command.Stub((c) => c.Dispose());
+            // Setup repetitive stub for the command parameters
+            //DbParameter parameter = null;
+
+            command.Stub((c) => c.Parameters).Repeat.Any().Return(parameters);
+
+            for (int i = 0; i < 12; i++)
+            {
+                DbParameter parameter = MockRepository.GenerateStub<DbParameter>();
+                target.factory.Stub((f) => f.CreateParameter()).Return(parameter);
+                parameters.Stub((p) => p.Add(parameter)).Do(new HandleParameterDelegate(HandleParameter));
+            }
+        }
+        private void Verify(string message, TraceEventType eventType, int id)
+        {
+            Assert.IsTrue(!target.initializedInFailedMode, "Per current setup, listener is not expected to be initialized in the failed mode!");
+
+            // verify connection string got assigned
+            Assert.AreEqual<string>(target.connectionString, connection.ConnectionString);
+
+            Trace.WriteLine(String.Format("Parameters count: {0}", parametersList.Count));
+            Trace.WriteLine("Parameters:" + parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
+
+            connection.AssertWasCalled((c) => c.Open());
+            command.AssertWasCalled((c) => c.ExecuteNonQuery());
+
+            Assert.AreEqual<string>(paramsAggregateList,
+                parametersList.Aggregate(String.Empty, (s, p) => s += p.ParameterName + ","));
+
+            //target.connectionStringProvider.AssertWasCalled((p) => p[target.connectionStringName]);
+            Assert.IsTrue(parametersList.Find((p) => { return p.ParameterName == "Date"; }).Value != null);
+
+            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "MessageId"; }).Value), id);
+            Assert.AreEqual<int>(Convert.ToInt32(parametersList.Find((p) => { return p.ParameterName == "TypeId"; }).Value), (int)eventType);
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "TypeName"; }).Value.ToString(), eventType.ToString());
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "MachineName"; }).Value.ToString(), Environment.MachineName);
+
+
+            Assert.AreEqual<string>(parametersList.Find((p) => { return p.ParameterName == "Message"; }).Value.ToString(), message);
+
         }
     }
 }
