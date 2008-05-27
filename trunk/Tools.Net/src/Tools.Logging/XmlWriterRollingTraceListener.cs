@@ -44,6 +44,7 @@ namespace Tools.Logging
         private bool isDirectoryCreated = false;
 
         private IXPathFormatter dataXPathFormatter = new LogDataXPathFormatter();
+        private ITextWriterProvider textWriterProvider;
 
         #endregion
 
@@ -355,7 +356,12 @@ namespace Tools.Logging
                 {
                     try
                     {
-                        this.writer = new StreamWriter(fullPath, true, encodingWithFallback, 0x1000);
+                        if (this.textWriterProvider == null)
+                        {
+                            this.textWriterProvider = new FileTextWriterProvider(
+                                fullPath, true, encodingWithFallback, 0x1000);
+                        }
+                        this.writer = this.textWriterProvider.CreateWriter();
                         flag = true;
                         break;
                     }
@@ -709,6 +715,32 @@ namespace Tools.Logging
             }
         }
         #endregion
+
+        public interface ITextWriterProvider
+        {
+            TextWriter CreateWriter();
+        }
+        public class FileTextWriterProvider : ITextWriterProvider
+        {
+            string FullPath { get; set; }
+            bool Append { get; set; }
+            Encoding Encoding { get; set; }
+            int BufferLength { get; set; }
+
+            public FileTextWriterProvider(string fullPath, bool append, Encoding encoding, int bufferLength)
+            {
+                FullPath = fullPath;
+                Append = append;
+                Encoding = encoding;
+                BufferLength = bufferLength;
+            }
+
+            public TextWriter CreateWriter()
+            {
+                return new StreamWriter(FullPath, Append, Encoding, BufferLength);
+            }
+        }
+
     }
 
 

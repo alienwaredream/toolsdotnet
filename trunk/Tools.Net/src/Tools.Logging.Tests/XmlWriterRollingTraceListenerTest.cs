@@ -430,22 +430,20 @@ namespace Tools.Common.UnitTests
 
             Assert.IsNull(target.writer);
 
-            target.writer = MockRepository.GenerateStub<StreamWriter>(target.fileName, true,
-                XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
+            target.textWriterProvider =
+                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
 
-            target.writer.Stub((w) => w.Close());
 
-            StreamWriter writerRef = target.writer as StreamWriter;
+            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
+            target.textWriterProvider.Stub((p) => p.CreateWriter()).Return(writer);
+
+            writer.Stub((w) => w.Close());
 
             target.EnsureWriter();
 
             target.Close();
 
-            writerRef.AssertWasCalled((w) => w.Close());
-
-            writerRef.Close();
-
-            
+            writer.AssertWasCalled((w) => w.Close());
         }
 
         /// <summary>
