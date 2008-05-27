@@ -46,7 +46,7 @@ namespace Tools.Logging
                     initialized = true;
                     initializedInFailedMode = true;
 
-                    if (String.IsNullOrEmpty(connectionStringProvider[connectionStringName]))
+                    if (connectionStringProvider == null || String.IsNullOrEmpty(connectionStringProvider[connectionStringName]))
                     {
                         initializationFailureString += String.Format(CultureInfo.InvariantCulture,
                         "Non empty connection string with name {0} is required for logging purposes!" +

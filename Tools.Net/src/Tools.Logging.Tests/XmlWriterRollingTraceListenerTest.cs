@@ -75,13 +75,14 @@ namespace Tools.Common.UnitTests
         [DeploymentItem("Tools.Logging.dll")]
         public void WriteStartHeaderTest()
         {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            target.WriteStartHeader(source, eventType, id, eventCache);
+            PrivateObject param0 = null;
+            XmlWriterRollingTraceListener_Accessor target = 
+                new XmlWriterRollingTraceListener_Accessor(param0); 
+            string source = string.Empty;
+
+            //target
+
+            //target.WriteStartHeader(source, eventType, id, eventCache);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -410,13 +411,41 @@ namespace Tools.Common.UnitTests
         [DeploymentItem("Tools.Logging.dll")]
         public void EnsureWriterTest()
         {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.EnsureWriter();
+            XmlWriterRollingTraceListener_Accessor target = 
+                new XmlWriterRollingTraceListener_Accessor(20000, "TestXmlRollingWriter"); 
+            
+            bool expected = false;
+
+            bool actual = target.EnsureWriter();
+
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            Assert.IsNull(target.writer);
+
+            target.fileName = "testfilename.xml";
+
+            Assert.IsTrue(target.EnsureWriter());
+            Assert.IsNotNull(target.writer);
+
+            target.Close();
+
+            Assert.IsNull(target.writer);
+
+            target.writer = MockRepository.GenerateStub<StreamWriter>(target.fileName, true,
+                XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
+
+            target.writer.Stub((w) => w.Close());
+
+            StreamWriter writerRef = target.writer as StreamWriter;
+
+            target.EnsureWriter();
+
+            target.Close();
+
+            writerRef.AssertWasCalled((w) => w.Close());
+
+            writerRef.Close();
+
+            
         }
 
         /// <summary>

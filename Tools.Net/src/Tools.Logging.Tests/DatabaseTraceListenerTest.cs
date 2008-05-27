@@ -109,14 +109,7 @@ namespace Tools.Logging.Tests
         [DeploymentItem("Tools.Logging.dll")]
         public void WriteInternalTest1()
         {
-            DatabaseTraceListener_Accessor target = new DatabaseTraceListener_Accessor(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            object data = null; // TODO: Initialize to an appropriate value
-            target.WriteInternal(eventCache, source, eventType, id, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            TraceDataTest();
         }
 
         /// <summary>
@@ -126,15 +119,7 @@ namespace Tools.Logging.Tests
         [DeploymentItem("Tools.Logging.dll")]
         public void WriteInternalTest()
         {
-            DatabaseTraceListener_Accessor target = new DatabaseTraceListener_Accessor(); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            Guid correlationId = new Guid(); // TODO: Initialize to an appropriate value
-            target.WriteInternal(eventCache, source, eventType, id, message, correlationId);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            TraceTransferTest();
         }
 
         /// <summary>
@@ -250,9 +235,15 @@ namespace Tools.Logging.Tests
         [DeploymentItem("Tools.Logging.dll")]
         public void InitializeTest()
         {
-            DatabaseTraceListener_Accessor target = new DatabaseTraceListener_Accessor(); // TODO: Initialize to an appropriate value
+            DatabaseTraceListener_Accessor target = new DatabaseTraceListener_Accessor();
+
             target.Initialize();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            // No stubbing for the connection string provider so
+            Assert.IsTrue(target.initializedInFailedMode);
+
+
+
+
         }
 
         /// <summary>
@@ -329,8 +320,13 @@ namespace Tools.Logging.Tests
         [TestMethod()]
         public void DatabaseTraceListenerConstructorTest()
         {
-            DatabaseTraceListener target = new DatabaseTraceListener();
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            Assert.IsNotNull(target.factory);
+            Assert.IsNull(target.fallbackTraceListener);
+            Assert.IsTrue(!String.IsNullOrEmpty(target.storedProcedureName));
+            Assert.IsTrue(!String.IsNullOrEmpty(target.machineName));
+            Assert.IsTrue(!String.IsNullOrEmpty(target.modulePath));
+            Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "storedProcedureName [{0}], machineName [{1}], modulePath [{2}]",
+                target.storedProcedureName, target.machineName, target.modulePath));
         }
         internal class CustomLogEntry
         {
