@@ -92,11 +92,45 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void WriteLineTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            target.WriteLine(message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(
+                200, "TestListener");
+            
+
+                target.fileName = Guid.NewGuid().ToString() + ".xml";
+
+                target.textWriterProvider =
+                    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
+                target.directoryHelper =
+                    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.IDirectoryHelper>();
+                target.logFileHelper =
+    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
+                
+
+
+                TextWriter writer = MockRepository.GenerateStub<TextWriter>();
+                target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
+                target.directoryHelper.Stub((h) => h.CreateDirectory());
+                //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes).Return(200);
+                //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes = 200);
+                target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(false);
+                
+                string log = null;
+
+                writer.Stub((w) => w.Write(String.Empty)).IgnoreArguments().Repeat.Any().Do((Action<string>)delegate(string s) { log += s; });
+
+                string message = "Test of WriteLine message";
+                target.WriteLine(message);
+
+                target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(true);
+
+                target.WriteLine(message);
+
+                target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+                //target.textWriterProvider.AssertWasCalled((p) => p.CreateWriter(null));
+               
+                target.Close();
+
+                Trace.WriteLine(log);
         }
 
         /// <summary>
@@ -278,15 +312,41 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void TraceDataTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            object[] data = null; // TODO: Initialize to an appropriate value
-            target.TraceData(eventCache, source, eventType, id, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(
+                200, "TestListener");
+
+
+            target.fileName = Guid.NewGuid().ToString() + ".xml";
+
+            target.textWriterProvider =
+                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
+            target.directoryHelper =
+                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.IDirectoryHelper>();
+            target.logFileHelper =
+MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
+
+
+
+            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
+            target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
+            target.directoryHelper.Stub((h) => h.CreateDirectory());
+            //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes).Return(200);
+            //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes = 200);
+            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(false);
+
+            string log = null;
+
+            writer.Stub((w) => w.Write(String.Empty)).IgnoreArguments().Repeat.Any().Do((Action<string>)delegate(string s) { log += s; });
+
+            string message = "Test of WriteLine message";
+            target.TraceData(null, null, TraceEventType.Information, 100, new Exception("Test exception"));
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+            //target.textWriterProvider.AssertWasCalled((p) => p.CreateWriter(null));
+
+            target.Close();
+
+            Trace.WriteLine(log);
         }
 
         /// <summary>
@@ -430,12 +490,25 @@ namespace Tools.Common.UnitTests
 
             Assert.IsNull(target.writer);
 
+        }
+        /// <summary>
+        /// Verifies if listener closes underlying streams
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("Tools.Logging.dll")]
+        public void CloseInternalWritersTest()
+        {
+            XmlWriterRollingTraceListener_Accessor target =
+                new XmlWriterRollingTraceListener_Accessor(20000, "TestXmlRollingWriter");
+
+            target.fileName = "testfilename.xml";
+
             target.textWriterProvider =
                 MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
 
 
             TextWriter writer = MockRepository.GenerateStub<TextWriter>();
-            target.textWriterProvider.Stub((p) => p.CreateWriter()).Return(writer);
+            target.textWriterProvider.Stub((p) => p.CreateWriter(target.fileName)).Return(writer);
 
             writer.Stub((w) => w.Close());
 
@@ -444,6 +517,9 @@ namespace Tools.Common.UnitTests
             target.Close();
 
             writer.AssertWasCalled((w) => w.Close());
+
+            Assert.IsNull(target.writer);
+
         }
 
         /// <summary>
