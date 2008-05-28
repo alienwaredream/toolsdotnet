@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Tools.Net.20084.vsmdi = Tools.Net.20084.vsmdi
 		Tools.Net.20085.vsmdi = Tools.Net.20085.vsmdi
 		Tools.Net.20086.vsmdi = Tools.Net.20086.vsmdi
+		Tools.Net.20087.vsmdi = Tools.Net.20087.vsmdi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Common", "src\Tools.Common\Tools.Common.csproj", "{EDF6395D-98B7-45D7-834F-493D215F8B14}"
@@ -46,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Tests", "src\
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Tools.Net.20086.vsmdi
+		CategoryFile = Tools.Net.20087.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET

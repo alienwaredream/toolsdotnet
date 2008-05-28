@@ -40,10 +40,11 @@ namespace Tools.Logging
                     sb.Append("<TraceRecord xmlns=\"http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord\">").
                     Append("<TraceIdentifier>http://code.google.com/p/tools/log.aspx</TraceIdentifier>").
 
-                        Append("<Description>Exception</Description>").
-                        Append("<Exception>").Append(exInfo.ToString()).
+                        Append("<Description>").Append(exEntry.Message).Append("</Description>").
+                        Append("<Exception>").Append(exEntry.ToString()).
                         Append("</Exception>").
                         Append("</TraceRecord>");
+
                     return new XPathDocument(new StringReader(sb.ToString())).CreateNavigator();
                 }
             }
