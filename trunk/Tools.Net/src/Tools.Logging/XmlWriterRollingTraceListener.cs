@@ -45,6 +45,8 @@ namespace Tools.Logging
 
         private IXPathFormatter dataXPathFormatter = new LogDataXPathFormatter();
         private ITextWriterProvider textWriterProvider;
+        private ILogFileHelper logFileHelper;
+        private IDirectoryHelper directoryHelper;
 
         #endregion
 
@@ -290,7 +292,7 @@ namespace Tools.Logging
 
                     if (!isDirectoryCreated) CreateLogDirectory();
 
-                    if (!IsFileSuitableForWriting)
+                    if (logFileHelper == null || !logFileHelper.IsFileSuitableForWriting)
                     {
                         CreateNewWriter();
                     }
@@ -310,13 +312,15 @@ namespace Tools.Logging
                 logRootLocation = AppDomain.CurrentDomain.SetupInformation.ApplicationBase
                     + @"\logs";
             }
-            if (!Directory.Exists(logRootLocation))
+            // logFileHelper is either injected or default instance is created
+            if (directoryHelper == null)
             {
-                Directory.CreateDirectory(logRootLocation);
+                directoryHelper = new FileDirectoryHelper(logRootLocation);
             }
 
+            directoryHelper.CreateDirectory();
+
             isDirectoryCreated = true;
-            CreateNewWriter();
         }
 
         private void InternalWrite(string message)
@@ -348,10 +352,11 @@ namespace Tools.Logging
                 {
                     return flag;
                 }
-                Encoding encodingWithFallback = GetEncodingWithFallback(new UTF8Encoding(false));
+
                 string fullPath = Path.GetFullPath(this.fileName);
                 string directoryName = Path.GetDirectoryName(fullPath);
                 string fileName = Path.GetFileName(fullPath);
+
                 for (int i = 0; i < 2; i++)
                 {
                     try
@@ -359,9 +364,9 @@ namespace Tools.Logging
                         if (this.textWriterProvider == null)
                         {
                             this.textWriterProvider = new FileTextWriterProvider(
-                                fullPath, true, encodingWithFallback, 0x1000);
+                                true, GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
                         }
-                        this.writer = this.textWriterProvider.CreateWriter();
+                        this.writer = this.textWriterProvider.CreateWriter(fullPath);
                         flag = true;
                         break;
                     }
@@ -654,30 +659,23 @@ namespace Tools.Logging
             }
 
             logFilePath = pathCandidate;
-            this.writer =
-                new StreamWriter(logFilePath, true, GetEncodingWithFallback(new UTF8Encoding(false)), 100);
 
-        }
-        /// <summary>
-        /// Should only be called from the synchronized code
-        /// </summary>
-        /// <returns></returns>
-        private bool IsFileSuitableForWriting
-        {
-            get
+            if (this.textWriterProvider == null)
             {
-                // checks only size for a moment
-                FileInfo fi = new FileInfo(this.logFilePath);
-
-                if (fi != null && fi.Exists)
-                {
-                    return (fi.Length < maxFileSizeBytes);
-                }
-                else
-                {
-                    return false;
-                }
+                this.textWriterProvider = new FileTextWriterProvider(
+                    true, GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
             }
+            
+            this.writer = this.textWriterProvider.CreateWriter(logFilePath);
+
+            if (logFileHelper == null)
+            {
+                logFileHelper = new LogFileHelper();
+            }
+            logFileHelper.MaxFileSizeBytes = maxFileSizeBytes;
+            logFileHelper.FilePath = logFilePath;
+
+
         }
 
         #endregion
@@ -716,30 +714,99 @@ namespace Tools.Logging
         }
         #endregion
 
+        #region Helper classes
+
         public interface ITextWriterProvider
         {
-            TextWriter CreateWriter();
+            TextWriter CreateWriter(string fullPath);
         }
         public class FileTextWriterProvider : ITextWriterProvider
         {
-            string FullPath { get; set; }
             bool Append { get; set; }
             Encoding Encoding { get; set; }
             int BufferLength { get; set; }
 
-            public FileTextWriterProvider(string fullPath, bool append, Encoding encoding, int bufferLength)
+            public FileTextWriterProvider(bool append, Encoding encoding, int bufferLength)
             {
-                FullPath = fullPath;
                 Append = append;
                 Encoding = encoding;
                 BufferLength = bufferLength;
             }
 
-            public TextWriter CreateWriter()
+            public TextWriter CreateWriter(string fullPath)
             {
-                return new StreamWriter(FullPath, Append, Encoding, BufferLength);
+                return new StreamWriter(fullPath, Append, Encoding, BufferLength);
             }
         }
+        public interface IDirectoryHelper
+        {
+            void CreateDirectory();
+        }
+        public class FileDirectoryHelper : IDirectoryHelper
+        {
+            public string DirectoryPath { get; set; }
+
+            public FileDirectoryHelper(string directoryPath)
+            {
+                DirectoryPath = directoryPath;
+            }
+            public void CreateDirectory()
+            {
+                if (!Directory.Exists(DirectoryPath))
+                {
+                    Directory.CreateDirectory(DirectoryPath);
+                }
+            }
+        }
+        
+        public interface ILogFileHelper
+        {
+            bool IsFileSuitableForWriting { get; }
+            string FilePath { get; set; }
+            int MaxFileSizeBytes { get; set; }
+        }
+        //public abstract class BaseLogFileHelper
+        //{
+        //    public static ILogFileHelper Create(string filePath, int maxFileSizeBytes)
+        //    {
+        //        return new LogFileHelper(filePath, maxFileSizeBytes);
+        //    }
+        //}
+
+        public class LogFileHelper : ILogFileHelper
+        {
+
+            public string FilePath { get; set; }
+            public int MaxFileSizeBytes { get; set; }
+
+            public LogFileHelper() { }
+
+            public LogFileHelper(string filePath, int maxFileSizeBytes)
+            {
+                FilePath = filePath;
+                MaxFileSizeBytes = maxFileSizeBytes;
+            }
+
+            public bool IsFileSuitableForWriting
+            {
+                get
+                {
+                    // checks only size for a moment
+                    FileInfo fi = new FileInfo(FilePath);
+
+                    if (fi != null && fi.Exists)
+                    {
+                        return (fi.Length < MaxFileSizeBytes);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        #endregion
 
     }
 
