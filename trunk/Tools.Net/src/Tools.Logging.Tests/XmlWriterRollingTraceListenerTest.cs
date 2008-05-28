@@ -17,7 +17,8 @@ namespace Tools.Common.UnitTests
     [TestClass()]
     public class XmlWriterRollingTraceListenerTest
     {
-
+        XmlWriterRollingTraceListener_Accessor target;
+        string log;
 
         private TestContext testContextInstance;
 
@@ -277,76 +278,72 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void TraceEventTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string format = string.Empty; // TODO: Initialize to an appropriate value
-            object[] args = null; // TODO: Initialize to an appropriate value
-            target.TraceEvent(eventCache, source, eventType, id, format, args);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for TraceData
-        ///</summary>
-        [TestMethod()]
-        public void TraceDataTest1()
-        {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            object data = null; // TODO: Initialize to an appropriate value
-            target.TraceData(eventCache, source, eventType, id, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for TraceData
-        ///</summary>
-        [TestMethod()]
-        public void TraceDataTest()
-        {
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(
-                200, "TestListener");
+            Setup(200);
 
 
-            target.fileName = Guid.NewGuid().ToString() + ".xml";
+            string format = "Test of formatted message with argument [{0}]";
+            object[] args = new object[] { "testargument"};
 
-            target.textWriterProvider =
-                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
-            target.directoryHelper =
-                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.IDirectoryHelper>();
-            target.logFileHelper =
-MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
-
-
-
-            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
-            target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
-            target.directoryHelper.Stub((h) => h.CreateDirectory());
-            //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes).Return(200);
-            //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes = 200);
-            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(false);
-
-            string log = null;
-
-            writer.Stub((w) => w.Write(String.Empty)).IgnoreArguments().Repeat.Any().Do((Action<string>)delegate(string s) { log += s; });
-
-            string message = "Test of WriteLine message";
-            target.TraceData(null, null, TraceEventType.Information, 100, new Exception("Test exception"));
+            target.TraceEvent(null, null, TraceEventType.Information, 100, format, args);
 
             target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
-            //target.textWriterProvider.AssertWasCalled((p) => p.CreateWriter(null));
 
             target.Close();
 
             Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(String.Format(format, args)), "Log message is expected to have logged text!");
+            
+        }
+
+        /// <summary>
+        ///A test for TraceData
+        ///</summary>
+        [TestMethod()]
+        public void TraceParamsDataTest()
+        {
+            Setup(200);
+
+            string message = "Test exception";
+            Exception ex = new Exception(message);
+            string extraInfo = "This is extra info for the exception thrown!";
+
+            target.TraceData(null, null, TraceEventType.Error, 100, ex, 
+                extraInfo);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have exception text!");
+            Assert.IsTrue(log.Contains(ex.ToString()), "Log message is expected to have exception ToString() data recorded!");
+            Assert.IsTrue(log.Contains(extraInfo), "When params data are used, every params argument is expected to be present in the log data recorded!");
+        }
+
+        /// <summary>
+        ///A test for TraceData
+        ///</summary>
+        [TestMethod()]
+        public void TraceExceptionDataTest()
+        {
+            Setup(200);
+   
+            string message = "Test exception";
+            Exception ex = new Exception(message);
+
+            target.TraceData(null, null, TraceEventType.Error, 100, ex);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have exception text!");
+            Assert.IsTrue(log.Contains(ex.ToString()), "Log message is expected to have exception ToString() data recorded!");
+
         }
 
         /// <summary>
@@ -667,5 +664,36 @@ MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFile
             XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream, name);
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
+
+        #region Helper methods
+
+        private void Setup(int maxFileSize)
+        {
+            target = new XmlWriterRollingTraceListener_Accessor(
+                maxFileSize, "TestListener");
+
+
+            target.fileName = Guid.NewGuid().ToString() + ".xml";
+
+            target.textWriterProvider =
+                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
+            target.directoryHelper =
+                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.IDirectoryHelper>();
+            target.logFileHelper =
+MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
+
+            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
+            target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
+            target.directoryHelper.Stub((h) => h.CreateDirectory());
+
+            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(false);
+
+            log = null;
+
+            writer.Stub((w) => w.Write(String.Empty)).IgnoreArguments().Repeat.Any().Do((Action<string>)delegate(string s) { log += s; });
+
+        }
+
+        #endregion
     }
 }
