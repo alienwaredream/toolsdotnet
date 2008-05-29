@@ -17,7 +17,7 @@ namespace Tools.Logging
     /// <summary>
     /// Provides logging to the database
     /// </summary>
-    public class DatabaseTraceListener : TraceListener, ITraceListener
+    public class DatabaseTraceListener : TraceListener
     {
         private TraceListener fallbackTraceListener;
         private IExtraDataTransformer extraLogDataProvider;

@@ -6,13 +6,13 @@ using System.Diagnostics;
 using System.Collections;
 using Spring.Context.Support;
 
-namespace Tools.Logging
+namespace Tools.Logging.Ioc
 {
-    public class IoCWrapperTraceFilter : TraceFilter
+    public class IocWrapperTraceFilter : TraceFilter
     {
         TraceFilter traceFilter;
 
-        public IoCWrapperTraceFilter(string objectName)
+        public IocWrapperTraceFilter(string objectName)
         {
             traceFilter = ContextRegistry.GetContext().GetObject(objectName) as TraceFilter;
         }
