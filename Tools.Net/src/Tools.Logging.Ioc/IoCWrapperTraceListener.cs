@@ -10,13 +10,13 @@ using System.Threading;
 using Spring.Context;
 using Spring.Context.Support;
 
-namespace Tools.Logging
+namespace Tools.Logging.Ioc
 {
     //TODO:(SD) Introduce configuration for max message size, mapping to params, etc.
     /// <summary>
     /// Provides logging to the database
     /// </summary>
-    public class IoCWrapperTraceListener : TraceListener, ITraceListener
+    public class IocWrapperTraceListener : TraceListener
     {
         private TraceListener traceListener;
 
@@ -24,12 +24,13 @@ namespace Tools.Logging
         /// <summary>
         /// Initalizes a new instance of <see cref="CorrelatedTraceListener"/>.
 		/// </summary>
-        public IoCWrapperTraceListener()
+        public IocWrapperTraceListener()
 		{
             Debug.WriteLine("IoCWrapperTraceListener default ctor called", "TraceListener IoC");
 		}
 
-        public IoCWrapperTraceListener(string initializationData) : this()
+        public IocWrapperTraceListener(string initializationData)
+            : this()
 		{
             Debug.WriteLine("IoCWrapperTraceListener initializationData ctor called", 
                 "TraceListener IoC");

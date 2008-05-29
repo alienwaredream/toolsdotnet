@@ -70,159 +70,27 @@ namespace Tools.Common.UnitTests
 
 
         /// <summary>
-        ///A test for WriteStartHeader
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteStartHeaderTest()
-        {
-            PrivateObject param0 = null;
-            XmlWriterRollingTraceListener_Accessor target = 
-                new XmlWriterRollingTraceListener_Accessor(param0); 
-            string source = string.Empty;
-
-            //target
-
-            //target.WriteStartHeader(source, eventType, id, eventCache);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
         ///A test for WriteLine
         ///</summary>
         [TestMethod()]
         public void WriteLineTest()
         {
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(
-                200, "TestListener");
-            
+            Setup(200);
 
-                target.fileName = Guid.NewGuid().ToString() + ".xml";
+            string message = "Test of WriteLine message";
+            target.WriteLine(message);
 
-                target.textWriterProvider =
-                    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
-                target.directoryHelper =
-                    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.IDirectoryHelper>();
-                target.logFileHelper =
-    MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
-                
+            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(true);
 
+            target.WriteLine(message);
 
-                TextWriter writer = MockRepository.GenerateStub<TextWriter>();
-                target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
-                target.directoryHelper.Stub((h) => h.CreateDirectory());
-                //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes).Return(200);
-                //target.logFileHelper.Stub((h) => h.MaxFileSizeBytes = 200);
-                target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(false);
-                
-                string log = null;
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
 
-                writer.Stub((w) => w.Write(String.Empty)).IgnoreArguments().Repeat.Any().Do((Action<string>)delegate(string s) { log += s; });
+            target.Close();
 
-                string message = "Test of WriteLine message";
-                target.WriteLine(message);
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have logged text!");
 
-                target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(true);
-
-                target.WriteLine(message);
-
-                target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
-                //target.textWriterProvider.AssertWasCalled((p) => p.CreateWriter(null));
-               
-                target.Close();
-
-                Trace.WriteLine(log);
-        }
-
-        /// <summary>
-        ///A test for WriteHeader
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteHeaderTest1()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            Guid relatedActivityId = new Guid(); // TODO: Initialize to an appropriate value
-            target.WriteHeader(source, eventType, id, eventCache, relatedActivityId);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for WriteHeader
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteHeaderTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            target.WriteHeader(source, eventType, id, eventCache);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for WriteFooter
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteFooterTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            target.WriteFooter(eventCache);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for WriteEscaped
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteEscapedTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            string str = string.Empty; // TODO: Initialize to an appropriate value
-            target.WriteEscaped(str);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for WriteEndHeader
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteEndHeaderTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            target.WriteEndHeader(eventCache);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for WriteData
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void WriteDataTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            object data = null; // TODO: Initialize to an appropriate value
-            target.WriteData(data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Trace.WriteLine(log);
         }
 
         /// <summary>
@@ -231,11 +99,22 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void WriteTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
+            Setup(200);
+
+            string message = "Test of Write message";
             target.Write(message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(true);
+
+            target.Write(message);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have logged text!");
+
+            Trace.WriteLine(log);
         }
 
         /// <summary>
@@ -244,39 +123,51 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void TraceTransferTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            Guid relatedActivityId = new Guid(); // TODO: Initialize to an appropriate value
-            target.TraceTransfer(eventCache, source, id, message, relatedActivityId);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Setup(200);
+
+            string message = "Test of TraceTransfer message";
+
+            Guid relatedActivityId = Guid.NewGuid();
+
+            target.TraceTransfer(null, null, 100, message, relatedActivityId);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have logged text!");
+            Assert.IsTrue(log.Contains(relatedActivityId.ToString()), "Related activity id is expected to be present in the message");
         }
 
         /// <summary>
         ///A test for TraceEvent
         ///</summary>
         [TestMethod()]
-        public void TraceEventTest1()
+        public void TraceEventWithMessageTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            TraceEventCache eventCache = null; // TODO: Initialize to an appropriate value
-            string source = string.Empty; // TODO: Initialize to an appropriate value
-            TraceEventType eventType = new TraceEventType(); // TODO: Initialize to an appropriate value
-            int id = 0; // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            target.TraceEvent(eventCache, source, eventType, id, message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Setup(200);
+
+            string message = "Test of TraceEvent message";
+
+            target.TraceEvent(null, null, TraceEventType.Information, 100, message);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(message), "Log message is expected to have logged text!");
+
         }
 
         /// <summary>
         ///A test for TraceEvent
         ///</summary>
         [TestMethod()]
-        public void TraceEventTest()
+        public void TraceEventWithFormatMessageTest()
         {
             Setup(200);
 
@@ -347,104 +238,14 @@ namespace Tools.Common.UnitTests
         }
 
         /// <summary>
-        ///A test for IsEnabled
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void IsEnabledTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            TraceOptions opts = new TraceOptions(); // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.IsEnabled(opts);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
-        ///A test for InternalWrite
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void InternalWriteTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            target.InternalWrite(message);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for InitProcessInfo
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void InitProcessInfoTest()
-        {
-            XmlWriterRollingTraceListener_Accessor.InitProcessInfo();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for GetThreadId
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void GetThreadIdTest()
-        {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            int expected = 0; // TODO: Initialize to an appropriate value
-            int actual;
-            actual = target.GetThreadId();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
-        ///A test for GetProcessName
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void GetProcessNameTest()
-        {
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
-            string actual;
-            actual = XmlWriterRollingTraceListener_Accessor.GetProcessName();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
-        ///A test for GetProcessId
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void GetProcessIdTest()
-        {
-            int expected = 0; // TODO: Initialize to an appropriate value
-            int actual;
-            actual = XmlWriterRollingTraceListener_Accessor.GetProcessId();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
         ///A test for GetEncodingWithFallback
         ///</summary>
         [TestMethod()]
         [DeploymentItem("Tools.Logging.dll")]
         public void GetEncodingWithFallbackTest()
         {
-            Encoding encoding = null; // TODO: Initialize to an appropriate value
-            Encoding expected = null; // TODO: Initialize to an appropriate value
-            Encoding actual;
-            actual = XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(encoding);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            Assert.AreEqual(Encoding.UTF8,
+                XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(Encoding.UTF8));
         }
 
         /// <summary>
@@ -453,12 +254,21 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void FailTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream); // TODO: Initialize to an appropriate value
-            string message = string.Empty; // TODO: Initialize to an appropriate value
-            string detailMessage = string.Empty; // TODO: Initialize to an appropriate value
-            target.Fail(message, detailMessage);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Setup(200);
+
+            string message = "Test of Fail message";
+            string detail = "Test of Fail detail";
+
+            target.Fail(message, detail);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Trace.WriteLine(log);
+
+            Assert.IsTrue(log.Contains(message + " " + detail), "Fail message and detail expected to be present in the log message");
+
         }
 
         /// <summary>
