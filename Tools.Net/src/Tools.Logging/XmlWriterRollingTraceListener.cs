@@ -73,7 +73,7 @@ namespace Tools.Logging
         }
 
         public XmlWriterRollingTraceListener(string filename)
-            : base(filename)
+            : this(filename, filename)
         {
             this.machineName = Environment.MachineName;
         }
