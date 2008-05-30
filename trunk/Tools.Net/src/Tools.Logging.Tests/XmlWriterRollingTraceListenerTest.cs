@@ -18,6 +18,7 @@ namespace Tools.Common.UnitTests
     public class XmlWriterRollingTraceListenerTest
     {
         XmlWriterRollingTraceListener_Accessor target;
+        TextWriter writer;
         string log;
 
         private TestContext testContextInstance;
@@ -244,8 +245,8 @@ namespace Tools.Common.UnitTests
         [DeploymentItem("Tools.Logging.dll")]
         public void GetEncodingWithFallbackTest()
         {
-            Assert.AreEqual(Encoding.UTF8,
-                XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(Encoding.UTF8));
+            Assert.AreEqual<string>(Encoding.UTF8.ToString(),
+                XmlWriterRollingTraceListener_Accessor.GetEncodingWithFallback(Encoding.UTF8).ToString());
         }
 
         /// <summary>
@@ -298,36 +299,6 @@ namespace Tools.Common.UnitTests
             Assert.IsNull(target.writer);
 
         }
-        /// <summary>
-        /// Verifies if listener closes underlying streams
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Tools.Logging.dll")]
-        public void CloseInternalWritersTest()
-        {
-            XmlWriterRollingTraceListener_Accessor target =
-                new XmlWriterRollingTraceListener_Accessor(20000, "TestXmlRollingWriter");
-
-            target.fileName = "testfilename.xml";
-
-            target.textWriterProvider =
-                MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ITextWriterProvider>();
-
-
-            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
-            target.textWriterProvider.Stub((p) => p.CreateWriter(target.fileName)).Return(writer);
-
-            writer.Stub((w) => w.Close());
-
-            target.EnsureWriter();
-
-            target.Close();
-
-            writer.AssertWasCalled((w) => w.Close());
-
-            Assert.IsNull(target.writer);
-
-        }
 
         /// <summary>
         ///A test for Dispose
@@ -336,11 +307,15 @@ namespace Tools.Common.UnitTests
         [DeploymentItem("Tools.Logging.dll")]
         public void DisposeTest()
         {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(param0); // TODO: Initialize to an appropriate value
-            bool disposing = false; // TODO: Initialize to an appropriate value
-            target.Dispose(disposing);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Setup(200);
+
+            target.Fail("test", "test");
+
+            target.Dispose(true);
+
+            writer.AssertWasCalled((w) => w.Close());
+
+            
         }
 
         /// <summary>
@@ -390,7 +365,7 @@ namespace Tools.Common.UnitTests
             using (MemoryStream stream2 = new MemoryStream())
             {
 
-                using (TraceListener tracer = new XmlWriterTraceListener(stream2))
+                using (TraceListener tracer = new XmlWriterRollingTraceListener(stream2))
                 {
 
                     tracer.TraceData(eventCache, "TestSource", TraceEventType.Information, 1,
@@ -412,9 +387,9 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest5()
         {
-            string filename = string.Empty; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(filename);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            string filename = "testfilename.xml";
+            XmlWriterRollingTraceListener_Accessor t = new XmlWriterRollingTraceListener_Accessor(filename);
+            Assert.AreEqual<string>(filename, t.fileName);
         }
 
         /// <summary>
@@ -423,9 +398,13 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest4()
         {
-            TextWriter writer = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(writer);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            using (TextWriter writer = MockRepository.GenerateStub<TextWriter>())
+            {
+
+                XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(writer);
+
+                Assert.AreEqual<TextWriter>(writer, target.writer);
+            }
         }
 
         /// <summary>
@@ -434,9 +413,14 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest3()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            using (Stream writer = MockRepository.GenerateStub<Stream>())
+            {
+                writer.Stub((w) => w.CanWrite).Return(true);
+
+                XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(writer);
+
+                Assert.IsNotNull(target.writer);
+            }
         }
 
         /// <summary>
@@ -445,10 +429,12 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest2()
         {
-            string fileName = string.Empty; // TODO: Initialize to an appropriate value
-            string name = string.Empty; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(fileName, name);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            string filename = "testfilename.xml";
+            string name = "testname";
+
+            XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(filename, name);
+            Assert.AreEqual<string>(filename, target.fileName);
+            //Assert.AreEqual<string>(name, target.na);
         }
 
         /// <summary>
@@ -457,10 +443,13 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest1()
         {
-            TextWriter writer = null; // TODO: Initialize to an appropriate value
-            string name = string.Empty; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(writer, name);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            using (TextWriter writer = MockRepository.GenerateStub<TextWriter>())
+            {
+
+                XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(writer, "testname");
+
+                Assert.AreEqual<TextWriter>(writer, target.writer);
+            }
         }
 
         /// <summary>
@@ -469,10 +458,14 @@ namespace Tools.Common.UnitTests
         [TestMethod()]
         public void XmlWriterRollingTraceListenerConstructorTest()
         {
-            Stream stream = null; // TODO: Initialize to an appropriate value
-            string name = string.Empty; // TODO: Initialize to an appropriate value
-            XmlWriterRollingTraceListener target = new XmlWriterRollingTraceListener(stream, name);
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            using (Stream writer = MockRepository.GenerateStub<Stream>())
+            {
+                writer.Stub((w) => w.CanWrite).Return(true);
+
+                XmlWriterRollingTraceListener_Accessor target = new XmlWriterRollingTraceListener_Accessor(writer, "testname");
+
+                Assert.IsNotNull(target.writer);
+            }
         }
 
         #region Helper methods
@@ -492,7 +485,7 @@ namespace Tools.Common.UnitTests
             target.logFileHelper =
 MockRepository.GenerateStub<Tools.Logging.XmlWriterRollingTraceListener.ILogFileHelper>();
 
-            TextWriter writer = MockRepository.GenerateStub<TextWriter>();
+            writer = MockRepository.GenerateStub<TextWriter>();
             target.textWriterProvider.Stub((p) => p.CreateWriter(null)).IgnoreArguments().Return(writer);
             target.directoryHelper.Stub((h) => h.CreateDirectory());
 
