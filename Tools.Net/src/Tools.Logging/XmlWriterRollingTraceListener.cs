@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Xml.XPath;
 using System.Threading;
 using System.Collections;
+using Tools.Core.Utils;
 
 namespace Tools.Logging
 {
@@ -464,38 +465,11 @@ namespace Tools.Logging
             {
                 for (int i = 0; i < str.Length; i++)
                 {
-                    this.InternalWrite(EscapeCharacter(str[i]));
+                    this.InternalWrite(XmlUtility.Encode(str[i]));
                 }
             }
         }
-        private static string EscapeCharacter(char input)
-        {
-            switch (input)
-            {
-                case '\n':
-                    return "&#xA;";
-
-                case '\r':
-                    return "&#xD;";
-
-                case '&':
-                    return "&amp;";
-
-                case '\'':
-                    return "&apos;";
-
-                case '"':
-                    return "&quot;";
-
-                case '<':
-                    return "&lt;";
-
-                case '>':
-                    return "&gt;";
-                default:
-                    return new string(input, 1);
-            }
-        }
+        
 
         private void WriteFooter(TraceEventCache eventCache)
         {
