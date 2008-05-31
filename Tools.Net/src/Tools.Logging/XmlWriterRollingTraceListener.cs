@@ -462,55 +462,38 @@ namespace Tools.Logging
         {
             if (str != null)
             {
-                int startIndex = 0;
                 for (int i = 0; i < str.Length; i++)
                 {
-                    switch (str[i])
-                    {
-                        case '\n':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&#xA;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '\r':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&#xD;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '&':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&amp;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '\'':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&apos;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '"':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&quot;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '<':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&lt;");
-                            startIndex = i + 1;
-                            break;
-
-                        case '>':
-                            this.InternalWrite(str.Substring(startIndex, i - startIndex));
-                            this.InternalWrite("&gt;");
-                            startIndex = i + 1;
-                            break;
-                    }
+                    this.InternalWrite(EscapeCharacter(str[i]));
                 }
-                this.InternalWrite(str.Substring(startIndex, str.Length - startIndex));
+            }
+        }
+        private static string EscapeCharacter(char input)
+        {
+            switch (input)
+            {
+                case '\n':
+                    return "&#xA;";
+
+                case '\r':
+                    return "&#xD;";
+
+                case '&':
+                    return "&amp;";
+
+                case '\'':
+                    return "&apos;";
+
+                case '"':
+                    return "&quot;";
+
+                case '<':
+                    return "&lt;";
+
+                case '>':
+                    return "&gt;";
+                default:
+                    return new string(input, 1);
             }
         }
 
