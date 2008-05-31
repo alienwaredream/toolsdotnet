@@ -139,11 +139,6 @@ namespace Tools.Common.UnitTests
 
             Trace.WriteLine(log);
         }
-        [PexMethod]
-        public void EscapeCharacterTest()
-        {
-            XmlWriterRollingTraceListener_Accessor.EscapeCharacter('\r');
-        }
 
         /// <summary>
         ///A test for TraceTransfer
