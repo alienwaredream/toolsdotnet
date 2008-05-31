@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Pex.Framework, Version=0.5.30516.0, Culture=neutral, PublicKeyToken=76a274db078248c8, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Rhino.Mocks, Version=3.5.0.1, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -49,9 +50,11 @@
     <Compile Include="DatabaseTraceListener2TraceSourceTest.cs" />
     <Compile Include="DatabaseTraceListener2TraceTest.cs" />
     <Compile Include="DatabaseTraceListenerTest.cs" />
-    <Compile Include="IoCWrapperTraceListenerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlWriterRollingTraceListenerTest.cs" />
+    <Compile Include="XmlWriterRollingTraceListenerTest.EscapeCharacterTest.g.cs">
+      <DependentUpon>XmlWriterRollingTraceListenerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="XmlWriterRollingTraceSourceTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System;
 using Rhino.Mocks;
+using Microsoft.Pex.Framework;
 
 namespace Tools.Common.UnitTests
 {
@@ -15,7 +16,7 @@ namespace Tools.Common.UnitTests
     ///to contain all XmlWriterRollingTraceListenerTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class XmlWriterRollingTraceListenerTest
+    public partial class XmlWriterRollingTraceListenerTest
     {
         XmlWriterRollingTraceListener_Accessor target;
         TextWriter writer;
@@ -116,6 +117,32 @@ namespace Tools.Common.UnitTests
             Assert.IsTrue(log.Contains(message), "Log message is expected to have logged text!");
 
             Trace.WriteLine(log);
+        }
+        [TestMethod()]
+        public void WriteEscapedTest()
+        {
+            Setup(200);
+
+            string message = "Test of message \n\r&\'\" to escap <>e";
+
+            target.Write(message);
+
+            target.logFileHelper.Stub((h) => h.IsFileSuitableForWriting).Return(true);
+
+            target.Write(message);
+
+            target.directoryHelper.AssertWasCalled((h) => h.CreateDirectory());
+
+            target.Close();
+
+            Assert.IsTrue(log.Contains("Test of message &#xA;&#xD;&amp;&apos;&quot; to escap &lt;&gt;e"), "Log message is expected to have escaped logged text!");
+
+            Trace.WriteLine(log);
+        }
+        [PexMethod]
+        public void EscapeCharacterTest()
+        {
+            XmlWriterRollingTraceListener_Accessor.EscapeCharacter('\r');
         }
 
         /// <summary>
