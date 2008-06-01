@@ -11,6 +11,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Tools.WebSite", "src\Tools.WebSite\", "{59DEB532-F349-4ACF-8DDF-47480F351B56}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
+		ProjectReferences = "{B1789295-B42B-493A-9CE0-570AE9425773}|Tools.Logging.dll;{866674A9-91C9-421F-84E5-6F9B36E51854}|Tools.Core.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Tools.WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "src\Tools.WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Tools.WebSite\"
