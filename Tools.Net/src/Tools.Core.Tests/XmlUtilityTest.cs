@@ -94,5 +94,21 @@ namespace Tools.Core.Tests
             // Everything else should not be encoded
             Assert.AreEqual<string>(new string(input, 1), XmlUtility.Encode(input));
         }
+        [PexMethod()]
+        public void EncodeTestWithSwitch(char input)
+        {
+            switch (input)
+            {
+                case '\n': Assert.AreEqual<string>("&#xA;", XmlUtility.Encode(input)); break;
+                case '\r': Assert.AreEqual<string>("&#xD;", XmlUtility.Encode(input)); break;
+                case '&': Assert.AreEqual<string>("&amp;", XmlUtility.Encode(input)); break;
+                case '\'': Assert.AreEqual<string>("&apos;", XmlUtility.Encode(input)); break;
+                case '"': Assert.AreEqual<string>("&quot;", XmlUtility.Encode(input)); break;
+                case '<': Assert.AreEqual<string>("&lt;", XmlUtility.Encode(input)); break;
+                //case '>': Assert.AreEqual<string>("&gt;", XmlUtility.Encode(input)); break;
+                // Everything else should not be encoded
+                default: Assert.AreEqual<string>(new string(input, 1), XmlUtility.Encode(input)); break;
+            }
+        }
     }
 }

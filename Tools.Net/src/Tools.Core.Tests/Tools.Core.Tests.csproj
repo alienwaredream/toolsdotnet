@@ -57,6 +57,9 @@
     <Compile Include="XmlUtilityTest.EncodeTest.g.cs">
       <DependentUpon>XmlUtilityTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="XmlUtilityTest.EncodeTestWithSwitch.g.cs">
+      <DependentUpon>XmlUtilityTest.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
