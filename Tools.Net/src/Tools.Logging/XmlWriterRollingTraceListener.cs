@@ -75,10 +75,37 @@ namespace Tools.Logging
         {
         }
 
-        public XmlWriterRollingTraceListener(string filename)
-            : this(filename, filename)
+        public XmlWriterRollingTraceListener(string initializationString)
+            : base()
         {
+            IDictionary<string, string> initParameters = this.initStringParser.Parse(initializationString);
+
+            string name = null;
+            if (initParameters.TryGetValue("name", out name))
+            {
+                if (String.IsNullOrEmpty(this.Name))
+                {
+                    this.Name = Guid.NewGuid().ToString();
+                }
+                else
+                {
+                    this.Name = name;
+                }
+            }
+            initParameters.TryGetValue("logrootpath", out this.logRootLocation);
+            initParameters.TryGetValue("datetimepattern", out this.fileDatetimePattern);
+            initParameters.TryGetValue("staticpattern", out this.fileStaticName);
+
+            string maxFileSizeBytesConfig = null;
+
+            if (initParameters.TryGetValue("maxSizeBytes", out maxFileSizeBytesConfig))
+            {
+                if (!String.IsNullOrEmpty(maxFileSizeBytesConfig))
+                    this.maxFileSizeBytes = Convert.ToInt32(maxFileSizeBytesConfig);
+            }
+
             this.machineName = Environment.MachineName;
+
         }
 
         public XmlWriterRollingTraceListener(Stream stream, string name)
