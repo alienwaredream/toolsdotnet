@@ -10,6 +10,7 @@ using System.Xml.XPath;
 using System.Threading;
 using System.Collections;
 using Tools.Core.Utils;
+using Tools.Core.Configuration;
 
 namespace Tools.Logging
 {
@@ -48,6 +49,7 @@ namespace Tools.Logging
         private ITextWriterProvider textWriterProvider;
         private ILogFileHelper logFileHelper;
         private IDirectoryHelper directoryHelper;
+        private IInitializationStringParser initStringParser;
 
         #endregion
 

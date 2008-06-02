@@ -53,6 +53,8 @@
     <Compile Include="BaseException.cs" />
     <Compile Include="Configuration\ConnectionStringConfigurationProvider.cs" />
     <Compile Include="Configuration\IConfigurationValueProvider.cs" />
+    <Compile Include="Configuration\IInitializationStringParser.cs" />
+    <Compile Include="Configuration\InitializationStringParser.cs" />
     <Compile Include="Configuration\NameValueSectionConfigurationProvider.cs" />
     <Compile Include="Configuration\SingleTagSectionConfigurationProvider.cs" />
     <Compile Include="Log.cs" />
