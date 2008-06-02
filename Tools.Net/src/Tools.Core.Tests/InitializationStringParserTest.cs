@@ -1,6 +1,8 @@
 ﻿using Tools.Core.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Configuration;
+using System;
 
 namespace Tools.Core.Tests
 {
@@ -71,11 +73,11 @@ namespace Tools.Core.Tests
         public void ParseTest()
         {
             InitializationStringParser target = new InitializationStringParser();
-            string initializationString = "key 1 = value 1 ;  key  2 = value2; key3 = value3;; ;  ;";
+            string initializationString = "key 1 = value 1 ;  key  2 = value2; key3 = value3;";
 
             IDictionary<string, string> expected = new Dictionary<string, string>();
             expected.Add("key 1", "value 1");
-            expected.Add("key 2", "value2");
+            expected.Add("key  2", "value2");
             expected.Add("key3", "value3");
  
             IDictionary<string, string> actual = target.Parse(initializationString);
@@ -88,6 +90,42 @@ namespace Tools.Core.Tests
 
                 Assert.AreEqual<string>(expected[key], actual[key]);
             }
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ConfigurationErrorsException), "initialization string can't be empty or null")]
+        public void ParseShouldThrowOnNullInitStringTest()
+        {
+            InitializationStringParser target = new InitializationStringParser();
+
+            IDictionary<string, string> actual = target.Parse(null);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ConfigurationErrorsException), "initialization string can't be empty or null")]
+        public void ParseShouldThrowOnEmptyInitStringTest()
+        {
+            InitializationStringParser target = new InitializationStringParser();
+
+            IDictionary<string, string> actual = target.Parse(String.Empty);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ConfigurationErrorsException), 
+            "Invalid key/value configuration value in the initialization string. Required format is key = value; Provided string is key3 value3")]
+        public void ParseShouldThrowOnInvalidKeyValueFormatTest()
+        {
+            InitializationStringParser target = new InitializationStringParser();
+            string initializationString = "key 1 = value 1 ;  key  2 = value2; key3 value3;";
+
+            IDictionary<string, string> actual = target.Parse(initializationString);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ConfigurationErrorsException),
+            "Invalid key configuration value in the initialization string. Key may not be empty; Provided configuration pair string is   = value2")]
+        public void ParseShouldThrowOnInvalidKeyTest()
+        {
+            InitializationStringParser target = new InitializationStringParser();
+            string initializationString = "key 1 = value 1 ;  = value2; key3 = value3;";
+
+            IDictionary<string, string> actual = target.Parse(initializationString);
         }
 
         /// <summary>
