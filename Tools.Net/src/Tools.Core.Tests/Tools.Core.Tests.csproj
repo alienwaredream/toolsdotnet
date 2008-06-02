@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InitializationStringParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlUtilityTest.cs" />
     <Compile Include="XmlUtilityTest.EncodeTest.g.cs">
