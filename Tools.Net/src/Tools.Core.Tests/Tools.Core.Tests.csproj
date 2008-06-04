@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CultureInfoTest.cs" />
     <Compile Include="InitializationStringParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlUtilityTest.cs" />
@@ -67,6 +68,13 @@
       <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
       <Name>Tools.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Test References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

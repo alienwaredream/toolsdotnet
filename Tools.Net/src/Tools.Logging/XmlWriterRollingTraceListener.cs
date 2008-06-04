@@ -49,7 +49,7 @@ namespace Tools.Logging
         private ITextWriterProvider textWriterProvider;
         private ILogFileHelper logFileHelper;
         private IDirectoryHelper directoryHelper;
-        private IInitializationStringParser initStringParser;
+        private IInitializationStringParser initStringParser = new InitializationStringParser();
 
         #endregion
 
@@ -78,9 +78,19 @@ namespace Tools.Logging
         public XmlWriterRollingTraceListener(string initializationString)
             : base()
         {
+
             IDictionary<string, string> initParameters = this.initStringParser.Parse(initializationString);
 
             string name = null;
+
+            if (initParameters == null)
+            {
+                this.fileName = initializationString;
+                return;
+            }
+
+            isRolling = true;
+
             if (initParameters.TryGetValue("name", out name))
             {
                 if (String.IsNullOrEmpty(this.Name))
@@ -105,6 +115,7 @@ namespace Tools.Logging
             }
 
             this.machineName = Environment.MachineName;
+            
 
         }
 

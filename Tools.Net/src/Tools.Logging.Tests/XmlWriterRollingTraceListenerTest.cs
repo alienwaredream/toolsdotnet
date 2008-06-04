@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System;
 using Rhino.Mocks;
 using Microsoft.Pex.Framework;
+using System.Globalization;
 
 namespace Tools.Common.UnitTests
 {
@@ -407,13 +408,43 @@ namespace Tools.Common.UnitTests
         ///A test for XmlWriterRollingTraceListener Constructor
         ///</summary>
         [TestMethod()]
-        public void XmlWriterRollingTraceListenerConstructorTest5()
+        public void InitStringConstructorNoRollingTest()
         {
-            string filename = "testfilename.xml";
-            XmlWriterRollingTraceListener_Accessor t = new XmlWriterRollingTraceListener_Accessor(filename);
-            Assert.AreEqual<string>(filename, t.fileName);
+            string initializationString = @"c:\testfilename.xml";
+            //Debugger.Launch();
+            XmlWriterRollingTraceListener_Accessor t =
+                new XmlWriterRollingTraceListener_Accessor(initializationString);
+            Assert.AreEqual<string>(initializationString, t.fileName);
+            Assert.IsTrue(!t.isRolling);
         }
+        [TestMethod()]
+        public void InitStringConstructorWithRollingMinParamsTest()
+        {
+            string initializationString = "Name = XmlRollingLogger;";
+            XmlWriterRollingTraceListener_Accessor t =
+                new XmlWriterRollingTraceListener_Accessor(initializationString);
 
+            Assert.IsTrue(t.isRolling);
+            
+            Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "Log root: [{0}] MaxFileSize (bytes): [{1}] ",
+                t.logRootLocation, t.maxFileSizeBytes));
+        }
+        [TestMethod()]
+        public void InitStringConstructorWithRollingTest()
+        {
+            string initializationString = @"Name = XmlRollingLogger;LogRootPath = c:\log\; DatetimePattern = DDMMMYY-HHmm; StaticPattern = log.file.";
+            XmlWriterRollingTraceListener_Accessor t =
+                new XmlWriterRollingTraceListener_Accessor(initializationString);
+
+            Assert.IsTrue(t.isRolling);
+            Assert.AreEqual<string>(@"c:\log\", t.logRootLocation);
+            Assert.AreEqual<string>(@"DDMMMYY-HHmm", t.fileDatetimePattern);
+            Assert.AreEqual<string>(@"log.file.", t.fileStaticName);
+
+            Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, 
+                "Log root: [{0}] MaxFileSize (bytes): [{1}] DateTimePattern: [{2}] StaticPattern: [{3}]",
+                t.logRootLocation, t.maxFileSizeBytes, t.fileDatetimePattern, t.fileStaticName));
+        }
         /// <summary>
         ///A test for XmlWriterRollingTraceListener Constructor
         ///</summary>

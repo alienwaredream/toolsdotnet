@@ -94,7 +94,7 @@ namespace Tools.Core.Tests
             // Everything else should not be encoded
             Assert.AreEqual<string>(new string(input, 1), XmlUtility.Encode(input));
         }
-        [PexMethod()]
+        [PexMethod(MaxRuns=20000, Timeout = -1)]
         public void EncodeTestWithSwitch(char input)
         {
             switch (input)
