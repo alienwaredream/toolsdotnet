@@ -17,10 +17,17 @@ namespace Tools.Core.Configuration
                 throw new ConfigurationErrorsException(String.Format(CultureInfo.InvariantCulture,
                     "initialization string can't be empty or null"));
             }
+
             Dictionary<string, string> ret = new Dictionary<string, string>();
+
+            // If nothing split, assume this is just a non-parseable string
+            if (!(initializationString.IndexOf(';') > 0))
+                return null;
 
             string[] keyValuePairs = initializationString.Split(
                 new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+
 
             for (int i = 0; i < keyValuePairs.Length; i++)
             {
@@ -42,7 +49,7 @@ namespace Tools.Core.Configuration
                         "Invalid key configuration value in the initialization string. Key may not be empty; Provided configuration pair string is {0}",
                         keyValuePair));
                 }
-                ret.Add(key, value);
+                ret.Add(key.ToLower(), value);
             }
             return ret;
         }

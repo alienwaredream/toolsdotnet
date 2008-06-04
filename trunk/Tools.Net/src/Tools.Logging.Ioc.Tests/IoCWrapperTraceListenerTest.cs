@@ -61,19 +61,19 @@ namespace Tools.Common.UnitTests
         #endregion
 
 
-        [TestMethod()]
-        public void ShouldBePresentInTheSysDiagListenersList()
-        {
-            TraceSource trace = new TraceSource("Tools.Logging");
+        //[TestMethod()]
+        //public void ShouldBePresentInTheSysDiagListenersList()
+        //{
+        //    TraceSource trace = new TraceSource("Tools.Logging");
 
-            Assert.IsNotNull(trace.Listeners);
-            TraceListener listener = trace.Listeners["IoCLogger"];
+        //    Assert.IsNotNull(trace.Listeners);
+        //    TraceListener listener = trace.Listeners["IoCLogger"];
 
-            Assert.IsNotNull(listener);
+        //    Assert.IsNotNull(listener);
 
-            listener.WriteLine("Test of IoCLogger");
+        //    listener.WriteLine("Test of IoCLogger");
 
-        }
+        //}
         [TestMethod()]
         public void ShouldLogForEnterpriseLib()
         {
