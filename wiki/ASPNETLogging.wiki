@@ -1,0 +1,16 @@
+#summary Specific of logging in ASP.NET Web sites and applications
+
+= Introduction =
+
+Either you create a web project as a "web site" or "web application". Logging in it has got its own specifics.
+That is mostly affected by understanding the security account your application runs under and conditional compilation.
+
+Phil Haacked has excellent information onto conditional compilation specifics for web apps [http://haacked.com/archive/2007/09/16/conditional-compilation-constants-and-asp.net.aspx]
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
