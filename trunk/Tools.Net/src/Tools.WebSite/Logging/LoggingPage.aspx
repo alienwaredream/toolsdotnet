@@ -14,9 +14,16 @@
     {
         System.Diagnostics.TraceSource source = 
             new System.Diagnostics.TraceSource(sourceTextBox.Text);
-        source.TraceData((System.Diagnostics.TraceEventType)Enum.Parse(typeof(System.Diagnostics.TraceEventType), 
-            traceEventTypeDropDown.SelectedValue), Convert.ToInt32(eventIdTextBox.Text), messageTextBox.Text);
-         
+        
+        source.TraceData(System.Diagnostics.TraceEventType.Error, 100, "kdfjndjfkg dfghn");
+        
+        source.TraceData((System.Diagnostics.TraceEventType)Enum.Parse(typeof(System.Diagnostics.TraceEventType),
+    traceEventTypeDropDown.SelectedValue), Convert.ToInt32(eventIdTextBox.Text), messageTextBox.Text);
+      
+
+        int i = 0;
+        
+  
     }
 </script>
 
@@ -43,7 +50,7 @@
                     <asp:Label ID="sourceLabel" runat="server" Text="Source"></asp:Label>
                 </td>
                 <td class="secondColumn">
-                    <asp:TextBox ID="sourceTextBox" runat="server"/>
+                    <asp:TextBox ID="sourceTextBox" Text="Test" runat="server"/>
                 </td>
             </tr>
             <tr>
