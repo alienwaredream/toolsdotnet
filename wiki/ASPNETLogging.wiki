@@ -8,7 +8,7 @@ That is mostly affected by understanding the security account your application r
 
 = Details =
 ==Conditional Compilation==
-Do you use TraceSource or Trace in your web application or web site, but don't see it really logging?
+Do you use System.Diagnostics.TraceSource or System.Diagnostics.Trace in your web application or web site, but don't see it really logging?
 Does it skip over the trace lines in the debugger?
 Then you are most probably facing the conditional compilation issues. Trace methods have are attributed with the [Conditional("TRACE")], so unless this conditional compilation constant is set, those methods will not get compiled.
 
