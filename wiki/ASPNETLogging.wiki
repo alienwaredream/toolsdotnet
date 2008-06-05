@@ -10,10 +10,9 @@ That is mostly affected by understanding the security account your application r
 ==Conditional Compilation==
 Do you use System.Diagnostics.TraceSource or System.Diagnostics.Trace in your web application or web site, but don't see it really logging?
 Does it skip over the trace lines in the debugger?
-Then you are most probably facing the conditional compilation issues. Trace methods have are attributed with the [Conditional("TRACE")], so unless this conditional compilation constant is set, those methods will not get compiled.
+Then you are most probably facing the conditional compilation issues. Trace methods have are attributed with the [Conditional("TRACE")], so unless this conditional compilation constant is set, the code calling those conditional methods will not be compiled.
 
-Phil Haack has an excellent information onto conditional compilation specifics for web apps [http://haacked.com/archive/2007/09/16/conditional-compilation-constants-and-asp.net.aspx]
-But read the K. Scott Allen's entry first as it invalidates some of the Phil's suggestions [http://odetocode.com/Blogs/scott/archive/2007/09/24/11413.aspx]
+Setting the conditional compilation constants in web site project can be a tricky task by itself. Read K. Scott Allen's introductory entry on it [http://odetocode.com/Blogs/scott/archive/2005/12/01/2559.aspx]. See how easily one can get confused as Phil Haack has an excellent information onto conditional compilation specifics for web apps [http://haacked.com/archive/2007/09/16/conditional-compilation-constants-and-asp.net.aspx] and read K. Scott Allen's another entry as it demystifies some of the Phil's observations [http://odetocode.com/Blogs/scott/archive/2007/09/24/11413.aspx].
 
 Main deduction from the above two articles is:
 The compiler options on the @Page directive and in the web.config are not additive. Setting in the @Page directive overrides the one in the web config.
