@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Either you create a web project as a "web site" or "web application". Logging in it has got its own specifics.
+Either you create a web project as a "web site" or "web application" logging in it has got its own specifics.
 That is mostly affected by understanding the security account your application runs under and conditional compilation.
 
 
