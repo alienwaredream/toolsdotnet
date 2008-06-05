@@ -17,4 +17,27 @@ Setting the conditional compilation constants in web site project can be a trick
 Main deduction from the above links is:
 The compiler options on the @Page directive and in the web.config are not additive. Setting in the @Page directive overrides the one in the web config.
 
-Lets re-analyze it from the perspective of using System.Diagnostics.Trace and System.Diagnostics.TraceSource from your web app:
+Lets re-analyze it from the perspective of using System.Diagnostics.Trace and System.Diagnostics.TraceSource from your web app.... //TODO: (SD) Complete
+
+So rather minimalistic configuration for using trace to log into some non-default listener is:
+{{{
+	<system.diagnostics>
+		<sources>
+      <source name="Test" switchValue="All">
+        <listeners>
+          <add name="XmlLogger" type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging"
+               initializeData="c:\logs\singlefile.xml" />
+        </listeners>
+      </source>
+		</sources>
+	</system.diagnostics>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" warningLevel="4" compilerOptions="/d:TRACE"
+                type="Microsoft.CSharp.CSharpCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+        <providerOption name="CompilerVersion" value="v3.5"/>
+        <providerOption name="WarnAsError" value="false"/>
+      </compiler>
+    </compilers>
+  </system.codedom>
+}}}
