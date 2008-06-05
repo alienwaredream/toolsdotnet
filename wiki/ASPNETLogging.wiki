@@ -21,16 +21,16 @@ Lets re-analyze it from the perspective of using System.Diagnostics.Trace and Sy
 
 So rather minimalistic configuration for using trace to log into some non-default listener is:
 {{{
-	<system.diagnostics>
-		<sources>
+  <system.diagnostics>
+   <sources>
       <source name="Test" switchValue="All">
         <listeners>
           <add name="XmlLogger" type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging"
                initializeData="c:\logs\singlefile.xml" />
         </listeners>
       </source>
-		</sources>
-	</system.diagnostics>
+    </sources>
+  </system.diagnostics>
   <system.codedom>
     <compilers>
       <compiler language="c#;cs;csharp" extension=".cs" warningLevel="4" compilerOptions="/d:TRACE"
