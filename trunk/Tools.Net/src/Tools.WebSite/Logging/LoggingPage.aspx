@@ -1,34 +1,9 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LoggingPage.aspx.cs" Inherits="Logging_LoggingPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<script runat="server">
-    protected override void OnLoad(EventArgs e)
-    {
-        base.OnLoad(e);
-        traceEventTypeDropDown.DataSource = Enum.GetValues(typeof(System.Diagnostics.TraceEventType));
-        traceEventTypeDropDown.DataBind();
-    }
-
-    protected void submitButton_Click(object sender, EventArgs e)
-    {
-        System.Diagnostics.TraceSource source = 
-            new System.Diagnostics.TraceSource(sourceTextBox.Text);
-        
-        source.TraceData(System.Diagnostics.TraceEventType.Error, 100, "kdfjndjfkg dfghn");
-        
-        source.TraceData((System.Diagnostics.TraceEventType)Enum.Parse(typeof(System.Diagnostics.TraceEventType),
-    traceEventTypeDropDown.SelectedValue), Convert.ToInt32(eventIdTextBox.Text), messageTextBox.Text);
-      
-
-        int i = 0;
-        
-  
-    }
-</script>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title>Logging test page</title>
     <style type="text/css">
         .firstColumn
@@ -40,6 +15,15 @@
             width: 300px;
         }
     </style>
+    <script runat="server">
+        protected void submitInlineCodeButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.TraceSource source =
+                new System.Diagnostics.TraceSource(sourceTextBox.Text);
+
+            source.TraceData(System.Diagnostics.TraceEventType.Error, 100, "Test from the inline code");
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -80,8 +64,10 @@
             </tr>
         </table>
     </div>
-    <asp:Button ID="submitButton" runat="server" Text="Submit" 
-        onclick="submitButton_Click" />
+    <asp:Button ID="submitCodeBehindButton" runat="server" Text="Submit Via Code Behind" 
+        onclick="submitCodeBehindButton_Click" />
+     <asp:Button ID="submitInlineCodeButton" runat="server" Text="Submit Via Inline Code" 
+        onclick="submitInlineCodeButton_Click" />       
     </form>
 </body>
 </html>
