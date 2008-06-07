@@ -82,7 +82,6 @@
             transferGuidTextBox.Style.Add("display","none");
         }
 </script>
-
 </head>
 <body>
     <form id="form1" runat="server">
