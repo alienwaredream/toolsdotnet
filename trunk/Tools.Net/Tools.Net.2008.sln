@@ -47,6 +47,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{415D2939
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Core.Tests", "src\Tools.Core.Tests\Tools.Core.Tests.csproj", "{B85DCD9B-4BF3-4C54-9A5F-32A640542CFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Diagnostics.Tests", "src\Tools.Logging.Diagnostics.Tests\Tools.Logging.Diagnostics.Tests.csproj", "{46E25CE0-5CCC-4187-B66A-C61209181E49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -145,6 +147,16 @@ Global
 		{B85DCD9B-4BF3-4C54-9A5F-32A640542CFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B85DCD9B-4BF3-4C54-9A5F-32A640542CFC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B85DCD9B-4BF3-4C54-9A5F-32A640542CFC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|.NET.ActiveCfg = Release|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,5 +165,6 @@ Global
 		{116FF600-71B5-4EB4-88CB-77FF14EA2960} = {415D2939-8ADF-44FE-BDFC-EF056D9F0CDC}
 		{0282EC7E-6588-4426-A5B1-DFCD18C06236} = {415D2939-8ADF-44FE-BDFC-EF056D9F0CDC}
 		{B85DCD9B-4BF3-4C54-9A5F-32A640542CFC} = {415D2939-8ADF-44FE-BDFC-EF056D9F0CDC}
+		{46E25CE0-5CCC-4187-B66A-C61209181E49} = {415D2939-8ADF-44FE-BDFC-EF056D9F0CDC}
 	EndGlobalSection
 EndGlobal

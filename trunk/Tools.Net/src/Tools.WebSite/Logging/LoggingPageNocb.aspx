@@ -20,19 +20,23 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            
             if (!IsPostBack)
             {
                 traceEventTypeDropDown.DataSource = Enum.GetValues(typeof(TraceEventType));
                 traceEventTypeDropDown.DataBind();
             }
+            // restore ActivityId if already present in the hidden field
+            if (Request["ActivityIdInput"] != null) 
+                this.ActivityIdInput.Value = Request["ActivityIdInput"];
         }
         protected void submitInlineCodeButton_Click(object sender, EventArgs e)
         {
-            if (Request.Cookies["ActivityId"]!=null)
+            if (Request["ActivityIdInput"]!=null)
             {
                 System.Diagnostics.Trace.CorrelationManager.StartLogicalOperation(
-                    new Guid(Request.Cookies["ActivityId"].Value));
-                System.Diagnostics.Trace.CorrelationManager.ActivityId = new Guid(Request.Cookies["ActivityId"].Value);
+                    new Guid(Request["ActivityIdInput"]));
+                System.Diagnostics.Trace.CorrelationManager.ActivityId = new Guid(Request["ActivityIdInput"]);
             }
             
             TraceSource source =
@@ -51,7 +55,7 @@
                 //SetActivityIdCookie(System.Diagnostics.Trace.CorrelationManager.ActivityId);
             }
 
-            if (Request.Cookies["ActivityId"]!=null)
+            if (Request["ActivityIdInput"] != null)
             {
                 System.Diagnostics.Trace.CorrelationManager.StopLogicalOperation();
             }
@@ -63,12 +67,11 @@
         }
         protected void startActivityButton_Click(object sender, EventArgs e)
         {
-            SetActivityIdCookie(activityGuidTextBox.Text);
+            PersistActivityId(activityGuidTextBox.Text);
         }
-        private void SetActivityIdCookie(string activityId)
+        private void PersistActivityId(string activityId)
         {
-            HttpCookie activityCookie = new HttpCookie("ActivityId", activityId);
-            Response.Cookies.Add(activityCookie);
+            ActivityIdInput.Value = activityId;
         }
 
         protected void traceEventTypeDropDown_SelectedIndexChanged(object sender, EventArgs e)
@@ -148,6 +151,7 @@
 </td></tr>
         </table>
     </div>
+    <input id="ActivityIdInput" type="hidden" runat="server" />
     </form>
 </body>
 </html>
