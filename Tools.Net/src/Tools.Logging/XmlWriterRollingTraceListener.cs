@@ -81,8 +81,6 @@ namespace Tools.Logging
 
             IDictionary<string, string> initParameters = this.initStringParser.Parse(initializationString);
 
-            string name = null;
-
             if (initParameters == null)
             {
                 this.fileName = initializationString;
@@ -91,32 +89,28 @@ namespace Tools.Logging
 
             isRolling = true;
 
-            if (initParameters.TryGetValue("name", out name))
-            {
-                if (String.IsNullOrEmpty(this.Name))
-                {
-                    this.Name = Guid.NewGuid().ToString();
-                }
-                else
-                {
-                    this.Name = name;
-                }
-            }
-            initParameters.TryGetValue("logrootpath", out this.logRootLocation);
-            initParameters.TryGetValue("datetimepattern", out this.fileDatetimePattern);
-            initParameters.TryGetValue("staticpattern", out this.fileStaticName);
+            this.Name = Guid.NewGuid().ToString();
 
-            string maxFileSizeBytesConfig = null;
+            SetValueIfPresent((string s) => this.Name = s, "name", initParameters);
+            
+            SetValueIfPresent((string s) => this.logRootLocation = s, "logrootpath", initParameters);
 
-            if (initParameters.TryGetValue("maxSizeBytes", out maxFileSizeBytesConfig))
-            {
-                if (!String.IsNullOrEmpty(maxFileSizeBytesConfig))
-                    this.maxFileSizeBytes = Convert.ToInt32(maxFileSizeBytesConfig);
-            }
+            SetValueIfPresent((string s) => this.fileDatetimePattern = s, "datetimepattern", initParameters);
+
+            SetValueIfPresent((string s) => this.fileStaticName = s, "staticpattern", initParameters);
+
+            SetValueIfPresent((string s) => this.maxFileSizeBytes = Convert.ToInt32(s),
+                "maxsizebytes", initParameters);
 
             this.machineName = Environment.MachineName;
-            
-
+        }
+        private void SetValueIfPresent(Action<string> setAction, string keyName, IDictionary<string, string> dictionary)
+        {
+            string val = null;
+            if (dictionary.TryGetValue(keyName, out val) && !String.IsNullOrEmpty(val))
+            {
+                setAction(val);
+            }
         }
 
         public XmlWriterRollingTraceListener(Stream stream, string name)

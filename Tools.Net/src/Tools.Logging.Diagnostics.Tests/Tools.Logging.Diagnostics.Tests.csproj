@@ -38,7 +38,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoggingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
