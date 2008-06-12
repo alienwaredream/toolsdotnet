@@ -1,0 +1,11 @@
+#summary Integrating tracing on network events and communication
+
+I've been using MS network monitor for quite a long time now. But following post [http://blogs.msdn.com/drnick/archive/2008/06/10/tracing-network-calls.aspx] by Nicholas Allen forced me to try to see what actually is going to be logged if network sources will be enabled to log.
+
+
+= Details =
+
+Suggested sources were: System.Net, System.Net.Sockets, System.Net.Cache, System.Net.HttpListener. 
+
+Lets see what is the outcome:
+1. System.Net
