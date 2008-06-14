@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B9DE9DF-35B2-415D-B4FF-1D92F63B5E77}"
 	ProjectSection(SolutionItems) = preProject
 		localrun.testrunconfig = localrun.testrunconfig
+		Tools.Net.200810.vsmdi = Tools.Net.200810.vsmdi
 		Tools.Net.20085.vsmdi = Tools.Net.20085.vsmdi
 		Tools.Net.20089.vsmdi = Tools.Net.20089.vsmdi
 	EndProjectSection
@@ -52,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Diagnostics.T
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Tools.Net.20089.vsmdi
+		CategoryFile = Tools.Net.200810.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET

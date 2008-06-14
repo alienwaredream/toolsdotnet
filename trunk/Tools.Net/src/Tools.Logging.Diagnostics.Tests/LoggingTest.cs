@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
+using System.Net;
+using System.IO;
 
 namespace Tools.Logging.Diagnostics.Tests
 {
@@ -65,7 +67,7 @@ namespace Tools.Logging.Diagnostics.Tests
         {
             // Setup source and listener
             string initializationString =
-                @"name = XmlLogger; logrootpath = c:\log; staticpattern = log_; maxSizeBytes = 20000;";
+                @"name = XmlLogger; logrootpath = c:\logs; staticpattern = log_; maxSizeBytes = 20000;";
 
             XmlWriterRollingTraceListener traceListener =
                 new XmlWriterRollingTraceListener(initializationString);
@@ -74,6 +76,7 @@ namespace Tools.Logging.Diagnostics.Tests
 
             log.Listeners.Clear();
             log.Listeners.Add(traceListener);
+            
 
             // Start Activity #1
             Guid activity1Guid = Guid.NewGuid();
@@ -106,5 +109,53 @@ namespace Tools.Logging.Diagnostics.Tests
             // Complete Activity #1
             log.TraceEvent(TraceEventType.Stop, 8, "Completing Activity #1");
         }
+
+        [TestMethod]
+        public void ShouldLogNetworkCommunication()
+        {
+            // Setup source and listener
+            string initializationString =
+                @"name = XmlLogger; logrootpath = c:\logs\; staticpattern = lognc_; maxSizeBytes = 200000;";
+
+            XmlWriterRollingTraceListener traceListener =
+                new XmlWriterRollingTraceListener(initializationString);
+
+            TraceSource log = new TraceSource("Test", SourceLevels.All);
+
+            log.Listeners.Clear();
+            log.Listeners.Add(traceListener);
+            
+
+            // Start Activity #1
+            Guid activity1Guid = Guid.NewGuid();
+
+            Trace.CorrelationManager.ActivityId = activity1Guid;
+
+            log.TraceEvent(TraceEventType.Start, 2, "Activity #1");
+
+            // log information inside Activity #1
+            log.TraceInformation("Going to execute HttpWebRequest from Activity #1");
+
+            HttpWebRequest request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
+            WebResponse response = request.GetResponse();
+
+            StreamReader s = new StreamReader(response.GetResponseStream());
+            string value = s.ReadToEnd();
+            s.Close();
+
+            request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
+            response = request.GetResponse();
+
+            s = new StreamReader(response.GetResponseStream());
+            value = s.ReadToEnd();
+            s.Close();
+
+            //log.TraceData(TraceEventType.Information, 10, response.GetResponseStream().
+
+            // Complete Activity #1
+            log.TraceEvent(TraceEventType.Stop, 8, "Completing Activity #1");
+        }
+
+
     }
 }
