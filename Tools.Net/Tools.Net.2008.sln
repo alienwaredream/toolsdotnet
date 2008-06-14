@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		localrun.testrunconfig = localrun.testrunconfig
 		Tools.Net.200810.vsmdi = Tools.Net.200810.vsmdi
+		Tools.Net.200811.vsmdi = Tools.Net.200811.vsmdi
 		Tools.Net.20085.vsmdi = Tools.Net.20085.vsmdi
 		Tools.Net.20089.vsmdi = Tools.Net.20089.vsmdi
 	EndProjectSection
@@ -51,9 +52,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Core.Tests", "src\Too
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Diagnostics.Tests", "src\Tools.Logging.Diagnostics.Tests\Tools.Logging.Diagnostics.Tests.csproj", "{46E25CE0-5CCC-4187-B66A-C61209181E49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Processes.Host", "src\Tools.Processes.Host\Tools.Processes.Host.csproj", "{44600F98-8BEE-49F0-83B4-6A51689145F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Wcf.Host", "src\Tools.Wcf.Host\Tools.Wcf.Host.csproj", "{0BD67253-2590-4792-A1F6-A0377519D0A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Processes.Core", "src\Tools.Processes.Core\Tools.Processes.Core.csproj", "{CB24C2A7-B79B-43F2-8D1F-4558A797C080}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Tools.Net.200810.vsmdi
+		CategoryFile = Tools.Net.200811.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -162,6 +169,36 @@ Global
 		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46E25CE0-5CCC-4187-B66A-C61209181E49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Release|.NET.ActiveCfg = Release|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{44600F98-8BEE-49F0-83B4-6A51689145F7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Release|.NET.ActiveCfg = Release|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0BD67253-2590-4792-A1F6-A0377519D0A2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Release|.NET.ActiveCfg = Release|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CB24C2A7-B79B-43F2-8D1F-4558A797C080}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -136,26 +136,65 @@ namespace Tools.Logging.Diagnostics.Tests
             // log information inside Activity #1
             log.TraceInformation("Going to execute HttpWebRequest from Activity #1");
 
-            HttpWebRequest request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("http://www.google.com/") as HttpWebRequest;
             WebResponse response = request.GetResponse();
 
-            StreamReader s = new StreamReader(response.GetResponseStream());
-            string value = s.ReadToEnd();
-            s.Close();
-
-            request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
-            response = request.GetResponse();
-
-            s = new StreamReader(response.GetResponseStream());
-            value = s.ReadToEnd();
-            s.Close();
-
-            //log.TraceData(TraceEventType.Information, 10, response.GetResponseStream().
+            using (StreamReader s = new StreamReader(response.GetResponseStream()))
+            {
+                string value = s.ReadToEnd();
+            }
 
             // Complete Activity #1
             log.TraceEvent(TraceEventType.Stop, 8, "Completing Activity #1");
         }
 
+        [TestMethod]
+        public void ShouldUseNetCacheCommunication()
+        {
+            // Setup source and listener
+            string initializationString =
+                @"name = XmlLogger; logrootpath = c:\logs\; staticpattern = lognc_; maxSizeBytes = 200000;";
+
+            XmlWriterRollingTraceListener traceListener =
+                new XmlWriterRollingTraceListener(initializationString);
+
+            TraceSource log = new TraceSource("Test", SourceLevels.All);
+
+            log.Listeners.Clear();
+            log.Listeners.Add(traceListener);
+
+
+            // Start Activity #1
+            Guid activity1Guid = Guid.NewGuid();
+
+            Trace.CorrelationManager.ActivityId = activity1Guid;
+
+            log.TraceEvent(TraceEventType.Start, 2, "Activity #1");
+
+            // log information inside Activity #1
+            log.TraceInformation("Going to execute HttpWebRequest from Activity #1");
+
+            HttpWebRequest request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
+            WebResponse response = request.GetResponse();
+
+            using (StreamReader s = new StreamReader(response.GetResponseStream()))
+            {
+                string value = s.ReadToEnd();
+            }
+
+            request = HttpWebRequest.Create("http://www.lenovo.com/i/v15/t/lenovo-mast-logo.gif") as HttpWebRequest;
+            response = request.GetResponse();
+
+            Assert.IsTrue(response.IsFromCache, "It is expected that this response will be returned from cache");
+
+            using (StreamReader s = new StreamReader(response.GetResponseStream()))
+            {
+                string value = s.ReadToEnd();
+            }
+
+            // Complete Activity #1
+            log.TraceEvent(TraceEventType.Stop, 8, "Completing Activity #1");
+        }
 
     }
 }
