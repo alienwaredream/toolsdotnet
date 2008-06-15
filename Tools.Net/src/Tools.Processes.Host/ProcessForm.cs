@@ -18,7 +18,8 @@ namespace Tools.Processes.Host
         VoidAction stopDelegate;
         VoidStringArgsAction startDelegate;
         string[] startArguments;
-        ConsoleTraceListener traceListener; 
+        ConsoleTraceListener traceListener;
+        private string descriptionRegexString;
 
         /// <summary>
         /// Gets the main tab control.
@@ -58,8 +59,8 @@ namespace Tools.Processes.Host
             //SetProcessControlButtons(true);
             try
             {
-
-                Console.SetOut(new TextControlTextWriter(this.logRichTextBox));
+                Console.SetOut(new TextControlTextWriter(this.outputListView, 
+                    Tools.Processes.Host.Properties.Settings.Default.DescriptionRegex));
                 //Trace.Listeners.Add(new ConsoleTraceListener(false));
             }
             catch (SecurityException ex)
@@ -185,6 +186,35 @@ namespace Tools.Processes.Host
             {
                 DisconnectDiagnosticListeners();
             }
+        }
+
+        private void outputListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (outputListView.SelectedItems.Count > 0)
+            {
+                logRichTextBox.Text = outputListView.SelectedItems[0].Tag.ToString();
+            }
+        }
+
+        private void applyRegexToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProcessForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Tools.Processes.Host.Properties.Settings.Default.Save();
+        }
+
+        private void clearLogToolStripButton_Click(object sender, EventArgs e)
+        {
+            outputListView.Items.Clear();
+            logRichTextBox.Clear();
+        }
+
+        private void ProcessForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
