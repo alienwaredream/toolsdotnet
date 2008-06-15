@@ -3,38 +3,58 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Tools.Processes.Host
 {
     delegate void SetStringDelegate(string text);
+    delegate void AddListViewItem(ListViewItem listItem);
 
     public class TextControlTextWriter : TextWriter
     {
         //TODO: (SD) Find more generic form
-        RichTextBox textControl;
+        ListView viewControl;
         private object syncObject = new object();
         //private int logLength = 0;
         private StringBuilder sb = new StringBuilder();
+        private Regex descriptionRegex;
+        
+
+        public void SetDescriptionRegexString(string pattern)
+        {
+            lock (syncObject)
+            {
+                descriptionRegex = new Regex(pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            }
+        }
 
         public override Encoding Encoding
         {
             get { return Encoding.Unicode; }
         }
 
-        public TextControlTextWriter(RichTextBox textControl)
+        public TextControlTextWriter(ListView viewControl, string descriptionPattern)
         {
-            this.textControl = textControl;
+            this.viewControl = viewControl;
+            descriptionRegex = new Regex(descriptionPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
-        private void AddControlText(string value)
+        private void AddControlText(string text)
         {
-            sb.Append(value);
-            this.textControl.Text = sb.ToString();
-            //this.textControl.Text += value;
-            //if (value != null) logLength += value.Length;
+            if (String.IsNullOrEmpty(text)) return;
 
-            this.textControl.Select(sb.Length - 1, 0);
-            //this.textControl.Select(this.textControl.Text.Length - 1, 0);
-            this.textControl.ScrollToCaret();
+            Match match = descriptionRegex.Match(text);
+
+            string description = text;
+
+            if (match != null && match.Groups.Count > 1)
+            {
+                description = match.Groups[1].Value;
+            }
+
+            ListViewItem item = new ListViewItem(description);
+            item.Tag = text;
+            viewControl.Items.Add(item);
+            viewControl.EnsureVisible(viewControl.Items.Count - 1);
 
         }
 
@@ -43,7 +63,7 @@ namespace Tools.Processes.Host
             lock (syncObject)
             {
                 //textControl.BeginInvoke(new SetStringDelegate(AddControlText), new object[] { value });
-                textControl.Invoke(new SetStringDelegate(AddControlText), new object[] { value });
+                viewControl.Invoke(new SetStringDelegate(this.AddControlText), value);
             }
         }
         public override void Write(string format, params object[] arg)
@@ -65,8 +85,7 @@ namespace Tools.Processes.Host
         {
             lock (syncObject)
             {
-                //textControl.BeginInvoke(new SetStringDelegate(AddControlText), new object[] { value + Environment.NewLine });
-                textControl.Invoke(new SetStringDelegate(AddControlText), new object[] { value + Environment.NewLine });
+                viewControl.Invoke(new SetStringDelegate(this.AddControlText), value);
             }
         }
         public override void WriteLine(string format, params object[] arg)

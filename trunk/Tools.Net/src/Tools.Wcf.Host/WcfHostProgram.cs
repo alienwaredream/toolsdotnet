@@ -198,10 +198,10 @@ namespace Tools.Wcf.Host
         {
             NameValueCollection servicesConfig =
                 ConfigurationManager.GetSection(
-                "Dsi.ServiceModelHost") as NameValueCollection;
+                "Tools.ServiceModelHost") as NameValueCollection;
 
             ErrorTrap.AddRaisableAssertion<ConfigurationErrorsException>
-                (servicesConfig != null, "Section Dsi.ServiceModelHost is not present in the configuration file or is misconfigured!" +
+                (servicesConfig != null, "Section Tools.ServiceModelHost is not present in the configuration file or is misconfigured!" +
                 " Setup the section properly!");
 
             foreach (string serviceName in servicesConfig.Keys)
