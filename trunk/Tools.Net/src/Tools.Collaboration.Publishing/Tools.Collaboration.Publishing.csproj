@@ -49,6 +49,10 @@
       <Project>{29CA9249-AAAF-4FCB-B00E-0F1E27FF3EA8}</Project>
       <Name>Tools.Collaboration.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
