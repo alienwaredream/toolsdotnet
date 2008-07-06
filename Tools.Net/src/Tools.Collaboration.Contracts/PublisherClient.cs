@@ -5,10 +5,6 @@ namespace Tools.Collaboration.Contracts
 
     namespace Tools.Common.DataTables
     {
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-        public interface IPublisherChannel : IPublisher, System.ServiceModel.IClientChannel
-        {
-        }
 
         public partial class PublisherClient : System.ServiceModel.ClientBase<IPublisher>, IPublisher
         {
