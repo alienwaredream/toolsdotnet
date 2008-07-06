@@ -12,6 +12,6 @@ namespace Tools.Collaboration.Contracts
         [OperationContract(Name="PublishUnderAcitivy")]
         void Publish(string message, string activityId);
         [OperationContract()]
-        void AddSubscriber(ISubscriber subscriber);
+        void AddSubscriber(SubscriberData subscriber);
     }
 }
