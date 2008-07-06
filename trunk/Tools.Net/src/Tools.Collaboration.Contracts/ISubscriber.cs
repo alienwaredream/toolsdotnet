@@ -8,8 +8,10 @@ namespace Tools.Collaboration.Contracts
         [OperationContract()]
         string GetName();
         [OperationContract()]
-        void Notify(string message);
+        string GetUrl();
         [OperationContract()]
-        void Notify(string message, string activityId);   
+        void Notify(string message);
+        [OperationContract(Name="NotifyUnderActivity")]
+        void Notify(string message, string activityId);
     }
 }

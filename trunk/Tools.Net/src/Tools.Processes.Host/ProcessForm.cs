@@ -56,6 +56,9 @@ namespace Tools.Processes.Host
             setupPropertyGrid.SelectedObject =
                 AppDomain.CurrentDomain.SetupInformation;
 
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+
             //SetProcessControlButtons(true);
             try
             {
@@ -68,6 +71,11 @@ namespace Tools.Processes.Host
                 ShowErrorMessage(MessagesResource.CannotLogToTestConsole + Environment.NewLine +
                     ex.ToString());
             }
+        }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            ShowErrorMessage("Unhandled exception during start! This will cause process shutdown. Review the error and correct: " + e.ExceptionObject.ToString());
         }
 
         private void ConnectDiagnosticListeners()
@@ -169,10 +177,11 @@ namespace Tools.Processes.Host
             if (startDelegate != null)
             {
                 startDelegate(startArguments);
+
             }
             else
             {
-                //TODO: (SD) process exceptional flow
+                ShowErrorMessage("startdelegate is null. Nothing to start!");
             }
         }
 

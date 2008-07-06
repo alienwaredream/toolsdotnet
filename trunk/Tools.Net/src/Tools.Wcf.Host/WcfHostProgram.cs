@@ -122,14 +122,16 @@ namespace Tools.Wcf.Host
                             ex.Data.Add("Wcf Service Host", "Exception while trying to open a service host for type " +
                                 t.FullName + ", review the configuration and binaries deployment and retry.");
                             Log.Source.TraceData(TraceEventType.Error, 0, ex);
+                            throw;
 
                         }
                     }
                     catch (Exception ex)
                     {
-                        ex.Data.Add("Wcf Service Host", "Exception while trying to create a service host for type " +
+                        ex.Data.Add("Wcf Service Host:" + Guid.NewGuid() , "Exception while trying to create a service host for type " +
     t.FullName + ", review the configuration and binaries deployment and retry.");
                         Log.Source.TraceData(TraceEventType.Error, 0, ex);
+                        throw;
 
                     }
                 }
