@@ -6,10 +6,6 @@ namespace Tools.Collaboration.Contracts
     public interface ISubscriber
     {
         [OperationContract()]
-        string GetName();
-        [OperationContract()]
-        string GetUrl();
-        [OperationContract()]
         void Notify(string message);
         [OperationContract(Name="NotifyUnderActivity")]
         void Notify(string message, string activityId);

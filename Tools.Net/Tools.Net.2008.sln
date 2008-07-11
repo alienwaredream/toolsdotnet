@@ -82,6 +82,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Wcf.Core", "src\Tools
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Collaboration.IntegrationTests", "src\Tools.Collaboration.IntegrationTests\Tools.Collaboration.IntegrationTests.csproj", "{FB1C740B-75A9-4779-9D98-6ADFE1EA7A51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Collaboration.Subscriptions", "src\Tools.Collaboration.Subscriptions\Tools.Collaboration.Subscriptions.csproj", "{B0A6947A-F7FF-4FF4-837B-F68318E59F31}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Tools.Net.200811.vsmdi
@@ -293,6 +295,16 @@ Global
 		{FB1C740B-75A9-4779-9D98-6ADFE1EA7A51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB1C740B-75A9-4779-9D98-6ADFE1EA7A51}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FB1C740B-75A9-4779-9D98-6ADFE1EA7A51}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Release|.NET.ActiveCfg = Release|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -315,5 +327,6 @@ Global
 		{6F70D6A5-10EC-408A-AE86-9720451F81CE} = {82100747-400A-480C-B2FD-366436076AC5}
 		{B3E5F089-8524-4966-9103-2CC8D61FE495} = {82100747-400A-480C-B2FD-366436076AC5}
 		{D0140D5A-D084-4731-8AB1-491663CBD8B2} = {82100747-400A-480C-B2FD-366436076AC5}
+		{B0A6947A-F7FF-4FF4-837B-F68318E59F31} = {82100747-400A-480C-B2FD-366436076AC5}
 	EndGlobalSection
 EndGlobal
