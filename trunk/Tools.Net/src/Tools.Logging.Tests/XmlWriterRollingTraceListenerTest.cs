@@ -5,7 +5,6 @@ using System.Text;
 using System.Diagnostics;
 using System;
 using Rhino.Mocks;
-using Microsoft.Pex.Framework;
 using System.Globalization;
 
 namespace Tools.Common.UnitTests

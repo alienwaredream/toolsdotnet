@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SubscriberTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublisherClientTest.cs" />
   </ItemGroup>
@@ -62,6 +63,10 @@
     <ProjectReference Include="..\Tools.Collaboration.Contracts\Tools.Collaboration.Contracts.csproj">
       <Project>{29CA9249-AAAF-4FCB-B00E-0F1E27FF3EA8}</Project>
       <Name>Tools.Collaboration.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Collaboration.Subscriptions\Tools.Collaboration.Subscriptions.csproj">
+      <Project>{B0A6947A-F7FF-4FF4-837B-F68318E59F31}</Project>
+      <Name>Tools.Collaboration.Subscriptions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
