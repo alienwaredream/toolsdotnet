@@ -1,0 +1,5 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This is a placeholder page. Information onto Biztalk Business Rules Engine logging and tracing interception is to be provided here.
