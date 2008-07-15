@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30428</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{866674A9-91C9-421F-84E5-6F9B36E51854}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -60,6 +60,7 @@
     <Compile Include="Descriptor.cs" />
     <Compile Include="IDescriptor.cs" />
     <Compile Include="IEnabled.cs" />
+    <Compile Include="IXPathFormatter.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Messaging\Message.cs" />
     <Compile Include="Messaging\MessageExtension.cs" />

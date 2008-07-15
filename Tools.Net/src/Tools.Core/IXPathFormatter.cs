@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.XPath;
 
-namespace Tools.Logging
+namespace Tools.Core
 {
     public interface IXPathFormatter
     {
