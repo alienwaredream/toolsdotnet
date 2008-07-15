@@ -10,7 +10,7 @@ using Tools.Core;
 
 namespace Tools.Logging
 {
-    public class LogDataXPathFormatter : IXPathFormatter
+    public class BreXPathFormatter : IXPathFormatter
     {
 
         #region IXPathFormatter Members
