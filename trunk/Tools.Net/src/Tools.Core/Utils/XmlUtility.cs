@@ -21,5 +21,20 @@ namespace Tools.Core.Utils
                 default: return new string(input, 1);
             }
         }
+        public static string Encode(string input)
+        {
+            if (String.IsNullOrEmpty(input)) return input;
+
+            int length = input.Length;
+
+            StringBuilder builder = new StringBuilder(length + 8);
+
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append(Encode(input[i]));
+            }
+            return builder.ToString();
+        }
+
     }
 }

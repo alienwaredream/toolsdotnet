@@ -110,5 +110,17 @@ namespace Tools.Core.Tests
                 default: Assert.AreEqual<string>(new string(input, 1), XmlUtility.Encode(input)); break;
             }
         }
+
+        [TestMethod()]
+        public void EncodeStringTest()
+        {
+            string input = "test of string to encode \n\r&'\"<>";
+            string output = XmlUtility.Encode(input);
+            Assert.AreEqual<string>("test of string to encode &#xA;&#xD;&amp;&apos;&quot;&lt;&gt;", output);
+
+            Assert.AreEqual<string>("", XmlUtility.Encode(""));
+            Assert.AreEqual<string>(null, XmlUtility.Encode(null));
+        }
+
     }
 }
