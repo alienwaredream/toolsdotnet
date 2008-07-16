@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using Tools.Core;
+using Tools.Core.Utils;
 
 namespace Tools.Logging
 {
@@ -63,17 +64,17 @@ namespace Tools.Logging
             StringBuilder sb = new StringBuilder();
             sb.Append("<TraceRecord xmlns=\"http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord\">").
                 Append("<TraceIdentifier>http://code.google.com/p/tools/log.aspx</TraceIdentifier>").
-                Append("<Description>").Append(XmlEncode(message)).
+                Append("<Description>").Append(XmlUtility.Encode(message)).
                 Append("</Description></TraceRecord>");
             return sb.ToString();
         }
 
         private void AddExceptionToTraceString(XmlWriter xml, Exception exception)
         {
-            xml.WriteElementString("ExceptionType", XmlEncode(exception.GetType().AssemblyQualifiedName));
-            xml.WriteElementString("Message", XmlEncode(exception.Message));
-            xml.WriteElementString("StackTrace", XmlEncode(this.StackTraceString(exception)));
-            xml.WriteElementString("ExceptionString", XmlEncode(exception.ToString()));
+            xml.WriteElementString("ExceptionType", XmlUtility.Encode(exception.GetType().AssemblyQualifiedName));
+            xml.WriteElementString("Message", XmlUtility.Encode(exception.Message));
+            xml.WriteElementString("StackTrace", XmlUtility.Encode(this.StackTraceString(exception)));
+            xml.WriteElementString("ExceptionString", XmlUtility.Encode(exception.ToString()));
 
             Win32Exception exception2 = exception as Win32Exception;
 
@@ -87,8 +88,8 @@ namespace Tools.Logging
                 foreach (object obj2 in exception.Data.Keys)
                 {
                     xml.WriteStartElement("Data");
-                    xml.WriteElementString("Key", XmlEncode(obj2.ToString()));
-                    xml.WriteElementString("Value", XmlEncode(exception.Data[obj2].ToString()));
+                    xml.WriteElementString("Key", XmlUtility.Encode(obj2.ToString()));
+                    xml.WriteElementString("Value", XmlUtility.Encode(exception.Data[obj2].ToString()));
                     xml.WriteEndElement();
                 }
                 xml.WriteEndElement();
@@ -135,40 +136,7 @@ namespace Tools.Logging
             return trace.ToString();
         }
 
-        public static string XmlEncode(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return text;
-            }
-            int length = text.Length;
-            StringBuilder builder = new StringBuilder(length + 8);
-            for (int i = 0; i < length; i++)
-            {
-                char ch = text[i];
-                switch (ch)
-                {
-                    case '<':
-                        {
-                            builder.Append("&lt;");
-                            continue;
-                        }
-                    case '>':
-                        {
-                            builder.Append("&gt;");
-                            continue;
-                        }
-                    case '&':
-                        {
-                            builder.Append("&amp;");
-                            continue;
-                        }
-                }
-                builder.Append(ch);
-            }
-            return builder.ToString();
-        }
-
+        
         #endregion
     }
 }
