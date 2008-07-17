@@ -10,6 +10,6 @@ Specifics of logging in ASP.NET web sites and applications [ASPNETLogging]
 When setting source programaticaly pay attention to setting the Switch.Level to the required value. Failure to do so will leave Switch at default value of Off, which means no log entries!
 
 {{{
-source.Listeners.Add(new ConsoleTraceListener());
-            source.Switch.Level = SourceLevels.All; // Set required level here
+ source.Listeners.Add(new ConsoleTraceListener());
+ source.Switch.Level = SourceLevels.All; // Set required level here
 }}}
