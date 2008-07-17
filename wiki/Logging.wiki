@@ -5,9 +5,11 @@
 Specifics of logging in ASP.NET web sites and applications [ASPNETLogging]
 
 
-= Details =
+= Setting up logging programaticaly =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+When setting source programaticaly pay attention to setting the Switch.Level to the required value. Failure to do so will leave Switch at default value of Off, which means no log entries!
+
+{{{
+source.Listeners.Add(new ConsoleTraceListener());
+            source.Switch.Level = SourceLevels.All; // Set required level here
+}}}
