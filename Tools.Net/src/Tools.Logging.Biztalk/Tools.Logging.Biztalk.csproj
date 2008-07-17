@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BreXPathFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TraceXPathDocument.cs" />
     <Compile Include="XmlDebugTracingInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>

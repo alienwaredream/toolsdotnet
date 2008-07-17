@@ -14,10 +14,12 @@ namespace Tools.Logging.Biztalk
 {
     public class XmlDebugTrackingInterceptor : IRuleSetTrackingInterceptor
     {
-        // Fields
+        #region Fields
 
         private TraceSource source =
             new TraceSource(typeof(XmlDebugTrackingInterceptor).Assembly.GetName().Name);
+
+        private TrackingConfiguration trackingConfig;
 
         private static string m_addOperationTrace = "addOperation";
         private static string m_agendaUpdateTrace = "agendaUpdate";
@@ -56,6 +58,11 @@ namespace Tools.Logging.Biztalk
         private static string m_updateUnrecognizedOperationTrace = "updateUnrecognizedOperation";
         private static string m_workingMemoryUpdateTrace = "workingMemoryUpdate";
 
+        #endregion
+
+        #region Properties
+
+        #endregion
 
         private void PrintHeader(string hdr, XmlWriter xml)
         {
@@ -66,10 +73,7 @@ namespace Tools.Logging.Biztalk
 
         public void SetTrackingConfig(TrackingConfiguration trackingConfig)
         {
-            //if (this.disposed)
-            //{
-            //    throw new ObjectDisposedException(base.GetType().FullName);
-            //}
+            this.trackingConfig = trackingConfig;
         }
 
         public void TrackAgendaUpdate(bool isAddition, string ruleName, object conflictResolutionCriteria)
@@ -84,6 +88,8 @@ namespace Tools.Logging.Biztalk
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
+                xWriter.WriteStartElement("Trace");
+
                 this.PrintHeader(m_agendaUpdateTrace, xWriter);
                 if (isAddition)
                 {
@@ -102,7 +108,7 @@ namespace Tools.Logging.Biztalk
                 {
                     xWriter.WriteElementString(m_conflictResolutionCriteriaTrace, conflictResolutionCriteria.ToString());
                 }
-
+                xWriter.WriteEndElement();
             }
             source.TraceData(TraceEventType.Verbose, 0,
                 new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
