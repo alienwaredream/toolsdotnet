@@ -65,9 +65,13 @@ namespace Tools.Logging.Biztalk.Tests
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            target = new XmlDebugTrackingInterceptor_Accessor();
+            target = new XmlDebugTrackingInterceptor_Accessor((s) => Console.WriteLine(s));
 
-            target.source.Listeners.Add(new ConsoleTraceListener());
+            //target.XmlOutputTracker = new Action<string>();
+
+            target.source.Listeners.Add(new XmlWriterRollingTraceListener(Console.Out));
+
+
             target.source.Switch.Level = SourceLevels.All;
         }
         //
@@ -150,6 +154,9 @@ namespace Tools.Logging.Biztalk.Tests
             bool isAddition = false;
             string ruleName = "Test rule name";
             object conflictResolutionCriteria = null;
+
+            target.source.Listeners.Add(new XmlWriterRollingTraceListener(
+                @"Name = XmlRollingLogger;LogRootPath = c:\logs\bre; DatetimePattern = DDMMMYY-HHmm; StaticPattern = log.bre."));
 
             target.TrackAgendaUpdate(isAddition, ruleName, conflictResolutionCriteria);
         }

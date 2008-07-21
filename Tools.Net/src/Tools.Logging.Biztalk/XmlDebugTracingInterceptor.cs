@@ -18,6 +18,7 @@ namespace Tools.Logging.Biztalk
 
         private TraceSource source =
             new TraceSource(typeof(XmlDebugTrackingInterceptor).Assembly.GetName().Name);
+        private Action<string> XmlOutputTracker;
 
         private TrackingConfiguration trackingConfig;
 
@@ -64,6 +65,19 @@ namespace Tools.Logging.Biztalk
 
         #endregion
 
+        #region Constructors
+
+        public XmlDebugTrackingInterceptor()
+        {
+        }
+
+        public XmlDebugTrackingInterceptor(Action<string> outputTracker)
+        {
+            this.XmlOutputTracker = outputTracker;
+        }
+
+        #endregion
+
         private void PrintHeader(string hdr, XmlWriter xml)
         {
             xml.WriteElementString("Action", hdr);
@@ -83,14 +97,19 @@ namespace Tools.Logging.Biztalk
                 throw new RuleEngineArgumentNullException(string.Format(CultureInfo.CurrentCulture, "nullArgument", new object[] { "strClassName" }), base.GetType().FullName, "ruleName");
             }
             // Create a builder to write xml to
-            StringBuilder builder = new StringBuilder(200);
+            StringBuilder builder = new StringBuilder(300);
+
+            
 
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
-                xWriter.WriteStartElement("Trace");
+                AppendTraceHeader(xWriter);
 
                 this.PrintHeader(m_agendaUpdateTrace, xWriter);
+
+                xWriter.WriteElementString("Description", "Agenda Update");
+
                 if (isAddition)
                 {
                     xWriter.WriteElementString(m_operationTypeTrace, m_addOperationTrace);
@@ -108,10 +127,19 @@ namespace Tools.Logging.Biztalk
                 {
                     xWriter.WriteElementString(m_conflictResolutionCriteriaTrace, conflictResolutionCriteria.ToString());
                 }
-                xWriter.WriteEndElement();
+
+                CloseTrace(xWriter);
             }
-            source.TraceData(TraceEventType.Verbose, 0,
-                new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
+            // create navigator as a data to log, that to be normalized then either by the trace listener or
+            // the logging adapter.
+            XPathNavigator navigator = new XPathDocument(new StringReader(builder.ToString())).CreateNavigator();
+            // log
+            source.TraceData(TraceEventType.Verbose, 0, navigator);
+            // provide extra output for test, etc purposes.
+            if (this.XmlOutputTracker != null)
+            {
+                this.XmlOutputTracker(navigator.InnerXml);
+            }
         }
 
         public void TrackConditionEvaluation(string testExpression, string leftClassType, int leftClassInstanceId, object leftValue, string rightClassType, int rightClassInstanceId, object rightValue, bool result)
@@ -274,5 +302,19 @@ namespace Tools.Logging.Biztalk
             source.TraceData(TraceEventType.Verbose, 0,
                 new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
         }
+
+        #region Helper methods
+
+        private static void AppendTraceHeader(XmlWriter xWriter)
+        {
+            xWriter.WriteStartElement("TraceRecord", "http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord/");
+            xWriter.WriteElementString("TraceIdentifier", "http://code.google.com/p/toolsdotnet/log.aspx");
+        }
+        private static void CloseTrace(XmlWriter xWriter)
+        {
+            xWriter.WriteEndElement();
+        }
+
+        #endregion
     }
 }
