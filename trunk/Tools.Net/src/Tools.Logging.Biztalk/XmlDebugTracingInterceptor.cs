@@ -85,15 +85,14 @@ namespace Tools.Logging.Biztalk
             oldActivityId = Trace.CorrelationManager.ActivityId;
         }
 
-        public XmlDebugTrackingInterceptor(Action<string> outputTracker)
-            : this()
+        public XmlDebugTrackingInterceptor(Action<string> outputTracker) : this()
         {
             this.XmlOutputTracker = outputTracker;
         }
 
         #endregion
 
-        private void PrintHeader(string hdr, XmlWriter xml)
+        private void AppendContextHeader(string hdr, XmlWriter xml)
         {
             xml.WriteElementString("Action", hdr);
             xml.WriteElementString("EngineInstance", this.m_ruleEngineGuid);
@@ -119,10 +118,11 @@ namespace Tools.Logging.Biztalk
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
+                // Append a common with wcf trace record header
                 AppendTraceHeader(xWriter);
-
-                this.PrintHeader(m_agendaUpdateTrace, xWriter);
-
+                
+                AppendContextHeader(m_agendaUpdateTrace, xWriter);
+                // Write the trace description element
                 xWriter.WriteElementString("Description", "Agenda Update");
 
                 if (isAddition)
@@ -163,7 +163,7 @@ namespace Tools.Logging.Biztalk
             {
                 AppendTraceHeader(xWriter);
 
-                this.PrintHeader(m_conditionEvaluationTrace, xWriter);
+                this.AppendContextHeader(m_conditionEvaluationTrace, xWriter);
 
                 xWriter.WriteElementString("Description", String.Format("Evaluating condition: [{0},{1}] {2}",
                     leftClassInstanceId, rightClassInstanceId, testExpression));
@@ -227,7 +227,7 @@ namespace Tools.Logging.Biztalk
             {
                 AppendTraceHeader(xWriter);
 
-                this.PrintHeader(m_workingMemoryUpdateTrace, xWriter);
+                this.AppendContextHeader(m_workingMemoryUpdateTrace, xWriter);
 
                 xWriter.WriteElementString("Description", String.Format("{0}ing {1} [{2}]",
                     activityType.ToString(), classType, classInstanceId));
@@ -293,7 +293,7 @@ namespace Tools.Logging.Biztalk
             {
                 AppendTraceHeader(xWriter);
 
-                this.PrintHeader(m_ruleFiredTrace, xWriter);
+                this.AppendContextHeader(m_ruleFiredTrace, xWriter);
 
                 xWriter.WriteElementString("Description", "Firing Rule: " + ruleName);
 

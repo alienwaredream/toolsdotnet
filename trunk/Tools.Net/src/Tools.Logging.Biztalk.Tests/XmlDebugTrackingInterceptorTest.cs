@@ -192,7 +192,7 @@ namespace Tools.Logging.Biztalk.Tests
             using (XmlWriter xml = XmlWriter.Create(builder, 
                 new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
-                target.PrintHeader(hdr, xml);
+                target.AppendContextHeader(hdr, xml);
             }
 
             Console.Write(builder.ToString());
