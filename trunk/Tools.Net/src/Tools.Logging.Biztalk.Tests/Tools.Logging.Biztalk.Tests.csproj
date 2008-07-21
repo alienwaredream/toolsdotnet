@@ -63,6 +63,10 @@
       <Project>{1DA1F9BE-BB34-47AD-8BDD-855B65D28C72}</Project>
       <Name>Tools.Logging.Biztalk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Shadow Include="Test References\Tools.Logging.Biztalk.accessor" />
