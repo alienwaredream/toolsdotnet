@@ -12,12 +12,20 @@ using System.Xml.XPath;
 
 namespace Tools.Logging.Biztalk
 {
-    public class XmlDebugTrackingInterceptor : IRuleSetTrackingInterceptor
+    /// <summary>
+    /// Tracking interceptor class for the Biztalk Rules Engine.
+    /// Formats events as xml and pushes them into the standard .NET logging pipe.
+    /// </summary>
+    /// <remarks>Not a thread safe class.
+    /// </remarks>
+    public class XmlDebugTrackingInterceptor : IRuleSetTrackingInterceptor, IDisposable
     {
         #region Fields
 
         private TraceSource source =
             new TraceSource(typeof(XmlDebugTrackingInterceptor).Assembly.GetName().Name);
+        private Guid oldActivityId;
+
         private Action<string> XmlOutputTracker;
 
         private TrackingConfiguration trackingConfig;
@@ -28,8 +36,15 @@ namespace Tools.Logging.Biztalk
         private static string m_assertUnrecognizedOperationTrace = "assertUnrecognizedOperation";
         private static string m_conditionEvaluationTrace = "conditionEvaluation";
         private static string m_conflictResolutionCriteriaTrace = "conflictResolutionCriteria";
+        #region Condition evaluation
+        private static string m_operandInstanceIdTrace = "instanceId";
+        private static string m_operandValueTrace = "value";
+        private static string m_operandToStringValueTrace = "vizualizer";
 
-        private static string m_leftOperandValueTrace = "leftOperandValue";
+        private static string m_leftOperandTrace = "leftOperand";
+        private static string m_rightOperandTrace = "rightOperand";
+
+        #endregion
 
         private static string m_objectInstanceTrace = "objectInstance";
         private static string m_objectTypeTrace = "objectType";
@@ -38,17 +53,15 @@ namespace Tools.Logging.Biztalk
         private static string m_retractNotPresentOperationTrace = "retractNotPresentOperation";
         private static string m_retractOperationTrace = "retractOperation";
         private static string m_retractUnrecognizedOperationTrace = "retractUnrecognizedOperation";
-        private static string m_rightOperandValueTrace = "rightOperandValue";
+
         private string m_ruleEngineGuid;
-        private static string m_ruleEngineInstanceTrace = "ruleEngineInstance";
         private static string m_ruleFiredTrace = "ruleFired";
         private static string m_ruleNameTrace = "ruleName";
         private string m_ruleSetName;
-        private static string m_rulesetNameTrace = "ruleSetName";
         private static string m_testExpressionTrace = "testExpression";
-        private static string m_testResultFalseTrace = "testResultFalse";
+        private static string m_testResultFalseTrace = "False";
         private static string m_testResultTrace = "testResult";
-        private static string m_testResultTrueTrace = "testResultTrue";
+        private static string m_testResultTrueTrace = "True";
 
 
         private static string m_traceHeaderTrace = "traceHeader";
@@ -69,9 +82,11 @@ namespace Tools.Logging.Biztalk
 
         public XmlDebugTrackingInterceptor()
         {
+            oldActivityId = Trace.CorrelationManager.ActivityId;
         }
 
         public XmlDebugTrackingInterceptor(Action<string> outputTracker)
+            : this()
         {
             this.XmlOutputTracker = outputTracker;
         }
@@ -99,7 +114,7 @@ namespace Tools.Logging.Biztalk
             // Create a builder to write xml to
             StringBuilder builder = new StringBuilder(300);
 
-            
+
 
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
@@ -130,16 +145,8 @@ namespace Tools.Logging.Biztalk
 
                 CloseTrace(xWriter);
             }
-            // create navigator as a data to log, that to be normalized then either by the trace listener or
-            // the logging adapter.
-            XPathNavigator navigator = new XPathDocument(new StringReader(builder.ToString())).CreateNavigator();
-            // log
-            source.TraceData(TraceEventType.Verbose, 0, navigator);
-            // provide extra output for test, etc purposes.
-            if (this.XmlOutputTracker != null)
-            {
-                this.XmlOutputTracker(navigator.InnerXml);
-            }
+
+            Log(builder);
         }
 
         public void TrackConditionEvaluation(string testExpression, string leftClassType, int leftClassInstanceId, object leftValue, string rightClassType, int rightClassInstanceId, object rightValue, bool result)
@@ -154,32 +161,29 @@ namespace Tools.Logging.Biztalk
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
+                AppendTraceHeader(xWriter);
+
                 this.PrintHeader(m_conditionEvaluationTrace, xWriter);
+
+                xWriter.WriteElementString("Description", String.Format("Evaluating condition: [{0},{1}] {2}",
+                    leftClassInstanceId, rightClassInstanceId, testExpression));
+
                 xWriter.WriteElementString(m_testExpressionTrace, testExpression);
-                if (leftValue == null)
-                {
-                    xWriter.WriteElementString(m_leftOperandValueTrace, "null");
-                }
-                else if (leftValue.GetType().IsClass && (Type.GetTypeCode(leftValue.GetType()) != TypeCode.String))
-                {
-                    xWriter.WriteElementString(m_leftOperandValueTrace, m_objectInstanceTrace + " " + leftValue.GetHashCode().ToString(CultureInfo.CurrentCulture));
-                }
-                else
-                {
-                    xWriter.WriteElementString(m_leftOperandValueTrace, leftValue.ToString());
-                }
-                if (rightValue == null)
-                {
-                    xWriter.WriteElementString(m_rightOperandValueTrace, "null");
-                }
-                else if (rightValue.GetType().IsClass && (Type.GetTypeCode(rightValue.GetType()) != TypeCode.String))
-                {
-                    xWriter.WriteElementString(m_rightOperandValueTrace, m_objectInstanceTrace + " " + rightValue.GetHashCode().ToString(CultureInfo.CurrentCulture));
-                }
-                else
-                {
-                    xWriter.WriteElementString(m_rightOperandValueTrace, rightValue.ToString());
-                }
+
+                // write left instance and value information
+                xWriter.WriteStartElement(m_leftOperandTrace);
+                xWriter.WriteAttributeString(m_operandInstanceIdTrace, leftClassInstanceId.ToString());
+                xWriter.WriteAttributeString(m_operandValueTrace, XmlUtility.Encode(GetOperandValue(leftValue)));
+                //xWriter.WriteAttributeString(m_operandToStringValueTrace, XmlUtility.Encode((leftValue == null) ? "null" : leftValue.ToString()));
+
+                xWriter.WriteEndElement();
+                // write right instance and value information
+                xWriter.WriteStartElement(m_rightOperandTrace);
+                xWriter.WriteAttributeString(m_operandInstanceIdTrace, rightClassInstanceId.ToString());
+                xWriter.WriteAttributeString(m_operandValueTrace, XmlUtility.Encode(GetOperandValue(rightValue)));
+                //xWriter.WriteAttributeString(m_operandToStringValueTrace, XmlUtility.Encode((rightValue == null) ? "null" : rightValue.ToString()));
+                xWriter.WriteEndElement();
+
                 if (result)
                 {
                     xWriter.WriteElementString(m_testResultTrace, m_testResultTrueTrace);
@@ -189,8 +193,24 @@ namespace Tools.Logging.Biztalk
                     xWriter.WriteElementString(m_testResultTrace, m_testResultFalseTrace);
                 }
             }
-            source.TraceData(TraceEventType.Verbose, 0,
-                new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
+
+            Log(builder);
+        }
+
+        private static string GetOperandValue(object leftValue)
+        {
+            if (leftValue == null)
+            {
+                return "null";
+            }
+            else if (leftValue.GetType().IsClass && (Type.GetTypeCode(leftValue.GetType()) != TypeCode.String))
+            {
+                return leftValue.GetHashCode().ToString(CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                return leftValue.ToString();
+            }
         }
 
         public void TrackFactActivity(FactActivityType activityType, string classType, int classInstanceId)
@@ -205,7 +225,13 @@ namespace Tools.Logging.Biztalk
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
+                AppendTraceHeader(xWriter);
+
                 this.PrintHeader(m_workingMemoryUpdateTrace, xWriter);
+
+                xWriter.WriteElementString("Description", String.Format("{0}ing {1} [{2}]",
+                    activityType.ToString(), classType, classInstanceId));
+
                 switch (activityType)
                 {
                     case FactActivityType.Assert:
@@ -247,9 +273,10 @@ namespace Tools.Logging.Biztalk
                 xWriter.WriteElementString(m_objectTypeTrace, classType);
                 xWriter.WriteElementString(m_objectInstanceTrace, classInstanceId.ToString(CultureInfo.CurrentCulture));
 
+                CloseTrace(xWriter);
             }
-            source.TraceData(TraceEventType.Verbose, 0,
-                new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
+
+            Log(builder);
         }
 
         public void TrackRuleFiring(string ruleName, object conflictResolutionCriteria)
@@ -264,9 +291,14 @@ namespace Tools.Logging.Biztalk
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
+                AppendTraceHeader(xWriter);
+
                 this.PrintHeader(m_ruleFiredTrace, xWriter);
 
+                xWriter.WriteElementString("Description", "Firing Rule: " + ruleName);
+
                 xWriter.WriteElementString(m_ruleNameTrace, ruleName);
+
                 if (conflictResolutionCriteria == null)
                 {
                     xWriter.WriteElementString(m_conflictResolutionCriteriaTrace, "null");
@@ -275,32 +307,40 @@ namespace Tools.Logging.Biztalk
                 {
                     xWriter.WriteElementString(m_conflictResolutionCriteriaTrace, conflictResolutionCriteria.ToString());
                 }
+                CloseTrace(xWriter);
 
             }
-            source.TraceData(TraceEventType.Verbose, 0,
-                new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
+            Log(builder);
         }
 
         public void TrackRuleSetEngineAssociation(RuleSetInfo ruleSetInfo, Guid ruleEngineGuid)
         {
+            Trace.CorrelationManager.ActivityId = ruleEngineGuid;
+
+            source.TraceEvent(TraceEventType.Start, 0, String.Format("Executing ruleset {0} {1}.{2}",
+                ruleSetInfo.Name, ruleSetInfo.MajorRevision, ruleSetInfo.MinorRevision));
+
             if (ruleSetInfo == null)
             {
                 throw new RuleEngineArgumentNullException(string.Format(CultureInfo.CurrentCulture, "nullArgument", new object[] { "strClassName" }), base.GetType().FullName, "ruleSetInfo");
             }
+
             this.m_ruleSetName = ruleSetInfo.Name;
             this.m_ruleEngineGuid = ruleEngineGuid.ToString();
 
-                        // Create a builder to write xml to
+            // Create a builder to write xml to
             StringBuilder builder = new StringBuilder(200);
 
             using (XmlWriter xWriter = XmlWriter.Create(builder,
                     new XmlWriterSettings { OmitXmlDeclaration = true, ConformanceLevel = ConformanceLevel.Fragment }))
             {
-
+                AppendTraceHeader(xWriter);
                 xWriter.WriteElementString(m_traceHeaderTrace, this.m_ruleSetName);
+
+                CloseTrace(xWriter);
             }
-            source.TraceData(TraceEventType.Verbose, 0,
-                new XPathDocument(new StringReader(builder.ToString())).CreateNavigator());
+
+            Log(builder);
         }
 
         #region Helper methods
@@ -313,6 +353,28 @@ namespace Tools.Logging.Biztalk
         private static void CloseTrace(XmlWriter xWriter)
         {
             xWriter.WriteEndElement();
+        }
+        private void Log(StringBuilder builder)
+        {
+            // create navigator as a data to log, that to be normalized then either by the trace listener or
+            // the logging adapter.
+            XPathNavigator navigator = new XPathDocument(new StringReader(builder.ToString())).CreateNavigator();
+            // log
+            source.TraceData(TraceEventType.Verbose, 0, navigator);
+            // provide extra output for test, etc purposes.
+            if (this.XmlOutputTracker != null)
+            {
+                this.XmlOutputTracker(navigator.InnerXml);
+            }
+        }
+
+        #endregion
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Trace.CorrelationManager.ActivityId = oldActivityId;
         }
 
         #endregion

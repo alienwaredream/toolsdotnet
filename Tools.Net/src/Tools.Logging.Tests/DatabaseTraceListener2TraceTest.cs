@@ -102,14 +102,6 @@ namespace Tools.Common.UnitTests
             Trace.TraceError("Test of Trace.TraceError(message)");
             Trace.TraceError(
                 "Test of Trace.TraceError(message, params string[] args) [{0}]", "test");
-            try
-            {
-                //Trace.Assert(false, "Assert fail message", "Assert fail detail");
-            }
-            catch (AssertFailedException ex)
-            {
-                
-            }
 
             //TraceSource log = new TraceSource("TestSource");
             //log.Listeners.Add(databaseListener);
