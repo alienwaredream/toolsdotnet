@@ -12,13 +12,13 @@ namespace Tools.Processes.Core
 	[Serializable()]
 	public class ProcessConfiguration : Descriptor, IEnabled
 	{
-		#region Globals
+		#region Fields
 
 		private int _stopTimeout = -1;
 		private uint _count = 1;
-        private List<NameValue<string, string>> _extensibilityItems = new List<NameValue<string,string>>();		
+        private DescriptiveNameValueCollection _extensibilityItems = new DescriptiveNameValueCollection();		
 
-		#endregion Globals
+		#endregion Fields
 
 		#region IEnabled Implementation
 
@@ -97,7 +97,7 @@ namespace Tools.Processes.Core
 		/// </summary>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification="This is by design.")]
 		[XmlArray()]
-        public List<NameValue<string, string>> ExtensibilityItems
+        public DescriptiveNameValueCollection ExtensibilityItems
 		{
 			get
 			{

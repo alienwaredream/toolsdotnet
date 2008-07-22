@@ -9,10 +9,10 @@ namespace Tools.Processes.Core
     
     /// <summary>
     ///     <para>
-    ///       A collection that stores <see cref='Tools.Common.configuration.IProcess'/> objects.
+    ///       A collection that stores <see cref='Tools.Core.configuration.IProcess'/> objects.
     ///    </para>
     /// </summary>
-    /// <seealso cref='Tools.Common.configuration.IProcessCollection'/>
+    /// <seealso cref='Tools.Core.configuration.IProcessCollection'/>
     [Serializable()]
     public class IProcessCollection : CollectionBase 
 	{
@@ -21,7 +21,7 @@ namespace Tools.Processes.Core
 
 		/// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='Tools.Common.configuration.IProcessCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools.Core.configuration.IProcessCollection'/>.
         ///    </para>
         /// </summary>
         public IProcessCollection() 
@@ -30,11 +30,11 @@ namespace Tools.Processes.Core
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='Tools.Common.configuration.IProcessCollection'/> based on another <see cref='Tools.Common.configuration.IProcessCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools.Core.configuration.IProcessCollection'/> based on another <see cref='Tools.Core.configuration.IProcessCollection'/>.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A <see cref='Tools.Common.configuration.IProcessCollection'/> from which the contents are copied
+        ///       A <see cref='Tools.Core.configuration.IProcessCollection'/> from which the contents are copied
         /// </param>
         public IProcessCollection(IProcessCollection value) {
             this.AddRange(value);
@@ -42,11 +42,11 @@ namespace Tools.Processes.Core
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='Tools.Common.configuration.IProcessCollection'/> containing any array of <see cref='Tools.Common.configuration.IProcess'/> objects.
+        ///       Initializes a new instance of <see cref='Tools.Core.configuration.IProcessCollection'/> containing any array of <see cref='Tools.Core.configuration.IProcess'/> objects.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A array of <see cref='Tools.Common.configuration.IProcess'/> objects with which to intialize the collection
+        ///       A array of <see cref='Tools.Core.configuration.IProcess'/> objects with which to intialize the collection
         /// </param>
         public IProcessCollection(IProcess[] value) {
             this.AddRange(value);
@@ -58,7 +58,7 @@ namespace Tools.Processes.Core
 		#region Indexers
 
         /// <summary>
-        /// <para>Represents the entry at the specified index of the <see cref='Tools.Common.configuration.IProcess'/>.</para>
+        /// <para>Represents the entry at the specified index of the <see cref='Tools.Core.configuration.IProcess'/>.</para>
         /// </summary>
         /// <param name='index'><para>The zero-based index of the entry to locate in the collection.</para></param>
         /// <value>
@@ -122,14 +122,14 @@ namespace Tools.Processes.Core
 		#region Methods
 
         /// <summary>
-        ///    <para>Adds a <see cref='Tools.Common.configuration.IProcess'/> with the specified value to the 
-        ///    <see cref='Tools.Common.configuration.IProcessCollection'/> .</para>
+        ///    <para>Adds a <see cref='Tools.Core.configuration.IProcess'/> with the specified value to the 
+        ///    <see cref='Tools.Core.configuration.IProcessCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='Tools.Common.configuration.IProcess'/> to add.</param>
+        /// <param name='value'>The <see cref='Tools.Core.configuration.IProcess'/> to add.</param>
         /// <returns>
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.AddRange'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.AddRange'/>
         public int Add(IProcess value) 
 		{
 			lock (this)
@@ -141,15 +141,15 @@ namespace Tools.Processes.Core
         }
         
         /// <summary>
-        /// <para>Copies the elements of an array to the end of the <see cref='Tools.Common.configuration.IProcessCollection'/>.</para>
+        /// <para>Copies the elements of an array to the end of the <see cref='Tools.Core.configuration.IProcessCollection'/>.</para>
         /// </summary>
         /// <param name='value'>
-        ///    An array of type <see cref='Tools.Common.configuration.IProcess'/> containing the objects to add to the collection.
+        ///    An array of type <see cref='Tools.Core.configuration.IProcess'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.Add'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.Add'/>
         public void AddRange(IProcess[] value) 
 		{
             for (int i = 0; (i < value.Length); i = (i + 1)) 
@@ -168,16 +168,16 @@ namespace Tools.Processes.Core
         
         /// <summary>
         ///     <para>
-        ///       Adds the contents of another <see cref='Tools.Common.configuration.IProcessCollection'/> to the end of the collection.
+        ///       Adds the contents of another <see cref='Tools.Core.configuration.IProcessCollection'/> to the end of the collection.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///    A <see cref='Tools.Common.configuration.IProcessCollection'/> containing the objects to add to the collection.
+        ///    A <see cref='Tools.Core.configuration.IProcessCollection'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.Add'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.Add'/>
         public void AddRange(IProcessCollection value) {
             for (int i = 0; (i < value.Count); i = (i + 1)) {
                 this.Add(value[i]);
@@ -186,28 +186,28 @@ namespace Tools.Processes.Core
         
         /// <summary>
         /// <para>Gets a value indicating whether the 
-        ///    <see cref='Tools.Common.configuration.IProcessCollection'/> contains the specified <see cref='Tools.Common.configuration.IProcess'/>.</para>
+        ///    <see cref='Tools.Core.configuration.IProcessCollection'/> contains the specified <see cref='Tools.Core.configuration.IProcess'/>.</para>
         /// </summary>
-        /// <param name='value'>The <see cref='Tools.Common.configuration.IProcess'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools.Core.configuration.IProcess'/> to locate.</param>
         /// <returns>
-        /// <para><see langword='true'/> if the <see cref='Tools.Common.configuration.IProcess'/> is contained in the collection; 
+        /// <para><see langword='true'/> if the <see cref='Tools.Core.configuration.IProcess'/> is contained in the collection; 
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.IndexOf'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.IndexOf'/>
         public bool Contains(IProcess value) {
             return List.Contains(value);
         }
         
         /// <summary>
-        /// <para>Copies the <see cref='Tools.Common.configuration.IProcessCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
+        /// <para>Copies the <see cref='Tools.Core.configuration.IProcessCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
         /// </summary>
-        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='Tools.Common.configuration.IProcessCollection'/> .</para></param>
+        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='Tools.Core.configuration.IProcessCollection'/> .</para></param>
         /// <param name='index'>The index in <paramref name='array'/> where copying begins.</param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='Tools.Common.configuration.IProcessCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
+        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='Tools.Core.configuration.IProcessCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
@@ -216,26 +216,26 @@ namespace Tools.Processes.Core
         }
         
         /// <summary>
-        ///    <para>Returns the index of a <see cref='Tools.Common.configuration.IProcess'/> in 
-        ///       the <see cref='Tools.Common.configuration.IProcessCollection'/> .</para>
+        ///    <para>Returns the index of a <see cref='Tools.Core.configuration.IProcess'/> in 
+        ///       the <see cref='Tools.Core.configuration.IProcessCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='Tools.Common.configuration.IProcess'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools.Core.configuration.IProcess'/> to locate.</param>
         /// <returns>
-        /// <para>The index of the <see cref='Tools.Common.configuration.IProcess'/> of <paramref name='value'/> in the 
-        /// <see cref='Tools.Common.configuration.IProcessCollection'/>, if found; otherwise, -1.</para>
+        /// <para>The index of the <see cref='Tools.Core.configuration.IProcess'/> of <paramref name='value'/> in the 
+        /// <see cref='Tools.Core.configuration.IProcessCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.Contains'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.Contains'/>
         public int IndexOf(IProcess value) {
             return List.IndexOf(value);
         }
         
         /// <summary>
-        /// <para>Inserts a <see cref='Tools.Common.configuration.IProcess'/> into the <see cref='Tools.Common.configuration.IProcessCollection'/> at the specified index.</para>
+        /// <para>Inserts a <see cref='Tools.Core.configuration.IProcess'/> into the <see cref='Tools.Core.configuration.IProcessCollection'/> at the specified index.</para>
         /// </summary>
         /// <param name='index'>The zero-based index where <paramref name='value'/> should be inserted.</param>
-        /// <param name=' value'>The <see cref='Tools.Common.configuration.IProcess'/> to insert.</param>
+        /// <param name=' value'>The <see cref='Tools.Core.configuration.IProcess'/> to insert.</param>
         /// <returns><para>None.</para></returns>
-        /// <seealso cref='Tools.Common.configuration.IProcessCollection.Add'/>
+        /// <seealso cref='Tools.Core.configuration.IProcessCollection.Add'/>
         public void Insert(int index, IProcess value) 
 		{
 			lock (this)
@@ -248,7 +248,7 @@ namespace Tools.Processes.Core
         
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
-        ///       the <see cref='Tools.Common.configuration.IProcessCollection'/> .</para>
+        ///       the <see cref='Tools.Core.configuration.IProcessCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
@@ -257,10 +257,10 @@ namespace Tools.Processes.Core
         }
         
         /// <summary>
-        ///    <para> Removes a specific <see cref='Tools.Common.configuration.IProcess'/> from the 
-        ///    <see cref='Tools.Common.configuration.IProcessCollection'/> .</para>
+        ///    <para> Removes a specific <see cref='Tools.Core.configuration.IProcess'/> from the 
+        ///    <see cref='Tools.Core.configuration.IProcessCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='Tools.Common.configuration.IProcess'/> to remove from the <see cref='Tools.Common.configuration.IProcessCollection'/> .</param>
+        /// <param name='value'>The <see cref='Tools.Core.configuration.IProcess'/> to remove from the <see cref='Tools.Core.configuration.IProcessCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
         public void Remove(IProcess value) 
