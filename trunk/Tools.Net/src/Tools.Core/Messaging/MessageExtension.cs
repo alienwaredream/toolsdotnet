@@ -10,7 +10,7 @@ namespace Tools.Core.Messaging
     [Serializable()]
     public class MessageExtension<TKey, TValue> where TKey : IComparable
     {
-        #region Globals
+        #region Fields
         private List<NameValue<TKey, TValue>> _nameValueList = new List<NameValue<TKey, TValue>>();
         #endregion
 

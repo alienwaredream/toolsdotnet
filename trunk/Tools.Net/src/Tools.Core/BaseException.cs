@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tools.Core.Context;
 
 namespace Tools.Core
 {
@@ -12,13 +13,13 @@ namespace Tools.Core
     [Serializable()]
     public class BaseException : Exception
     {
-        #region Attributes
+        #region Fields
         private bool _isRecoverable = false;
         //private bool _handled = false;
         private string _ticketId = null;
         private int _loggingEventID;
         private List<Tools.Core.Messaging.Message> messages = new List<Tools.Core.Messaging.Message>();
-
+        private ContextIdentifier _contextIdentifier = new ContextIdentifier();
         #endregion
 
         #region Properties
@@ -60,7 +61,7 @@ namespace Tools.Core
                 {
                     _ticketId = test.ToString();
                 }
-                return _ticketId; 
+                return _ticketId;
                 // Can still be null, if noone set it during the exception handling chain
             }
             set { _ticketId = value; }
@@ -86,7 +87,8 @@ namespace Tools.Core
         /// Initializes a new instance of the <see cref="BaseException"/> class.
         /// </summary>
         /// <param name="loggingEventID">The logging event ID.</param>
-        public BaseException(int loggingEventID) : base() 
+        public BaseException(int loggingEventID)
+            : base()
         {
             this._loggingEventID = loggingEventID;
         }
@@ -95,7 +97,8 @@ namespace Tools.Core
         /// </summary>
         /// <param name="message">The message.</param>
         public BaseException(string message) : base(message) { }
-        public BaseException(int loggingEventID, string message) : base(message) 
+        public BaseException(int loggingEventID, string message)
+            : base(message)
         {
             this._loggingEventID = loggingEventID;
         }
@@ -113,11 +116,34 @@ namespace Tools.Core
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
         public BaseException(int loggingEventID, string message, Exception innerException)
-            : base(message, innerException) 
+            : base(message, innerException)
         {
             this._loggingEventID = loggingEventID;
         }
-
+        public BaseException
+            (
+            int eventId,
+            ContextIdentifier contextIdentifier,
+                        string details,
+            Exception innerException
+            )
+            : base(details, innerException)
+        {
+            this._loggingEventID = eventId;
+            this._contextIdentifier = contextIdentifier;
+        }
+        public BaseException
+    (
+    Enum eventId,
+    ContextIdentifier contextIdentifier,
+                string details,
+    Exception innerException
+    )
+            : base(details, innerException)
+        {
+            this._loggingEventID = Convert.ToInt32(eventId);
+            this._contextIdentifier = contextIdentifier;
+        }
         #endregion
 
         #region Static methods
@@ -133,11 +159,11 @@ namespace Tools.Core
 
             BaseException be = ex as BaseException;
 
-            if (be == null) 
+            if (be == null)
                 return ex.Data["TicketId"] as string;
 
             return be.TicketId;
-        } 
+        }
         #endregion
 
         #region ISerializable implementation
@@ -154,7 +180,7 @@ namespace Tools.Core
         public override string ToString()
         {
             string messagesDump = null;
-            this.Messages.ForEach(delegate(Tools.Core.Messaging.Message m){messagesDump += m.Text;});
+            this.Messages.ForEach(delegate(Tools.Core.Messaging.Message m) { messagesDump += m.Text; });
             return base.ToString() + Environment.NewLine + messagesDump;
         }
     }
