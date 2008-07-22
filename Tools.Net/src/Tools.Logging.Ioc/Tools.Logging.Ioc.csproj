@@ -33,11 +33,11 @@
   <ItemGroup>
     <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Common.Logging.dll</HintPath>
+      <HintPath>..\..\External\Spring.Net\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Spring.Core.dll</HintPath>
+      <HintPath>..\..\External\Spring.Net\Spring.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
