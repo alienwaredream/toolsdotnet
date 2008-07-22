@@ -16,7 +16,7 @@ namespace Tools.Core.Messaging
     [Serializable()]
     public class Message : ICloneable
     {
-        #region Globals
+        #region Fields
 
         private int _id;
         private string _name;
