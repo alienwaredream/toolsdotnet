@@ -51,3 +51,7 @@ If you use VB.NET you'll have to have vb compiler configured inside the system.c
           <providerOption name="WarnAsError" value="false"/>
         </compiler>
 }}}
+
+=references=
+ASP.NET trace, core and customizations
+http://msdn.microsoft.com/en-us/magazine/cc163927.aspx
