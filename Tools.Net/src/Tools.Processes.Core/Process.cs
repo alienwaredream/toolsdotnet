@@ -8,7 +8,7 @@ namespace Tools.Processes.Core
 	/// </summary>
 	public abstract class Process : MarshalByRefObject, IProcess, IDisposable
 	{
-		#region Global Declarations
+		#region Fields
 
 		private string name;
 		private string description;
@@ -23,7 +23,7 @@ namespace Tools.Processes.Core
         private ManualResetEvent _completedEvent =
             new ManualResetEvent(false);
 
-		#endregion Global Declarations
+		#endregion Fields
 		
 		#region Constructors
 
