@@ -10,7 +10,7 @@ namespace Tools.Processes.Core
 	/// </summary>
 	public abstract class ThreadedProcess : Process
 	{
-		#region Global declarations
+		#region Fields
 
 		private Thread							_workingThread = null;
 		private ManualResetEvent				_selfSuspendEvent = 
@@ -19,7 +19,7 @@ namespace Tools.Processes.Core
 		private ManualResetEvent					_operationReset = new
 			ManualResetEvent(false);
 
-		#endregion Global declarations
+		#endregion Fields
 
 		#region Constructors
 

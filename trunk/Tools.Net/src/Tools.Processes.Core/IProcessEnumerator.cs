@@ -8,7 +8,7 @@ namespace Tools.Processes.Core
 	public class IProcessEnumerator : object, IEnumerator 
 	{
             
-		#region Global declarations
+		#region Fields
            
 		private IEnumerator baseEnumerator;
 		private IEnumerable temp;
