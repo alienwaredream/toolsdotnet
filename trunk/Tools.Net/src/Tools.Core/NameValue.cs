@@ -12,7 +12,7 @@ namespace Tools.Core
 	[Serializable]
 	public class NameValue<TKey, TValue>
 	{
-		#region Global declarations
+		#region Fields
 
         private TKey _name;
         private TValue _value;
