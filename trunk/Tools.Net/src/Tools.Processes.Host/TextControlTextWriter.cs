@@ -18,6 +18,8 @@ namespace Tools.Processes.Host
         //private int logLength = 0;
         private StringBuilder sb = new StringBuilder();
         private Regex descriptionRegex;
+
+        public bool Enabled { get; set; }
         
 
         public void SetDescriptionRegexString(string pattern)
@@ -36,10 +38,13 @@ namespace Tools.Processes.Host
         public TextControlTextWriter(ListView viewControl, string descriptionPattern)
         {
             this.viewControl = viewControl;
+            Enabled = true;
             descriptionRegex = new Regex(descriptionPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
         private void AddControlText(string text)
         {
+            if (!Enabled) return;
+
             if (String.IsNullOrEmpty(text)) return;
 
             Match match = descriptionRegex.Match(text);

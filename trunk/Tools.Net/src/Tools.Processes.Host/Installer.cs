@@ -84,7 +84,7 @@ namespace Tools.Processes.Host
 
             
             
-            Configuration config = ConfigurationManager.OpenExeConfiguration(
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(
                 installSource);
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             //TODO: (SD) Check if there is a null or exception for the non-existing config (as returns from machine anyway!)

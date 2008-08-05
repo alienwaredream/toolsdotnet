@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Tools.Processes;
 using System.Security;
 using Tools.Processes.Core;
+using System.IO;
 
 namespace Tools.Processes.Host
 {
@@ -20,6 +21,9 @@ namespace Tools.Processes.Host
         string[] startArguments;
         ConsoleTraceListener traceListener;
         private string descriptionRegexString;
+        private bool logConnected = true;
+
+        private TextControlTextWriter logTextWriter;
 
         /// <summary>
         /// Gets the main tab control.
@@ -62,8 +66,9 @@ namespace Tools.Processes.Host
             //SetProcessControlButtons(true);
             try
             {
-                Console.SetOut(new TextControlTextWriter(this.outputListView, 
-                    Tools.Processes.Host.Properties.Settings.Default.DescriptionRegex));
+                logTextWriter = new TextControlTextWriter(this.outputListView,
+                    Tools.Processes.Host.Properties.Settings.Default.DescriptionRegex);
+                Console.SetOut(logTextWriter);
                 //Trace.Listeners.Add(new ConsoleTraceListener(false));
             }
             catch (SecurityException ex)
@@ -207,7 +212,7 @@ namespace Tools.Processes.Host
 
         private void applyRegexToolStripButton_Click(object sender, EventArgs e)
         {
-
+            logTextWriter.SetDescriptionRegexString(regexToolStripTextBox.Text);
         }
 
         private void ProcessForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -224,6 +229,13 @@ namespace Tools.Processes.Host
         private void ProcessForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void pauseLogStripButton_Click(object sender, EventArgs e)
+        {
+            logConnected = !logConnected;
+            pauseLogStripButton.Text = (logConnected) ? "Disconnect Log" : "Connect Log";
+            logTextWriter.Enabled = logConnected;
         }
     }
 }
