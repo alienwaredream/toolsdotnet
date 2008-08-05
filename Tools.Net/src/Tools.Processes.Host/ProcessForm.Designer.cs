@@ -42,6 +42,8 @@ namespace Tools.Processes.Host
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.traceShutdownToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.traceShutdownToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.traceShutdownDurationScToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.outputSplitContainer = new System.Windows.Forms.SplitContainer();
             this.outputListView = new System.Windows.Forms.ListView();
             this.descriptionColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -50,8 +52,7 @@ namespace Tools.Processes.Host
             this.startProcessButton = new System.Windows.Forms.Button();
             this.stopProcessButton = new System.Windows.Forms.Button();
             this.connectTracesCheckBox = new System.Windows.Forms.CheckBox();
-            this.traceShutdownDurationScToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.pauseLogStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainTabControl.SuspendLayout();
             this.logTabPage.SuspendLayout();
             this.outputToolStrip.SuspendLayout();
@@ -68,7 +69,7 @@ namespace Tools.Processes.Host
             this.setupPropertyGrid.Location = new System.Drawing.Point(3, 3);
             this.setupPropertyGrid.Name = "setupPropertyGrid";
             this.setupPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.setupPropertyGrid.Size = new System.Drawing.Size(711, 257);
+            this.setupPropertyGrid.Size = new System.Drawing.Size(820, 257);
             this.setupPropertyGrid.TabIndex = 0;
             // 
             // debugButton
@@ -115,6 +116,7 @@ namespace Tools.Processes.Host
             this.applyRegexToolStripButton,
             this.toolStripSeparator1,
             this.clearLogToolStripButton,
+            this.pauseLogStripButton,
             this.toolStripSeparator2,
             this.traceShutdownToolStripLabel,
             this.traceShutdownToolStripTextBox,
@@ -129,7 +131,7 @@ namespace Tools.Processes.Host
             // regexToolStripLabel
             // 
             this.regexToolStripLabel.Name = "regexToolStripLabel";
-            this.regexToolStripLabel.Size = new System.Drawing.Size(104, 22);
+            this.regexToolStripLabel.Size = new System.Drawing.Size(98, 22);
             this.regexToolStripLabel.Text = "Description Regex:";
             // 
             // regexToolStripTextBox
@@ -145,7 +147,7 @@ namespace Tools.Processes.Host
             this.applyRegexToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("applyRegexToolStripButton.Image")));
             this.applyRegexToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.applyRegexToolStripButton.Name = "applyRegexToolStripButton";
-            this.applyRegexToolStripButton.Size = new System.Drawing.Size(76, 22);
+            this.applyRegexToolStripButton.Size = new System.Drawing.Size(72, 22);
             this.applyRegexToolStripButton.Text = "Apply Regex";
             this.applyRegexToolStripButton.Click += new System.EventHandler(this.applyRegexToolStripButton_Click);
             // 
@@ -161,7 +163,7 @@ namespace Tools.Processes.Host
             this.clearLogToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("clearLogToolStripButton.Image")));
             this.clearLogToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearLogToolStripButton.Name = "clearLogToolStripButton";
-            this.clearLogToolStripButton.Size = new System.Drawing.Size(38, 22);
+            this.clearLogToolStripButton.Size = new System.Drawing.Size(36, 22);
             this.clearLogToolStripButton.Text = "Clear";
             this.clearLogToolStripButton.Click += new System.EventHandler(this.clearLogToolStripButton_Click);
             // 
@@ -173,7 +175,7 @@ namespace Tools.Processes.Host
             // traceShutdownToolStripLabel
             // 
             this.traceShutdownToolStripLabel.Name = "traceShutdownToolStripLabel";
-            this.traceShutdownToolStripLabel.Size = new System.Drawing.Size(114, 22);
+            this.traceShutdownToolStripLabel.Size = new System.Drawing.Size(106, 22);
             this.traceShutdownToolStripLabel.Text = "Trace Shutdown for:";
             // 
             // traceShutdownToolStripTextBox
@@ -181,6 +183,17 @@ namespace Tools.Processes.Host
             this.traceShutdownToolStripTextBox.Name = "traceShutdownToolStripTextBox";
             this.traceShutdownToolStripTextBox.Size = new System.Drawing.Size(30, 25);
             this.traceShutdownToolStripTextBox.Text = global::Tools.Processes.Host.Properties.Settings.Default.TraceShutdownDurationSc;
+            // 
+            // traceShutdownDurationScToolStripLabel
+            // 
+            this.traceShutdownDurationScToolStripLabel.Name = "traceShutdownDurationScToolStripLabel";
+            this.traceShutdownDurationScToolStripLabel.Size = new System.Drawing.Size(17, 22);
+            this.traceShutdownDurationScToolStripLabel.Text = "sc";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // outputSplitContainer
             // 
@@ -242,7 +255,7 @@ namespace Tools.Processes.Host
             this.setupInfoTabPage.Location = new System.Drawing.Point(4, 22);
             this.setupInfoTabPage.Name = "setupInfoTabPage";
             this.setupInfoTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.setupInfoTabPage.Size = new System.Drawing.Size(717, 263);
+            this.setupInfoTabPage.Size = new System.Drawing.Size(826, 263);
             this.setupInfoTabPage.TabIndex = 0;
             this.setupInfoTabPage.Text = "Info";
             this.setupInfoTabPage.UseVisualStyleBackColor = true;
@@ -281,16 +294,15 @@ namespace Tools.Processes.Host
             this.connectTracesCheckBox.UseVisualStyleBackColor = true;
             this.connectTracesCheckBox.CheckedChanged += new System.EventHandler(this.connectTracesCheckBox_CheckedChanged);
             // 
-            // traceShutdownDurationScToolStripLabel
+            // pauseLogStripButton
             // 
-            this.traceShutdownDurationScToolStripLabel.Name = "traceShutdownDurationScToolStripLabel";
-            this.traceShutdownDurationScToolStripLabel.Size = new System.Drawing.Size(18, 22);
-            this.traceShutdownDurationScToolStripLabel.Text = "sc";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.pauseLogStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.pauseLogStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pauseLogStripButton.Image")));
+            this.pauseLogStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pauseLogStripButton.Name = "pauseLogStripButton";
+            this.pauseLogStripButton.Size = new System.Drawing.Size(83, 22);
+            this.pauseLogStripButton.Text = "Disconnect Log";
+            this.pauseLogStripButton.Click += new System.EventHandler(this.pauseLogStripButton_Click);
             // 
             // ProcessForm
             // 
@@ -345,5 +357,6 @@ namespace Tools.Processes.Host
         private System.Windows.Forms.ToolStripTextBox traceShutdownToolStripTextBox;
         private System.Windows.Forms.ToolStripLabel traceShutdownDurationScToolStripLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton pauseLogStripButton;
     }
 }
