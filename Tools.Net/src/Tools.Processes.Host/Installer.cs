@@ -97,7 +97,7 @@ namespace Tools.Processes.Host
             {
                 throw new ConfigurationErrorsException(
                     String.Format("Configuration error. Expected section {0} not found or doesn't contain mandatory items:  {1} ",
-                    this.GetType().FullName, "name, displayName, description"),
+                    typeof(Tools.Processes.Host.Installer).FullName, "name, displayName, description"),
                     config.FilePath,
                     0);
             }
