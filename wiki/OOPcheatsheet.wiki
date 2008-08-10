@@ -32,7 +32,7 @@ http://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networke
 
 = Concepts =
 
-= Most important properties of OO =
+= Most important concepts of OO =
 As provided by Page Mielier Jones
 (TBD)
 
