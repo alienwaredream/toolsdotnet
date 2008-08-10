@@ -58,5 +58,8 @@ As provided by Page Mielier Jones
 == Dependency Injection (Inversion of control) ==
 
 == Assigning responsibilities ==
+=== Creator ===
+=== Knowledge Expert ===
+=== Pure fabrication ===
 
   
