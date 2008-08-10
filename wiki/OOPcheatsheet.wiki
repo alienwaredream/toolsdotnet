@@ -14,7 +14,15 @@ _I put this book on top as I believe it gave me at the time the best overview of
 http://www.amazon.com/Object-Oriented-Analysis-Applications-Addison-Wesley-Technology/dp/020189551X/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218393901&sr=1-1
 * Object Oriented Software Construction* (Bertrand Meyer) 
 http://www.amazon.com/Object-Oriented-Software-Construction-Prentice-Hall-International/dp/0136291554/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218394084&sr=1-1 
-
+*Agile Principles, Patterns and Practices in C#* (Robert C. Martin)
+http://www.amazon.com/Principles-Patterns-Practices-Robert-Martin/dp/0131857258/ref=pd_bbs_sr_3?ie=UTF8&s=books&qid=1218394574&sr=1-3
+*Applying UML and Patterns* (Graig Larman)
+http://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218394650&sr=1-1
+*Design patterns* (Erich Gamma)
+http://www.amazon.com/Design-Patterns-Object-Oriented-Addison-Wesley-Professional/dp/0201633612/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218394843&sr=1-1
+*Patterns oriented software architecture* (Douglas Schmidt) 
+http://www.amazon.com/Pattern-Oriented-Software-Architecture-System-Patterns/dp/0471958697/ref=sr_1_1?ie=UTF8&s=books&qid=1218394916&sr=1-1
+http://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networked/dp/0471606952/ref=pd_bxgy_b_text_b
 = Most important properties of OO =
 As provided by Page Mielier Jones
 (TBD)
