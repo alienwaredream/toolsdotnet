@@ -1,0 +1,29 @@
+#summary OOP and OOD cheat sheet
+
+= Introduction =
+
+Over the time I see interpretation of concepts and idioms to become quite overloaded.
+I tend to forget subtlities of the definitions and yet I want to have them handy.
+Disclaimer: The contents of the cheat sheet is built in the way to ring mine bells.
+
+= Books =
+*Fundamentals of object oriented design and UML* (Meilir Page-Jones)
+http://www.amazon.com/Fundamentals-Object-Oriented-Design-Addison-Wesley-Technology/dp/020169946X
+_I put this book on top as I believe it gave me at the time the best overview of OO principles. I used to be based on Booch's and Bertrand Meyer's books, but this one was a breath of a fresh air, trully._
+*Object Oriented Analisys and Desing with Applications* (Grady Booch)
+http://www.amazon.com/Object-Oriented-Analysis-Applications-Addison-Wesley-Technology/dp/020189551X/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218393901&sr=1-1
+*Object Oriented Software Construction* (Bertrand Meyer)
+http://www.amazon.com/Object-Oriented-Software-Construction-Prentice-Hall-International/dp/0136291554/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1218394084&sr=1-1
+
+= Most important properties of OO =
+As provided by Page Mielier Jones
+(TBD)
+
+= Concepts =
+
+= Idioms =
+
+= Design methods =
+
+= Principles = 
+
