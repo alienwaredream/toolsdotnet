@@ -30,14 +30,33 @@ http://www.amazon.com/Design-Patterns-Object-Oriented-Addison-Wesley-Professiona
 http://www.amazon.com/Pattern-Oriented-Software-Architecture-System-Patterns/dp/0471958697/ref=sr_1_1?ie=UTF8&s=books&qid=1218394916&sr=1-1
 http://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networked/dp/0471606952/ref=pd_bxgy_b_text_b
 
+= Concepts =
+
 = Most important properties of OO =
 As provided by Page Mielier Jones
 (TBD)
 
-= Concepts =
+
+= Principles = 
+
+== The Single Responsibility Principle ==
+
+== The Open/Closed Principle ==
+
+== The Liskov Substitution principle ==
+
+== The Dependency Inversion Principle ==
+
+== The Interface Segregation Principle ==
+
+
 
 = Idioms =
 
-= Design methods =
+= Methods =
 
-= Principles = 
+== Dependency Injection (Inversion of control) ==
+
+== Assigning responsibilities ==
+
+  
