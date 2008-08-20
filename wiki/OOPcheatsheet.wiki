@@ -58,7 +58,7 @@ B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTR
 
 = Idioms =
 
-= Methods =
+= Methods/Approaches =
 
 == Dependency Injection (Inversion of control) ==
 
@@ -71,5 +71,23 @@ _Between points to note is that application of dependency inversion preceeds ver
 
 == Design for testability ==
 
+== Contract First Design (Design by contract)  ==
+An approach to designing computer software. It prescribes that software designers should define precise verifiable interface specifications for software components based upon the theory of abstract data types and the conceptual metaphor of a business contract.
 
+One could summarize design by contract by the "three questions" that the designer must repeatedly ask:
+
+What does it expect? 
+What does it guarantee? 
+What does it maintain? 
+
+The notion of a contract extends down to the method/procedure level; the contract for each method will normally contain the following pieces of information:
+
+Acceptable and unacceptable input values or types, and their meanings 
+Return values or types, and their meanings 
+Error and exception conditions values or types, that can occur, and their meanings 
+Side effects 
+Preconditions, which subclasses may weaken (but not strengthen) 
+Postconditions, which subclasses may strengthen (but not weaken) 
+Invariants, which subclasses may strengthen (but not weaken) 
+(more rarely) Performance guarantees, e.g. for time or space used 
   
