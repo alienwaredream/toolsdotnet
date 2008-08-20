@@ -46,6 +46,9 @@ As provided by Page Mielier Jones
 == The Liskov Substitution principle ==
 
 == The Dependency Inversion Principle ==
+A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPEND UPON ABSTRACTIONS.
+B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTRACTIONS.
+[http://www.objectmentor.com/resources/articles/dip.pdf original article]
 
 == The Interface Segregation Principle ==
 
