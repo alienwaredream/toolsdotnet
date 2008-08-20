@@ -60,6 +60,8 @@ B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTR
 
 == Dependency Injection (Inversion of control) ==
 
+_Between points to note is that application of dependency inversion preceeds very often dependency injection, preparing the right ground for dependency injection application._
+
 == Assigning responsibilities ==
 === Creator ===
 === Knowledge Expert ===
