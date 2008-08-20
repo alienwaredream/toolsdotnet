@@ -71,7 +71,8 @@ _Between points to note is that application of dependency inversion preceeds ver
 
 == Design for testability ==
 
-== Contract First Design (Design by contract)  ==
+== Design/Programming by contract ==
+*Not to be interchanged with the "Contract First Design"* _Read [http://static.springframework.org/spring-ws/sites/1.5/reference/html/why-contract-first.html here] on the "Contract First" _
 An approach to designing computer software. It prescribes that software designers should define precise verifiable interface specifications for software components based upon the theory of abstract data types and the conceptual metaphor of a business contract.
 
 One could summarize design by contract by the "three questions" that the designer must repeatedly ask:
