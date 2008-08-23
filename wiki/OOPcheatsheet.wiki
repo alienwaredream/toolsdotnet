@@ -44,6 +44,14 @@ As provided by Page Mielier Jones
 == The Open/Closed Principle ==
 
 == The Liskov Substitution principle ==
+[http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor:] FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
+
+The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first
+wrote it as follows nearly 8 years ago 
+1:What is wanted here is something like the following substitution property: If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o
+1 is substituted for o2 then S is a subtype of T.
+
+
 
 == The Dependency Inversion Principle ==
 A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPEND UPON ABSTRACTIONS.
