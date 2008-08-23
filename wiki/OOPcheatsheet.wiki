@@ -62,7 +62,9 @@ B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTR
 
 == The Interface Segregation Principle ==
 
+[http://www.objectmentor.com/resources/articles/isp.pdf Objectmentor]: 
 
+CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE.
 
 = Idioms =
 
