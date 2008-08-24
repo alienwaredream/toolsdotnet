@@ -39,11 +39,11 @@ As provided by Page Mielier Jones
 
 = Principles = 
 
-== The Single Responsibility Principle ==
+== The Single Responsibility Principle (SRP)==
 
-== The Open/Closed Principle ==
+== The Open/Closed Principle (OCP)==
 
-== The Liskov Substitution principle ==
+== The Liskov Substitution principle (LSP)==
 [http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor:] FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
 
 The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first
@@ -105,7 +105,7 @@ The notion of a contract extends down to the method/procedure level; the contrac
 
 Source - [http://en.wikipedia.org/wiki/Design_by_contract Wikipedia]  
 
-= Related to OOP concepts =
+= Jargon =
 
 ==YAGNI==
 "You Ain't Gonna Need It" [http://en.wikipedia.org/wiki/You_Ain't_Gonna_Need_It Wikipedia]
