@@ -117,11 +117,11 @@ For the full list of terms refer to [http://en.wikipedia.org/wiki/List_of_object
 
 A helper to remember at this stage would be KYD (K[iss] Y[agni] D[ry]).
 
+==KISS==
+"Keep It Simple, Stupid!" [http://en.wikipedia.org/wiki/KISS_principle Wikipedia]
+
 ==YAGNI==
 "You Ain't Gonna Need It" [http://en.wikipedia.org/wiki/You_Ain't_Gonna_Need_It Wikipedia]
 
 ==DRY==
 "Don't Repeat Youself" [http://en.wikipedia.org/wiki/Don%27t_repeat_yourself Wikipedia]
-
-==KISS==
-"Keep It Simple, Stupid!" [http://en.wikipedia.org/wiki/KISS_principle Wikipedia]
