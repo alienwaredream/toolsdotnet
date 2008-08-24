@@ -103,4 +103,15 @@ The notion of a contract extends down to the method/procedure level; the contrac
 * Invariants, which subclasses may strengthen (but not weaken) 
 * (more rarely) Performance guarantees, e.g. for time or space used 
 
-Source - Wikipedia: [http://en.wikipedia.org/wiki/Design_by_contract]  
+Source - [http://en.wikipedia.org/wiki/Design_by_contract Wikipedia]  
+
+= Related to OOP concepts =
+
+==YAGNI==
+"You Ain't going need it" [http://en.wikipedia.org/wiki/You_Ain't_Gonna_Need_It Wikipedia]
+
+==DRY==
+"Don't repeat youself" [http://en.wikipedia.org/wiki/Don%27t_repeat_yourself Wikipedia]
+
+==KISS==
+"Keep It Simple, Stupid!" [http://en.wikipedia.org/wiki/KISS_principle Wikipedia]
