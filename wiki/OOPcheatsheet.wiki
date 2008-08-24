@@ -42,7 +42,7 @@ For this one I don't like [http://en.wikipedia.org/wiki/Object-oriented_programm
 ==Combining state and behaviour==
 
 
-I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] is a quite wild mix of concepts, mechanisms and implementation principles put onto one list.
+I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] is a quite wild mix of concepts (class, object), mechanisms (method, inheritance) and design principles (abstraction, decoupling) flushed onto one list.
 
 = Principles = 
 
