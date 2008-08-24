@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Over the time I see interpretation of concepts and idioms to become quite overloaded.
+Over time I see interpretation of concepts and idioms to become quite overloaded.
 I tend to forget subtlities of the definitions and yet I want to have them handy.
 Disclaimer: The contents of the cheat sheet is built in the way to ring mine bells.
 
