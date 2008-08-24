@@ -30,14 +30,17 @@ http://www.amazon.com/Design-Patterns-Object-Oriented-Addison-Wesley-Professiona
 http://www.amazon.com/Pattern-Oriented-Software-Architecture-System-Patterns/dp/0471958697/ref=sr_1_1?ie=UTF8&s=books&qid=1218394916&sr=1-1
 http://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networked/dp/0471606952/ref=pd_bxgy_b_text_b
 
-= Concepts =
-
 = Most important concepts of OO =
 For this one I don't like [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] definition at all. Meilir Page-Jones is my trusted reference source for this:
-Encapsulation
-Polymorphism
-Identity
-Combining state and behaviour
+
+==Encapsulation==
+
+==Polymorphism==
+
+==Identity==
+
+==Combining state and behaviour==
+
 
 I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] is a quite wild mix of concepts, mechanisms and implementation principles put onto one list.
 
