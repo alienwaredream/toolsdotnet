@@ -115,6 +115,8 @@ Source - [http://en.wikipedia.org/wiki/Design_by_contract Wikipedia]
 = Jargon and terms =
 For the full list of terms refer to [http://en.wikipedia.org/wiki/List_of_object-oriented_programming_terms Wikipedia]. I only provide here "jargon" terms that are used quite often in the community.
 
+A helper to remember at this stage would be KYD (K[iss] Y[agni] D[ry]).
+
 ==YAGNI==
 "You Ain't Gonna Need It" [http://en.wikipedia.org/wiki/You_Ain't_Gonna_Need_It Wikipedia]
 
