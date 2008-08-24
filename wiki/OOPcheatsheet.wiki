@@ -33,9 +33,13 @@ http://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networke
 = Concepts =
 
 = Most important concepts of OO =
-As provided by Page Mielier Jones
-(TBD)
+For this one I don't like [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] definition at all. Meilir Page-Jones is my trusted reference source for this:
+Encapsulation
+Polymorphism
+Identity
+Combining state and behaviour
 
+I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented_programming Wikipedia] is a quite wild mix of concepts, mechanisms and implementation principles put onto one list.
 
 = Principles = 
 
