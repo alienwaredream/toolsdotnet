@@ -5,7 +5,7 @@
 
 Over time I see interpretation of concepts and idioms to become quite overloaded.
 I tend to forget subtlities of the definitions and yet I want to have them handy.
-Disclaimer: The contents of the cheat sheet is built in the way to ring mine bells.
+Disclaimer: The contents of the cheat sheet is built in the way to ring mine bells, yours might need a different frequency :).
 
 = Books =
 * Fundamentals of object oriented design and UML* (Meilir Page-Jones)
@@ -99,7 +99,9 @@ CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE.
 
 == Dependency Injection (Inversion of control) ==
 
-_Between points to note is that application of dependency inversion preceeds very often dependency injection, preparing the right ground for dependency injection application._
+[http://martinfowler.com/articles/injection.html Martin Fowler]: _In the Java community there's been a rush of lightweight containers that help to assemble components from different projects into a cohesive application. Underlying these containers is a common pattern to how they perform the wiring, a concept they refer under the very generic name of "Inversion of Control". In this article I dig into how this pattern works, under the more specific name of "Dependency Injection", and contrast it with the Service Locator alternative. The choice between them is less important than the principle of separating configuration from use._
+
+Between points to note is that application of dependency inversion preceeds very often dependency injection, preparing the right ground for dependency injection application.
 
 == Assigning responsibilities ==
 === Creator ===
