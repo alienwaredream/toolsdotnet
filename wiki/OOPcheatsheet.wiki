@@ -1,4 +1,4 @@
-#summary OOP and OOD cheatsheet
+#summary OOP cheatsheet
 #labels oop
 
 = Introduction =
