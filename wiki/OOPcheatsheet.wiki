@@ -47,11 +47,21 @@ I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented
 = Principles = 
 
 == The Single Responsibility Principle (SRP)==
+[http://www.objectmentor.com/resources/articles/srp.pdf Objectmentor]:
+THERE SHOULD NEVER BE MORE THAN ONE REASON FOR A CLASS TO CHANGE.
+"... each responsibility is an axis of change. When the requirements change, that
+change will be manifest through a change in responsibility amongst the classes. If a class
+assumes more than one responsibility, then there will be more than one reason for it to
+change.
+If a class has more then one responsibility, then the responsibilities become coupled.
+Changes to one responsibility may impair or inhibit the class’ ability to meet the others.
+This kind of coupling leads to fragile designs that break in unexpected ways when
+changed."
 
 == The Open/Closed Principle (OCP)==
 
 == The Liskov Substitution principle (LSP)==
-[http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor:] FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
+[http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor]: FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
 
 The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first
 wrote it as follows nearly 8 years ago 
