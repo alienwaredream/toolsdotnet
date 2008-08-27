@@ -74,10 +74,10 @@ modules by adding new code, not by changing old code that already works."
 == The Liskov Substitution principle (LSP)==
 [http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor]: FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
 
-The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first
+"... The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first
 wrote it as follows nearly 8 years ago 
 
-_What is wanted here is something like the following substitution property: If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o1 is substituted for o2 then S is a subtype of T._
+_What is wanted here is something like the following substitution property: If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o1 is substituted for o2 then S is a subtype of T._"
 
 The classic example used in object mentor document is a rectangle and a square. One should be able to answer if square is a correct subtype of a rectangle or not (same can be ellipse and circle).
 
