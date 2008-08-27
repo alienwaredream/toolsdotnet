@@ -1,4 +1,5 @@
 #summary OOP and OOD cheatsheet
+#labels oop
 
 = Introduction =
 
@@ -49,6 +50,7 @@ I believe that what is provided by [http://en.wikipedia.org/wiki/Object-oriented
 == The Single Responsibility Principle (SRP)==
 [http://www.objectmentor.com/resources/articles/srp.pdf Objectmentor]:
 THERE SHOULD NEVER BE MORE THAN ONE REASON FOR A CLASS TO CHANGE.
+
 "... each responsibility is an axis of change. When the requirements change, that
 change will be manifest through a change in responsibility amongst the classes. If a class
 assumes more than one responsibility, then there will be more than one reason for it to
@@ -59,6 +61,15 @@ This kind of coupling leads to fragile designs that break in unexpected ways whe
 changed."
 
 == The Open/Closed Principle (OCP)==
+[http://www.objectmentor.com/resources/articles/ocp.pdf Objectmentor]:
+SOFTWARE ENTITIES (CLASSES, MODULES, FUNCTIONS, ETC.) SHOULD BE OPEN FOR EXTENSION, BUT CLOSED FOR MODIFICATION.
+
+"... When a single change to a program results in a cascade of changes to dependent modules,
+that program exhibits the undesirable attributes that we have come to associate with “bad”
+design. The program becomes fragile, rigid, unpredictable and unreusable. The openclosed
+principle attacks this in a very straightforward way. It says that you should design
+modules that never change. When requirements change, you extend the behavior of such
+modules by adding new code, not by changing old code that already works."
 
 == The Liskov Substitution principle (LSP)==
 [http://www.objectmentor.com/resources/articles/lsp.pdf Objectmentor]: FUNCTIONS THAT USE POINTERS OR REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
