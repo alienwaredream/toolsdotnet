@@ -148,3 +148,6 @@ A helper to remember at this stage would be KYD (K[iss] Y[agni] D[ry]).
 
 This is the one where again I'm pretty puzzled by the weakness of the Wikipedia's defintion. The guy saying that DRY is only about the artifacts other than code and OAOO (Once And Only Once)is about the code, did he/she read the book carefuly?
 DRY is about any ill minded repetion, read the interview with the "Pragmatic programmer" author if you don't have his book on a bookshelf to judge for yourself [http://www.artima.com/intv/dry.html]
+
+=Bad smells=
+==Connascence of algorithm==
