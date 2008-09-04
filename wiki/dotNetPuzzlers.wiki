@@ -1,0 +1,18 @@
+#summary c# and .NET puzzles to ring the knowledge bell
+
+Mainly based on Jeffrey Richter's "clr via c#".
+
+== Working with types ==
+=== Boxing/Unboxing ===
+Given the following code:
+{{{
+public static Main(){
+Int32 v = 5;
+Object o = v;
+v = 123;
+
+Console.WriteLine(v + "," + (Int32)o);
+}}}
+
+What is the output? How many boxing operations occurred in this code?
+
