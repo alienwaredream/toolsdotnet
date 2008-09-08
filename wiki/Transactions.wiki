@@ -1,0 +1,1 @@
+John Papa, ADO.NET and transactions - [http://msdn.microsoft.com/en-us/magazine/cc163847.aspx]
