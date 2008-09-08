@@ -13,3 +13,6 @@ When setting source programaticaly pay attention to setting the Switch.Level to 
  source.Listeners.Add(new ConsoleTraceListener());
  source.Switch.Level = SourceLevels.All; // Set required level here
 }}}
+
+= References =
+John Robbins on .NET 2.0 logging [http://msdn.microsoft.com/en-us/magazine/cc163767.aspx]
