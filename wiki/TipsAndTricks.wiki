@@ -23,14 +23,11 @@ Description:
 
 Parameter List:
     /P    pathname      Indicates the path to start searching.
-                        The default folder is the current working
-                        directory (.).
+                        The default folder is the current working directory (.).
 
-    /M    searchmask    Searches files according to a searchmask.
-                        The default searchmask is '*' .
+    /M    searchmask    Searches files according to a searchmask. The default searchmask is '*' .
 
-    /S                  Instructs forfiles to recurse into
-                        subdirectories. Like "DIR /S".
+    /S                  Instructs forfiles to recurse into subdirectories. Like "DIR /S".
 
     /C    command       Indicates the command to execute for each file.
                         Command strings should be wrapped in double
@@ -38,24 +35,17 @@ Parameter List:
 
                         The default command is "cmd /c echo @file".
 
-                        The following variables can be used in the
-                        command string:
+                        The following variables can be used in the command string:
                         @file    - returns the name of the file.
-                        @fname   - returns the file name without
-                                   extension.
-                        @ext     - returns only the extension of the
-                                   file.
+                        @fname   - returns the file name without extension.
+                        @ext     - returns only the extension of the file.
                         @path    - returns the full path of the file.
-                        @relpath - returns the relative path of the
-                                   file.
+                        @relpath - returns the relative path of the file.
                         @isdir   - returns "TRUE" if a file type is
                                    a directory, and "FALSE" for files.
-                        @fsize   - returns the size of the file in
-                                   bytes.
-                        @fdate   - returns the last modified date of the
-                                   file.
-                        @ftime   - returns the last modified time of the
-                                   file.
+                        @fsize   - returns the size of the file in bytes.
+                        @fdate   - returns the last modified date of the file.
+                        @ftime   - returns the last modified time of the file.
 
                         To include special characters in the command
                         line, use the hexadecimal code for the character
