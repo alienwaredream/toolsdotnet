@@ -13,7 +13,7 @@ Don't look for it on you XP machine. By default is present though on server syst
 forfiles /p [Path] /s /m *.* /d -3 /c "cmd /c del @file : date >= 3 days"
 
 official help:
-
+-----
 FORFILES [/P pathname] [/M searchmask] [/S]
          [/C command] [/D [+ | -] {MM/dd/yyyy | dd}]
 
@@ -90,3 +90,4 @@ Examples:
     FORFILES /M *.exe /D +1
     FORFILES /S /M *.doc /C "cmd /c echo @fsize"
     FORFILES /M *.txt /C "cmd /c if @isdir==FALSE notepad.exe @file"
+----
