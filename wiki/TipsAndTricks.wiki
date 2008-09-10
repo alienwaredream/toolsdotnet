@@ -1,0 +1,8 @@
+== How to register vs 2008/9 environment variables ==
+So you can execute then gacutil, ildasm whatever without providing a path. I guess this is just what VS Command Line does, but never had a time to look. Sample from the Tess's blog:
+-----
+CALL "%VS90COMNTOOLS%\vsvars32.bat" > NULL 
+gacutil.exe /if "$(TargetPath)"
+ 
+this will add the assembly to the GAC when you build.  Note that on 2005 you would have to change the path to be %VS80COMNTOOLS% rather than %VS90COMNTOOLS%
+-----
