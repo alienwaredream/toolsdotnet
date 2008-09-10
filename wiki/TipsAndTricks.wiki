@@ -25,7 +25,7 @@ Parameter List:
     /P    pathname      Indicates the path to start searching.
                         The default folder is the current working directory (.).
 
-    /M    searchmask    Searches files according to a searchmask. The default searchmask is '*' .
+    /M    searchmask    Searches files according to a searchmask. The default searchmask is '**'.
 
     /S                  Instructs forfiles to recurse into subdirectories. Like "DIR /S".
 
