@@ -81,3 +81,9 @@ Examples:
     FORFILES /S /M *.doc /C "cmd /c echo @fsize"
     FORFILES /M *.txt /C "cmd /c if @isdir==FALSE notepad.exe @file"
 ----
+
+== Using telnet to verify if port is open, host is available ==
+If connection succeeded a black window is open to send data on.
+----
+telnet host port
+----
