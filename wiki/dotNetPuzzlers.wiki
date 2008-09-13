@@ -1,6 +1,15 @@
 #summary c# and .NET puzzles to ring the knowledge bell
 
-Mainly based on Jeffrey Richter's "clr via c#".
+== Assemblies and packaging ==
+*  How to pack multiple modules in the single assembly?
+*  What is the assembly manifest?
+*  What is weakly named assembly and what is a strong named assembly?
+*  What is part of the assembly's strong name?
+Can the strong named assembly refer to the weakly named assembly?
+What if two assemblies have the same public key token?
+Describe the sequence in which strong named assembly is probed for? Weakly named?
+Why and when publisher policy is used? How to override a publisher policy for a selected assembly?
+
 
 == Working with types ==
 === Boxing/Unboxing ===
@@ -15,4 +24,31 @@ Console.WriteLine(v + "," + (Int32)o);
 }}}
 
 What is the output? How many boxing operations occurred in this code?
+
+=== Virtual methods ===
+What is the difference between IL's *call* and *callvirt*?
+What is the overhead involved in calling IL's *callvirt*?
+What does it mean to call a virtual method non-virtually?
+
+== Interfaces and Contracts ==
+Explain design by contract
+Explain Dependency Inversion principle
+What explicit interface implementation is used for?
+
+== OOP ==
+What are main principles of OOP?
+Explain SOLID
+
+== Patterns ==
+Why to use a singleton instead of a static class?
+
+== Synchronization ==
+Explain volatile, MemoryBarrier.
+List synchronization primitives.
+
+== Reliable execution ==
+Explain the specifics of ThreadAbortException, StackOverflowException.
+What is the syntax and elements of constrained execution setup?
+What is the contract of the code inside the constrained execution sections?
+
 
