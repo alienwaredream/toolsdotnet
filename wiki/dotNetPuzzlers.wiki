@@ -43,10 +43,11 @@ What is the output? How many boxing operations occurred in this code?
   *  Why to use a singleton instead of a static class?
   *  Enumerate patterns you are using most often.
 
-== Synchronization ==
-  *  Explain *volatile*, MemoryBarrier.
+== Threading and Synchronization ==
+  *  Explain *volatile* and MemoryBarrier.
   *  List synchronization primitives.
   *  What *mutex* is used for?
+  *  Explain ThreadStaticAttribute.
 
 == Reliable execution ==
   *  Explain the specifics of ThreadAbortException, StackOverflowException.
