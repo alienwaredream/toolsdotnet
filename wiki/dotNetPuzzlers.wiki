@@ -42,6 +42,7 @@ What is the output? How many boxing operations occurred in this code?
 == Patterns ==
   *  Why to use a singleton instead of a static class?
   *  Enumerate patterns you are using most often.
+  *  What is a difference between the abstract and concrete factories?
 
 == Threading and Synchronization ==
   *  Explain *volatile* and MemoryBarrier.
