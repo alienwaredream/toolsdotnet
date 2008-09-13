@@ -48,6 +48,7 @@ What is the output? How many boxing operations occurred in this code?
   *  List synchronization primitives.
   *  What *mutex* is used for?
   *  Explain ThreadStaticAttribute.
+  *  What are low locking techniques and why to use them?
 
 == Reliable execution ==
   *  Explain the specifics of ThreadAbortException, StackOverflowException.
