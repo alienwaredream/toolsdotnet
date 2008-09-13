@@ -52,3 +52,4 @@ What is the output? How many boxing operations occurred in this code?
   *  Explain the specifics of ThreadAbortException, StackOverflowException.
   *  What is the syntax and elements of constrained execution setup?
   *  What is the contract of the code inside the constrained execution sections?
+  *  What are changes in this area in .NET 2.0 compared to .NET 1.x?
