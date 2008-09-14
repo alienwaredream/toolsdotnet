@@ -25,6 +25,10 @@ Console.WriteLine(v + "," + (Int32)o);
 
 What is the output? How many boxing operations occurred in this code?
 
+=== Versioning of types ===
+What is the of const field on versioning?
+What one should be aware of when changing non-virtual method to be virtual?
+
 === Virtual methods ===
   *  What is the difference between IL's *call* and *callvirt*?
   *  What is the overhead involved in calling IL's *callvirt*?
