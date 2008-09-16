@@ -81,15 +81,17 @@ _What is wanted here is something like the following substitution property: If f
 
 The classic example used in object mentor document is a rectangle and a square. One should be able to answer if square is a correct subtype of a rectangle or not (same can be ellipse and circle).
 
+== The Interface Segregation Principle ==
+
+[http://www.objectmentor.com/resources/articles/isp.pdf Objectmentor]: CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE.
+
 == The Dependency Inversion Principle ==
 [http://www.objectmentor.com/resources/articles/dip.pdf Objectmentor]:
 A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPEND UPON ABSTRACTIONS.
 
 B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTRACTIONS.
 
-== The Interface Segregation Principle ==
-
-[http://www.objectmentor.com/resources/articles/isp.pdf Objectmentor]: CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE.
+*A well known helper to remember is SOLID *
 
 = Idioms =
 
