@@ -91,7 +91,7 @@ A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPE
 
 B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTRACTIONS.
 
-*A well known helper to remember is SOLID *
+*A well known helper to remember for the above five principles is SOLID *
 
 = Idioms =
 
