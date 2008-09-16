@@ -151,3 +151,8 @@ DRY is about any ill minded repetion, read the interview with the "Pragmatic pro
 
 =Bad smells=
 ==Connascence of algorithm==
+
+= Miscelaneous =
+One of the important things here will be to provide good examples for covariance and contravariance. With covariance there might be a need to mention the term overload in connection with generics (type<t> not being _covariant_ on t). But otherwise for co(ntra)variance the Page-Jones's definition to be provided.
+== Covariance ==
+== Contravariance ==
