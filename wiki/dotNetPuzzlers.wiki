@@ -39,6 +39,9 @@ What one should be aware of when changing non-virtual method to be virtual?
   *  Explain Dependency Inversion principle
   *  What explicit interface implementation is used for?
 
+== C# compiler tricks ==
+  *  What compiler does behind the *params* and what is the overhead involved in using of params idiom?
+
 == OOP ==
   *  What are main principles of OOP?
   *  Explain SOLID
