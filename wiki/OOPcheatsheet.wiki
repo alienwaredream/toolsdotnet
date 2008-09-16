@@ -153,6 +153,7 @@ DRY is about any ill minded repetion, read the interview with the "Pragmatic pro
 ==Connascence of algorithm==
 
 = Miscelaneous =
-One of the important things here will be to provide good examples for covariance and contravariance. With covariance there might be a need to mention the term overload in connection with generics (type<t> not being _covariant_ on t). But otherwise for co(ntra)variance the Page-Jones's definition to be provided.
+One of the important things here will be to provide good examples for covariance and contravariance. With covariance there might be a need to mention the term overload in connection with generics (type<t> not being _covariant_ on t). But otherwise for co(ntra)variance the Page-Jones's definition to be provided
+One of the interesting samples can be to use not the Pages-Jones's sample but .NET List as a return, IEnumerable as a parameter, and then see what a subtype can do.
 == Covariance ==
 == Contravariance ==
