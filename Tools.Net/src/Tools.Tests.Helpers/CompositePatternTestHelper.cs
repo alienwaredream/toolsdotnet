@@ -1,5 +1,6 @@
 ﻿using System;
 using Rhino.Mocks;
+using System.Collections;
 
 namespace Tools.Tests.Helpers
 {
@@ -48,27 +49,9 @@ namespace Tools.Tests.Helpers
             where ChildType : class
             where ChildCallResultType : new()
         {
-            //MockRepository mocks = new MockRepository();
-            //// Use Rhino.Mocks to create stubs
-            //var child1 = mocks..StrictMock<ChildType>();
-            //var child2 = mocks.StrictMock<ChildType>();
-
-            //using (mocks.Record())
-            //{
-            //    Expect.Call(childAction).;
-            //}
-            //// Add children to the parent
-            //addChild(parent, child1);
-            //addChild(parent, child2);
-            //// Call parent action
-            //using (mocks.Playback())
-            //{
-            //    parentAction(parent);
-            //}
-            //mocks.VerifyAll();
             // Use Rhino.Mocks to create stubs
-            var child1 = MockRepository.GenerateStub<ChildType>();
-            var child2 = MockRepository.GenerateStub<ChildType>();
+            var child1 = MockRepository.GenerateMock<ChildType>();
+            var child2 = MockRepository.GenerateMock<ChildType>();
             // Setup two children, the arbitrary choice, but should not really matter
             child1.Expect(childAction).IgnoreArguments().Return(new ChildCallResultType());
             child2.Expect(childAction).IgnoreArguments().Return(new ChildCallResultType());
@@ -80,6 +63,27 @@ namespace Tools.Tests.Helpers
             // Assert parent action resulted in the calls to children
             child1.VerifyAllExpectations();
             child2.VerifyAllExpectations();
+        }
+        /// <summary>
+        /// Reuses children, doesn't try to add them
+        /// </summary>
+        public static void TestForCompositeOperation<ParentType, ChildType, ChildCallResultType>(ParentType parent,
+    Action<ParentType> parentAction, Func<ChildType, ChildCallResultType> childAction, Func<IEnumerable> getChildrenAction)
+            where ChildType : class
+            where ChildCallResultType : new()
+        {
+            // Setup two children, the arbitrary choice, but should not really matter
+            foreach(ChildType child in getChildrenAction() as IEnumerable)
+            {
+                child.Expect(childAction).IgnoreArguments().Return(new ChildCallResultType());
+            }
+            // Call parent action
+            parentAction(parent);
+            // Assert parent action resulted in the calls to children
+            foreach (ChildType child in getChildrenAction() as IEnumerable)
+            {
+                child.VerifyAllExpectations();
+            }
         }
     }
 }
