@@ -47,7 +47,7 @@ What one should be aware of when changing non-virtual method to be virtual?
   *  Explain SOLID
 
 == Patterns ==
-  *  Why to use a singleton instead of a static class?
+  *  Why to use a singleton instead of a static class? _(Hint: e.g. the interface)_
   *  Enumerate patterns you are using most often.
   *  What is a difference between the abstract and concrete factories?
 
