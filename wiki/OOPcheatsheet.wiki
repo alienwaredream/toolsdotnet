@@ -94,6 +94,18 @@ B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTR
 *A well known helper to remember for the above five principles is SOLID *
 
 = Idioms =
+== Law of Demeter ==
+Wikipedia: [http://en.wikipedia.org/wiki/Law_of_Demeter]
+
+The Law of Demeter (LoD), or Principle of Least Knowledge, is a design guideline for developing software, particularly object-oriented programs. The guideline was invented at Northeastern University towards the end of 1987, and can be succinctly summarized as “Only talk to your immediate friends.” The fundamental notion is that a given object should assume as little as possible about the structure or properties of anything else (including its subcomponents).
+
+More formally, the Law of Demeter for functions requires that a method M of an object O may only invoke the methods of the following kinds of objects:
+
+O itself 
+M's parameters 
+any objects created/instantiated within M 
+O's direct component objects 
+In particular, an object should avoid invoking methods of a member object returned by another method. For many modern object oriented languages that use a dot as field identifier, the law can be stated simply as "use only one dot". That is, the code "a.b.Method()" breaks the law where "a.Method()" does not.
 
 = Methods/Approaches =
 
