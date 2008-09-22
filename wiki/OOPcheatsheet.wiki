@@ -104,9 +104,40 @@ B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTR
 Between points to note is that application of dependency inversion preceeds very often dependency injection, preparing the right ground for dependency injection application.
 
 == Assigning responsibilities ==
+GRASP - General Responsibility Assignment Software Patterns, as per the Graig Larman's book and copied from wikipedia [http://en.wikipedia.org/wiki/GRASP_%28Object_Oriented_Design%29].
+=== Information Expert ===
+The Information Expert pattern provides the general principles associated with the assignment of responsibilities to objects. The information expert pattern states that responsibility should be assigned to the information expert—the class that has all the essential information. Systems which appropriately utilize the information expert pattern are easier to understand, maintain and expand as well as increase the possibility that an element can be reused in future development.
+
 === Creator ===
-=== Knowledge Expert ===
-=== Pure fabrication ===
+The Creator pattern solves the problem of who should be responsible for the creation of a new instance of a class. The creator pattern is important because creation of objects is one of the most ubiquitous activities in an object-oriented system. A system that effectively utilizes the creator pattern can also support low coupling, increased understandability, encapsulation and the likelihood that the object in question will be capable of sustaining reuse. Given two classes, class B and Class A, class B should be responsible for the creation of A if class B contains or compositely aggregates, records, closely uses or contains the initializing information for class A. It could then be stated that B is natural object to be a creator of A objects.
+
+The Factory pattern is a common alternative to Creator when there are special considerations, such as complex creation logic. This is achieved by creating a Pure Fabrication object (see below), called Factory that handles the creation.
+
+=== Controller ===
+The Controller pattern assigns the responsibility of dealing with system events to a non-UI class that represent the overall system or a use case scenario. A use case controller should be used to deal with all system events of a use case, and may be used for more than one use case (for instance, for use cases Create User and Delete User, one can have one UserController, instead of two separate use case controllers). It is defined as the first object beyond the UI layer that receives and coordinates ("controls") a system operation. The controller should delegate to other objects the work that needs to be done; it coordinates or controls the activity. It should not do much work itself. The GRASP Controller can be thought of as being a part of the Application/Service layer [3] (assuming that the application has made an explicit distinction between the App/Service layer and the Domain layer) in an object-oriented system with common layers.
+
+=== Low Coupling ===
+Low Coupling is an evaluative pattern, which dictates how to assign responsibilities to support:
+
+low dependency between classes; 
+low impact in a class of changes in other classes; 
+high reuse potential; 
+
+=== High Cohesion ===
+High Cohesion is an evaluative pattern that attempts to keep objects appropriately focused, manageable and understandable. High cohesion is generally used in support of Low Coupling. High cohesion means that the responsibilities of a given element are strongly related and highly focused. Breaking programs into classes and subsystems is an example of activities that increase the cohesive properties of a system. Alternatively, low cohesion is a situation in which a given element has too many unrelated responsibilities. Elements with low cohesion often suffer from being hard to comprehend, hard to reuse, hard to maintain and adverse to change.
+
+=== Polymorphism ===
+According to the Polymorphism pattern, responsibility of defining the variation of behaviors based on type is assigned to the types for which this variation happens. This is achieved using polymorphic operations.
+
+=== Pure Fabrication ===
+A pure fabrication is a class that does not represent a concept in the problem domain, specially made up to achieve low coupling, high cohesion, and the reuse potential thereof derived (when a solution presented by the Information Expert pattern does not). This kind of class is called "Service" in Domain-driven design.
+
+=== Indirection ===
+The Indirection pattern supports low coupling (and reuse potential) between two elements by assigning the responsibility of mediation between them to an intermediate object. An example of this is the introduction of a controller component for mediation between data (model) and its representation (view) in the Model-view-controller pattern.
+
+=== Protected Variations ===
+The Protected Variations pattern protects elements from the variations on other elements (objects, systems, subsystems) by wrapping the focus of instability with an interface and using polymorphism to create various implementations of this interface.
+
 
 == Design for testability ==
 
