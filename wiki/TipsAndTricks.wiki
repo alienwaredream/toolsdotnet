@@ -87,3 +87,30 @@ If connection succeeded a black window is open to send data on.
 ----
 telnet host port
 ----
+
+== Runing 3.5 builds on the team build 2005 ==
+Sample program:
+namespace MsBuild
+{
+    public class Program
+    {
+        public static int Main(string[] args)
+        {
+            for (int argIndex = 0; argIndex < args.Length; argIndex++)
+            {
+                if (args[argIndex].Contains(" "))
+                {
+                    string quotedArg = string.Format("\"{0}\"", args[argIndex]);
+                    args[argIndex] = quotedArg;
+                }
+            }
+            string arguments = string.Join(" ", args);
+            Process process = Process.Start(
+                @"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe",
+                arguments);
+            process.WaitForExit();
+            return process.ExitCode;
+        }
+    }
+}
+Author: Mitch Denny [http://tfsnow.wordpress.com/2007/08/31/building-net-35-applications-with-team-build-2005/]
