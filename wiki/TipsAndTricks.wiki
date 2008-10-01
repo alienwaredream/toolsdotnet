@@ -335,3 +335,7 @@ XCOPY          Copies files and directory trees.
 WMIC           Displays WMI information inside interactive command shell.
 
 ----
+
+== Configuring HTTP and HTTPS (namespace reservations, listen ips, etc) ==
+[http://msdn.microsoft.com/en-us/library/ms733768.aspx]
+
