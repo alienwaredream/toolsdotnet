@@ -10,12 +10,13 @@ Tess's blog
 
 = Stage 1 links =
 Tess's debugging labs starting point: [http://blogs.msdn.com/tess/pages/net-debugging-demos-information-and-setup-instructions.aspx]
+Johan's blog: [http://blogs.msdn.com/johan/archive/2007/11/13/getting-started-with-windbg-part-i.aspx]
 
 = Loading SOS =
 
 Two ways:
 
-- .load sos [http://blogs.msdn.com/johan/archive/2007/11/13/getting-started-with-windbg-part-i.aspx]
+- .load sos
 
 - .loadby sos mscorwks
 
