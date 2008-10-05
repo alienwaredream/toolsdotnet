@@ -15,7 +15,7 @@ Tess's debugging labs starting point: [http://blogs.msdn.com/tess/pages/net-debu
 
 Two ways:
 
-- .load sos
+- .load sos [http://blogs.msdn.com/johan/archive/2007/11/13/getting-started-with-windbg-part-i.aspx]
 - .loadby sos mscorwks
 
 The second is suggested by John Robinson in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
