@@ -20,6 +20,8 @@ Two ways:
 
 - .loadby sos mscorwks
 
+The first requires to copy the corresponding version of sos.dll into the windbg folder.
+
 The second is suggested by John Robinson in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
 
 ----
