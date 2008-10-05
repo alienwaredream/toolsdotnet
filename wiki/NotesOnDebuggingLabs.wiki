@@ -5,7 +5,7 @@
 The intent behind is to learn WinDbg debugging techniques for .Net and beyond.
 
 = Where to start =
-John Robinson's book
+John Robbins's book
 Tess's blog
 
 = Stage 1 links =
@@ -22,7 +22,7 @@ Two ways:
 
 The first requires to copy the corresponding version of sos.dll into the windbg folder.
 
-The second is suggested by John Robinson in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
+The second is suggested by John Robbins in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
 
 ----
 Saturday, November 24, 2007 1:15 PM by Cory Foy
