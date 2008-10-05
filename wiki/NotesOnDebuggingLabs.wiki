@@ -10,3 +10,29 @@ Tess's blog
 
 = Stage 1 links =
 Tess's debugging labs starting point: [http://blogs.msdn.com/tess/pages/net-debugging-demos-information-and-setup-instructions.aspx]
+
+= Loading SOS =
+
+Two ways:
+
+- .load sos
+- .loadby sos mscorwks
+
+The second is suggested by John Robinson in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
+
+----
+Saturday, November 24, 2007 1:15 PM by Cory Foy
+@Aaron - Just to add - you can only do that if the framework has already been loaded. For example, you can't do that at the beginning of a process because mscorwks hasn't been loaded yet.
+
+If you need to get SOS loaded as soon as mscorwks is loaded, you can do:
+
+sxe ld mscorwks
+
+g
+
+.loadby sos mscorwks
+
+Generally most of us do .loadby sos mscorwks, but there are circumstances where that won't work.
+
+Cory
+----
