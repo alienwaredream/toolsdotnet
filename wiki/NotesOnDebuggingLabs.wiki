@@ -1,0 +1,12 @@
+#summary Notes for the October 2008 debugging labs.
+
+= Introduction =
+
+The intent behind is to learn WinDbg debugging techniques for .Net and beyond.
+
+= Where to start =
+John Robinson's book
+Tess's blog
+
+= Stage 1 links =
+Tess's debugging labs starting point: [http://blogs.msdn.com/tess/pages/net-debugging-demos-information-and-setup-instructions.aspx]
