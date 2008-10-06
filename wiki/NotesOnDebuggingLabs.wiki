@@ -27,7 +27,7 @@ The first requires to copy the corresponding version of sos.dll into the windbg 
 The second is suggested by John Robbins in his book, though in the comments to the Johan's entry, it is rightly noticed that second option requires the .net runtime to be loaded already.
 
 ----
-Saturday, November 24, 2007 1:15 PM by Cory Foy
+_Saturday, November 24, 2007 1:15 PM by Cory Foy
 @Aaron - Just to add - you can only do that if the framework has already been loaded. For example, you can't do that at the beginning of a process because mscorwks hasn't been loaded yet.
 
 If you need to get SOS loaded as soon as mscorwks is loaded, you can do:
@@ -40,7 +40,7 @@ g
 
 Generally most of us do .loadby sos mscorwks, but there are circumstances where that won't work.
 
-Cory
+Cory_
 ----
 
 = Misc Links =
