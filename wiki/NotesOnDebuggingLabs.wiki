@@ -5,8 +5,9 @@
 The intent behind is to learn WinDbg debugging techniques for .Net and beyond.
 
 = Where to start =
-John Robbins's book
-Tess's blog
+John Robbins's book [http://www.amazon.com/Debugging-Microsoft-NET-2-0-Applications/dp/0735622027]
+
+Tess's blog [http://blogs.msdn.com/tess/]
 
 = Stage 1 links =
 Tess's debugging labs starting point: [http://blogs.msdn.com/tess/pages/net-debugging-demos-information-and-setup-instructions.aspx]
