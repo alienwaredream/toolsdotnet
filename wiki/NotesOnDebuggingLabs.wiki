@@ -40,3 +40,7 @@ Generally most of us do .loadby sos mscorwks, but there are circumstances where 
 
 Cory
 ----
+
+= Misc Links =
+MS Jeff Stucky's debugging webcast: [http://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?culture=en-US&EventID=1032290859&CountryCode=US]
+A web chat after Jeff's debugging demo: [http://blogs.technet.com/mscom/archive/2006/03/31/mscom-ops-march-debug-madness-2nd-session-q-amp-a-debugging-clr-internals.aspx]
