@@ -43,6 +43,17 @@ Generally most of us do .loadby sos mscorwks, but there are circumstances where 
 Cory_
 ----
 
+= Memory =
+
+== Garbage collection ==
+
+=== Mid-life crisis ===
+[http://blogs.msdn.com/ricom/archive/2003/12/04/41281.aspx]
+
+=== Collection modes ===
+
+
+
 = Misc Links =
 MS Jeff Stucky's debugging webcast: [http://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?culture=en-US&EventID=1032290859&CountryCode=US]
 
