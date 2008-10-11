@@ -53,7 +53,6 @@ A web chat after Jeff's debugging demo: [http://blogs.technet.com/mscom/archive/
 == Identify loader heap leaks ==
 Although can be handled by Lab 6 of Tess, will see when I'm there
 
-Mid-life crisis analysis [http://blogs.msdn.com/ricom/archive/2003/12/04/41281.aspx]
-
-
+== Mid-life crisis analysis ==
+[http://blogs.msdn.com/ricom/archive/2003/12/04/41281.aspx]
 
