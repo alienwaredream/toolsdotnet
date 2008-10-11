@@ -55,4 +55,5 @@ Although can be handled by Lab 6 of Tess, will see when I'm there
 
 == Mid-life crisis analysis ==
 [http://blogs.msdn.com/ricom/archive/2003/12/04/41281.aspx]
+
 Interesting point to visualize would be John Robbin's sample of having a StringBuilder inside or outside the long loop.
