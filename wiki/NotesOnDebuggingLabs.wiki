@@ -51,8 +51,10 @@ Cory_
 [http://blogs.msdn.com/ricom/archive/2003/12/04/41281.aspx]
 
 === Collection modes ===
+[http://blogs.msdn.com/clyon/archive/2004/09/08/226981.aspx]
 
-
+=== Latency modes ===
+[http://blogs.msdn.com/clyon/archive/2007/03/12/new-in-orcas-part-3-gc-latency-modes.aspx]
 
 = Misc Links =
 MS Jeff Stucky's debugging webcast: [http://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?culture=en-US&EventID=1032290859&CountryCode=US]
