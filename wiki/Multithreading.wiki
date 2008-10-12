@@ -5,3 +5,7 @@
 
 = Joe Duffy =
 General, including low locking concepts [http://msdn.microsoft.com/en-us/magazine/cc817398.aspx]
+
+General guidelines [http://www.bluebytesoftware.com/blog/PermaLink,guid,f8404ab3-e3e6-4933-a5bc-b69348deedba.aspx]
+
+
