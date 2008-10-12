@@ -1,0 +1,5 @@
+#summary Multithreading and concurrent programming links collection
+
+= False sharing =
+[http://msdn.microsoft.com/en-us/magazine/cc872851.aspx]
+
