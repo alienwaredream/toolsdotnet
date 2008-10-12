@@ -3,3 +3,5 @@
 = False sharing =
 [http://msdn.microsoft.com/en-us/magazine/cc872851.aspx]
 
+= Joe Duffy =
+General, including low locking concepts [http://msdn.microsoft.com/en-us/magazine/cc817398.aspx]
