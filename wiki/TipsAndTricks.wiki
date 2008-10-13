@@ -350,3 +350,33 @@ Windows Registry Editor Version 5.00
 
 "MaxConnectionsPer1_0Server"=dword:0000000a
 ------
+== ADPlus config file ==
+Sample (for the stackoverflow exception):
+{{{
+<ADPlus>
+    <Settings>
+        <RunMode> CRASH </RunMode>
+    </Settings>
+
+    <!-- defining and configuring exceptions -->
+    <Exceptions>
+        <!-- First we redefine all exceptions -->
+        <Config>
+            <Code>AllExceptions</Code>
+            <Actions1>Log</Actions1>
+            <Actions2>MiniDump;Log;EventLog</Actions2>
+        </Config>
+
+        <NewException>
+            <Code> 0xe053534f </Code>
+            <Name> Unknown_Exception </Name>
+        </NewException>
+        <!-- Configuring the custom exception -->
+        <Config>
+            <Code> 0xe053534f </Code>
+            <Actions1>FullDump;Log;EventLog</Actions1>
+            <Actions2>FullDump;Log;EventLog</Actions2>
+        </Config>
+    </Exceptions>
+</ADPlus>
+}}}
