@@ -1,0 +1,352 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4328428B-3B2C-414B-9AC2-E041AE66D81C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools.UI.Windows.Descriptors</RootNamespace>
+    <AssemblyName>Tools.UI.Windows.Descriptors</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationPreferences.cs" />
+    <Compile Include="CollapseToolBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CollapseToolBar.Designer.cs">
+      <DependentUpon>CollapseToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CollapsibleContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CollapsibleContainer.Designer.cs">
+      <DependentUpon>CollapsibleContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Container.cs" />
+    <Compile Include="ContainerSettingsControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContainerSettingsControl.Designer.cs">
+      <DependentUpon>ContainerSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContextHolderIdDescriptorPointerDomainsProvider.cs" />
+    <Compile Include="DescriptiveList.cs" />
+    <Compile Include="DescriptiveListEditorControl.Dnv.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptiveListEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptiveListEditorControl.Designer.cs">
+      <DependentUpon>DescriptiveListEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContainersControl.Designer.cs">
+      <DependentUpon>ContainersControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DescriptiveNameValue.cs" />
+    <Compile Include="DescriptorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptorControl.Designer.cs">
+      <DependentUpon>DescriptorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditorStandardButtonsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditorStandardButtonsControl.Designer.cs">
+      <DependentUpon>EditorStandardButtonsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnumDomainsProvider.cs" />
+    <Compile Include="EnumEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EnumEditControl.Designer.cs">
+      <DependentUpon>EnumEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IListSettings.cs" />
+    <Compile Include="IListViewSettings.cs" />
+    <Compile Include="ImageListHolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageListHolderControl.Designer.cs">
+      <DependentUpon>ImageListHolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IMarksAwareDomainsProvider.cs" />
+    <Compile Include="ContextHolderPointersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextHolderPointersControl.Designer.cs">
+      <DependentUpon>ContextHolderPointersControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListSettings.cs" />
+    <Compile Include="ListViewSettings.cs" />
+    <Compile Include="ListViewSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListViewSettingsControl.Designer.cs">
+      <DependentUpon>ListViewSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainApplicationPreferencesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainApplicationPreferencesControl.Designer.cs">
+      <DependentUpon>MainApplicationPreferencesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordEntryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PasswordEntryControl.Designer.cs">
+      <DependentUpon>PasswordEntryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewIVKeyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PreviewIVKeyControl.Designer.cs">
+      <DependentUpon>PreviewIVKeyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="IsolatedStorageSettings.cs" />
+    <Compile Include="IsolatedStorageSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IsolatedStorageSettingsControl.Designer.cs">
+      <DependentUpon>IsolatedStorageSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SymmetricEncryptionSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SymmetricEncryptionSettingsControl.Designer.cs">
+      <DependentUpon>SymmetricEncryptionSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings1.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsEditorForm.Designer.cs">
+      <DependentUpon>SettingsEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SizedDomain.cs" />
+    <Compile Include="DescriptiveNameValueDomainsProvider.cs" />
+    <Compile Include="IDomainsProvider.cs" />
+    <Compile Include="GenericCollectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GenericCollectionControl.Designer.cs">
+      <DependentUpon>GenericCollectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DescriptiveNameValueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptiveNameValueControl.Designer.cs">
+      <DependentUpon>DescriptiveNameValueControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GuiStyle.cs" />
+    <Compile Include="ValueSelectedDelegate.cs" />
+    <Compile Include="ValueSelectedEventArgs.cs" />
+    <Compile Include="MarksPresentationType.cs" />
+    <Compile Include="EditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditorControl.Designer.cs">
+      <DependentUpon>EditorControl.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CollapseToolBar.resx">
+      <DependentUpon>CollapseToolBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CollapsibleContainer.resx">
+      <DependentUpon>CollapsibleContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContainerSettingsControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ContainerSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescriptiveListEditorControl.resx">
+      <DependentUpon>DescriptiveListEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContainersControl.resx">
+      <DependentUpon>ContainersControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescriptorControl.resx">
+      <DependentUpon>DescriptorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorStandardButtonsControl.resx">
+      <DependentUpon>EditorStandardButtonsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnumEditControl.resx">
+      <DependentUpon>EnumEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericCollectionControl.resx">
+      <DependentUpon>GenericCollectionControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescriptiveNameValueControl.resx">
+      <DependentUpon>DescriptiveNameValueControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageListHolderControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ImageListHolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContextHolderPointersControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ContextHolderPointersControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListViewSettingsControl.resx">
+      <DependentUpon>ListViewSettingsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainApplicationPreferencesControl.resx">
+      <DependentUpon>MainApplicationPreferencesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordEntryControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PasswordEntryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreviewIVKeyControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreviewIVKeyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorControl.resx">
+      <DependentUpon>EditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SymmetricEncryptionSettingsControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SymmetricEncryptionSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Settings1.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings11.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoff_small.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\swiss.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bookmarks.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DISK06.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DISKS04.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CRDFLE12.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FOLDER05.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MYCOMP.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\more.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BttnImport.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sysfavr1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comments.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_go_up.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FullScreen.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Expand_small.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Resources\Collapse_small.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

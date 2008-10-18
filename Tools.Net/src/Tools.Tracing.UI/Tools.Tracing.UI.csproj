@@ -1,0 +1,409 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05D55626-0200-4EB7-8D81-66F853654A7B}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>BRIDGE.ICO</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Tools.Tracing.UI</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Tools.Tracing.UI</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <GenerateManifests>true</GenerateManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FallbackCulture>en-US</FallbackCulture>
+    <UpdateUrlEnabled>false</UpdateUrlEnabled>
+    <ApplicationRevision>11</ApplicationRevision>
+    <SignManifests>false</SignManifests>
+    <ManifestCertificateThumbprint>2D86A1460D6CE4C52CAC16D2EA3B11BA5CBBFAF7</ManifestCertificateThumbprint>
+    <ManifestKeyFile>ec.architecture.ApplicationEvents.Gui_TemporaryKey.pfx</ManifestKeyFile>
+    <PublishUrl>none/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <RunFxCop>false</RunFxCop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddListViewDelegate.cs" />
+    <Compile Include="ApplicationEventCollectionFragment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ApplicationEventFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ApplicationEventFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VirtualMonitorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VirtualMonitorPanel.Designer.cs">
+      <DependentUpon>VirtualMonitorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventMultiTracerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptiveNameValueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DescriptorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EventHandlerManagerConfigurationEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EventHandlerRemoteConnectionInstance.cs" />
+    <Compile Include="EventsObserverInstance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventsObserverInstanceCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterEntryCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FilterViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HashActivationArgumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IServiceConnector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITextTransformer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonitorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonitorPanel.Designer.cs">
+      <DependentUpon>MonitorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObserversConfigurationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PerformanceHandlerConfigurationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ProtocolType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RecordEditingMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteConnectionConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteConnectionConfigurationCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteConnectionConfigurationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RemoteConnectionInstance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteConnectionInstanceCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteEventHandlerManagerConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteServiceConnectionDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteServiceConnectionEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScrollableListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SelfApplicationEventHandlerConfigurationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServiceConnectionInstance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ApplicationEventsGuiSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ApplicationEventsGuiSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="TabContentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextActivationArgumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextTransformerTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TraceRecord.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TracingOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TransparentTextTransformer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WorkspaceConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XsltTextTransformer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationEventFilterControl.resx">
+      <DependentUpon>ApplicationEventFilterControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescriptiveNameValueControl.resx">
+      <DependentUpon>DescriptiveNameValueControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescriptorControl.resx">
+      <DependentUpon>DescriptorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventHandlerManagerConfigurationEditorControl.resx">
+      <DependentUpon>EventHandlerManagerConfigurationEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventMultiTracerControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EventMultiTracerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterViewControl.resx">
+      <DependentUpon>FilterViewControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HashActivationArgumentControl.resx">
+      <DependentUpon>HashActivationArgumentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonitorPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MonitorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObserversConfigurationControl.resx">
+      <DependentUpon>ObserversConfigurationControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceHandlerConfigurationControl.resx">
+      <DependentUpon>PerformanceHandlerConfigurationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteConnectionConfigurationControl.resx">
+      <DependentUpon>RemoteConnectionConfigurationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScrollableListView.resx">
+      <DependentUpon>ScrollableListView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelfApplicationEventHandlerConfigurationControl.resx">
+      <DependentUpon>SelfApplicationEventHandlerConfigurationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabContentControl.resx">
+      <DependentUpon>TabContentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextActivationArgumentControl.resx">
+      <DependentUpon>TextActivationArgumentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="ApplicationEventsGuiSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ApplicationEventsGuiSettings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="App.ico" />
+    <Content Include="ApplicationEvent.xml" />
+    <Content Include="bin\Debug\XsltEventTransform.xslt" />
+    <Content Include="BRIDGE.ICO" />
+    <Content Include="ApplicationEvents.xml" />
+    <Content Include="GetEventsByIdXsltEventsTransform.xslt" />
+    <Content Include="Resources\ico163.ico" />
+    <None Include="Resources\ico1631.ico" />
+    <None Include="Resources\ico565.ico" />
+    <Content Include="Resources\ico1872.ico" />
+    <Content Include="Resources\MINUS.BMP" />
+    <Content Include="Resources\PLUS.BMP" />
+    <None Include="Resources\servicerunning.ico" />
+    <None Include="Resources\servicepaused.ico" />
+    <None Include="Resources\servicestopped.ico" />
+    <Content Include="XsltEventTransform.xslt">
+      <CopyToOutputDirectory>True</CopyToOutputDirectory>
+    </Content>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperFile Include="Microsoft.Net.Framework.2.0">
+      <InProject>False</InProject>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperFile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Remoting.Client.Common\Tools.Remoting.Client.Common.csproj">
+      <Project>{2A3A88E9-E24D-47E1-86AA-C4BA54C0FE7B}</Project>
+      <Name>Tools.Remoting.Client.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Tracing.ClientHandler\Tools.Tracing.ClientHandler.csproj">
+      <Project>{2C6093E0-F98A-48FB-824E-6F12287D3C14}</Project>
+      <Name>Tools.Tracing.ClientHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Tracing.ClientManager\Tools.Tracing.ClientManager.csproj">
+      <Project>{9F387596-7C54-4C61-B6EA-0702731883F7}</Project>
+      <Name>Tools.Tracing.ClientManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Tracing.Common\Tools.Tracing.Common.csproj">
+      <Project>{DACA69D8-9065-4327-925E-3D3A314CB058}</Project>
+      <Name>Tools.Tracing.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.UI.Windows.Descriptors\Tools.UI.Windows.Descriptors.csproj">
+      <Project>{4328428B-3B2C-414B-9AC2-E041AE66D81C}</Project>
+      <Name>Tools.UI.Windows.Descriptors</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
