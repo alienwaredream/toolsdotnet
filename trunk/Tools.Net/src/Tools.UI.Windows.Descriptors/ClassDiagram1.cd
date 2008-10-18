@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Tools.UI.Windows.Descriptors.ApplicationPreferences" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ApplicationPreferences.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABQAAAICAAAAAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.CollapseToolBar" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CollapseToolBar.cs</FileName>
+      <HashCode>BQCAgAAAAKAABEAAgACAAAACAACgAAAQAACAABFgCAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.CollapsibleContainer" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CollapsibleContainer.cs</FileName>
+      <HashCode>AQAAhQAAAKwAJECAAACAAAACACAAQAIABACQAIEgAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.Container&lt;SettingsType, ContainedType&gt;" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Container.cs</FileName>
+      <HashCode>AAAAAAAAAIAAAAAAgAAAAAAAAIAAAAAAgAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.ContainersControl&lt;SettingsType, ContainedType, T&gt;" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ContainersControl.cs</FileName>
+      <HashCode>YAAAgAkAAKAAAAAAACCAAABiAAAAEAIAYAiAAAABAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.DescriptiveListEditorControl" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DescriptiveListEditorControl.cs</FileName>
+      <HashCode>BAAEBAkSBCAUAEQAAAnAyFACAAAACQAAgIAIQABAMYE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.DescriptiveNameValueControl" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DescriptiveNameValueControl.cs</FileName>
+      <HashCode>QgAAAgABACAAAAAAAAGAEQACGEAAQwEAAAEKACdAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.DescriptiveNameValueDomainsProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DescriptiveNameValueDomainsProvider.cs</FileName>
+      <HashCode>AAACAAABAAAAAOAAAAAAgAAABQAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.DescriptorControl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DescriptorControl.cs</FileName>
+      <HashCode>AAACAAAAAWAAAAAABACAAQACGAAAIAAAAAAAACQAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.EditorControl" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>EditorControl.cs</FileName>
+      <HashCode>AAAAAAAAAGAAAAAAAACAAAACAAAAAAAAAAAgCAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.EditorStandardButtonsControl" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>EditorStandardButtonsControl.cs</FileName>
+      <HashCode>AAAAAAAAACQBAAAAAACAAAACAAAAEAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.EnumDomainsProvider&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>EnumDomainsProvider.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAABQAAAAAAAAAAAAIAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.EnumEditControl" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>EnumEditControl.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.GenericCollectionControl&lt;T, SettingsType&gt;" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GenericCollectionControl.cs</FileName>
+      <HashCode>QAQAiQEiACGAAAwAAwCEAAEDIwSBBAQLJALwACIBACA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.GuiStyle" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GuiStyle.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.IsolatedStorageSettings" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IsolatedStorageSettings.cs</FileName>
+      <HashCode>AAAAAAAAAAAAQAAAABAAAAEEAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.IsolatedStorageSettingsControl" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IsolatedStorageSettingsControl.cs</FileName>
+      <HashCode>AAAAAAAAACCEAAAAgICAAAACgAAAAAEAAAAEAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.ListViewSettings" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ListViewSettings.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.ListViewSettingsControl" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ListViewSettingsControl.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAAGAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.Settings1" Collapsed="true">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAEAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.SettingsEditorForm" Collapsed="true">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>SettingsEditorForm.cs</FileName>
+      <HashCode>CAgAAAAAACBAAAAABACAAAACAAAABEAAAAAIAAAAAEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.SizedDomain" Collapsed="true">
+    <Position X="6.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>SizedDomain.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.ValueSelectedEventArgs&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ValueSelectedEventArgs.cs</FileName>
+      <HashCode>QAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAACAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.UI.Windows.Descriptors.Properties.Resources" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAgQAAAAAAAAAKIRAQBECEAAQIAAAAAAIDAAAAAAII=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Tools.UI.Windows.Descriptors.IDomainsProvider&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IDomainsProvider.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAABQAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tools.UI.Windows.Descriptors.IListViewSettings" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IListViewSettings.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tools.UI.Windows.Descriptors.IMarksAwareDomainsProvider&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IMarksAwareDomainsProvider.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Tools.UI.Windows.Descriptors.MarksPresentationType" Collapsed="true">
+    <Position X="3" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MarksPresentationType.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Tools.UI.Windows.Descriptors.ValueSelectedDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ValueSelectedDelegate.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+</ClassDiagram>
