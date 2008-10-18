@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Tools.Core.Utils
 {
 	/// <summary>
-	/// Summary description for SerializationUtil.
+	/// Summary description for SerializationUtility.
 	/// </summary>
 	public class SerializationUtility
 	{
@@ -154,7 +154,7 @@ namespace Tools.Core.Utils
                 throw new
                     Exception
                     (
-                    "Error while writing to file, SerializationUtil.Serialize2File, " +
+                    "Error while writing to file, SerializationUtility.Serialize2File, " +
                     ex.ToString(),
                     ex);
             }
@@ -258,6 +258,40 @@ namespace Tools.Core.Utils
             }
             return ctc;
         }
+        public static object DeserializeFromFile(string path, System.Type type)
+        {
+            object ctc = null;
+            if (path != null || path != String.Empty)
+            {
+                System.Xml.XmlTextReader reader = null;
 
+                try
+                {
+                    var xs = new XmlSerializer(type);
+                    reader = new XmlTextReader(path) {Normalization = false};
+
+                    ctc = xs.Deserialize(reader);
+                    // Complete post deserialization work.
+                    var idc = ctc as IDeserializationCallback;
+                    if (idc != null)
+                    {
+                        idc.OnDeserialization(null);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception
+                        (
+                        "Exception ocurred while reading type " + type.FullName + "from the file " + path + "\r\n" + e.ToString() + "\r\nType:" + e.GetType().Name,
+                        e
+                        );
+                }
+                finally
+                {
+                    if (reader != null) reader.Close();
+                }
+            }
+            return ctc;
+        }
 	}
 }
