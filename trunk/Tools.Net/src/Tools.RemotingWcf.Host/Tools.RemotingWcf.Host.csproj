@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D0140D5A-D084-4731-8AB1-491663CBD8B2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tools.Collaboration.Publishing.Host</RootNamespace>
-    <AssemblyName>Tools.Collaboration.Publishing.Host</AssemblyName>
+    <RootNamespace>Tools.RemotingWcf.Host</RootNamespace>
+    <AssemblyName>Tools.RemotingWcf.Host</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Tools.Collaboration.Publishing.Host.ServiceHost</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +36,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -44,32 +44,25 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Installer.designer.cs">
       <DependentUpon>Installer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHost.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WcfHostProgram.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tools.Collaboration.Publishing\Tools.Collaboration.Publishing.csproj">
-      <Project>{6F70D6A5-10EC-408A-AE86-9720451F81CE}</Project>
-      <Name>Tools.Collaboration.Publishing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
       <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
       <Name>Tools.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
-      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
-      <Name>Tools.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools.Processes.Core\Tools.Processes.Core.csproj">
       <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
@@ -79,13 +72,14 @@
       <Project>{44600F98-8BEE-49F0-83B4-6A51689145F7}</Project>
       <Name>Tools.Processes.Host</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Remoting.Host\Tools.Remoting.Host.csproj">
+      <Project>{6C48307A-B3A9-49FB-AB4C-234856FE0338}</Project>
+      <Name>Tools.Remoting.Host</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools.Wcf.Host\Tools.Wcf.Host.csproj">
       <Project>{0BD67253-2590-4792-A1F6-A0377519D0A2}</Project>
       <Name>Tools.Wcf.Host</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

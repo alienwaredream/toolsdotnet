@@ -3,67 +3,63 @@ using System.Xml.Serialization;
 
 namespace Tools.Core
 {
-	/// <summary>
-	/// Summary description for DescriptiveNameValue.
-	/// </summary>
-	[Serializable]
-	public class DescriptiveNameValue : Descriptor, ICloneable
-	{
-		
-		#region Fields
-		
-		private string _value;
+    /// <summary>
+    /// Summary description for DescriptiveNameValue.
+    /// </summary>
+    [Serializable]
+    public class DescriptiveNameValue : Descriptor, ICloneable
+    {
+        #region Fields
 
-		#endregion
+        private string _value;
 
-		#region Properties
-		/// <summary>
-		/// Value.
-		/// </summary>
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Value.
+        /// </summary>
         [XmlAttribute]
-        public virtual string Value
+        public virtual string Value { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public DescriptiveNameValue()
         {
-            get;
-            set;
         }
 
-		#endregion
+        public DescriptiveNameValue(string name, string val, string description)
+            : base(name, description)
+        {
+            _value = val;
+        }
 
-		#region Constructors
-		
-		public DescriptiveNameValue() : base() {}
+        #endregion
 
-		public DescriptiveNameValue(string name, string val, string description) 
-			: base(name, description)
-		{
-			_value = val;
-		}
+        #region Methods
 
-		#endregion
-		
-		#region Methods
+        public override string ToString()
+        {
+            return Value;
+        }
 
-		public override string ToString()
-		{
-			return Value;
-		}
+        #endregion
 
+        #region ICloneable Members
 
-		#endregion
+        public object Clone()
+        {
+            return new DescriptiveNameValue
+                (
+                Name,
+                Value,
+                Description
+                );
+        }
 
-
-		#region ICloneable Members
-
-		public object Clone()
-		{
-			return new DescriptiveNameValue
-			(
-			Name,
-			Value,
-			Description
-			);
-		}
-
-		#endregion
-}
+        #endregion
+    }
 }

@@ -32,7 +32,7 @@
     </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <FallbackCulture>en-US</FallbackCulture>
@@ -56,6 +56,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -77,6 +79,7 @@
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -118,21 +121,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\app.manifest" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Installer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RemotingService.cs">
+    <Compile Include="Installer.designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceHost.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Installer.resx">
-      <DependentUpon>Installer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RemotingService.resx">
-      <DependentUpon>RemotingService.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="WcfHostProgram.cs" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +152,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Processes.Core\Tools.Processes.Core.csproj">
+      <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
+      <Name>Tools.Processes.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Processes.Host\Tools.Processes.Host.csproj">
+      <Project>{44600F98-8BEE-49F0-83B4-6A51689145F7}</Project>
+      <Name>Tools.Processes.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.RemotingWcf.Host\Tools.RemotingWcf.Host.csproj">
+      <Project>{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}</Project>
+      <Name>Tools.RemotingWcf.Host</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools.Tracing.Common\Tools.Tracing.Common.csproj">
       <Project>{DACA69D8-9065-4327-925E-3D3A314CB058}</Project>
       <Name>Tools.Tracing.Common</Name>
@@ -158,9 +180,10 @@
       <Project>{C7C7FF65-5296-4F5E-9132-0EB4A5DFDA35}</Project>
       <Name>Tools.Tracing.Server</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Tools.Wcf.Host\Tools.Wcf.Host.csproj">
+      <Project>{0BD67253-2590-4792-A1F6-A0377519D0A2}</Project>
+      <Name>Tools.Wcf.Host</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

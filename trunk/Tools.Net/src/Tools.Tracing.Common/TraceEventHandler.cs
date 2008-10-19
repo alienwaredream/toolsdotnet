@@ -102,46 +102,48 @@ namespace Tools.Tracing.Common
 
 				lock (TraceEventHandlerManager.Instance.ConfLock)
 				{
-				
-					for (int i = 0; i < TraceEventHandlerManager.Instance.Handlers.Count; i++)
-					{
-						// TODO: Provide and async version
-						try
-						{
-							eventHandler = TraceEventHandlerManager.Instance.Handlers[i];
-							eventHandler.HandleEvent
-								(
-								traceEvent
-								);
-						}
-						catch (Exception e)
-						{
-							string eText = 
-								"Exception during regular logging attempt: " + e.ToString() +
-								System.Environment.NewLine +
-								// TODO: Take care if more handlers of the same type are present (SD)
-								"Thrown by the " + eventHandler.GetType().FullName + " handler.";
+				    if (TraceEventHandlerManager.Instance != null && TraceEventHandlerManager.Instance.Handlers != null)
+				    {
+				        for (int i = 0; i < TraceEventHandlerManager.Instance.Handlers.Count; i++)
+				        {
+				            // TODO: Provide and async version
+				            try
+				            {
+				                eventHandler = TraceEventHandlerManager.Instance.Handlers[i];
+				                eventHandler.HandleEvent
+				                    (
+				                    traceEvent
+				                    );
+				            }
+				            catch (Exception e)
+				            {
+				                string eText =
+				                    "Exception during regular logging attempt: " + e.ToString() +
+				                    System.Environment.NewLine +
+				                    // TODO: Take care if more handlers of the same type are present (SD)
+				                    "Thrown by the " + eventHandler.GetType().FullName + " handler.";
 
-							try
-							{
+				                try
+				                {
 #warning resolve the case when application event could not be deserialized (SD)
-								traceEvent.Message += 
-									System.Environment.NewLine + eText + System.Environment.NewLine;
-								TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
-							}
-							catch (Exception ex)
-							{
-								throw new Exception
-									(
-									traceEvent.Message +
-									"Exception during fall back logging attempt:" +
-									ex.ToString()
-									);
-							}
-						}
-					}
-					// Set handled flag to true to avoid duplicate handling by this Instance.
-					traceEvent.Handled = true;
+				                    traceEvent.Message +=
+				                        System.Environment.NewLine + eText + System.Environment.NewLine;
+				                    //***TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
+				                }
+				                catch (Exception ex)
+				                {
+				                    throw new Exception
+				                        (
+				                        traceEvent.Message +
+				                        "Exception during fall back logging attempt:" +
+				                        ex.ToString()
+				                        );
+				                }
+				            }
+				        }
+				        // Set handled flag to true to avoid duplicate handling by this Instance.
+				        traceEvent.Handled = true;
+				    }
 				}
 			}
 			catch (ThreadInterruptedException ex)
