@@ -1,93 +1,87 @@
 using System;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-//using Tools.Core.document;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Threading;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System.Collections.Generic;
+//using Tools.Core.document;
 
 namespace Tools.Core.Utils
 {
-	/// <summary>
-	/// Summary description for SerializationUtility.
-	/// </summary>
-	public class SerializationUtility
-	{
-
-		/// <summary>
-		/// Serialize object to byte array(binary serialization is used)
-		/// </summary>
-		/// <param name="source">object to be serialized</param>
+    /// <summary>
+    /// Summary description for SerializationUtil.
+    /// </summary>
+    public class SerializationUtility
+    {
+        /// <summary>
+        /// Serialize object to byte array(binary serialization is used)
+        /// </summary>
+        /// <param name="source">object to be serialized</param>
         /// <exception cref="ArgumentNullException">When source is null this exception is raised</exception>
-		/// <exception cref="SerializationUtilException">
-		/// thrown when serialization fails
-		/// </exception>
-		/// <returns>serialization result as byte array</returns>
-		public static byte[] Serialize2ByteArray(object source)
-		{
-			byte[] retVal = null;
-			
-			using (MemoryStream ms = new MemoryStream())
-			{
-				BinaryFormatter formatter = new BinaryFormatter();
-				//formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
-                    
-					formatter.Serialize(ms, source);
-					
-					// converting serialization result to a byte array
-					retVal = ms.ToArray();
-			}
+        /// <exception cref="SerializationUtilException">
+        /// thrown when serialization fails
+        /// </exception>
+        /// <returns>serialization result as byte array</returns>
+        public static byte[] Serialize2ByteArray(object source)
+        {
+            byte[] retVal = null;
 
-			return retVal;
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                //formatter.AssemblyFormat = FormatterAssemblyStyle.Simple;
 
-		}
+                formatter.Serialize(ms, source);
 
-		/// <summary>
-		/// Deserialize object from byte array(binary serialization is used)
-		/// </summary>
-		/// <param name="objectByteArrayGraph">byte array to deserialize from</param>
-		/// <exception cref="SerializationUtilException">
-		/// thrown when serialization fails
-		/// </exception>
-		/// <returns>deserialized object</returns>
-		public static object DeserializeFromByteArray(byte[] objectByteArrayGraph)
-		{
-			object retVal = null;
+                // converting serialization result to a byte array
+                retVal = ms.ToArray();
+            }
 
-			if (objectByteArrayGraph != null)
-			{
-				MemoryStream ms = null;
-				BinaryFormatter formatter = new BinaryFormatter();
-				try
-				{
-					// creating MemoryStream from byte array
-					ms = new MemoryStream(objectByteArrayGraph, false);
-					
-					// deserializing
-					retVal = formatter.Deserialize(ms);
-					// Complete post deserialization work.
-					IDeserializationCallback idc = retVal as IDeserializationCallback;
-					if (idc!=null)
-					{
-						idc.OnDeserialization(null);
-					}
-				}
-				finally
-				{
-					if (ms != null)
-					{
-						ms.Close();
-					}
-				}
-			}
-			
-			return retVal;
+            return retVal;
+        }
 
-		}
+        /// <summary>
+        /// Deserialize object from byte array(binary serialization is used)
+        /// </summary>
+        /// <param name="objectByteArrayGraph">byte array to deserialize from</param>
+        /// <exception cref="SerializationUtilException">
+        /// thrown when serialization fails
+        /// </exception>
+        /// <returns>deserialized object</returns>
+        public static object DeserializeFromByteArray(byte[] objectByteArrayGraph)
+        {
+            object retVal = null;
+
+            if (objectByteArrayGraph != null)
+            {
+                MemoryStream ms = null;
+                var formatter = new BinaryFormatter();
+                try
+                {
+                    // creating MemoryStream from byte array
+                    ms = new MemoryStream(objectByteArrayGraph, false);
+
+                    // deserializing
+                    retVal = formatter.Deserialize(ms);
+                    // Complete post deserialization work.
+                    var idc = retVal as IDeserializationCallback;
+                    if (idc != null)
+                    {
+                        idc.OnDeserialization(null);
+                    }
+                }
+                finally
+                {
+                    if (ms != null)
+                    {
+                        ms.Close();
+                    }
+                }
+            }
+
+            return retVal;
+        }
 
 
         /// <summary>
@@ -95,16 +89,16 @@ namespace Tools.Core.Utils
         /// </summary>
         /// <param name="original">The original.</param>
         /// <returns></returns>
-		public static object GetObjectCloneBinary(object original)
-		{
-			return 
-				DeserializeFromByteArray
-				(
-				Serialize2ByteArray
-				(
-				original
-				));
-		}
+        public static object GetObjectCloneBinary(object original)
+        {
+            return
+                DeserializeFromByteArray
+                    (
+                    Serialize2ByteArray
+                        (
+                        original
+                        ));
+        }
 
         /// <summary>
         /// Serializes the object to file.
@@ -115,30 +109,30 @@ namespace Tools.Core.Utils
         /// <param name="writeAsFragment">if set to <c>true</c> [write as fragment].</param>
         public static void Serialize2File(object source, string fileName, bool append, bool writeAsFragment)
         {
-            System.Xml.Serialization.XmlSerializer xs = null;
-            System.IO.TextWriter tw = null;
+            XmlSerializer xs = null;
+            TextWriter tw = null;
 
             //Monitor.Enter(syncFileWriteLock);
 
             try
             {
-                if (!Directory.Exists(Path.GetDirectoryName(fileName))) Directory.CreateDirectory(Path.GetDirectoryName(fileName));
-                xs = new System.Xml.Serialization.XmlSerializer(source.GetType());
+                if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+                xs = new XmlSerializer(source.GetType());
 
                 tw = new StreamWriter(fileName, append);
 
 
                 if (writeAsFragment)
                 {
-                    XmlWriterSettings settings = new XmlWriterSettings();
+                    var settings = new XmlWriterSettings();
                     settings.Indent = true;
                     settings.OmitXmlDeclaration = true;
                     settings.NewLineOnAttributes = true;
 
-                    using (System.Xml.XmlWriter xmlWriter =
-                       XmlWriter.Create(tw, settings))
+                    using (XmlWriter xmlWriter =
+                        XmlWriter.Create(tw, settings))
                     {
-
                         xs.Serialize(xmlWriter, source);
                         xmlWriter.Flush();
                     }
@@ -147,15 +141,14 @@ namespace Tools.Core.Utils
                 {
                     xs.Serialize(tw, source);
                 }
-
             }
             catch (Exception ex)
             {
                 throw new
                     Exception
                     (
-                    "Error while writing to file, SerializationUtility.Serialize2File, " +
-                    ex.ToString(),
+                    "Error while writing to file, SerializationUtil.Serialize2File, " +
+                    ex,
                     ex);
             }
             finally
@@ -164,6 +157,7 @@ namespace Tools.Core.Utils
                 //Monitor.Exit(syncFileWriteLock);
             }
         }
+
         /// <summary>
         /// Serializes the object to string.
         /// </summary>
@@ -188,56 +182,55 @@ namespace Tools.Core.Utils
             string retVal = String.Empty;
             XmlSerializer xs = null;
             StringBuilder sb = null;
-            System.IO.StringWriter sw = null;
+            StringWriter sw = null;
             try
             {
-                XmlQualifiedName defns = new XmlQualifiedName("", defaultns);
-                XmlQualifiedName xsins =
+                var defns = new XmlQualifiedName("", defaultns);
+                var xsins =
                     new XmlQualifiedName
-                    (
-                    "xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance"
-                    );
-                XmlSerializerNamespaces nss =
+                        (
+                        "xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance"
+                        );
+                var nss =
                     new XmlSerializerNamespaces
-                    (
-                    new XmlQualifiedName[] { defns, xsins }
-                    );
+                        (
+                        new[] {defns, xsins}
+                        );
                 //XmlSerializerNamespaces nss = new XmlSerializerNamespaces(new XmlQualifiedName[] {defns});
                 xs = new XmlSerializer(source.GetType(), defaultns);
                 sb = new StringBuilder();
-                sw = new System.IO.StringWriter(sb);
+                sw = new StringWriter(sb);
 
                 xs.Serialize(sw, source, nss);
                 retVal = sb.ToString();
             }
             catch (Exception e)
             {
-                throw new Exception("Serialize2String Failed " + e.ToString());
+                throw new Exception("Serialize2String Failed " + e);
             }
             finally
             {
                 sw.Close();
             }
             return retVal;
-
         }
 
-        public static object DeserializeFromString(string objectTextGraph, System.Type type)
+        public static object DeserializeFromString(string objectTextGraph, Type type)
         {
             object ctc = null;
             if (objectTextGraph != null || objectTextGraph != String.Empty)
             {
-                System.Xml.XmlTextReader reader = null;
+                XmlTextReader reader = null;
                 try
                 {
-                    System.Xml.Serialization.XmlSerializer xs = new XmlSerializer(type);
+                    var xs = new XmlSerializer(type);
                     //sr = new StringReader(objectTextGraph);
                     reader = new XmlTextReader(objectTextGraph, XmlNodeType.Element, null);
                     reader.Normalization = false;
                     ctc = xs.Deserialize(reader);
                     // Complete post deserialization work.
-                    IDeserializationCallback idc = ctc as IDeserializationCallback;
+                    var idc = ctc as IDeserializationCallback;
                     if (idc != null)
                     {
                         idc.OnDeserialization(null);
@@ -247,7 +240,8 @@ namespace Tools.Core.Utils
                 {
                     throw new Exception
                         (
-                        "Exception ocurred while reading type " + type.FullName + " from the objectTextGraph " + objectTextGraph + "\r\n" + e.ToString() + "\r\nType:" + e.GetType().Name,
+                        "Exception ocurred while reading type " + type.FullName + " from the objectTextGraph " +
+                        objectTextGraph + "\r\n" + e + "\r\nType:" + e.GetType().Name,
                         e
                         );
                 }
@@ -268,7 +262,8 @@ namespace Tools.Core.Utils
                 try
                 {
                     var xs = new XmlSerializer(type);
-                    reader = new XmlTextReader(path) {Normalization = false};
+                    reader = new XmlTextReader(path);
+                    reader.Normalization = false;
 
                     ctc = xs.Deserialize(reader);
                     // Complete post deserialization work.
@@ -293,5 +288,5 @@ namespace Tools.Core.Utils
             }
             return ctc;
         }
-	}
+    }
 }

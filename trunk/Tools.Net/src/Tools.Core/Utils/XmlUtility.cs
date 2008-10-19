@@ -9,23 +9,32 @@ namespace Tools.Core.Utils
         {
             switch (input)
             {
-                case '\n': return "&#xA;";
-                case '\r': return "&#xD;";
-                case '&': return "&amp;";
-                case '\'': return "&apos;";
-                case '"': return "&quot;";
-                case '<': return "&lt;";
-                case '>': return "&gt;";
-                default: return new string(input, 1);
+                case '\n':
+                    return "&#xA;";
+                case '\r':
+                    return "&#xD;";
+                case '&':
+                    return "&amp;";
+                case '\'':
+                    return "&apos;";
+                case '"':
+                    return "&quot;";
+                case '<':
+                    return "&lt;";
+                case '>':
+                    return "&gt;";
+                default:
+                    return new string(input, 1);
             }
         }
+
         public static string Encode(string input)
         {
             if (String.IsNullOrEmpty(input)) return input;
 
             int length = input.Length;
 
-            StringBuilder builder = new StringBuilder(length + 8);
+            var builder = new StringBuilder(length + 8);
 
             for (int i = 0; i < length; i++)
             {
@@ -33,6 +42,5 @@ namespace Tools.Core.Utils
             }
             return builder.ToString();
         }
-
     }
 }
