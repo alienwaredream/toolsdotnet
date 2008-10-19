@@ -1,29 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Tools.Core.Messaging
 {
+
     #region Class Message
 
     /// <summary>
     /// Encapsulates a Messsage concept with id, name, text properties as well
     /// as service and phase for which it is used.
     /// </summary>
-    [DataContract()]
-    [Serializable()]
+    [DataContract]
+    [Serializable]
     public class Message : ICloneable
     {
         #region Fields
 
-        private int _id;
-        private string _name;
-        private string _serviceName;
-        private string _phase;
-        private string _text;
-        private string _cultureName;
         private MessageType _messageType = MessageType.None;
 
         private MessageExtension<string, string> _stringNameValueExtension =
@@ -32,97 +25,83 @@ namespace Tools.Core.Messaging
         #endregion
 
         #region Methods
-        public void AddExtensionItem(string key, string value) 
+
+        public void AddExtensionItem(string key, string value)
         {
             //if(_stringNameValueExtension==null)
             //    _stringNameValueExtension = new MessageExtension<string, string>();
-            NameValue<string, string> nv = new NameValue<string, string>(key,value);
+            var nv = new NameValue<string, string>(key, value);
             _stringNameValueExtension.AddNameValue(nv);
         }
+
         public bool ContainsExtensionItem(NameValue<string, string> nv)
         {
             return StringNameValueExtension.NameValueList.Exists(
                 delegate(NameValue<string, string> nvItem) { return nvItem.Equals(nv); });
         }
-        public String GetExtensionValue(String key) 
+
+        public String GetExtensionValue(String key)
         {
             if (StringNameValueExtension[key] != null)
             {
-                return StringNameValueExtension[key].Value.ToString();
+                return StringNameValueExtension[key].Value;
             }
             else
             {
                 return null;
             }
         }
+
         #endregion
 
         #region Overrides
 
         public override string ToString()
         {
-            return this.Id + ": "+ this.MessageType + ":" + this.Text;
+            return Id + ": " + MessageType + ":" + Text;
         }
 
         #endregion
 
         #region Properties
-        [DataMember()]
+
+        [DataMember]
         public MessageExtension<string, string> StringNameValueExtension
         {
             get { return _stringNameValueExtension; }
             set { _stringNameValueExtension = value; }
         }
 
-        [DataMember()]
-        [XmlAttribute()]
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        [DataMember()]
-        public string Text
-        {
-            get { return _text; }
-            set { _text = value; }
-        }
-        [DataMember()]
-        [XmlAttribute()]
+        [DataMember]
+        [XmlAttribute]
+        public string Name { get; set; }
+
+        [DataMember]
+        public string Text { get; set; }
+
+        [DataMember]
+        [XmlAttribute]
         public MessageType MessageType
         {
             get { return _messageType; }
             set { _messageType = value; }
         }
-        [DataMember()]
-        [XmlAttribute()]
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
 
-        [DataMember()]
-        [XmlAttribute()]
-        public string CultureName
-        {
-            get { return _cultureName; }
-            set { _cultureName = value; }
-        }
-        [DataMember()]
-        [XmlAttribute()]
-        public string Phase
-        {
-            get { return _phase; }
-            set { _phase = value; }
-        }
-        [DataMember()]
-        [XmlAttribute()]
-        public string ServiceName
-        {
-            get { return _serviceName; }
-            set { _serviceName = value; }
-        }
+        [DataMember]
+        [XmlAttribute]
+        public int Id { get; set; }
+
+        [DataMember]
+        [XmlAttribute]
+        public string CultureName { get; set; }
+
+        [DataMember]
+        [XmlAttribute]
+        public string Phase { get; set; }
+
+        [DataMember]
+        [XmlAttribute]
+        public string ServiceName { get; set; }
 
 
         //public Dictionary<string, string> CustomData
@@ -130,15 +109,18 @@ namespace Tools.Core.Messaging
         //    get { return _customData; }
         //    set { _customData = value; }
         //}
+
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Message"/> class.
         /// </summary>
         public Message()
         {
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Message"/> class.
         /// </summary>
@@ -149,9 +131,10 @@ namespace Tools.Core.Messaging
         public Message(object messageId, string text, string serviceName, string phase)
             : this(messageId, text)
         {
-            this._serviceName = serviceName;
-            this._phase = phase;
+            ServiceName = serviceName;
+            Phase = phase;
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Message"/> class.
         /// </summary>
@@ -159,10 +142,11 @@ namespace Tools.Core.Messaging
         /// <param name="text">The text.</param>
         public Message(object messageId, string text)
         {
-            _id = Convert.ToInt32(messageId);
-            _name = messageId.ToString();
-            _text = text;
+            Id = Convert.ToInt32(messageId);
+            Name = messageId.ToString();
+            Text = text;
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Message"/> class.
         /// </summary>
@@ -171,9 +155,9 @@ namespace Tools.Core.Messaging
         /// <param name="text">The text.</param>
         public Message(int id, string name, string text)
         {
-            _id = id;
-            _name = name;
-            _text = text;
+            Id = id;
+            Name = name;
+            Text = text;
         }
 
         /// <summary>
@@ -188,6 +172,7 @@ namespace Tools.Core.Messaging
         {
             _messageType = messageType;
         }
+
         #endregion
 
         #region ICloneable Members
@@ -201,10 +186,11 @@ namespace Tools.Core.Messaging
         public object Clone()
         {
             //TODO: (SD) Add for the new fields
-            return new Message(this.Id, this.Name, this.Text, this.MessageType);
+            return new Message(Id, Name, Text, MessageType);
         }
 
         #endregion
     }
+
     #endregion
 }
