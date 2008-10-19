@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Tools.Core.Threading
+﻿namespace Tools.Core.Threading
 {
     //TODO: (SD) Optimize further for contention (locks optimizations)
     /// <summary>
@@ -13,8 +8,23 @@ namespace Tools.Core.Threading
     {
         #region Fields
 
-        private int _value;
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new object();
+        private volatile int _value;
+
+        public event VoidDelegate Zeroed;
+        //{
+        //    add
+        //    {
+        //     //lock(Zeroed)
+        //     //{
+        //         Zeroed += value;
+        //     //}
+        //    }
+        //    remove
+        //    {
+        //        Zeroed -= value;
+        //    }
+        //}
 
         #endregion Fields
 
@@ -29,14 +39,18 @@ namespace Tools.Core.Threading
                     return _value;
                 }
             }
+            set
+            {
+                lock (_syncRoot)
+                {
+                    _value = value;
+                }         
+            }
         }
 
         public int Value
         {
-            get
-            {
-                return _value;
-            }
+            get { return _value; }
         }
 
         #endregion Properties
@@ -48,16 +62,27 @@ namespace Tools.Core.Threading
             _value = 0;
         }
 
-
         #endregion Constructors
 
         #region Methods
+
+        private void OnZero()
+        {
+            if (Zeroed!=null)
+            {
+                Zeroed();
+            }
+        }
 
         public void SyncIncrement()
         {
             lock (_syncRoot)
             {
-                _value++;
+                Increment();
+                if (_value == 0)
+                {
+                    OnZero();
+                }
             }
         }
 
@@ -65,7 +90,11 @@ namespace Tools.Core.Threading
         {
             lock (_syncRoot)
             {
-                _value--;
+                Decrement();
+                if (_value == 0)
+                {
+                    OnZero();
+                }
             }
         }
 
@@ -79,8 +108,6 @@ namespace Tools.Core.Threading
             _value--;
         }
 
-
         #endregion Methods
-
     }
 }
