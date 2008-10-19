@@ -87,7 +87,7 @@ namespace Tools.Wcf.Host
         /// <summary>
         /// Starts this instance.
         /// </summary>
-        protected override void start()
+        protected override void StartInternal()
         {
             //throw new Exception("bla-bla");
 

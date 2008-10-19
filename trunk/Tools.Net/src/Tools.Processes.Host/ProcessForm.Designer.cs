@@ -39,6 +39,7 @@ namespace Tools.Processes.Host
             this.applyRegexToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearLogToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.pauseLogStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.traceShutdownToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.traceShutdownToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
@@ -52,7 +53,7 @@ namespace Tools.Processes.Host
             this.startProcessButton = new System.Windows.Forms.Button();
             this.stopProcessButton = new System.Windows.Forms.Button();
             this.connectTracesCheckBox = new System.Windows.Forms.CheckBox();
-            this.pauseLogStripButton = new System.Windows.Forms.ToolStripButton();
+            this.autoScrollToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainTabControl.SuspendLayout();
             this.logTabPage.SuspendLayout();
             this.outputToolStrip.SuspendLayout();
@@ -121,7 +122,8 @@ namespace Tools.Processes.Host
             this.traceShutdownToolStripLabel,
             this.traceShutdownToolStripTextBox,
             this.traceShutdownDurationScToolStripLabel,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.autoScrollToolStripButton});
             this.outputToolStrip.Location = new System.Drawing.Point(3, 3);
             this.outputToolStrip.Name = "outputToolStrip";
             this.outputToolStrip.Size = new System.Drawing.Size(820, 25);
@@ -166,6 +168,16 @@ namespace Tools.Processes.Host
             this.clearLogToolStripButton.Size = new System.Drawing.Size(36, 22);
             this.clearLogToolStripButton.Text = "Clear";
             this.clearLogToolStripButton.Click += new System.EventHandler(this.clearLogToolStripButton_Click);
+            // 
+            // pauseLogStripButton
+            // 
+            this.pauseLogStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.pauseLogStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pauseLogStripButton.Image")));
+            this.pauseLogStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pauseLogStripButton.Name = "pauseLogStripButton";
+            this.pauseLogStripButton.Size = new System.Drawing.Size(83, 22);
+            this.pauseLogStripButton.Text = "Disconnect Log";
+            this.pauseLogStripButton.Click += new System.EventHandler(this.pauseLogStripButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -294,15 +306,18 @@ namespace Tools.Processes.Host
             this.connectTracesCheckBox.UseVisualStyleBackColor = true;
             this.connectTracesCheckBox.CheckedChanged += new System.EventHandler(this.connectTracesCheckBox_CheckedChanged);
             // 
-            // pauseLogStripButton
+            // autoScrollToolStripButton
             // 
-            this.pauseLogStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.pauseLogStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pauseLogStripButton.Image")));
-            this.pauseLogStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pauseLogStripButton.Name = "pauseLogStripButton";
-            this.pauseLogStripButton.Size = new System.Drawing.Size(83, 22);
-            this.pauseLogStripButton.Text = "Disconnect Log";
-            this.pauseLogStripButton.Click += new System.EventHandler(this.pauseLogStripButton_Click);
+            this.autoScrollToolStripButton.Checked = true;
+            this.autoScrollToolStripButton.CheckOnClick = true;
+            this.autoScrollToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoScrollToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.autoScrollToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("autoScrollToolStripButton.Image")));
+            this.autoScrollToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoScrollToolStripButton.Name = "autoScrollToolStripButton";
+            this.autoScrollToolStripButton.Size = new System.Drawing.Size(59, 22);
+            this.autoScrollToolStripButton.Text = "AutoScroll";
+            this.autoScrollToolStripButton.Click += new System.EventHandler(this.autoScrollToolStripButtonT_Click);
             // 
             // ProcessForm
             // 
@@ -358,5 +373,6 @@ namespace Tools.Processes.Host
         private System.Windows.Forms.ToolStripLabel traceShutdownDurationScToolStripLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton pauseLogStripButton;
+        private System.Windows.Forms.ToolStripButton autoScrollToolStripButton;
     }
 }

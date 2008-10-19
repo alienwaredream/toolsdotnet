@@ -9,10 +9,11 @@ namespace Tools.RemotingWcf.Host
     /// <remarks>Supposed to be called only on the single thread</remarks>
     public class RemotingWcfHostProgram : WcfHostProgram
     {
-        protected override void start()
+        protected override void StartInternal()
         {
-            base.start();
-
+            // call base to register the wcf services
+            base.StartInternal();
+            // then register the remoting services
             RemotingRegistrator.Register();
         }
         public override void Stop()
