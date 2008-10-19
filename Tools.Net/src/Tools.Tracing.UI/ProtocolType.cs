@@ -11,4 +11,5 @@ namespace Tools.Tracing.UI
 		Http	= 2,
 		Ipc		= 3
 	}
+
 }
