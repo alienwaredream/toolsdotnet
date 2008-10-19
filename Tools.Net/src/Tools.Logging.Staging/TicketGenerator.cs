@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Security.Principal;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Tools.Logging
 {
@@ -14,9 +11,9 @@ namespace Tools.Logging
     {
         #region Attributes
 
-        private static int currentProcessId;
-        private static long startTicks;
-        private static string prefix;
+        private static readonly int currentProcessId;
+        private static readonly string prefix;
+        private static readonly long startTicks;
 
         #endregion Attributes
 
@@ -24,13 +21,13 @@ namespace Tools.Logging
 
         static TicketGenerator()
         {
-            currentProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
+            currentProcessId = Process.GetCurrentProcess().Id;
             DateTime generationSessionStart = DateTime.Now;
             prefix = generationSessionStart.ToString("yyMMddHHmm-") + Environment.MachineName
-                + "-" + currentProcessId + "-";
+                     + "-" + currentProcessId + "-";
             startTicks = Stopwatch.GetTimestamp();
-                //new DateTime(generationSessionStart.Year, generationSessionStart.Month,
-                //generationSessionStart.Day, generationSessionStart.Hour, generationSessionStart.Minute, 0).Ticks;
+            //new DateTime(generationSessionStart.Year, generationSessionStart.Month,
+            //generationSessionStart.Day, generationSessionStart.Hour, generationSessionStart.Minute, 0).Ticks;
             Debug.WriteLine("Timer is high resolution: " + Stopwatch.IsHighResolution);
         }
 
