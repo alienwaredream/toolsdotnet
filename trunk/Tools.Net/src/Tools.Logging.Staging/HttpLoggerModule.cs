@@ -1,75 +1,78 @@
 using System;
-using System.Web;
-using System.Text;
-using System.IO;
 using System.Diagnostics;
+using System.Text;
+using System.Web;
 
 namespace Tools.Logging
 {
-	/// <summary>
-	/// The whole module, its placement, methods etc, is very, very ad-hoc.
-	/// </summary>
-	public class HttpLoggerModule : IHttpModule
-	{
-		//private MemoryStream responseStream = null;
-		private HttpLoggerFilter lf = null;
+    /// <summary>
+    /// The whole module, its placement, methods etc, is very, very ad-hoc.
+    /// </summary>
+    public class HttpLoggerModule : IHttpModule
+    {
+        //private MemoryStream responseStream = null;
+        private HttpLoggerFilter lf;
 
-		public HttpLoggerModule()
-		{
-			
-		}
-		#region IHttpModule Members
+        #region IHttpModule Members
 
-		public void Init(HttpApplication context)
-		{
+        public void Init(HttpApplication context)
+        {
             // no need to register to those events if there is no need to log
             if (Log.Source.Switch.ShouldTrace(TraceEventType.Verbose))
             {
                 context.BeginRequest +=
-                    new EventHandler(this.OnBeginRequest);
+                    OnBeginRequest;
 
                 context.EndRequest +=
-                    new EventHandler(this.OnEndRequest);
+                    OnEndRequest;
             }
-		}
-		public void OnBeginRequest(object o, EventArgs ea) 
-		{
+        }
 
-			HttpApplication httpApp = (HttpApplication) o;   
-			HttpContext ctx = HttpContext.Current;
-			//ctx.Response.Filter = responseStream;
-			byte[] b = new byte[ctx.Request.InputStream.Length];
+        public void Dispose()
+        {
+            // TODO:  Add LoggerModule.Dispose implementation
+        }
 
-			ctx.Request.InputStream.Read(b, 0, b.Length);
-			ctx.Request.InputStream.Position = 0;
-			StringBuilder serverVarsDetails = new StringBuilder();
-			foreach (string key in ctx.Request.ServerVariables.AllKeys)
-			{
-				if (ctx.Request.ServerVariables[key]!=null&&ctx.Request.ServerVariables[key]!=String.Empty) 
+        #endregion
+
+        public void OnBeginRequest(object o, EventArgs ea)
+        {
+            var httpApp = (HttpApplication) o;
+            HttpContext ctx = HttpContext.Current;
+            //ctx.Response.Filter = responseStream;
+            var b = new byte[ctx.Request.InputStream.Length];
+
+            ctx.Request.InputStream.Read(b, 0, b.Length);
+            ctx.Request.InputStream.Position = 0;
+            var serverVarsDetails = new StringBuilder();
+            foreach (string key in ctx.Request.ServerVariables.AllKeys)
+            {
+                if (ctx.Request.ServerVariables[key] != null && ctx.Request.ServerVariables[key] != String.Empty)
                     serverVarsDetails.Append(key + ":" + ctx.Request.ServerVariables[key] + "\r\n");
-			}
-			StringBuilder headersDetail = new StringBuilder();
-			foreach (string key in ctx.Request.Headers.AllKeys)
-			{
+            }
+            var headersDetail = new StringBuilder();
+            foreach (string key in ctx.Request.Headers.AllKeys)
+            {
                 if (ctx.Request.Headers[key] != null && ctx.Request.Headers[key] != String.Empty)
                     headersDetail.Append(key + ":" + ctx.Request.Headers[key] + "\r\n");
-			}
-            Log.Source.TraceEvent(TraceEventType.Verbose, 0, 
-                "Headers:" + System.Environment.NewLine + headersDetail.ToString() + System.Environment.NewLine +
-                "ServerVariables:" + System.Environment.NewLine+ serverVarsDetails.ToString() + System.Environment.NewLine +
-                "Request: " + System.Environment.NewLine + Encoding.UTF8.GetString(b));
+            }
+            Log.Source.TraceEvent(TraceEventType.Verbose, 0,
+                                  "Headers:" + Environment.NewLine + headersDetail + Environment.NewLine +
+                                  "ServerVariables:" + Environment.NewLine + serverVarsDetails + Environment.NewLine +
+                                  "Request: " + Environment.NewLine + Encoding.UTF8.GetString(b));
 
-			lf = new HttpLoggerFilter(ctx.Response.Filter);
-			lf.LogEncoding = ctx.Response.ContentEncoding;
-			ctx.Response.Filter = lf;
-		}
+            lf = new HttpLoggerFilter(ctx.Response.Filter);
+            lf.LogEncoding = ctx.Response.ContentEncoding;
+            ctx.Response.Filter = lf;
+        }
 
         public void OnEndRequest(object o, EventArgs ea)
         {
-            HttpApplication httpApp = (HttpApplication)o;
+            var httpApp = (HttpApplication) o;
             HttpContext ctx = HttpContext.Current;
 
             #region proof of concept - failed
+
             //ctx.Response.Filter = responseStream;
             //byte[] b = new byte[ctx.Response.OutputStream.Length];
             //int iv = 0;
@@ -82,9 +85,10 @@ namespace Tools.Logging
             //ctx.Response.OutputStream.Read(b, 0, b.Length);
             //ctx.Response.OutputStream.Position = 0;
             //ctx.Response.
+
             #endregion proof of concept - failed
 
-            StringBuilder logMessage = new StringBuilder();
+            var logMessage = new StringBuilder();
 
             foreach (string cookieName in ctx.Response.Cookies.Keys)
             {
@@ -101,22 +105,17 @@ namespace Tools.Logging
             addLogLine(logMessage, "Charset:", ctx.Response.Charset);
             addLogLine(logMessage, "IsRequestBeingRedirected:", ctx.Response.IsRequestBeingRedirected.ToString());
 
-            Log.Source.TraceEvent(TraceEventType.Verbose, 0, 
-            "Response body: " + System.Environment.NewLine + lf.RawContent +
-            System.Environment.NewLine +
-            "Response headers:" + logMessage.ToString());
+            Log.Source.TraceEvent(TraceEventType.Verbose, 0,
+                                  "Response body: " + Environment.NewLine + lf.RawContent +
+                                  Environment.NewLine +
+                                  "Response headers:" + logMessage);
         }
+
         private void addLogLine(StringBuilder sb, string subject, string val)
         {
             sb.Append(subject);
             sb.Append(val);
             sb.Append(Environment.NewLine);
         }
-		public void Dispose()
-		{
-			// TODO:  Add LoggerModule.Dispose implementation
-		}
-
-		#endregion
-	}
+    }
 }

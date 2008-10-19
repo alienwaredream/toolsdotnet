@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Threading;
-using System.Diagnostics;
 
 namespace Tools.Logging
 {
@@ -11,13 +7,11 @@ namespace Tools.Logging
     {
         #region Global variables
 
-        private PerfomanceCounterConfiguration _counterConfiguration = null;
-        private PerformanceCounter _counter = null;
-
-        private int eventsToSkipCounter = 0;
+        private readonly int eventsToSkipCount;
+        private PerfomanceCounterConfiguration _counterConfiguration;
 
         private bool checkForSkip = true;
-        private int eventsToSkipCount = 0;
+        private int eventsToSkipCounter;
 
         #endregion Global variables
 
@@ -25,26 +19,11 @@ namespace Tools.Logging
 
         public PerfomanceCounterConfiguration CounterConfiguration
         {
-            get
-            {
-                return _counterConfiguration;
-            }
-            set
-            {
-                _counterConfiguration = value;
-            }
+            get { return _counterConfiguration; }
+            set { _counterConfiguration = value; }
         }
-        public PerformanceCounter Counter
-        {
-            get
-            {
-                return _counter;
-            }
-            set
-            {
-                _counter = value;
-            }
-        }
+
+        public PerformanceCounter Counter { get; set; }
 
         #endregion Properties
 
@@ -55,12 +34,13 @@ namespace Tools.Logging
             )
         {
             _counterConfiguration = counterConfiguration;
-            _counter = counter;
+            Counter = counter;
             // assign derived values, that is done in order to avoid property method call, still
             // this encapsulation to the container itself is a performance overhead for measurements, so
             // at least to pay back some (SD).
             eventsToSkipCount = _counterConfiguration.EventsToSkipCount;
         }
+
         public bool Applicable
         {
             get
@@ -79,8 +59,6 @@ namespace Tools.Logging
                     return true;
                 }
             }
-
         }
-
     }
 }
