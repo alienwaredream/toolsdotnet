@@ -171,8 +171,8 @@ GO
 DROP TABLE #tmpErrors
 GO
 -- =============================================
--- Author:		Stanislav Dvoychenko
--- Create date: 22-Mar-2007
+-- Author:		Stanislav Dvoychenko, Jose Silva
+-- Create date: -Mar-2007
 -- Description:	Removes records from the log tables. Processes remove as a batch with a size which is passed
 -- as a parameter. Also number of days to remove data for is a parameter.
 
@@ -180,7 +180,7 @@ GO
 -- EXEC [Common].[esc_usp_ClearLog] 10000, 1
 -- Modification History
 -- =============================================
-/*
+
 CREATE PROCEDURE [Common].[esc_usp_ClearLog]
 	@RecordsCount int = 0, -- Records count to delete
 	@NumberOfDays int = 2
@@ -190,11 +190,11 @@ AS
 	SET @CeilingDate = DATEADD(day, -@NumberOfDays, GETUTCDATE()) -- substructs days
 	-- Identify the smallest value available
 	DECLARE @CeilingId numeric(18,0)
-	SELECT @CeilingId = MIN(LOG_SID) FROM C000.CMN_MESSAGE_LOG
+	SELECT @CeilingId = MIN(Id) FROM [Common].[Log]
 	-- Add the @RecordsCount
 	SET @CeilingId = @CeilingId + @RecordsCount
 	-- Delete the batch
-	DELETE TOP(@RecordsCount) FROM C000.CMN_MESSAGE_LOG WITH (PAGLOCK)
-		WHERE LOG_SID < @CeilingId AND DATESTAMP < @CeilingDate
+	DELETE TOP(@RecordsCount) FROM [Common].[Log] WITH (PAGLOCK)
+		WHERE Id < @CeilingId AND Date < @CeilingDate
 		PRINT @CeilingDate
-RETURN 0;*/
+RETURN 0;
