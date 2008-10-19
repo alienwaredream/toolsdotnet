@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using System.Collections;
+﻿using System.Diagnostics;
 using Spring.Context.Support;
 
 namespace Tools.Logging.Ioc
 {
     public class IocWrapperTraceFilter : TraceFilter
     {
-        TraceFilter traceFilter;
+        private readonly TraceFilter traceFilter;
 
         public IocWrapperTraceFilter(string objectName)
         {
             traceFilter = ContextRegistry.GetContext().GetObject(objectName) as TraceFilter;
         }
 
-        public override bool ShouldTrace(TraceEventCache cache, string source, TraceEventType eventType, int id, string formatOrMessage, object[] args, object data1, object[] data)
+        public override bool ShouldTrace(TraceEventCache cache, string source, TraceEventType eventType, int id,
+                                         string formatOrMessage, object[] args, object data1, object[] data)
         {
             if (traceFilter != null)
             {
