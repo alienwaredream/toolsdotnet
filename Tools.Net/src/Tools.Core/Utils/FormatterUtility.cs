@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tools.Core.Utils
 {
@@ -8,7 +6,7 @@ namespace Tools.Core.Utils
     {
         public static string GetEnumMemberNameForLogging(Enum messageId)
         {
-            return messageId.GetType().Name + "." + messageId.ToString();
+            return messageId.GetType().Name + "." + messageId;
         }
     }
 }
