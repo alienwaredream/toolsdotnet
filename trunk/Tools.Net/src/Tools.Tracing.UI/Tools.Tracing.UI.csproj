@@ -341,7 +341,6 @@
     </None>
     <Content Include="App.ico" />
     <Content Include="ApplicationEvent.xml" />
-    <Content Include="bin\Debug\XsltEventTransform.xslt" />
     <Content Include="BRIDGE.ICO" />
     <Content Include="ApplicationEvents.xml" />
     <Content Include="GetEventsByIdXsltEventsTransform.xslt" />

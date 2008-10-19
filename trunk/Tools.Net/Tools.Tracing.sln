@@ -26,8 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Processes.Host", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Remoting.Host", "src\Tools.Remoting.Host\Tools.Remoting.Host.csproj", "{6C48307A-B3A9-49FB-AB4C-234856FE0338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Collaboration.Publishing.Host", "src\Tools.Collaboration.Publishing.Host\Tools.Collaboration.Publishing.Host.csproj", "{D0140D5A-D084-4731-8AB1-491663CBD8B2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.RemotingWcf.Host", "src\Tools.RemotingWcf.Host\Tools.RemotingWcf.Host.csproj", "{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging", "src\Tools.Logging\Tools.Logging.csproj", "{B1789295-B42B-493A-9CE0-570AE9425773}"
@@ -121,12 +119,6 @@ Global
 		{6C48307A-B3A9-49FB-AB4C-234856FE0338}.PerformanceTestConfiguration|Any CPU.Build.0 = Release|Any CPU
 		{6C48307A-B3A9-49FB-AB4C-234856FE0338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C48307A-B3A9-49FB-AB4C-234856FE0338}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.PerformanceTestConfiguration|Any CPU.ActiveCfg = Release|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.PerformanceTestConfiguration|Any CPU.Build.0 = Release|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0140D5A-D084-4731-8AB1-491663CBD8B2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}.PerformanceTestConfiguration|Any CPU.ActiveCfg = Release|Any CPU
