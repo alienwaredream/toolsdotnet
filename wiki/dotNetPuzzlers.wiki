@@ -63,3 +63,8 @@ What one should be aware of when changing non-virtual method to be virtual?
   *  What is the syntax and elements of constrained execution setup?
   *  What is the contract of the code inside the constrained execution sections?
   *  What are changes in this area in .NET 2.0 compared to .NET 1.x?
+
+== Exception handling ==
+  *  What is 1st chance exception
+  *  What is the difference between throw ex and throw;
+  *  
