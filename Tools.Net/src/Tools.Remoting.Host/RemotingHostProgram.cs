@@ -32,7 +32,7 @@ namespace Tools.Remoting.Host
         /// <summary>
         /// Starts this instance.
         /// </summary>
-        protected override void start()
+        protected override void StartInternal()
         {
             RemotingRegistrator.Register();
         }

@@ -1,20 +1,35 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Security.Permissions;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
-
 
 namespace Tools.Processes.Host
 {
 
-	#region ServiceHost class
-	
-	public class ServiceHost : System.ServiceProcess.ServiceBase
-	{
-		#region Declarations
+    #region ServiceHost class
+
+    public class ServiceHost : ServiceBase
+    {
+        #region Declarations
+
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+#pragma warning disable 649
+        private Container components;
+#pragma warning restore 649
+
+        private int customExitCode;
+
+        /// <summary>
+        /// Stands for the win exit code.
+        /// </summary>
+        protected int exitCode; //TODO:(SD) encapsulate
 
         private HostMode mode;
 
@@ -25,34 +40,29 @@ namespace Tools.Processes.Host
         }
 
         /// <summary>
-        /// Stands for the win exit code.
-        /// </summary>
-        protected int exitCode = 0; //TODO:(SD) encapsulate
-        private int customExitCode = 0;
-        /// <summary>
         /// Custom application exit code.
         /// </summary>
         protected int CustomExitCode
         {
             get { return customExitCode; }
+            private set { customExitCode = value;}
         }
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
         public ServiceHost()
-		{
-			
-			InitializeComponent();
-		}
+        {
+        }
 
+        public ServiceHost(int customExitCode) : this()
+        {
+            InitializeComponent();
+            this.customExitCode = customExitCode;
+        }
 
-		#endregion
+        #endregion
 
         #region Entry points
 
@@ -61,100 +71,97 @@ namespace Tools.Processes.Host
         /// </summary>
         /// <typeparam name="ServiceHostType">The type of the ervice host type.</typeparam>
         /// <param name="args">The args.</param>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "By design, there can't be a parameter of type ServiceHostType here.")]
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter",
+            Justification = "By design, there can't be a parameter of type ServiceHostType here.")]
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         protected static void EntryPoint<ServiceHostType>(string[] args)
             where ServiceHostType : ServiceHost, new()
         {
             //if (Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Log.Source.TraceInformation(
-                "Entering the entry point of windows service with configuration file:" + 
+                "Entering the entry point of windows service with configuration file:" +
                 AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
             //Forces the principal info to be attached to the Thread
-            AppDomain.CurrentDomain.SetPrincipalPolicy(System.Security.Principal.PrincipalPolicy.WindowsPrincipal);
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
 
             if ((args.Length > 0) && (args[0].ToLower().Contains("winapp")))
             {
                 ServiceHost sh = new ServiceHostType();
                 sh.mode = HostMode.WindowsApplication;
                 Form hostForm = new ProcessForm(sh.OnStop, sh.OnStart, args);
-                hostForm.Text = hostForm.Text + ": " + typeof(ServiceHostType).Name;
+                hostForm.Text = hostForm.Text + ": " + typeof (ServiceHostType).Name;
 
                 Application.Run(hostForm);
             }
             else
             {
-                System.ServiceProcess.ServiceBase[] ServicesToRun;
+                ServiceBase[] ServicesToRun;
                 ServiceHost sh = new ServiceHostType();
                 sh.mode = HostMode.WindowsService;
 
-                ServicesToRun = new System.ServiceProcess.ServiceBase[] { sh };
-                ServiceBase.Run(ServicesToRun);
+                ServicesToRun = new ServiceBase[] {sh};
+                Run(ServicesToRun);
             }
-        } 
+        }
+
         #endregion
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.ServiceName =
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            ServiceName =
                 ServiceHostResource.GenericServiceHostShortName;
+        }
 
-		}
+        #region Overrides
 
-	
-		#region Overrides
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>oh
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>oh
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		/// <summary>
-		/// Sets things in motion so your service can do its work.
-		/// </summary>
-		protected override void OnStart(string[] args)
-		{
+        /// <summary>
+        /// Sets things in motion so your service can do its work.
+        /// </summary>
+        protected override void OnStart(string[] args)
+        {
             //Debugger.Launch();
-            Log.Source.TraceInformation(" Starting " + this.ServiceName);
-		}
- 
-		/// <summary>
-		/// Stops this service.
-		/// </summary>
-		protected override void OnStop()
-		{
-            this.ExitCode = 100;
-            Log.Source.TraceInformation("Stopping " + this.ServiceName);
-		}
-	
+            Log.Source.TraceInformation(" Starting " + ServiceName);
+        }
 
-		#endregion
+        /// <summary>
+        /// Stops this service.
+        /// </summary>
+        protected override void OnStop()
+        {
+            ExitCode = 100;
+            Log.Source.TraceInformation("Stopping " + ServiceName);
+        }
 
-		#region Handlers
+        #endregion
 
-		private static void CurrentDomain_UnhandledException(object sender, 
-            UnhandledExceptionEventArgs e)
-		{
+        #region Handlers
+
+        private static void CurrentDomain_UnhandledException(object sender,
+                                                             UnhandledExceptionEventArgs e)
+        {
             //TODO: (SD) Make subject of configuration from the command line argument
             bool ignoreHandlingErrors = false;
-
-            bool shouldRethrow = true;
 
             try
             {
@@ -165,9 +172,9 @@ namespace Tools.Processes.Host
             {
                 string logText =
                     String.Format(CultureInfo.InvariantCulture,
-                    "Exception happened as a result of attempt to handle another exception." +
-                    " The original exception info is: {0} \r\n and exception handling exception info is {1}",
-                    e.ExceptionObject.ToString(), ex.ToString());
+                                  "Exception happened as a result of attempt to handle another exception." +
+                                  " The original exception info is: {0} \r\n and exception handling exception info is {1}",
+                                  e.ExceptionObject, ex);
 
                 LogToFallbackLog(logText);
 
@@ -180,7 +187,7 @@ namespace Tools.Processes.Host
 
             //if (shouldRethrow)
             //    throw e.ExceptionObject as Exception;
-		}
+        }
 
         /// <summary>
         /// Logs to the fallback log.
@@ -191,18 +198,15 @@ namespace Tools.Processes.Host
             if (!EventLog.SourceExists(ServiceHostResource.GenericServiceHostShortName))
             {
                 EventLog.CreateEventSource(
-                    new EventSourceCreationData(ServiceHostResource.GenericServiceHostShortName, 
-                    ServiceHostResource.ApplicationLogName));
+                    new EventSourceCreationData(ServiceHostResource.GenericServiceHostShortName,
+                                                ServiceHostResource.ApplicationLogName));
             }
             EventLog.WriteEntry(ServiceHostResource.GenericServiceHostShortName,
-                logText, EventLogEntryType.Error);
+                                logText, EventLogEntryType.Error);
         }
 
-		#endregion
+        #endregion
+    }
 
-
-	}
-
-	#endregion
-
+    #endregion
 }

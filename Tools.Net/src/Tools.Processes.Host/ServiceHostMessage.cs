@@ -1,12 +1,10 @@
-using System;
-
 namespace Tools.Processes.Host
 {
-	/// <summary>
+    /// <summary>
     /// Summary description for ServiceHostMessage.
-	/// </summary>
+    /// </summary>
     public enum ServiceHostMessage
-	{
+    {
         None = 0
-	}
+    }
 }

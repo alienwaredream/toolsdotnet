@@ -1,48 +1,29 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
-using Tools.Processes;
 using System.Security;
+using System.Windows.Forms;
 using Tools.Processes.Core;
-using System.IO;
+using Tools.Processes.Host.Properties;
 
 namespace Tools.Processes.Host
 {
     public partial class ProcessForm : Form
     {
         //private ServiceHost serviceHost;
-        VoidAction stopDelegate;
-        VoidStringArgsAction startDelegate;
-        string[] startArguments;
-        ConsoleTraceListener traceListener;
-        private string descriptionRegexString;
+        private readonly TextControlTextWriter logTextWriter;
+        private readonly string[] startArguments;
+        private readonly VoidStringArgsAction startDelegate;
+        private readonly VoidAction stopDelegate;
         private bool logConnected = true;
-
-        private TextControlTextWriter logTextWriter;
-
-        /// <summary>
-        /// Gets the main tab control.
-        /// </summary>
-        /// <value>The main tab control.</value>
-        public TabControl MainTabControl
-        {
-            get
-            {
-                return mainTabControl;
-            }
-        }
+        private ConsoleTraceListener traceListener;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessForm"/> class.
         /// </summary>
-        /// <param name="stopDelegate">The stop delegate.</param>
-        /// <param name="startDelegate">The start delegate.</param>
-        /// <param name="startArguments">The start arguments.</param>
+        /// <param name="stopDelegate">The StopInternal delegate.</param>
+        /// <param name="startDelegate">The StartInternal delegate.</param>
+        /// <param name="startArguments">The StartInternal arguments.</param>
         public ProcessForm(
             VoidAction stopDelegate,
             VoidStringArgsAction startDelegate,
@@ -60,51 +41,63 @@ namespace Tools.Processes.Host
             setupPropertyGrid.SelectedObject =
                 AppDomain.CurrentDomain.SetupInformation;
 
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
 
             //SetProcessControlButtons(true);
             try
             {
-                logTextWriter = new TextControlTextWriter(this.outputListView,
-                    Tools.Processes.Host.Properties.Settings.Default.DescriptionRegex);
+                logTextWriter = new TextControlTextWriter(outputListView,
+                                                          Settings.Default.DescriptionRegex);
                 Console.SetOut(logTextWriter);
                 //Trace.Listeners.Add(new ConsoleTraceListener(false));
             }
             catch (SecurityException ex)
             {
                 ShowErrorMessage(MessagesResource.CannotLogToTestConsole + Environment.NewLine +
-                    ex.ToString());
+                                 ex);
             }
         }
 
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        /// <summary>
+        /// Gets the main tab control.
+        /// </summary>
+        /// <value>The main tab control.</value>
+        public TabControl MainTabControl
         {
-            ShowErrorMessage("Unhandled exception during start! This will cause process shutdown. Review the error and correct: " + e.ExceptionObject.ToString());
+            get { return mainTabControl; }
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            ShowErrorMessage(
+                "Unhandled exception during StartInternal! This will cause process shutdown. Review the error and correct: " +
+                e.ExceptionObject);
         }
 
         private void ConnectDiagnosticListeners()
         {
             Console.WriteLine("Trying to connect to the System.ServiceModel trace source.");
             traceListener = new ConsoleTraceListener(false);
-            TraceSource serviceModelTraceSource = new TraceSource("System.ServiceModel");
+            var serviceModelTraceSource = new TraceSource("System.ServiceModel");
             serviceModelTraceSource.Listeners.Add(traceListener);
             serviceModelTraceSource.TraceInformation("Test information from the host form \r\n");
 
-            TraceSource commonTraceSource = new TraceSource("Tools.Common");
+            var commonTraceSource = new TraceSource("Tools.Common");
             commonTraceSource.Listeners.Add(traceListener);
             commonTraceSource.TraceInformation("Test information from the Tools.Common \r\n");
-
         }
+
         private void DisconnectDiagnosticListeners()
         {
             //if (traceListener == null) return;
 
             //Trace.Listeners.Remove(traceListener);
             ////Trace.Listeners.Add(new TextControlWriterTraceListener(this.logRichTextBox));
-            TraceSource serviceModelTraceSource = new TraceSource("System.ServiceModel");
+            var serviceModelTraceSource = new TraceSource("System.ServiceModel");
             serviceModelTraceSource.Listeners.Add(traceListener);
         }
+
         /// <summary>
         /// Shows the error message.
         /// </summary>
@@ -129,12 +122,6 @@ namespace Tools.Processes.Host
         //    //startProcessButton.Enabled = (process != null && !stopProcessButton.Enabled);
 
         //}
-        
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            StopProcess();
-            base.OnClosing(e);
-        }
 
         private void StopProcess()
         {
@@ -148,13 +135,14 @@ namespace Tools.Processes.Host
                 stopDelegate();
             }
         }
+
         private void debugButton_Click(object sender, EventArgs e)
         {
             debugButton.Enabled = false;
 
             if (!Debugger.IsAttached)
             {
-                this.Text = "Debugging! " + this.Text;
+                Text = "Debugging! " + Text;
                 Debugger.Launch();
             }
         }
@@ -182,11 +170,10 @@ namespace Tools.Processes.Host
             if (startDelegate != null)
             {
                 startDelegate(startArguments);
-
             }
             else
             {
-                ShowErrorMessage("startdelegate is null. Nothing to start!");
+                ShowErrorMessage("startdelegate is null. Nothing to StartInternal!");
             }
         }
 
@@ -217,7 +204,7 @@ namespace Tools.Processes.Host
 
         private void ProcessForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Tools.Processes.Host.Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void clearLogToolStripButton_Click(object sender, EventArgs e)
@@ -228,7 +215,6 @@ namespace Tools.Processes.Host
 
         private void ProcessForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void pauseLogStripButton_Click(object sender, EventArgs e)
@@ -236,6 +222,11 @@ namespace Tools.Processes.Host
             logConnected = !logConnected;
             pauseLogStripButton.Text = (logConnected) ? "Disconnect Log" : "Connect Log";
             logTextWriter.Enabled = logConnected;
+        }
+
+        private void autoScrollToolStripButtonT_Click(object sender, EventArgs e)
+        {
+            logTextWriter.AutoScroll = autoScrollToolStripButton.Checked;
         }
     }
 }
