@@ -21,36 +21,36 @@ namespace Tools.Logging
     public class XmlWriterRollingTraceListener : TraceListener
     {
         #region Fields
+
         // Fields from the XmlWriterTraceListener
-        private const string fixedHeader = "<E2ETraceEvent xmlns=\"http://schemas.microsoft.com/2004/06/E2ETraceEvent\"><System xmlns=\"http://schemas.microsoft.com/2004/06/windows/eventlog/system\">";
-        private readonly string machineName;
-        private StringBuilder strBldr;
-        private XmlTextWriter xmlBlobWriter;
-        // Fields from the TextWriterTraceListener
-        private string fileName;
-        internal TextWriter writer;
+        private const string fixedHeader =
+            "<E2ETraceEvent xmlns=\"http://schemas.microsoft.com/2004/06/E2ETraceEvent\"><System xmlns=\"http://schemas.microsoft.com/2004/06/windows/eventlog/system\">";
+
         // Fields from the TraceEventCache
         private static int processId;
         private static string processName;
+        private readonly IInitializationStringParser initStringParser = new InitializationStringParser();
         // Fields from the rolling file trace listener
         // Configuration fields
-        private bool isRolling = false;
-        private string fileDatetimePattern = "dd-MMM-yyTHH-mm-ss";
-        private string fileStaticName = "log_";
-        private int maxFileSizeBytes = 2000000;
-        private string logRootLocation = null;
-
-        //runtime fields
-        private Guid logGuid;
-        private object syncWriteObject = new object();
-        private string logFilePath = null;
-        private bool isDirectoryCreated = false;
-
+        private readonly bool isRolling;
+        private readonly string machineName;
+        private readonly object syncWriteObject = new object();
         private IXPathFormatter dataXPathFormatter = new LogDataXPathFormatter();
-        private ITextWriterProvider textWriterProvider;
-        private ILogFileHelper logFileHelper;
         private IDirectoryHelper directoryHelper;
-        private IInitializationStringParser initStringParser = new InitializationStringParser();
+        private string fileDatetimePattern = "dd-MMM-yyTHH-mm-ss";
+        private string fileName;
+        private string fileStaticName = "log_";
+        private bool isDirectoryCreated;
+
+        private ILogFileHelper logFileHelper;
+        private string logFilePath;
+        private Guid logGuid;
+        private string logRootLocation;
+        private int maxFileSizeBytes = 2000000;
+        private StringBuilder strBldr;
+        private ITextWriterProvider textWriterProvider;
+        internal TextWriter writer;
+        private XmlTextWriter xmlBlobWriter;
 
         #endregion
 
@@ -77,59 +77,49 @@ namespace Tools.Logging
         }
 
         public XmlWriterRollingTraceListener(string initializationString)
-            : base()
         {
-
-            IDictionary<string, string> initParameters = this.initStringParser.Parse(initializationString);
+            IDictionary<string, string> initParameters = initStringParser.Parse(initializationString);
 
             if (initParameters == null)
             {
-                this.fileName = initializationString;
+                fileName = initializationString;
                 return;
             }
 
             isRolling = true;
 
-            this.Name = Guid.NewGuid().ToString();
+            Name = Guid.NewGuid().ToString();
 
-            SetValueIfPresent((string s) => this.Name = s, "name", initParameters);
-            
-            SetValueIfPresent((string s) => this.logRootLocation = s, "logrootpath", initParameters);
+            SetValueIfPresent((string s) => Name = s, "name", initParameters);
 
-            SetValueIfPresent((string s) => this.fileDatetimePattern = s, "datetimepattern", initParameters);
+            SetValueIfPresent((string s) => logRootLocation = s, "logrootpath", initParameters);
 
-            SetValueIfPresent((string s) => this.fileStaticName = s, "staticpattern", initParameters);
+            SetValueIfPresent((string s) => fileDatetimePattern = s, "datetimepattern", initParameters);
 
-            SetValueIfPresent((string s) => this.maxFileSizeBytes = Convert.ToInt32(s),
-                "maxsizebytes", initParameters);
+            SetValueIfPresent((string s) => fileStaticName = s, "staticpattern", initParameters);
 
-            this.machineName = Environment.MachineName;
-        }
-        private void SetValueIfPresent(Action<string> setAction, string keyName, IDictionary<string, string> dictionary)
-        {
-            string val = null;
-            if (dictionary.TryGetValue(keyName, out val) && !String.IsNullOrEmpty(val))
-            {
-                setAction(val);
-            }
+            SetValueIfPresent((string s) => maxFileSizeBytes = Convert.ToInt32(s),
+                              "maxsizebytes", initParameters);
+
+            machineName = Environment.MachineName;
         }
 
         public XmlWriterRollingTraceListener(Stream stream, string name)
             : base(name)
         {
-            this.machineName = Environment.MachineName;
+            machineName = Environment.MachineName;
 
             if (stream == null)
             {
                 throw new ArgumentNullException("stream");
             }
-            this.writer = new StreamWriter(stream);
+            writer = new StreamWriter(stream);
         }
 
         public XmlWriterRollingTraceListener(TextWriter writer, string name)
             : base(name)
         {
-            this.machineName = Environment.MachineName;
+            machineName = Environment.MachineName;
 
             if (writer == null)
             {
@@ -141,179 +131,200 @@ namespace Tools.Logging
         public XmlWriterRollingTraceListener(string fileName, string name)
             : base(name)
         {
-            this.machineName = Environment.MachineName;
+            machineName = Environment.MachineName;
             this.fileName = fileName;
         }
+
         public XmlWriterRollingTraceListener(int maxFileSizeBytes, string name)
             : this(maxFileSizeBytes, null, "dd-MMM-yyTHH-mm-ss", name + "_", name)
         {
         }
+
         public XmlWriterRollingTraceListener(int maxFileSizeBytes, string logRootLocation, string name)
             : this(maxFileSizeBytes, logRootLocation, "dd-MMM-yyTHH-mm-ss", "log_", name)
         {
         }
-        public XmlWriterRollingTraceListener(int maxFileSizeBytes, string logRootLocation, string fileDatetimePattern, string fileStaticPattern, string name)
+
+        public XmlWriterRollingTraceListener(int maxFileSizeBytes, string logRootLocation, string fileDatetimePattern,
+                                             string fileStaticPattern, string name)
             : base(name)
         {
-            this.machineName = Environment.MachineName;
-            this.isRolling = true;
+            machineName = Environment.MachineName;
+            isRolling = true;
             this.maxFileSizeBytes = maxFileSizeBytes;
             this.fileDatetimePattern = fileDatetimePattern;
             this.logRootLocation = logRootLocation;
-            this.fileStaticName = fileStaticPattern;
+            fileStaticName = fileStaticPattern;
             this.fileDatetimePattern = fileDatetimePattern;
         }
+
+        private static void SetValueIfPresent(Action<string> setAction, string keyName, IDictionary<string, string> dictionary)
+        {
+            string val = null;
+            if (dictionary.TryGetValue(keyName, out val) && !String.IsNullOrEmpty(val))
+            {
+                setAction(val);
+            }
+        }
+
         #endregion
 
         #region Methods - Disposable implementation
 
         public override void Close()
         {
-            if (this.writer != null)
+            if (writer != null)
             {
-                this.writer.Close();
+                writer.Close();
             }
-            this.writer = null;
+            writer = null;
 
-            if (this.xmlBlobWriter != null)
+            if (xmlBlobWriter != null)
             {
-                this.xmlBlobWriter.Close();
+                xmlBlobWriter.Close();
             }
-            this.xmlBlobWriter = null;
-            this.strBldr = null;
+            xmlBlobWriter = null;
+            strBldr = null;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.Close();
+                Close();
             }
         }
+
         #endregion
 
         #region Methods - TraceListener trace methods
 
         public override void Fail(string message, string detailMessage)
         {
-            StringBuilder builder = new StringBuilder(message);
+            var builder = new StringBuilder(message);
             if (detailMessage != null)
             {
                 builder.Append(" ");
                 builder.Append(detailMessage);
             }
-            this.TraceEvent(null, Log.Source.Name, TraceEventType.Error, 0, builder.ToString());
+            TraceEvent(null, Log.Source.Name, TraceEventType.Error, 0, builder.ToString());
         }
 
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                       object data)
         {
             DoWrite(() => TraceData2(eventCache, source, eventType, id, data));
         }
 
         private void TraceData2(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
-            if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, data, null))
+            if ((base.Filter == null) ||
+                base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, data, null))
             {
-                this.WriteHeader(source, eventType, id, eventCache);
-                this.InternalWrite("<TraceData>");
+                WriteHeader(source, eventType, id, eventCache);
+                InternalWrite("<TraceData>");
                 if (data != null)
                 {
-                    this.InternalWrite("<DataItem>");
-                    this.WriteData(data);
-                    this.InternalWrite("</DataItem>");
+                    InternalWrite("<DataItem>");
+                    WriteData(data);
+                    InternalWrite("</DataItem>");
                 }
-                this.InternalWrite("</TraceData>");
-                this.WriteFooter(eventCache);
+                InternalWrite("</TraceData>");
+                WriteFooter(eventCache);
             }
         }
 
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, params object[] data)
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                       params object[] data)
         {
             DoWrite(() => TraceData2(eventCache, source, eventType, id, data));
         }
-        private void TraceData2(TraceEventCache eventCache, string source, TraceEventType eventType, int id, params object[] data)
+
+        private void TraceData2(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                params object[] data)
         {
-            if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, null, data))
+            if ((base.Filter == null) ||
+                base.Filter.ShouldTrace(eventCache, source, eventType, id, null, null, null, data))
             {
-                this.WriteHeader(source, eventType, id, eventCache);
-                this.InternalWrite("<TraceData>");
+                WriteHeader(source, eventType, id, eventCache);
+                InternalWrite("<TraceData>");
                 if (data != null)
                 {
                     for (int i = 0; i < data.Length; i++)
                     {
-                        this.InternalWrite("<DataItem>");
+                        InternalWrite("<DataItem>");
                         if (data[i] != null)
                         {
-                            this.WriteData(data[i]);
+                            WriteData(data[i]);
                         }
-                        this.InternalWrite("</DataItem>");
+                        InternalWrite("</DataItem>");
                     }
                 }
-                this.InternalWrite("</TraceData>");
-                this.WriteFooter(eventCache);
+                InternalWrite("</TraceData>");
+                WriteFooter(eventCache);
             }
         }
 
-        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message)
+        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                        string message)
         {
             DoWrite(() => TraceEvent2(eventCache, source, eventType, id, message));
         }
-        private void TraceEvent2(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message)
+
+        private void TraceEvent2(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                 string message)
         {
-            if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, message, null, null, null))
+            if ((base.Filter == null) ||
+                base.Filter.ShouldTrace(eventCache, source, eventType, id, message, null, null, null))
             {
-                this.WriteHeader(source, eventType, id, eventCache);
-                this.WriteEscaped(message);
-                this.WriteFooter(eventCache);
+                WriteHeader(source, eventType, id, eventCache);
+                WriteEscaped(message);
+                WriteFooter(eventCache);
             }
         }
 
-        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
+        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                        string format, params object[] args)
         {
             DoWrite(() => TraceEvent2(eventCache, source, eventType, id, format, args));
         }
 
-        private void TraceEvent2(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
+        private void TraceEvent2(TraceEventCache eventCache, string source, TraceEventType eventType, int id,
+                                 string format, params object[] args)
         {
-            if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, eventType, id, format, args, null, null))
+            if ((base.Filter == null) ||
+                base.Filter.ShouldTrace(eventCache, source, eventType, id, format, args, null, null))
             {
-                string str;
-                this.WriteHeader(source, eventType, id, eventCache);
-                if (args != null)
-                {
-                    str = string.Format(CultureInfo.InvariantCulture, format, args);
-                }
-                else
-                {
-                    str = format;
-                }
-                this.WriteEscaped(str);
-                this.WriteFooter(eventCache);
+                WriteHeader(source, eventType, id, eventCache);
+                string str = args != null ? string.Format(CultureInfo.InvariantCulture, format, args) : format;
+                WriteEscaped(str);
+                WriteFooter(eventCache);
             }
         }
 
-        public override void TraceTransfer(TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId)
+        public override void TraceTransfer(TraceEventCache eventCache, string source, int id, string message,
+                                           Guid relatedActivityId)
         {
             DoWrite(() => TraceTransfer2(eventCache, source, id, message, relatedActivityId));
         }
 
-        private void TraceTransfer2(TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId)
+        private void TraceTransfer2(TraceEventCache eventCache, string source, int id, string message,
+                                    Guid relatedActivityId)
         {
-            this.WriteHeader(source, TraceEventType.Transfer, id, eventCache, relatedActivityId);
-            this.WriteEscaped(message);
-            this.WriteFooter(eventCache);
+            WriteHeader(source, TraceEventType.Transfer, id, eventCache, relatedActivityId);
+            WriteEscaped(message);
+            WriteFooter(eventCache);
         }
 
         public override void Write(string message)
         {
-            this.WriteLine(message);
+            WriteLine(message);
         }
 
         public override void WriteLine(string message)
         {
-            this.TraceEvent(null, Log.Source.Name, TraceEventType.Information, 0, message);
+            TraceEvent(null, Log.Source.Name, TraceEventType.Information, 0, message);
         }
-
 
         #endregion
 
@@ -325,7 +336,6 @@ namespace Tools.Logging
             {
                 lock (syncWriteObject)
                 {
-
                     if (!isDirectoryCreated) CreateLogDirectory();
 
                     if (logFileHelper == null || !logFileHelper.IsFileSuitableForWriting)
@@ -344,9 +354,8 @@ namespace Tools.Logging
         {
             if (String.IsNullOrEmpty(logRootLocation))
             {
-
                 logRootLocation = AppDomain.CurrentDomain.SetupInformation.ApplicationBase
-                    + @"\logs";
+                                  + @"\logs";
             }
             // logFileHelper is either injected or default instance is created
             if (directoryHelper == null)
@@ -381,34 +390,34 @@ namespace Tools.Logging
         private bool EnsureWriter()
         {
             bool flag = true;
-            if (this.writer == null)
+            if (writer == null)
             {
                 flag = false;
-                if (this.fileName == null)
+                if (fileName == null)
                 {
                     return flag;
                 }
 
-                string fullPath = Path.GetFullPath(this.fileName);
+                string fullPath = Path.GetFullPath(fileName);
                 string directoryName = Path.GetDirectoryName(fullPath);
-                string fileName = Path.GetFileName(fullPath);
+                fileName = Path.GetFileName(fullPath);
 
                 for (int i = 0; i < 2; i++)
                 {
                     try
                     {
-                        if (this.textWriterProvider == null)
+                        if (textWriterProvider == null)
                         {
-                            this.textWriterProvider = new FileTextWriterProvider(
+                            textWriterProvider = new FileTextWriterProvider(
                                 true, GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
                         }
-                        this.writer = this.textWriterProvider.CreateWriter(fullPath);
+                        writer = textWriterProvider.CreateWriter(fullPath);
                         flag = true;
                         break;
                     }
                     catch (IOException)
                     {
-                        fileName = Guid.NewGuid().ToString() + fileName;
+                        fileName = Guid.NewGuid() + fileName;
                         fullPath = Path.Combine(directoryName, fileName);
                     }
                     catch (UnauthorizedAccessException)
@@ -426,72 +435,70 @@ namespace Tools.Logging
                 }
             }
             return flag;
-
         }
 
         private void WriteData(object data)
         {
-            XPathNavigator navigator = data as XPathNavigator;
+            var navigator = data as XPathNavigator;
 
-            if (navigator == null && this.dataXPathFormatter != null)
+            if (navigator == null && dataXPathFormatter != null)
             {
-                navigator = this.dataXPathFormatter.Format(data);
+                navigator = dataXPathFormatter.Format(data);
             }
 
             if (navigator == null)
             {
-
-                this.WriteEscaped(data.ToString());
+                WriteEscaped(data.ToString());
             }
             else
             {
-                if (this.strBldr == null)
+                if (strBldr == null)
                 {
-                    this.strBldr = new StringBuilder();
+                    strBldr = new StringBuilder();
 
-                    this.xmlBlobWriter = new XmlTextWriter(new StringWriter(this.strBldr, CultureInfo.CurrentCulture));
+                    xmlBlobWriter = new XmlTextWriter(new StringWriter(strBldr, CultureInfo.CurrentCulture));
                 }
                 else
                 {
-                    this.strBldr.Length = 0;
+                    strBldr.Length = 0;
                 }
                 try
                 {
                     navigator.MoveToRoot();
-                    this.xmlBlobWriter.WriteNode(navigator, false);
+                    xmlBlobWriter.WriteNode(navigator, false);
                     //this.xmlBlobWriter.Flush(); //**
-                    this.InternalWrite(this.strBldr.ToString());
+                    InternalWrite(strBldr.ToString());
                 }
                 catch (Exception)
                 {
-                    this.InternalWrite(data.ToString());
+                    InternalWrite(data.ToString());
                 }
             }
         }
 
         private void WriteEndHeader(TraceEventCache eventCache)
         {
-            this.InternalWrite("\" />");
-            this.InternalWrite("<Execution ProcessName=\"");
-            this.InternalWrite(GetProcessName());
-            this.InternalWrite("\" ProcessID=\"");
-            this.InternalWrite(((uint)GetProcessId()).ToString(CultureInfo.InvariantCulture));
-            this.InternalWrite("\" ThreadID=\"");
+            InternalWrite("\" />");
+            InternalWrite("<Execution ProcessName=\"");
+            InternalWrite(GetProcessName());
+            InternalWrite("\" ProcessID=\"");
+            InternalWrite(((uint) GetProcessId()).ToString(CultureInfo.InvariantCulture));
+            InternalWrite("\" ThreadID=\"");
             if (eventCache != null)
             {
-                this.WriteEscaped(eventCache.ThreadId.ToString(CultureInfo.InvariantCulture));
+                WriteEscaped(eventCache.ThreadId.ToString(CultureInfo.InvariantCulture));
             }
             else
             {
-                this.WriteEscaped(GetThreadId().ToString(CultureInfo.InvariantCulture));
+                WriteEscaped(GetThreadId().ToString(CultureInfo.InvariantCulture));
             }
-            this.InternalWrite("\" />");
-            this.InternalWrite("<Channel/>");
-            this.InternalWrite("<Computer>");
-            this.InternalWrite(this.machineName);
-            this.InternalWrite("</Computer>");
-            this.InternalWrite("</System>");
-            this.InternalWrite("<ApplicationData>");
+            InternalWrite("\" />");
+            InternalWrite("<Channel/>");
+            InternalWrite("<Computer>");
+            InternalWrite(machineName);
+            InternalWrite("</Computer>");
+            InternalWrite("</System>");
+            InternalWrite("<ApplicationData>");
         }
 
         private void WriteEscaped(string str)
@@ -500,11 +507,11 @@ namespace Tools.Logging
             {
                 for (int i = 0; i < str.Length; i++)
                 {
-                    this.InternalWrite(XmlUtility.Encode(str[i]));
+                    InternalWrite(XmlUtility.Encode(str[i]));
                 }
             }
         }
-        
+
 
         private void WriteFooter(TraceEventCache eventCache)
         {
@@ -512,62 +519,64 @@ namespace Tools.Logging
             bool flag2 = IsEnabled(TraceOptions.Callstack);
             if ((eventCache != null) && (flag || flag2))
             {
-                this.InternalWrite("<System.Diagnostics xmlns=\"http://schemas.microsoft.com/2004/08/System.Diagnostics\">");
+                InternalWrite("<System.Diagnostics xmlns=\"http://schemas.microsoft.com/2004/08/System.Diagnostics\">");
                 if (flag)
                 {
-                    this.InternalWrite("<LogicalOperationStack>");
+                    InternalWrite("<LogicalOperationStack>");
                     Stack logicalOperationStack = eventCache.LogicalOperationStack;
                     if (logicalOperationStack != null)
                     {
                         foreach (object obj2 in logicalOperationStack)
                         {
-                            this.InternalWrite("<LogicalOperation>");
-                            this.WriteEscaped(obj2.ToString());
-                            this.InternalWrite("</LogicalOperation>");
+                            InternalWrite("<LogicalOperation>");
+                            WriteEscaped(obj2.ToString());
+                            InternalWrite("</LogicalOperation>");
                         }
                     }
-                    this.InternalWrite("</LogicalOperationStack>");
+                    InternalWrite("</LogicalOperationStack>");
                 }
-                this.InternalWrite("<Timestamp>");
-                this.InternalWrite(eventCache.Timestamp.ToString(CultureInfo.InvariantCulture));
-                this.InternalWrite("</Timestamp>");
+                InternalWrite("<Timestamp>");
+                InternalWrite(eventCache.Timestamp.ToString(CultureInfo.InvariantCulture));
+                InternalWrite("</Timestamp>");
                 if (flag2)
                 {
-                    this.InternalWrite("<Callstack>");
-                    this.WriteEscaped(eventCache.Callstack);
-                    this.InternalWrite("</Callstack>");
+                    InternalWrite("<Callstack>");
+                    WriteEscaped(eventCache.Callstack);
+                    InternalWrite("</Callstack>");
                 }
-                this.InternalWrite("</System.Diagnostics>");
+                InternalWrite("</System.Diagnostics>");
             }
-            this.InternalWrite("</ApplicationData></E2ETraceEvent>");
+            InternalWrite("</ApplicationData></E2ETraceEvent>");
         }
 
         private void WriteHeader(string source, TraceEventType eventType, int id, TraceEventCache eventCache)
         {
-            this.WriteStartHeader(source, eventType, id, eventCache);
-            this.WriteEndHeader(eventCache);
+            WriteStartHeader(source, eventType, id, eventCache);
+            WriteEndHeader(eventCache);
         }
 
-        private void WriteHeader(string source, TraceEventType eventType, int id, TraceEventCache eventCache, Guid relatedActivityId)
+        private void WriteHeader(string source, TraceEventType eventType, int id, TraceEventCache eventCache,
+                                 Guid relatedActivityId)
         {
-            this.WriteStartHeader(source, eventType, id, eventCache);
-            this.InternalWrite("\" RelatedActivityID=\"");
-            this.InternalWrite(relatedActivityId.ToString("B"));
-            this.WriteEndHeader(eventCache);
+            WriteStartHeader(source, eventType, id, eventCache);
+            InternalWrite("\" RelatedActivityID=\"");
+            InternalWrite(relatedActivityId.ToString("B"));
+            WriteEndHeader(eventCache);
         }
 
         private void WriteStartHeader(string source, TraceEventType eventType, int id, TraceEventCache eventCache)
         {
-            this.InternalWrite("<E2ETraceEvent xmlns=\"http://schemas.microsoft.com/2004/06/E2ETraceEvent\"><System xmlns=\"http://schemas.microsoft.com/2004/06/windows/eventlog/system\">");
-            this.InternalWrite("<EventID>");
-            this.InternalWrite(((uint)id).ToString(CultureInfo.InvariantCulture));
-            this.InternalWrite("</EventID>");
-            this.InternalWrite("<Type>3</Type>");
-            this.InternalWrite("<SubType Name=\"");
-            this.InternalWrite(eventType.ToString());
-            this.InternalWrite("\">0</SubType>");
-            this.InternalWrite("<Level>");
-            int num = (int)eventType;
+            InternalWrite(
+                "<E2ETraceEvent xmlns=\"http://schemas.microsoft.com/2004/06/E2ETraceEvent\"><System xmlns=\"http://schemas.microsoft.com/2004/06/windows/eventlog/system\">");
+            InternalWrite("<EventID>");
+            InternalWrite(((uint) id).ToString(CultureInfo.InvariantCulture));
+            InternalWrite("</EventID>");
+            InternalWrite("<Type>3</Type>");
+            InternalWrite("<SubType Name=\"");
+            InternalWrite(eventType.ToString());
+            InternalWrite("\">0</SubType>");
+            InternalWrite("<Level>");
+            var num = (int) eventType;
             if (num > 0xff)
             {
                 num = 0xff;
@@ -576,40 +585,40 @@ namespace Tools.Logging
             {
                 num = 0;
             }
-            this.InternalWrite(num.ToString(CultureInfo.InvariantCulture));
-            this.InternalWrite("</Level>");
-            this.InternalWrite("<TimeCreated SystemTime=\"");
+            InternalWrite(num.ToString(CultureInfo.InvariantCulture));
+            InternalWrite("</Level>");
+            InternalWrite("<TimeCreated SystemTime=\"");
             if (eventCache != null)
             {
-                this.InternalWrite(eventCache.DateTime.ToString("o", CultureInfo.InvariantCulture));
+                InternalWrite(eventCache.DateTime.ToString("o", CultureInfo.InvariantCulture));
             }
             else
             {
-                this.InternalWrite(DateTime.Now.ToString("o", CultureInfo.InvariantCulture));
+                InternalWrite(DateTime.Now.ToString("o", CultureInfo.InvariantCulture));
             }
-            this.InternalWrite("\" />");
-            this.InternalWrite("<Source Name=\"");
-            this.WriteEscaped(source);
-            this.InternalWrite("\" />");
-            this.InternalWrite("<Correlation ActivityID=\"");
+            InternalWrite("\" />");
+            InternalWrite("<Source Name=\"");
+            WriteEscaped(source);
+            InternalWrite("\" />");
+            InternalWrite("<Correlation ActivityID=\"");
             if (eventCache != null)
             {
-                this.InternalWrite(Trace.CorrelationManager.ActivityId.ToString("B"));
+                InternalWrite(Trace.CorrelationManager.ActivityId.ToString("B"));
             }
             else
             {
-                this.InternalWrite(Guid.Empty.ToString("B"));
+                InternalWrite(Guid.Empty.ToString("B"));
             }
         }
 
         private bool IsEnabled(TraceOptions opts)
         {
-            return ((opts & this.TraceOutputOptions) != TraceOptions.None);
+            return ((opts & TraceOutputOptions) != TraceOptions.None);
         }
 
-        private static Encoding GetEncodingWithFallback(Encoding encoding)
+        private static Encoding GetEncodingWithFallback(ICloneable encoding)
         {
-            Encoding encoding2 = (Encoding)encoding.Clone();
+            var encoding2 = (Encoding) encoding.Clone();
             encoding2.EncoderFallback = EncoderFallback.ReplacementFallback;
             encoding2.DecoderFallback = DecoderFallback.ReplacementFallback;
             return encoding2;
@@ -617,7 +626,7 @@ namespace Tools.Logging
 
         private void CreateNewWriter()
         {
-            if (this.writer != null)
+            if (writer != null)
             {
                 if (xmlBlobWriter != null)
                 {
@@ -626,7 +635,6 @@ namespace Tools.Logging
                 writer.Flush();
                 writer.Close();
                 //writer = null;
-
             }
 
             string targetFileName = fileStaticName + DateTime.UtcNow.ToString(fileDatetimePattern);
@@ -636,10 +644,10 @@ namespace Tools.Logging
 
             for (int i = 1; i < maxIter; i++)
             {
-                if (!File.Exists(logRootLocation + targetFileName + "_" + i.ToString() + ".xml"))
+                if (!File.Exists(logRootLocation + targetFileName + "_" + i + ".xml"))
                 {
                     pathCandidate = Path.Combine(logRootLocation,
-                        targetFileName + "_" + i.ToString() + ".xml");
+                                                 targetFileName + "_" + i + ".xml");
                     break;
                 }
             }
@@ -647,18 +655,18 @@ namespace Tools.Logging
             {
                 // fallback name, uses guid
                 pathCandidate = Path.Combine(logRootLocation,
-                    fileStaticName + Guid.NewGuid() + ".xml");
+                                             fileStaticName + Guid.NewGuid() + ".xml");
             }
 
             logFilePath = pathCandidate;
 
-            if (this.textWriterProvider == null)
+            if (textWriterProvider == null)
             {
-                this.textWriterProvider = new FileTextWriterProvider(
+                textWriterProvider = new FileTextWriterProvider(
                     true, GetEncodingWithFallback(new UTF8Encoding(false)), 0x1000);
             }
-            
-            this.writer = this.textWriterProvider.CreateWriter(logFilePath);
+
+            writer = textWriterProvider.CreateWriter(logFilePath);
 
             if (logFileHelper == null)
             {
@@ -666,8 +674,6 @@ namespace Tools.Logging
             }
             logFileHelper.MaxFileSizeBytes = maxFileSizeBytes;
             logFileHelper.FilePath = logFilePath;
-
-
         }
 
         #endregion
@@ -690,58 +696,39 @@ namespace Tools.Logging
             InitProcessInfo();
             return processName;
         }
+
         private static void InitProcessInfo()
         {
             new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Demand();
 
             if (processName == null)
             {
-                using (System.Diagnostics.Process process =
-                    System.Diagnostics.Process.GetCurrentProcess())
+                using (Process process =
+                    Process.GetCurrentProcess())
                 {
                     processId = process.Id;
                     processName = process.ProcessName;
                 }
             }
         }
+
         #endregion
 
         #region Helper classes
 
-        public interface ITextWriterProvider
-        {
-            TextWriter CreateWriter(string fullPath);
-        }
-        public class FileTextWriterProvider : ITextWriterProvider
-        {
-            bool Append { get; set; }
-            Encoding Encoding { get; set; }
-            int BufferLength { get; set; }
+        #region Nested type: FileDirectoryHelper
 
-            public FileTextWriterProvider(bool append, Encoding encoding, int bufferLength)
-            {
-                Append = append;
-                Encoding = encoding;
-                BufferLength = bufferLength;
-            }
-
-            public TextWriter CreateWriter(string fullPath)
-            {
-                return new StreamWriter(fullPath, Append, Encoding, BufferLength);
-            }
-        }
-        public interface IDirectoryHelper
-        {
-            void CreateDirectory();
-        }
         public class FileDirectoryHelper : IDirectoryHelper
         {
-            public string DirectoryPath { get; set; }
-
             public FileDirectoryHelper(string directoryPath)
             {
                 DirectoryPath = directoryPath;
             }
+
+            public string DirectoryPath { get; set; }
+
+            #region IDirectoryHelper Members
+
             public void CreateDirectory()
             {
                 if (!Directory.Exists(DirectoryPath))
@@ -749,14 +736,68 @@ namespace Tools.Logging
                     Directory.CreateDirectory(DirectoryPath);
                 }
             }
+
+            #endregion
         }
-        
+
+        #endregion
+
+        #region Nested type: FileTextWriterProvider
+
+        public class FileTextWriterProvider : ITextWriterProvider
+        {
+            public FileTextWriterProvider(bool append, Encoding encoding, int bufferLength)
+            {
+                Append = append;
+                Encoding = encoding;
+                BufferLength = bufferLength;
+            }
+
+            private bool Append { get; set; }
+            private Encoding Encoding { get; set; }
+            private int BufferLength { get; set; }
+
+            #region ITextWriterProvider Members
+
+            public TextWriter CreateWriter(string fullPath)
+            {
+                return new StreamWriter(fullPath, Append, Encoding, BufferLength);
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+        #region Nested type: IDirectoryHelper
+
+        public interface IDirectoryHelper
+        {
+            void CreateDirectory();
+        }
+
+        #endregion
+
+        #region Nested type: ILogFileHelper
+
         public interface ILogFileHelper
         {
             bool IsFileSuitableForWriting { get; }
             string FilePath { get; set; }
             int MaxFileSizeBytes { get; set; }
         }
+
+        #endregion
+
+        #region Nested type: ITextWriterProvider
+
+        public interface ITextWriterProvider
+        {
+            TextWriter CreateWriter(string fullPath);
+        }
+
+        #endregion
+
         //public abstract class BaseLogFileHelper
         //{
         //    public static ILogFileHelper Create(string filePath, int maxFileSizeBytes)
@@ -765,13 +806,13 @@ namespace Tools.Logging
         //    }
         //}
 
+        #region Nested type: LogFileHelper
+
         public class LogFileHelper : ILogFileHelper
         {
-
-            public string FilePath { get; set; }
-            public int MaxFileSizeBytes { get; set; }
-
-            public LogFileHelper() { }
+            public LogFileHelper()
+            {
+            }
 
             public LogFileHelper(string filePath, int maxFileSizeBytes)
             {
@@ -779,14 +820,19 @@ namespace Tools.Logging
                 MaxFileSizeBytes = maxFileSizeBytes;
             }
 
+            #region ILogFileHelper Members
+
+            public string FilePath { get; set; }
+            public int MaxFileSizeBytes { get; set; }
+
             public bool IsFileSuitableForWriting
             {
                 get
                 {
                     // checks only size for a moment
-                    FileInfo fi = new FileInfo(FilePath);
+                    var fi = new FileInfo(FilePath);
 
-                    if (fi != null && fi.Exists)
+                    if (fi.Exists)
                     {
                         return (fi.Length < MaxFileSizeBytes);
                     }
@@ -796,11 +842,12 @@ namespace Tools.Logging
                     }
                 }
             }
+
+            #endregion
         }
-        
+
         #endregion
 
+        #endregion
     }
-
-
 }

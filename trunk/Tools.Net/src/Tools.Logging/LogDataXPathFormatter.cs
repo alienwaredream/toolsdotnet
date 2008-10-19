@@ -13,36 +13,38 @@ namespace Tools.Logging
 {
     public class LogDataXPathFormatter : IXPathFormatter
     {
-
         #region IXPathFormatter Members
 
         public virtual XPathNavigator Format(object data)
         {
             if (data is XPathNavigator) return data as XPathNavigator; // Somebody already did the job
 
-            String sData = data as String;
+            var sData = data as String;
 
             if (!String.IsNullOrEmpty(sData))
             {
                 return new XPathDocument(new StringReader(
-                    CombineTraceStringForMessageOnly(sData))).CreateNavigator();
+                                             CombineTraceStringForMessageOnly(sData))).CreateNavigator();
             }
 
-            Exception exEntry = data as Exception;
+            var exEntry = data as Exception;
 
             if (exEntry != null)
             {
-                StringBuilder sb = new StringBuilder();
-                StringBuilder exInfo = new StringBuilder();
+                var sb = new StringBuilder();
+                var exInfo = new StringBuilder();
 
                 using (XmlWriter xWriter = XmlWriter.Create(exInfo,
-                    new XmlWriterSettings { OmitXmlDeclaration = false, ConformanceLevel = ConformanceLevel.Fragment }))
+                                                            new XmlWriterSettings
+                                                                {
+                                                                    OmitXmlDeclaration = false,
+                                                                    ConformanceLevel = ConformanceLevel.Fragment
+                                                                }))
                 {
                     AddExceptionToTraceString(xWriter, exEntry);
                     // TODO: (SD) Fix to provide proper innerException xml formatting
                     sb.Append("<TraceRecord xmlns=\"http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord\">").
-                    Append("<TraceIdentifier>http://code.google.com/p/tools/log.aspx</TraceIdentifier>").
-
+                        Append("<TraceIdentifier>http://code.google.com/p/tools/log.aspx</TraceIdentifier>").
                         Append("<Description>").Append(exEntry.Message).Append("</Description>").
                         Append("<Exception>").Append(exEntry.ToString()).
                         Append("</Exception>").
@@ -51,6 +53,11 @@ namespace Tools.Logging
                     return new XPathDocument(new StringReader(sb.ToString())).CreateNavigator();
                 }
             }
+            if (data!=null)
+            {
+                return new XPathDocument(new StringReader(
+                                             CombineTraceStringForMessageOnly(data.ToString()))).CreateNavigator();
+            }
             return null;
         }
 
@@ -58,10 +65,9 @@ namespace Tools.Logging
 
         #region Methods - helper
 
-
         protected static string CombineTraceStringForMessageOnly(string message)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("<TraceRecord xmlns=\"http://schemas.microsoft.com/2004/10/E2ETraceEvent/TraceRecord\">").
                 Append("<TraceIdentifier>http://code.google.com/p/tools/log.aspx</TraceIdentifier>").
                 Append("<Description>").Append(XmlUtility.Encode(message)).
@@ -73,14 +79,15 @@ namespace Tools.Logging
         {
             xml.WriteElementString("ExceptionType", XmlUtility.Encode(exception.GetType().AssemblyQualifiedName));
             xml.WriteElementString("Message", XmlUtility.Encode(exception.Message));
-            xml.WriteElementString("StackTrace", XmlUtility.Encode(this.StackTraceString(exception)));
+            xml.WriteElementString("StackTrace", XmlUtility.Encode(StackTraceString(exception)));
             xml.WriteElementString("ExceptionString", XmlUtility.Encode(exception.ToString()));
 
-            Win32Exception exception2 = exception as Win32Exception;
+            var exception2 = exception as Win32Exception;
 
             if (exception2 != null)
             {
-                xml.WriteElementString("NativeErrorCode", exception2.NativeErrorCode.ToString("X", CultureInfo.InvariantCulture));
+                xml.WriteElementString("NativeErrorCode",
+                                       exception2.NativeErrorCode.ToString("X", CultureInfo.InvariantCulture));
             }
             if ((exception.Data != null) && (exception.Data.Count > 0))
             {
@@ -97,10 +104,11 @@ namespace Tools.Logging
             if (exception.InnerException != null)
             {
                 xml.WriteStartElement("InnerException");
-                this.AddExceptionToTraceString(xml, exception.InnerException);
+                AddExceptionToTraceString(xml, exception.InnerException);
                 xml.WriteEndElement();
             }
         }
+
         private string StackTraceString(Exception exception)
         {
             string stackTrace = exception.StackTrace;
@@ -115,7 +123,9 @@ namespace Tools.Logging
             {
                 string str3;
                 string name = frame.GetMethod().Name;
-                if (((str3 = name) != null) && (((str3 == "StackTraceString") || (str3 == "AddExceptionToTraceString")) || (((str3 == "BuildTrace") || (str3 == "TraceEvent")) || (str3 == "TraceException"))))
+                if (((str3 = name) != null) &&
+                    (((str3 == "StackTraceString") || (str3 == "AddExceptionToTraceString")) ||
+                     (((str3 == "BuildTrace") || (str3 == "TraceEvent")) || (str3 == "TraceException"))))
                 {
                     skipFrames++;
                 }
@@ -132,11 +142,10 @@ namespace Tools.Logging
                     break;
                 }
             }
-            StackTrace trace = new StackTrace(skipFrames, false);
+            var trace = new StackTrace(skipFrames, false);
             return trace.ToString();
         }
 
-        
         #endregion
     }
 }
