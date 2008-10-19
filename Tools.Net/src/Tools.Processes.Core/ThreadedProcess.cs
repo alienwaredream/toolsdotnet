@@ -1,195 +1,113 @@
 using System;
 using System.Threading;
-using Tools.Core;
 
 namespace Tools.Processes.Core
 {
-    //TODO:(SD) Refactor to have an interface
-	/// <summary>
-	/// Summary description for ThreadedProcess.
-	/// </summary>
-	public abstract class ThreadedProcess : Process
-	{
-		#region Fields
+    /// <summary>
+    /// Represents a process with its own thread of execution.
+    /// </summary>
+    public abstract class ThreadedProcess : Process
+    {
+        #region Fields
 
-		private Thread							_workingThread = null;
-		private ManualResetEvent				_selfSuspendEvent = 
-			new ManualResetEvent(true);
+        private readonly ManualResetEvent _operationReset = new
+            ManualResetEvent(false);
 
-		private ManualResetEvent					_operationReset = new
-			ManualResetEvent(false);
+        private readonly ManualResetEvent _selfSuspendEvent =
+            new ManualResetEvent(true);
 
-		#endregion Fields
+        private Thread _workingThread;
 
-		#region Constructors
+        #endregion Fields
 
-		protected ThreadedProcess()
-			: base()
-		{
+        #region Constructors
 
-		}
+        #endregion Constructors
 
-		
-		protected ThreadedProcess
-			(
-			string name, 
-			string description
-			) : base
-			(
-			name, 
-			description
-			)
-		{
-			
-		}
+        #region Properties
 
-		
-		#endregion Constructors
+        protected Thread WorkingThread
+        {
+            get { return _workingThread; }
+        }
 
-		#region Properties
+        /// <summary>
+        /// For reseting the blocking operation the thread might be located in.
+        /// </summary>
+        protected ManualResetEvent OperationReset
+        {
+            get { return _operationReset; }
+        }
 
-		protected Thread WorkingThread
-		{
-			get
-			{
-				return _workingThread;
-			}
-		}
+        #endregion Properties
 
-		/// <summary>
-		/// For reseting the blocking operation the thread might be located in.
-		/// </summary>
-		public ManualResetEvent OperationReset
-		{
-			get
-			{
-				return _operationReset;
-			}
-		}
-		#endregion Properties
+        #region Methods
 
-		#region Methods
-		// TODO: change to CLS compliant names when name is given a thought (SD)
-		protected abstract void start();
+        // TODO: change to CLS compliant names when name is given a thought (SD)
+        protected abstract void StartInternal();
 
-		protected bool SelfSuspend(TimeSpan timeout)
-		{
-			lock (executionStateSyncObj)
-			{
-				ProcessExecutionState oldState = this.ExecutionState;
-				this.SetExecutionState(ProcessExecutionState.SelfSuspended);
-				_selfSuspendEvent.Reset();
-				bool timeoutFlag = _selfSuspendEvent.WaitOne(timeout, false);
-				this.SetExecutionState(oldState);
-				return timeoutFlag;
-			}
-		}
-		protected void SelfResume()
-		{
-			lock (executionStateSyncObj)
-			{
-				if (this.ExecutionState==ProcessExecutionState.SelfSuspended)
-				{
-					_selfSuspendEvent.Set();
-					return;
-				}
-				throw new ApplicationException
-					(
-					"Incorrect state for self resume. Current state is" + executionStateSyncObj
-					);
-			}
-		}
-		protected virtual void stop()
-		{
-			base.Stop();
+        protected bool SelfSuspend(TimeSpan timeout)
+        {
+            lock (ExecutionStateSyncObj)
+            {
+                ProcessExecutionState oldState = ExecutionState;
+                SetExecutionState(ProcessExecutionState.SelfSuspended);
+                _selfSuspendEvent.Reset();
+                bool timeoutFlag = _selfSuspendEvent.WaitOne(timeout, false);
+                SetExecutionState(oldState);
+                return timeoutFlag;
+            }
+        }
 
-			// Set the handle for the blocking operation (SD)
-			OperationReset.Set();
-			// TODO: Calling of interrupt is subject for further reviews (SD)
-            //TODO:(SD) Setup use of working thread even for a threaded process to be an option.
-            if (_workingThread != null)
+        public override void Start()
+        {
+            _workingThread =
+                new Thread
+                    (
+                    StartInternal) {Name = Name, IsBackground = true};
+
+            SetExecutionState(ProcessExecutionState.Running);
+
+            _workingThread.Start();
+        }
+
+        public override void Abort()
+        {
+            base.Abort();
+
+            _workingThread.Abort();
+            OnTerminated(new ProcessExitEventArgs{CompletionState = ProcessExitCode.Terminated});
+        }
+
+        public override void Stop()
+        {
+            //TODO: (SD) Review the bellow code as it points into the fact that
+            // granularity of the base.Stop is not enough. We need to give a chance to
+            // the process to stop itself if it is not in the WaitSleepJoin state.
+            SetExecutionState(ProcessExecutionState.StopRequested);
+
+            if (_workingThread != null) //TODO: (SD) to be more granular about it
             {
                 _workingThread.Interrupt();
 
                 _workingThread.Join();
             }
-			// Let all registered to complete their actions connected to this stop.
-			OnStopping();
-            //
-            OnTerminated(new ProcessExitEventArgs(ProcessExitCode.Terminated));
-			// And now we can signal that we have finished.
-			CompletedEvent.Set();
-
-		}
-
-		public override void Start()
-		{
-			_workingThread = 
-				new Thread
-				(
-				new ThreadStart
-				(
-				this.start
-				));
-
-			_workingThread.Name = Name;
-			_workingThread.IsBackground = true;
-
-			_workingThread.Start();
-
-			SetExecutionState(ProcessExecutionState.Running);
-		}
-
-		public override void Abort()
-		{
-			base.Abort();
-
-			_workingThread.Abort();
-            OnTerminated(new ProcessExitEventArgs(ProcessExitCode.Terminated));
-
-		}
-		public override void Stop()
-		{
-			stop();
-		}
-
-		public override IAsyncResult BeginStop(object state, AsyncCallback callback)
-		{
-			// Very raw for a moment, just proof of concept (SD)
-			VoidAction joinDelegate = new VoidAction(Stop);
-			
-			return joinDelegate.BeginInvoke
-				(
-				new AsyncCallback
-				(
-				callback
-				),
-				new Descriptor(Name, Description)
-				);
-		}
-		//		public override void EndStop(IAsyncResult ar)
-		//		{
-		//			VoidDelegate joinDelegate = (ar as AsyncResult).AsyncDelegate as VoidDelegate;
-		//
-		//			try
-		//			{
-		//				joinDelegate.EndInvoke(ar);
-		//				// TODO: Handle the case for that separately in the case of exception (SD)
-		//				OnStopped();
-		//			}
-		//			catch (Exception ex)
-		//			{
-		//				
-		//				throw ex;
-		//			}
-		//		}
-
-		#endregion Methods
-
-        protected override void OnStopped()
-        {
-            base.OnStopped();
-            //throw new NotImplementedException();
+            base.Stop();
+            OnTerminated(new ProcessExitEventArgs { CompletionState = ProcessExitCode.Terminated });
         }
+
+        public override IAsyncResult BeginStop(object state, AsyncCallback callback)
+        {
+            // Very raw for a moment, just proof of concept (SD)
+            VoidAction joinDelegate = Stop;
+
+            return joinDelegate.BeginInvoke
+                (
+                callback,
+                state
+                );
+        }
+
+        #endregion Methods
     }
 }

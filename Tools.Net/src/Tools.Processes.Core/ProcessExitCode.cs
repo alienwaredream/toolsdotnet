@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Tools.Processes.Core
 {
     //TODO: (SD) Separate - space out the codes.
@@ -11,6 +7,5 @@ namespace Tools.Processes.Core
         Failure = 1,
         Terminated = 2,
         Inconclusive = 4,
-        
     }
 }
