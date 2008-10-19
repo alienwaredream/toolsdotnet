@@ -1,18 +1,15 @@
-using System;
-
 namespace Tools.Processes.Core
 {
-	/// <summary>
-	/// Summary description for ProcessMessage.
-	/// </summary>
-	public enum ProcessMessage
-	{
+    /// <summary>
+    /// Summary description for ProcessMessage.
+    /// </summary>
+    public enum ProcessMessage
+    {
         None = 0,
-		// TODO: Assign numbers and add to DB (SD)
-		Initialized		= 12400,
-		StartRequested	= 12401,
-		Started			= 12402,
-		StopRequested	= 12403,
-		Stopped			= 12404,
-	}
+        Initialized = 1500,
+        StartRequested = 1501,
+        Started = 1502,
+        StopRequested = 1503,
+        Stopped = 1504,
+    }
 }

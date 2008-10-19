@@ -1,17 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace Tools.Processes.Core
 {
-    public class IdleThreadedProcess : ThreadedProcess
-    {
-        protected override void start()
-        {
-            Console.WriteLine("IdleProcess started, press any key to complete");
-            Console.Read();
-            this.OnCompleted(new ProcessExitEventArgs(100));
-        }
-    }
+    //Not used right now, and not going to create tests for it right now,
+    // to reanimate if required (SD)
+    //public class IdleThreadedProcess : ThreadedProcess
+    //{
+    //    protected override void StartInternal()
+    //    {
+    //        Console.WriteLine("IdleProcess started, press any key to complete");
+    //        Console.Read();
+    //        OnCompleted(new ProcessExitEventArgs {CompletionState = 100});
+    //    }
+    //}
 }

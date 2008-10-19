@@ -1,25 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tools.Processes.Core
 {
-    [Serializable()]
-    public class ProcessExitEventArgs : System.EventArgs
+    [Serializable]
+    public class ProcessExitEventArgs : EventArgs
     {
-        private object completionState;
-
-        public string CompletionStateString
-        {
-            get
-            {
-                return ((completionState == null) ? null : completionState.ToString());
-            }
-        }
-
-        public ProcessExitEventArgs(object completionState)
-        {
-            this.completionState = completionState;
-        }
+        public object CompletionState { get; set; }
     }
 }
