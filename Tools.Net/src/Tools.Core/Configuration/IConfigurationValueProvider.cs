@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Text;
-
-namespace Tools.Core.Configuration
+﻿namespace Tools.Core.Configuration
 {
     public interface IConfigurationValueProvider
     {

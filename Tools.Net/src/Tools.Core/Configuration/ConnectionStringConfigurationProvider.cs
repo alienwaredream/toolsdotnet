@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.Specialized;
 using System.Configuration;
-using Tools.Core.Asserts;
-using System.Globalization;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Tools.Core.Configuration
 {
@@ -17,23 +12,20 @@ namespace Tools.Core.Configuration
     /// <remarks>Is not thread safe! The client should take care of thread synch!</remarks>
     public class ConnectionStringConfigurationProvider : IConfigurationValueProvider
     {
-
         #region IConfigurationValueProvider Members
-
 
         public string this[string connectionStringName]
         {
-            get 
+            get
             {
                 if (
-                        (ConfigurationManager.ConnectionStrings[connectionStringName] == null)
-                        )
+                    (ConfigurationManager.ConnectionStrings[connectionStringName] == null)
+                    )
                 {
-
                     Log.Source.TraceData(TraceEventType.Warning, 2013,
-                        String.Format(CultureInfo.InvariantCulture,
-                        "Connection configuration for name {0} is not present in the config file",
-                        connectionStringName));
+                                         String.Format(CultureInfo.InvariantCulture,
+                                                       "Connection configuration for name {0} is not present in the config file",
+                                                       connectionStringName));
                     return null;
                 }
                 return ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
