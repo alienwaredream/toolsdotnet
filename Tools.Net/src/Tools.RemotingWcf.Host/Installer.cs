@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Tools.Tracing.ServiceHost
+namespace Tools.RemotingWcf.Host
 {
     [RunInstaller(true)]
     public partial class Installer : Tools.Processes.Host.Installer
