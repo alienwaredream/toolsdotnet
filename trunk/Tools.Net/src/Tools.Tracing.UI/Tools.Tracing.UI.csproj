@@ -128,9 +128,6 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="AddListViewDelegate.cs" />
-    <Compile Include="ApplicationEventCollectionFragment.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ApplicationEventFilter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -209,13 +206,7 @@
     <Compile Include="RemoteConnectionInstance.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RemoteConnectionInstanceCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RemoteServiceConnectionDelegate.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteServiceConnectionEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ScrollableListView.cs">

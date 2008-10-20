@@ -124,25 +124,7 @@
     <Compile Include="TraceEventCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TraceEventFilter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TraceEventFilterConfiguration.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TraceEventFilterConfigurationCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TraceEventHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TraceEventHandlerConfiguration.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TraceEventHandlerConfigurationCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TraceEventHandlerDelegate.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TraceEventHandlerEventStub.cs">
@@ -166,11 +148,6 @@
     </Compile>
     <Compile Include="EventCategory.cs" />
     <Compile Include="EventIdentifier.cs" />
-    <Compile Include="EventIdentifierCollection.cs" />
-    <Compile Include="EventInterceptionSink.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EventPersistanceFormat.cs" />
     <Compile Include="FormattedStringEventFormatter.cs" />
     <Compile Include="ITraceEventFilter.cs">
       <SubType>Code</SubType>
