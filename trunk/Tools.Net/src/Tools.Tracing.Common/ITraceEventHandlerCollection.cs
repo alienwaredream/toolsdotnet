@@ -1,31 +1,28 @@
 using System;
 using System.Collections;
 
-
 namespace Tools.Tracing.Common
 {
-    
     /// <summary>
     ///     <para>
     ///       A collection that stores <see cref='Tools.Core.configuration.IApplicationEventHandler'/> objects.
     ///    </para>
     /// </summary>
     /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/>
-    [Serializable()]
-    public class ITraceEventHandlerCollection : CollectionBase 
-	{
-        
-		#region Constructors
+    [Serializable]
+    public class ITraceEventHandlerCollection : CollectionBase
+    {
+        #region Constructors
 
-		/// <summary>
+        /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/>.
         ///    </para>
         /// </summary>
-        public ITraceEventHandlerCollection() 
-		{
+        public ITraceEventHandlerCollection()
+        {
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> based on another <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/>.
@@ -34,10 +31,11 @@ namespace Tools.Tracing.Common
         /// <param name='value'>
         ///       A <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> from which the contents are copied
         /// </param>
-        public ITraceEventHandlerCollection(ITraceEventHandlerCollection value) {
-            this.AddRange(value);
+        public ITraceEventHandlerCollection(ITraceEventHandlerCollection value)
+        {
+            AddRange(value);
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> containing any array of <see cref='Tools.Core.configuration.IApplicationEventHandler'/> objects.
@@ -46,14 +44,14 @@ namespace Tools.Tracing.Common
         /// <param name='value'>
         ///       A array of <see cref='Tools.Core.configuration.IApplicationEventHandler'/> objects with which to intialize the collection
         /// </param>
-        public ITraceEventHandlerCollection(ITraceEventHandler[] value) {
-            this.AddRange(value);
+        public ITraceEventHandlerCollection(ITraceEventHandler[] value)
+        {
+            AddRange(value);
         }
-        
 
-		#endregion
+        #endregion
 
-		#region Indexers
+        #region Indexers
 
         /// <summary>
         /// <para>Represents the entry at the specified index of the <see cref='Tools.Core.configuration.IApplicationEventHandler'/>.</para>
@@ -65,18 +63,15 @@ namespace Tools.Tracing.Common
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='index'/> 
         /// is outside the valid range of indexes for the collection.
         /// </exception>
-        public ITraceEventHandler this[int index] 
-		{
-            get {
-                return ((ITraceEventHandler)(List[index]));
-            }
-            set {
-                List[index] = value;
-            }
+        public ITraceEventHandler this[int index]
+        {
+            get { return ((ITraceEventHandler) (List[index])); }
+            set { List[index] = value; }
         }
-		#endregion
 
-		#region Methods
+        #endregion
+
+        #region Methods
 
         /// <summary>
         ///    <para>Adds a <see cref='Tools.Core.configuration.IApplicationEventHandler'/> with the specified value to the 
@@ -87,11 +82,11 @@ namespace Tools.Tracing.Common
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.AddRange'/>
-        public int Add(ITraceEventHandler value) 
-		{
+        public int Add(ITraceEventHandler value)
+        {
             return List.Add(value);
         }
-        
+
         /// <summary>
         /// <para>Copies the elements of an array to the end of the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/>.</para>
         /// </summary>
@@ -102,14 +97,14 @@ namespace Tools.Tracing.Common
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.Add'/>
-		public void AddRange(ITraceEventHandler[] value)
-		{
-			for (int i = 0; (i < value.Length); i = (i + 1))
-			{
-				this.Add(value[i]);
-			}
-		}
-        
+        public void AddRange(ITraceEventHandler[] value)
+        {
+            for (int i = 0; (i < value.Length); i = (i + 1))
+            {
+                Add(value[i]);
+            }
+        }
+
         /// <summary>
         ///     <para>
         ///       Adds the contents of another <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> to the end of the collection.
@@ -122,12 +117,14 @@ namespace Tools.Tracing.Common
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.Add'/>
-        public void AddRange(ITraceEventHandlerCollection value) {
-            for (int i = 0; (i < value.Count); i = (i + 1)) {
-                this.Add(value[i]);
+        public void AddRange(ITraceEventHandlerCollection value)
+        {
+            for (int i = 0; (i < value.Count); i = (i + 1))
+            {
+                Add(value[i]);
             }
         }
-        
+
         /// <summary>
         /// <para>Gets a value indicating whether the 
         ///    <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> contains the specified <see cref='Tools.Core.configuration.IApplicationEventHandler'/>.</para>
@@ -138,10 +135,11 @@ namespace Tools.Tracing.Common
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.IndexOf'/>
-        public bool Contains(ITraceEventHandler value) {
+        public bool Contains(ITraceEventHandler value)
+        {
             return List.Contains(value);
         }
-        
+
         /// <summary>
         /// <para>Copies the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
@@ -155,10 +153,11 @@ namespace Tools.Tracing.Common
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
-        public void CopyTo(ITraceEventHandler[] array, int index) {
+        public void CopyTo(ITraceEventHandler[] array, int index)
+        {
             List.CopyTo(array, index);
         }
-        
+
         /// <summary>
         ///    <para>Returns the index of a <see cref='Tools.Core.configuration.IApplicationEventHandler'/> in 
         ///       the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> .</para>
@@ -169,10 +168,11 @@ namespace Tools.Tracing.Common
         /// <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.Contains'/>
-        public int IndexOf(ITraceEventHandler value) {
+        public int IndexOf(ITraceEventHandler value)
+        {
             return List.IndexOf(value);
         }
-        
+
         /// <summary>
         /// <para>Inserts a <see cref='Tools.Core.configuration.IApplicationEventHandler'/> into the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> at the specified index.</para>
         /// </summary>
@@ -180,20 +180,22 @@ namespace Tools.Tracing.Common
         /// <param name=' value'>The <see cref='Tools.Core.configuration.IApplicationEventHandler'/> to insert.</param>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventHandlerCollection.Add'/>
-        public void Insert(int index, ITraceEventHandler value) {
+        public void Insert(int index, ITraceEventHandler value)
+        {
             List.Insert(index, value);
         }
-        
+
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
         ///       the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
-        public new IApplicationEventHandlerEnumerator GetEnumerator() {
+        public new IApplicationEventHandlerEnumerator GetEnumerator()
+        {
             return new IApplicationEventHandlerEnumerator(this);
         }
-        
+
         /// <summary>
         ///    <para> Removes a specific <see cref='Tools.Core.configuration.IApplicationEventHandler'/> from the 
         ///    <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> .</para>
@@ -201,87 +203,77 @@ namespace Tools.Tracing.Common
         /// <param name='value'>The <see cref='Tools.Core.configuration.IApplicationEventHandler'/> to remove from the <see cref='Tools.Core.configuration.IApplicationEventHandlerCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
-        public void Remove(ITraceEventHandler value) {
+        public void Remove(ITraceEventHandler value)
+        {
             List.Remove(value);
         }
-    
 
-		#endregion
-		
-		#region IApplicationEventHandlerEnumerator class
-		
-		public class IApplicationEventHandlerEnumerator : object, IEnumerator 
-		{
-            
-			#region Global declarations
-           
-			private IEnumerator baseEnumerator;
-            private IEnumerable temp;
+        #endregion
 
-			#endregion
-            
-			#region Constructors
-			
-			public IApplicationEventHandlerEnumerator(ITraceEventHandlerCollection mappings) 
-			{
-                this.temp = ((IEnumerable)(mappings));
-                this.baseEnumerator = temp.GetEnumerator();
+        #region IApplicationEventHandlerEnumerator class
+
+        public class IApplicationEventHandlerEnumerator : object, IEnumerator
+        {
+            #region Global declarations
+
+            private readonly IEnumerator baseEnumerator;
+            private readonly IEnumerable temp;
+
+            #endregion
+
+            #region Constructors
+
+            public IApplicationEventHandlerEnumerator(ITraceEventHandlerCollection mappings)
+            {
+                temp = ((mappings));
+                baseEnumerator = temp.GetEnumerator();
             }
 
-		
-			#endregion
-            
-			#region Properties
-		
-			public ITraceEventHandler Current 
-			{
-                get {
-                    return ((ITraceEventHandler)(baseEnumerator.Current));
-                }
+            #endregion
+
+            #region Properties
+
+            public ITraceEventHandler Current
+            {
+                get { return ((ITraceEventHandler) (baseEnumerator.Current)); }
             }
-            
 
-			#endregion
-           
-			#region IEnumerator implementation
+            #endregion
 
-			object IEnumerator.Current 
-			{
-				get 
-				{
-					return baseEnumerator.Current;
-				}
-			}
+            #region IEnumerator implementation
 
-			bool IEnumerator.MoveNext() 
-			{
-				return baseEnumerator.MoveNext();
-			}
-            
-			void IEnumerator.Reset() 
-			{
-				baseEnumerator.Reset();
-			}
+            object IEnumerator.Current
+            {
+                get { return baseEnumerator.Current; }
+            }
 
-			
-			#endregion
-
-			#region Methods
-
-			public bool MoveNext() 
-			{
+            bool IEnumerator.MoveNext()
+            {
                 return baseEnumerator.MoveNext();
             }
-            
-            public void Reset() {
+
+            void IEnumerator.Reset()
+            {
                 baseEnumerator.Reset();
             }
-            
 
-			#endregion
+            #endregion
+
+            #region Methods
+
+            public bool MoveNext()
+            {
+                return baseEnumerator.MoveNext();
+            }
+
+            public void Reset()
+            {
+                baseEnumerator.Reset();
+            }
+
+            #endregion
         }
 
-		#endregion
-
+        #endregion
     }
 }

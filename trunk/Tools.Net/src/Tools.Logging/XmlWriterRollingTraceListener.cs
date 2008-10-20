@@ -158,7 +158,8 @@ namespace Tools.Logging
             this.fileDatetimePattern = fileDatetimePattern;
         }
 
-        private static void SetValueIfPresent(Action<string> setAction, string keyName, IDictionary<string, string> dictionary)
+        private static void SetValueIfPresent(Action<string> setAction, string keyName,
+                                              IDictionary<string, string> dictionary)
         {
             string val = null;
             if (dictionary.TryGetValue(keyName, out val) && !String.IsNullOrEmpty(val))
@@ -431,7 +432,7 @@ namespace Tools.Logging
                 }
                 if (!flag)
                 {
-                    this.fileName = null;
+                    fileName = null;
                 }
             }
             return flag;

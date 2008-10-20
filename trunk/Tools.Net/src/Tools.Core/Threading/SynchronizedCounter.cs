@@ -44,7 +44,7 @@
                 lock (_syncRoot)
                 {
                     _value = value;
-                }         
+                }
             }
         }
 
@@ -68,7 +68,7 @@
 
         private void OnZero()
         {
-            if (Zeroed!=null)
+            if (Zeroed != null)
             {
                 Zeroed();
             }

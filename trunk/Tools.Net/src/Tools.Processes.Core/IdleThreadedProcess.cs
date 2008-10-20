@@ -1,5 +1,3 @@
-using System;
-
 namespace Tools.Processes.Core
 {
     //Not used right now, and not going to create tests for it right now,

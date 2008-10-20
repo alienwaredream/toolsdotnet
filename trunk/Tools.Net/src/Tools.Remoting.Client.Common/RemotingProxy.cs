@@ -1,101 +1,103 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Proxies;
 using System.Runtime.Remoting.Messaging;
+using System.Runtime.Remoting.Proxies;
 
 namespace Tools.Remoting.Client.Common
 {
-#region Class RemotingProxy
-	/// <summary>
-	/// Summary description for RemotingProxy.
-	/// </summary>
-	public class RemotingProxy : RealProxy
-	{
 
-		#region Implementation of RealProxy
+    #region Class RemotingProxy
 
-		/// <summary>
-		/// TODO:
-		/// </summary>
-		public override IMessage Invoke( IMessage msg )
-		{
-			IMethodReturnMessage msgRet	= null;	
-	
-			msg.Properties["__Uri"] = _url;
+    /// <summary>
+    /// Summary description for RemotingProxy.
+    /// </summary>
+    public class RemotingProxy : RealProxy
+    {
+        #region Implementation of RealProxy
 
-			msgRet = _sinkChain.SyncProcessMessage( msg ) as IMethodReturnMessage;
+        /// <summary>
+        /// TODO:
+        /// </summary>
+        public override IMessage Invoke(IMessage msg)
+        {
+            IMethodReturnMessage msgRet = null;
 
-			if (msgRet!=null&&msgRet.Exception!=null)
-			{
-			    Log.Source.TraceData(TraceEventType.Error, RemotingProxyMessage.ExceptionDuringMethodInvocation,
-			                         "There was an exception during remoted method invocation. " + System.Environment.NewLine +
-			                         "Invocation Url is " + _url + System.Environment.NewLine +
-			                         " Reflected type is " + msgRet.MethodBase.DeclaringType.FullName +
-			                         System.Environment.NewLine +
-			                         " Called method is " + msgRet.MethodName + System.Environment.NewLine + "Exception: " +
-			                         msgRet.Exception
-			        );
-			}
+            msg.Properties["__Uri"] = _url;
 
-			return msgRet;
-			
-		}
+            msgRet = _sinkChain.SyncProcessMessage(msg) as IMethodReturnMessage;
 
-		#endregion Implementation of RealProxy
+            if (msgRet != null && msgRet.Exception != null)
+            {
+                Log.Source.TraceData(TraceEventType.Error, RemotingProxyMessage.ExceptionDuringMethodInvocation,
+                                     "There was an exception during remoted method invocation. " + Environment.NewLine +
+                                     "Invocation Url is " + _url + Environment.NewLine +
+                                     " Reflected type is " + msgRet.MethodBase.DeclaringType.FullName +
+                                     Environment.NewLine +
+                                     " Called method is " + msgRet.MethodName + Environment.NewLine + "Exception: " +
+                                     msgRet.Exception
+                    );
+            }
 
+            return msgRet;
+        }
 
-		#region Declarations
+        #endregion Implementation of RealProxy
 
-		protected string       _url       = String.Empty;
-		protected string       _uri       = String.Empty;
-		protected IMessageSink _sinkChain = null;
+        #region Declarations
 
-		#endregion Declarations
+        protected IMessageSink _sinkChain;
+        protected string _uri = String.Empty;
+        protected string _url = String.Empty;
 
-	#region Constructors
-		/// <summary>
-		/// TODO:
-		/// </summary>
-		public RemotingProxy( Type type, string url ) : base( type )
-		{
-			_url = url;
+        #endregion Declarations
 
+        #region Constructors
 
-			// Check each registered channel to see if it accepts the given url
-
-			IChannel[] registeredChannels = ChannelServices.RegisteredChannels;
-
-			foreach( IChannel channel in registeredChannels )
-			{
-				if( channel is IChannelSender )
-				{
-					IChannelSender channelSender = (IChannelSender)channel;
+        /// <summary>
+        /// TODO:
+        /// </summary>
+        public RemotingProxy(Type type, string url) : base(type)
+        {
+            _url = url;
 
 
-					// try to create the sink
+            // Check each registered channel to see if it accepts the given url
 
-					_sinkChain = channelSender.CreateMessageSink( _url, null, out _uri );
+            IChannel[] registeredChannels = ChannelServices.RegisteredChannels;
 
-
-					// if the channel returned a sink chain, exit the loop
-
-					if( _sinkChain != null )
-					{
-						break;
-					}
-				}
-			}
+            foreach (IChannel channel in registeredChannels)
+            {
+                if (channel is IChannelSender)
+                {
+                    var channelSender = (IChannelSender) channel;
 
 
-			// no registered channel accepted the url
+                    // try to create the sink
 
-			if( _sinkChain == null )
-			{
-				throw new ApplicationException( "No remoting channel found for " + _url );
-			}
-		}
-#endregion Constructors
-	}
-#endregion Class RemotingProxy
+                    _sinkChain = channelSender.CreateMessageSink(_url, null, out _uri);
+
+
+                    // if the channel returned a sink chain, exit the loop
+
+                    if (_sinkChain != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+
+            // no registered channel accepted the url
+
+            if (_sinkChain == null)
+            {
+                throw new ApplicationException("No remoting channel found for " + _url);
+            }
+        }
+
+        #endregion Constructors
+    }
+
+    #endregion Class RemotingProxy
 }

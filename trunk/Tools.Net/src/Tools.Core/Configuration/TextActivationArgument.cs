@@ -3,49 +3,33 @@ using System.Xml.Serialization;
 
 namespace Tools.Core.Configuration
 {
-	/// <summary>
-	/// Summary description for ActivationParameter.
-	/// </summary>
-	[Serializable()]
-	public class TextActivationArgument : ActivationArgument
-	{
-		
-		private string _value = null;
+    /// <summary>
+    /// Summary description for ActivationParameter.
+    /// </summary>
+    [Serializable]
+    public class TextActivationArgument : ActivationArgument
+    {
+        public TextActivationArgument()
+        {
+        }
 
-		public override ActivationArgumentSource Source
-		{
-			get
-			{
-				return ActivationArgumentSource.Text;
-			}
-		}
-		[XmlAttribute()]
-		public string Value
-		{
-			get
-			{
-				return _value;
-			}
-			set
-			{
-				_value = value;
-			}
+        public TextActivationArgument(string name, string description, string val)
+            : base(name, description)
+        {
+            Value = val;
+        }
 
-		}
+        public override ActivationArgumentSource Source
+        {
+            get { return ActivationArgumentSource.Text; }
+        }
 
-		public TextActivationArgument()
-			: base()
-		{
+        [XmlAttribute]
+        public string Value { get; set; }
 
-		}
-		public TextActivationArgument(string name, string description, string val)
-			: base(name, description)
-		{
-			_value = val;
-		}
-		public override string ToString()
-		{
-			return Value;
-		}
-	}
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
 }

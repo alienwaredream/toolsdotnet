@@ -5,108 +5,107 @@ using Tools.Tracing.Common;
 
 namespace Tools.Tracing.ClientHandler
 {
-	/// <summary>
-	/// Summary description for RemotableApplicationEventHandler.
-	/// </summary>
-	public class TraceEventHandlerWrapper : 
-		MarshalByRefObject, 
-		ITraceEventHandler,
-		ITraceEventHandlingPublisher,
-		ITraceEventFilterContainer
-	{
-		//public event TraceEventDelegate EventHandled = null;
-        private event TraceEventDelegate _eventHandled = null;
+    /// <summary>
+    /// Summary description for RemotableApplicationEventHandler.
+    /// </summary>
+    public class TraceEventHandlerWrapper :
+        MarshalByRefObject,
+        ITraceEventHandler,
+        ITraceEventHandlingPublisher,
+        ITraceEventFilterContainer
+    {
+        //public event TraceEventDelegate EventHandled = null;
         // TODO: it was separated to the property due to the logging requirements (SD)
+
+        #region ITraceEventHandler Members
+
+        public void HandleEvent(TraceEvent traceEvent)
+        {
+            TraceEventHandler.Instance.HandleEvent(traceEvent);
+            OnEventHandled(traceEvent);
+        }
+
+        #endregion
+
+        #region ITraceEventHandlingPublisher Members
+
         public event TraceEventDelegate EventHandled
         {
-            add
-            {
-                _eventHandled += value;
-            }
-            remove
-            {
-                _eventHandled -= value;
-            }
+            add { _eventHandled += value; }
+            remove { _eventHandled -= value; }
+        }
+
+        #endregion
+
+        #region ITraceEventFilterContainer Implementation
+
+        private readonly ITraceEventFilterCollection _filtersChain = new ITraceEventFilterCollection();
+
+        public ITraceEventFilterCollection Filters
+        {
+            get { return _filtersChain; }
         }
 
 
-		#region ITraceEventFilterContainer Implementation
+        public void AddFilter(ITraceEventFilter filter)
+        {
+            lock (_filtersChain)
+            {
+                _filtersChain.Add(filter);
+            }
+        }
 
-		private ITraceEventFilterCollection	_filtersChain	= new ITraceEventFilterCollection();
-		
-		public ITraceEventFilterCollection	Filters
-		{
-			get
-			{
-				return _filtersChain;
-			}
-		}
-		
-		
-		public void AddFilter(ITraceEventFilter filter)
-		{
-			lock (_filtersChain)
-			{
-				_filtersChain.Add(filter);
-			}
-		}
-		public void RemoveFilter(ITraceEventFilter filter)
-		{
-			lock (_filtersChain)
-			{
-				_filtersChain.Remove(filter);
-			}
-		}
-		
-		#endregion
+        public void RemoveFilter(ITraceEventFilter filter)
+        {
+            lock (_filtersChain)
+            {
+                _filtersChain.Remove(filter);
+            }
+        }
 
-		#region IEnabled Implementation
+        #endregion
 
-		private bool _enabled = true;
+        #region IEnabled Implementation
 
-		public event System.EventHandler EnabledChanged = null;
+        private bool _enabled = true;
 
-		public bool Enabled
-		{
-			get
-			{
-				return _enabled;
-			}
-			set
-			{
-				if (_enabled != value)
-				{
-					_enabled = value;
-					OnEnabledChanged();
-				}
+        public event EventHandler EnabledChanged = null;
 
-			}
-		}
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    OnEnabledChanged();
+                }
+            }
+        }
 
-		protected virtual void OnEnabledChanged()
-		{
-			if (EnabledChanged!=null)
-			{
-				EnabledChanged(this, System.EventArgs.Empty);
-			}
-		}
+        protected virtual void OnEnabledChanged()
+        {
+            if (EnabledChanged != null)
+            {
+                EnabledChanged(this, EventArgs.Empty);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		public TraceEventHandlerWrapper()
-		{
+        private event TraceEventDelegate _eventHandled = null;
 
-		}
-		private void OnEventHandled(TraceEvent e)
-		{
+        private void OnEventHandled(TraceEvent e)
+        {
             if (_eventHandled != null)
             {
-				try
-				{
-                    System.Delegate[] delegates = _eventHandled.GetInvocationList();
-                    for (int i = 0; i < delegates.Length; i++ )
+                try
+                {
+                    Delegate[] delegates = _eventHandled.GetInvocationList();
+                    for (int i = 0; i < delegates.Length; i++)
                     {
-                        TraceEventDelegate dlg = delegates[i] as TraceEventDelegate;
+                        var dlg = delegates[i] as TraceEventDelegate;
                         try
                         {
                             dlg(new TraceEventArgs {Event = e});
@@ -116,58 +115,50 @@ namespace Tools.Tracing.ClientHandler
                             TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent
                                 (
                                 new TraceEvent
-                                (
-                                999999,
-                                TraceEventType.Error,
-                                "Unable to deliver the event to the subscriber." + System.Environment.NewLine +
-                                "Original Event: " + 
-                                SerializationUtility.Serialize2String(e) + 
-                                "Exception text: " + ex.ToString() +
-                                System.Environment.NewLine +
-                                "Delegate: " +dlg.GetType().FullName,
-                                e.ContextIdentifier
-                                ));
+                                    (
+                                    999999,
+                                    TraceEventType.Error,
+                                    "Unable to deliver the event to the subscriber." + Environment.NewLine +
+                                    "Original Event: " +
+                                    SerializationUtility.Serialize2String(e) +
+                                    "Exception text: " + ex +
+                                    Environment.NewLine +
+                                    "Delegate: " + dlg.GetType().FullName,
+                                    e.ContextIdentifier
+                                    ));
                             EventHandled -= dlg;
                         }
-
                     }
-					//EventHandled(new TraceEventArgs(e));
-					
+                    //EventHandled(new TraceEventArgs(e));
+
 #warning This is not the best way how to do this, delegates collection might be much better (SD)
-				}
-				catch (Exception ex)
-				{
+                }
+                catch (Exception ex)
+                {
 #warning Handle exception! (SD)
-					int i = 0;
-				}
-			}
-		}
-		public override object InitializeLifetimeService()
-		{
-			return null;
-		}
-		#region ITraceEventHandler Members
-
-		public void HandleEvent(TraceEvent traceEvent)
-		{
-			TraceEventHandler.Instance.HandleEvent(traceEvent);
-            OnEventHandled(traceEvent);
+                    int i = 0;
+                }
+            }
         }
-		public void AddHandler(ITraceEventHandler handler)
-		{
-			TraceEventHandlerManager.Instance.AddHandler(handler);			
-		}
-		public void RemoveHandler(ITraceEventHandler handler)
-		{
-			TraceEventHandlerManager.Instance.RemoveHandler(handler);		
-		}
 
-		// TODO: for test purposes only
-		public void Check()
-		{
-			
-		}
+        public override object InitializeLifetimeService()
+        {
+            return null;
+        }
 
-		#endregion
-	}
+        public void AddHandler(ITraceEventHandler handler)
+        {
+            TraceEventHandlerManager.Instance.AddHandler(handler);
+        }
+
+        public void RemoveHandler(ITraceEventHandler handler)
+        {
+            TraceEventHandlerManager.Instance.RemoveHandler(handler);
+        }
+
+        // TODO: for test purposes only
+        public void Check()
+        {
+        }
+    }
 }

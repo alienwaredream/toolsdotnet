@@ -1,22 +1,17 @@
-using System;
-
 namespace Tools.Tracing.UI
 {
-	/// <summary>
-	/// Summary description for TransparentTextTransformer.
-	/// </summary>
-	public class TransparentTextTransformer : ITextTransformer
-	{
-		public TransparentTextTransformer()
-		{
-		}
-		#region ITextTransformer Members
+    /// <summary>
+    /// Summary description for TransparentTextTransformer.
+    /// </summary>
+    public class TransparentTextTransformer : ITextTransformer
+    {
+        #region ITextTransformer Members
 
-		public string TransformText(string text)
-		{
-			return text;
-		}
+        public string TransformText(string text)
+        {
+            return text;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

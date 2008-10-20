@@ -1,145 +1,126 @@
 using System;
 using System.Xml.Serialization;
-
 using Tools.Core;
 
 namespace Tools.Tracing.UI
 {
-	// TODO: Refactor to the separate package (SD)
-	// TODO: Implementing the IChangeEventRaiser interface may represent a mixed cohesion of the domain here
-	// Interface implementation might be moved elsewhere then to address this (like Adaptor or Decorator). (SD)
-	/// <summary>
-	/// Summary description for RemoteConnectionConfiguration.
-	/// </summary>
-	[Serializable()]
-	public sealed class RemoteConnectionConfiguration : Descriptor, IEnabled, IChangeEventRaiser
-	{
-		private ProtocolType	_protocolType	= ProtocolType.Tcp;
-		private string			_uri			= null;
-		private string			_serviceHost	= null;
-		private string			_port			= null;
-		
-		#region IEnabled Implementation
+    // TODO: Refactor to the separate package (SD)
+    // TODO: Implementing the IChangeEventRaiser interface may represent a mixed cohesion of the domain here
+    // Interface implementation might be moved elsewhere then to address this (like Adaptor or Decorator). (SD)
+    /// <summary>
+    /// Summary description for RemoteConnectionConfiguration.
+    /// </summary>
+    [Serializable]
+    public sealed class RemoteConnectionConfiguration : Descriptor, IEnabled, IChangeEventRaiser
+    {
+        private string _port;
+        private ProtocolType _protocolType = ProtocolType.Tcp;
+        private string _serviceHost;
+        private string _uri;
 
-		private bool _enabled = true;
+        #region IEnabled Implementation
 
-		public event System.EventHandler EnabledChanged = null;
+        private bool _enabled = true;
 
-		[XmlAttribute()]
-		public bool Enabled
-		{
-			get
-			{
-				return _enabled;
-			}
-			set
-			{
-				if (_enabled != value)
-				{
-					_enabled = value;
-					// handle as IEnabled
-					OnEnabledChanged();
-					// handle as IChangeEventRaiser
-					OnChanged();
-				}
+        public event EventHandler EnabledChanged = null;
 
-			}
-		}
+        [XmlAttribute]
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    // handle as IEnabled
+                    OnEnabledChanged();
+                    // handle as IChangeEventRaiser
+                    OnChanged();
+                }
+            }
+        }
 
-		
-		private void OnEnabledChanged()
-		{
-			if (EnabledChanged!=null)
-			{
-				EnabledChanged(this, System.EventArgs.Empty);
-			}
-		}
 
-		#endregion
+        private void OnEnabledChanged()
+        {
+            if (EnabledChanged != null)
+            {
+                EnabledChanged(this, EventArgs.Empty);
+            }
+        }
 
-		#region IChangeEventRaiser Members
+        #endregion
 
-		private void OnChanged()
-		{
-			if (Changed!=null) Changed(this, EventArgs.Empty);
-		}
+        [XmlAttribute]
+        public ProtocolType ProtocolType
+        {
+            get { return _protocolType; }
+            set
+            {
+                if (_protocolType == value) return;
+                // assign
+                _protocolType = value;
+                // handle as IChangeEventRaiser
+                OnChanged();
+            }
+        }
 
-		public event System.EventHandler Changed;
+        [XmlAttribute]
+        public string Uri
+        {
+            get { return _uri; }
+            set
+            {
+                if (_uri == value) return;
+                // assign
+                _uri = value;
+                // handle as IChangeEventRaiser
+                OnChanged();
+            }
+        }
 
-		#endregion
+        [XmlAttribute]
+        public string ServiceHost
+        {
+            get { return _serviceHost; }
+            set
+            {
+                if (_serviceHost == value) return;
+                // assign
+                _serviceHost = value;
+                // handle as IChangeEventRaiser
+                OnChanged();
+            }
+        }
 
-		[XmlAttribute()]
-		public ProtocolType	ProtocolType
-		{
-			get
-			{
-				return _protocolType;
-			}
-			set
-			{
-				if (_protocolType==value) return;
-				// assign
-				_protocolType = value;
-				// handle as IChangeEventRaiser
-				OnChanged();
-			}
-		}
-		[XmlAttribute()]
-		public string Uri
-		{
-			get
-			{
-				return _uri;
-			}
-			set
-			{
-				if (_uri==value) return;
-				// assign
-				_uri = value;
-				// handle as IChangeEventRaiser
-				OnChanged();
-			}
-		}	
-		[XmlAttribute()]
-		public string ServiceHost
-		{
-			get
-			{
-				return _serviceHost;
-			}
-			set
-			{
-				if (_serviceHost==value) return;
-				// assign
-				_serviceHost = value;
-				// handle as IChangeEventRaiser
-				OnChanged();
-			}
-		}	
-		[XmlAttribute()]
-		public string Port
-		{
-			get
-			{
-				return _port;
-			}
-			set
-			{
-				if (_port==value) return;
-				// assign
-				_port = value;
-				// handle as IChangeEventRaiser
-				OnChanged();
-			}
-		}
-		
-		
-		#region Constructors
+        [XmlAttribute]
+        public string Port
+        {
+            get { return _port; }
+            set
+            {
+                if (_port == value) return;
+                // assign
+                _port = value;
+                // handle as IChangeEventRaiser
+                OnChanged();
+            }
+        }
 
-		public RemoteConnectionConfiguration()
-		{
-		}
-		
-		#endregion
-	}
+        #region Constructors
+
+        #endregion
+
+        #region IChangeEventRaiser Members
+
+        public event EventHandler Changed;
+
+        #endregion
+
+        private void OnChanged()
+        {
+            if (Changed != null) Changed(this, EventArgs.Empty);
+        }
+    }
 }

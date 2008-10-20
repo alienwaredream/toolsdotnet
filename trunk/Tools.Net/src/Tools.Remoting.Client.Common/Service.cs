@@ -13,44 +13,46 @@ Using this code under the EC namespace is subject to negotiate with Navitaire, T
 This file is part of the Navitaire dotRez application.
 Copyright (C) Navitaire.  All rights reserved.
 =================================================================================================*/
-using System;
-
 namespace Tools.Remoting.Client.Common
 {
-#region Structure Service
-	/// <summary>
-	/// Represents a dotRez remoting service running on a specific host and port.
-	/// </summary>
-	public struct Service
-	{
-		/// <summary>
-		/// Gets or sets the Service Name.
-		/// </summary>
-		/// <value>
-		/// Name of the service.
-		/// </value>
-		public string Name;
 
-		/// <summary>
-		/// Gets or sets the Service Port.
-		/// </summary>
-		/// <value>
-		/// Port the Service is running on.
-		/// </value>
-		public uint Port;
+    #region Structure Service
 
-		/// <summary>
-		/// Gets or sets the Service Host.
-		/// </summary>
-		/// <value>
-		/// Host Name that the Service is running on.
-		/// </value>
-		public string Host;
-	}
-#endregion Structure Service
+    /// <summary>
+    /// Represents a dotRez remoting service running on a specific host and port.
+    /// </summary>
+    public struct Service
+    {
+        /// <summary>
+        /// Gets or sets the Service Host.
+        /// </summary>
+        /// <value>
+        /// Host Name that the Service is running on.
+        /// </value>
+        public string Host;
+
+        /// <summary>
+        /// Gets or sets the Service Name.
+        /// </summary>
+        /// <value>
+        /// Name of the service.
+        /// </value>
+        public string Name;
+
+        /// <summary>
+        /// Gets or sets the Service Port.
+        /// </summary>
+        /// <value>
+        /// Port the Service is running on.
+        /// </value>
+        public uint Port;
+    }
+
+    #endregion Structure Service
 }
 
 #region Footer
+
 /*=================================================================================================
   
 $History: Service.cs $
@@ -83,4 +85,5 @@ $History: Service.cs $
  * Added EnvironmentXmlDocument class and Service structure.
 
 =================================================================================================*/
+
 #endregion

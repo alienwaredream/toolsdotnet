@@ -174,9 +174,6 @@
     <Compile Include="FilterViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HashActivationArgumentControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="IServiceConnector.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -193,9 +190,6 @@
       <DependentUpon>MonitorPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ObserversConfigurationControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PerformanceHandlerConfigurationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -215,9 +209,6 @@
     <Compile Include="RemoteConnectionConfigurationCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RemoteConnectionConfigurationControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="RemoteConnectionInstance.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -236,9 +227,6 @@
     <Compile Include="ScrollableListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SelfApplicationEventHandlerConfigurationControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="ServiceConnectionInstance.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -248,9 +236,6 @@
       <DependentUpon>ApplicationEventsGuiSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="TabContentControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TextActivationArgumentControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="TextTransformerTabPage.cs">
@@ -295,9 +280,6 @@
       <DependentUpon>FilterViewControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HashActivationArgumentControl.resx">
-      <DependentUpon>HashActivationArgumentControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -310,29 +292,17 @@
       <DependentUpon>ObserversConfigurationControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PerformanceHandlerConfigurationControl.resx">
-      <DependentUpon>PerformanceHandlerConfigurationControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RemoteConnectionConfigurationControl.resx">
-      <DependentUpon>RemoteConnectionConfigurationControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ScrollableListView.resx">
       <DependentUpon>ScrollableListView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelfApplicationEventHandlerConfigurationControl.resx">
-      <DependentUpon>SelfApplicationEventHandlerConfigurationControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TabContentControl.resx">
       <DependentUpon>TabContentControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TextActivationArgumentControl.resx">
-      <DependentUpon>TextActivationArgumentControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="ApplicationEventsGuiSettings.settings">

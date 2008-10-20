@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-
 using Tools.Core;
 
 namespace Tools.UI.Windows.Descriptors
@@ -14,45 +11,36 @@ namespace Tools.UI.Windows.Descriptors
     /// </summary>
     /// <typeparam name="SettingsType"></typeparam>
     /// <typeparam name="ContainedType"></typeparam>
-    [Serializable()]
-    public class Container <SettingsType, ContainedType> : Descriptor
-        where SettingsType : new() 
-        where ContainedType: new()
+    [Serializable]
+    public class Container<SettingsType, ContainedType> : Descriptor
+        where SettingsType : new()
+        where ContainedType : new()
     {
         #region Globals
 
-        private SettingsType _settings;
-        private ContainedType _containerObject;
-        
         #endregion
 
         #region Properties
-        public SettingsType Settings
-        {
-            get { return _settings; }
-            set { _settings = value; }
-        }
-        public ContainedType ContainerObject
-        {
-            get { return _containerObject; }
-            set { _containerObject = value; }
-        } 
+
+        public SettingsType Settings { get; set; }
+
+        public ContainedType ContainerObject { get; set; }
 
         #endregion
 
         #region Constructors
-        public Container
-    (
-    )
-            : this
-            (
-            "GenericContainerName",
-            "GenericContainerDescription",
-            new SettingsType(), 
-            new ContainedType()
-            )
-        {
 
+        public Container
+            (
+            )
+            : this
+                (
+                "GenericContainerName",
+                "GenericContainerDescription",
+                new SettingsType(),
+                new ContainedType()
+                )
+        {
         }
 
         public Container
@@ -63,12 +51,12 @@ namespace Tools.UI.Windows.Descriptors
             ContainedType containerObject
             )
             :
-            base(name, description)
+                base(name, description)
         {
-            _settings = settings;
-            _containerObject = containerObject;
-        } 
-        #endregion
+            Settings = settings;
+            ContainerObject = containerObject;
+        }
 
+        #endregion
     }
 }

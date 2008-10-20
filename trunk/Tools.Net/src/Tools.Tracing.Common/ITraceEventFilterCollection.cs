@@ -1,31 +1,28 @@
 using System;
 using System.Collections;
 
-
 namespace Tools.Tracing.Common
 {
-    
     /// <summary>
     ///     <para>
     ///       A collection that stores <see cref='Tools.Core.configuration.IApplicationEventFilter'/> objects.
     ///    </para>
     /// </summary>
     /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection'/>
-    [Serializable()]
-    public class ITraceEventFilterCollection : CollectionBase 
-	{
-        
-		#region Constructors
+    [Serializable]
+    public class ITraceEventFilterCollection : CollectionBase
+    {
+        #region Constructors
 
-		/// <summary>
+        /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/>.
         ///    </para>
         /// </summary>
-        public ITraceEventFilterCollection() 
-		{
+        public ITraceEventFilterCollection()
+        {
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> based on another <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/>.
@@ -34,10 +31,11 @@ namespace Tools.Tracing.Common
         /// <param name='value'>
         ///       A <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> from which the contents are copied
         /// </param>
-        public ITraceEventFilterCollection(ITraceEventFilterCollection value) {
-            this.AddRange(value);
+        public ITraceEventFilterCollection(ITraceEventFilterCollection value)
+        {
+            AddRange(value);
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> containing any array of <see cref='Tools.Core.configuration.IApplicationEventFilter'/> objects.
@@ -46,14 +44,14 @@ namespace Tools.Tracing.Common
         /// <param name='value'>
         ///       A array of <see cref='Tools.Core.configuration.IApplicationEventFilter'/> objects with which to intialize the collection
         /// </param>
-        public ITraceEventFilterCollection(ITraceEventFilter[] value) {
-            this.AddRange(value);
+        public ITraceEventFilterCollection(ITraceEventFilter[] value)
+        {
+            AddRange(value);
         }
-        
 
-		#endregion
+        #endregion
 
-		#region Indexers
+        #region Indexers
 
         /// <summary>
         /// <para>Represents the entry at the specified index of the <see cref='Tools.Core.configuration.IApplicationEventFilter'/>.</para>
@@ -65,19 +63,15 @@ namespace Tools.Tracing.Common
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='index'/> 
         /// is outside the valid range of indexes for the collection.
         /// </exception>
-        public ITraceEventFilter this[int index] 
-		{
-            get {
-                return ((ITraceEventFilter)(List[index]));
-            }
-            set {
-                List[index] = value;
-            }
+        public ITraceEventFilter this[int index]
+        {
+            get { return ((ITraceEventFilter) (List[index])); }
+            set { List[index] = value; }
         }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
         /// <summary>
         ///    <para>Adds a <see cref='Tools.Core.configuration.IApplicationEventFilter'/> with the specified value to the 
@@ -88,11 +82,11 @@ namespace Tools.Tracing.Common
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.AddRange'/>
-        public int Add(ITraceEventFilter value) 
-		{
+        public int Add(ITraceEventFilter value)
+        {
             return List.Add(value);
         }
-        
+
         /// <summary>
         /// <para>Copies the elements of an array to the end of the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/>.</para>
         /// </summary>
@@ -103,14 +97,14 @@ namespace Tools.Tracing.Common
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.Add'/>
-        public void AddRange(ITraceEventFilter[] value) 
-		{
-			for (int i = 0; (i < value.Length); i = (i + 1)) 
-			{
-				this.Add(value[i]);
-			}
+        public void AddRange(ITraceEventFilter[] value)
+        {
+            for (int i = 0; (i < value.Length); i = (i + 1))
+            {
+                Add(value[i]);
+            }
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Adds the contents of another <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> to the end of the collection.
@@ -123,12 +117,14 @@ namespace Tools.Tracing.Common
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.Add'/>
-        public void AddRange(ITraceEventFilterCollection value) {
-            for (int i = 0; (i < value.Count); i = (i + 1)) {
-                this.Add(value[i]);
+        public void AddRange(ITraceEventFilterCollection value)
+        {
+            for (int i = 0; (i < value.Count); i = (i + 1))
+            {
+                Add(value[i]);
             }
         }
-        
+
         /// <summary>
         /// <para>Gets a value indicating whether the 
         ///    <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> contains the specified <see cref='Tools.Core.configuration.IApplicationEventFilter'/>.</para>
@@ -139,10 +135,11 @@ namespace Tools.Tracing.Common
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.IndexOf'/>
-        public bool Contains(ITraceEventFilter value) {
+        public bool Contains(ITraceEventFilter value)
+        {
             return List.Contains(value);
         }
-        
+
         /// <summary>
         /// <para>Copies the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
@@ -156,10 +153,11 @@ namespace Tools.Tracing.Common
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
-        public void CopyTo(ITraceEventFilter[] array, int index) {
+        public void CopyTo(ITraceEventFilter[] array, int index)
+        {
             List.CopyTo(array, index);
         }
-        
+
         /// <summary>
         ///    <para>Returns the index of a <see cref='Tools.Core.configuration.IApplicationEventFilter'/> in 
         ///       the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> .</para>
@@ -170,10 +168,11 @@ namespace Tools.Tracing.Common
         /// <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.Contains'/>
-        public int IndexOf(ITraceEventFilter value) {
+        public int IndexOf(ITraceEventFilter value)
+        {
             return List.IndexOf(value);
         }
-        
+
         /// <summary>
         /// <para>Inserts a <see cref='Tools.Core.configuration.IApplicationEventFilter'/> into the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> at the specified index.</para>
         /// </summary>
@@ -181,20 +180,22 @@ namespace Tools.Tracing.Common
         /// <param name=' value'>The <see cref='Tools.Core.configuration.IApplicationEventFilter'/> to insert.</param>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='Tools.Core.configuration.IApplicationEventFilterCollection.Add'/>
-        public void Insert(int index, ITraceEventFilter value) {
+        public void Insert(int index, ITraceEventFilter value)
+        {
             List.Insert(index, value);
         }
-        
+
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
         ///       the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
-        public new IApplicationEventFilterEnumerator GetEnumerator() {
+        public new IApplicationEventFilterEnumerator GetEnumerator()
+        {
             return new IApplicationEventFilterEnumerator(this);
         }
-        
+
         /// <summary>
         ///    <para> Removes a specific <see cref='Tools.Core.configuration.IApplicationEventFilter'/> from the 
         ///    <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> .</para>
@@ -202,88 +203,77 @@ namespace Tools.Tracing.Common
         /// <param name='value'>The <see cref='Tools.Core.configuration.IApplicationEventFilter'/> to remove from the <see cref='Tools.Core.configuration.IApplicationEventFilterCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
-        public void Remove(ITraceEventFilter value) {
+        public void Remove(ITraceEventFilter value)
+        {
             List.Remove(value);
         }
 
-        
+        #endregion
 
-		#endregion
-		
-		#region IApplicationEventFilterEnumerator class
-		
-		public class IApplicationEventFilterEnumerator : object, IEnumerator 
-		{
-            
-			#region Global declarations
-           
-			private IEnumerator baseEnumerator;
-            private IEnumerable temp;
+        #region IApplicationEventFilterEnumerator class
 
-			#endregion
-            
-			#region Constructors
-			
-			public IApplicationEventFilterEnumerator(ITraceEventFilterCollection mappings) 
-			{
-                this.temp = ((IEnumerable)(mappings));
-                this.baseEnumerator = temp.GetEnumerator();
+        public class IApplicationEventFilterEnumerator : object, IEnumerator
+        {
+            #region Global declarations
+
+            private readonly IEnumerator baseEnumerator;
+            private readonly IEnumerable temp;
+
+            #endregion
+
+            #region Constructors
+
+            public IApplicationEventFilterEnumerator(ITraceEventFilterCollection mappings)
+            {
+                temp = ((mappings));
+                baseEnumerator = temp.GetEnumerator();
             }
 
-		
-			#endregion
-            
-			#region Properties
-		
-			public ITraceEventFilter Current 
-			{
-                get {
-                    return ((ITraceEventFilter)(baseEnumerator.Current));
-                }
+            #endregion
+
+            #region Properties
+
+            public ITraceEventFilter Current
+            {
+                get { return ((ITraceEventFilter) (baseEnumerator.Current)); }
             }
-            
 
-			#endregion
-           
-			#region IEnumerator implementation
+            #endregion
 
-			object IEnumerator.Current 
-			{
-				get 
-				{
-					return baseEnumerator.Current;
-				}
-			}
+            #region IEnumerator implementation
 
-			bool IEnumerator.MoveNext() 
-			{
-				return baseEnumerator.MoveNext();
-			}
-            
-			void IEnumerator.Reset() 
-			{
-				baseEnumerator.Reset();
-			}
+            object IEnumerator.Current
+            {
+                get { return baseEnumerator.Current; }
+            }
 
-			
-			#endregion
-
-			#region Methods
-
-			public bool MoveNext() 
-			{
+            bool IEnumerator.MoveNext()
+            {
                 return baseEnumerator.MoveNext();
             }
-            
-            public void Reset() {
+
+            void IEnumerator.Reset()
+            {
                 baseEnumerator.Reset();
             }
-            
 
-			#endregion
+            #endregion
+
+            #region Methods
+
+            public bool MoveNext()
+            {
+                return baseEnumerator.MoveNext();
+            }
+
+            public void Reset()
+            {
+                baseEnumerator.Reset();
+            }
+
+            #endregion
         }
 
-		#endregion
-
+        #endregion
     }
 }

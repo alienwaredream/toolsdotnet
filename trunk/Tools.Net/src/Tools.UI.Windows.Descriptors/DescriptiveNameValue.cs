@@ -3,77 +3,71 @@ using Tools.Core;
 
 namespace Tools.UI.Windows.Descriptors
 {
-	/// <summary>
-	/// Summary description for DescriptiveNameValue.
-	/// </summary>
-	[Serializable]
-	public class DescriptiveNameValue<T> : Descriptor, ICloneable
-	{
+    /// <summary>
+    /// Summary description for DescriptiveNameValue.
+    /// </summary>
+    [Serializable]
+    public class DescriptiveNameValue<T> : Descriptor, ICloneable
+    {
+        #region Global declarations
 
-		#region Global declarations
+        private T _value;
 
-		private T _value;
+        #endregion
 
-		#endregion
+        #region Properties
 
-		#region Properties
-		/// <summary>
-		/// Value.
-		/// </summary>
-		public virtual T Value
-		{
-			get
-			{
-				return _value;
-			}
-			set
-			{
-				_value = value;
-			}
-		}
+        /// <summary>
+        /// Value.
+        /// </summary>
+        public virtual T Value
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
-		public DescriptiveNameValue() : base() { }
+        public DescriptiveNameValue()
+        {
+        }
 
-		public DescriptiveNameValue
-			(
-			string name,
-			T val,
-			string description
-			)
-			: base(name, description)
-		{
-			_value = val;
-		}
+        public DescriptiveNameValue
+            (
+            string name,
+            T val,
+            string description
+            )
+            : base(name, description)
+        {
+            _value = val;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public override string ToString()
-		{
-			return Value.ToString();
-		}
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
 
+        #endregion
 
-		#endregion
+        #region ICloneable Members
 
+        public object Clone()
+        {
+            return new DescriptiveNameValue<T>
+                (
+                Name,
+                Value,
+                Description
+                );
+        }
 
-		#region ICloneable Members
-
-		public object Clone()
-		{
-			return new DescriptiveNameValue <T>
-			(
-			Name,
-			Value,
-			Description
-			);
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

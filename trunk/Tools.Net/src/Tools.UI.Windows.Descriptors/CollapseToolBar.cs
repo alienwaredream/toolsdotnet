@@ -1,32 +1,41 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Tools.UI.Windows.Descriptors
 {
     public partial class CollapseToolBar : UserControl
     {
-        private string _title = null;
-        private bool _isCollapsed = false;
+        private bool _isCollapsed;
+        private string _title;
+
+        public CollapseToolBar
+            (
+            )
+        {
+            InitializeComponent();
+            setCollapseButtons();
+            Resize += CollapseToolBar_Resize;
+        }
 
         public string Title
         {
             get { return _title; }
-            set 
-            { 
+            set
+            {
                 _title = value;
                 setTitle(value);
             }
         }
 
+        public bool IsCollapsed
+        {
+            get { return _isCollapsed; }
+        }
+
         private void setTitle(string title)
         {
             if (title == null) return;
-            int charsToShow = titleLabel.Width / Convert.ToInt32(titleLabel.Font.SizeInPoints);
+            int charsToShow = titleLabel.Width/Convert.ToInt32(titleLabel.Font.SizeInPoints);
             if (charsToShow < title.Length)
             {
                 titleLabel.Text = title.Substring(0, charsToShow - 4);
@@ -36,15 +45,10 @@ namespace Tools.UI.Windows.Descriptors
             titleLabel.Text = title;
         }
 
-        public bool IsCollapsed
-        {
-            get { return _isCollapsed; }
-        }
-
 
         public event EventHandler Collapsed;
         public event EventHandler Expanded;
-        
+
 
         protected virtual void OnCollapsed()
         {
@@ -53,6 +57,7 @@ namespace Tools.UI.Windows.Descriptors
                 Collapsed(this, EventArgs.Empty);
             }
         }
+
         protected virtual void OnExpanded()
         {
             if (Expanded != null)
@@ -60,21 +65,14 @@ namespace Tools.UI.Windows.Descriptors
                 Expanded(this, EventArgs.Empty);
             }
         }
+
         private void setCollapseButtons()
         {
             collapseButton.Enabled = !_isCollapsed;
             expandButton.Enabled = _isCollapsed;
         }
-        public CollapseToolBar
-            (
-            )
-        {
-            InitializeComponent();
-            setCollapseButtons();
-            this.Resize += new EventHandler(CollapseToolBar_Resize);
-        }
 
-        void CollapseToolBar_Resize(object sender, EventArgs e)
+        private void CollapseToolBar_Resize(object sender, EventArgs e)
         {
             setTitle(_title);
         }
@@ -85,12 +83,14 @@ namespace Tools.UI.Windows.Descriptors
             setCollapseButtons();
             if (!forced) OnCollapsed();
         }
+
         public void Expand(bool forced)
-        { 
+        {
             _isCollapsed = false;
             setCollapseButtons();
             if (!forced) OnExpanded();
         }
+
         private void collapseButton_Click(object sender, EventArgs e)
         {
             Collapse(false);
@@ -100,6 +100,5 @@ namespace Tools.UI.Windows.Descriptors
         {
             Expand(false);
         }
-
     }
 }

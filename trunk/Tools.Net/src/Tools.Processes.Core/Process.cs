@@ -13,11 +13,12 @@ namespace Tools.Processes.Core
         #region Fields
 
         // that is made protected only for testability (SD)
+        private readonly object executionStateSyncObj = new object();
+
         protected EventWaitHandle completedEvent =
             new ManualResetEvent(false);
 
         private volatile ProcessExecutionState executionState = ProcessExecutionState.Unstarted;
-        private readonly object executionStateSyncObj = new object();
 
         #endregion Fields
 
@@ -46,6 +47,7 @@ namespace Tools.Processes.Core
         #endregion Constructors
 
         #region Properties
+
         /// <summary>
         /// Gets the completed event.
         /// </summary>
@@ -53,99 +55,16 @@ namespace Tools.Processes.Core
         protected EventWaitHandle CompletedEvent
         {
             get { return completedEvent; }
-        } 
-        #endregion
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            if (CompletedEvent != null)
-                CompletedEvent.Close();
         }
 
         #endregion
-
-        #region IProcess Members
-
-        /// <summary>
-        /// Only providing the WaitHandle for outside access so outsiders can only
-        /// wait, not control.
-        /// </summary>
-        public WaitHandle CompletedHandle
-        {
-            get { return completedEvent; }
-        }
-
-        /// <summary>
-        /// Initializes this instance. Does nothing by default, override to provide some initialization work.
-        /// </summary>
-        public virtual void Initialize()
-        {
-            //
-        }
-
-        /// <summary>
-        /// When implemented by the child class - starts the instance execution
-        /// </summary>
-        public abstract void Start();
-
-        /// <summary>
-        /// When implemented by the child class - stops the instance execution.
-        /// This implementation only sets the execution state to <see cref="ProcessExecutionState.StopRequested"/>
-        /// </summary>
-        public virtual void Stop()
-        {
-            Log.Source.TraceData(TraceEventType.Stop, 0, string.Format("{0} is requested to Stop.",Name));
-            OnStopping();
-            OnStopped();
-        }
-
-        /// <summary>
-        /// When implemented by the child class - aborts the instance execution.
-        /// This implementation only sets the execution state to <see cref="ProcessExecutionState.AbortRequested"/>
-        /// </summary>
-        public virtual void Abort()
-        {
-            SetExecutionState(ProcessExecutionState.AbortRequested);
-        }
-
-        /// <summary>
-        /// Gets current <see cref="ProcessExecutionState"/>. Thread safe.
-        /// </summary>
-        public ProcessExecutionState ExecutionState
-        {
-            get
-            {
-                lock (ExecutionStateSyncObj)
-                {
-                    return executionState;
-                }
-            }
-        }
-
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Provides the description for the "thing" we need to describe.
-        /// When implementing this member of interface and the type is supposed to be serializable to xml
-        /// then internal guideline is to serialize it as an element as opposed to the <see cref="Name"/>
-        /// </summary>
-        /// <value></value>
-        public string Description { get; set; }
 
         public object ExecutionStateSyncObj
         {
             get { return executionStateSyncObj; }
         }
 
-        #endregion
-
         #region Events
-
 
         /// <summary>
         /// Event called inside Stop method. After finishing calling 
@@ -215,7 +134,6 @@ namespace Tools.Processes.Core
 
         #region Methods
 
-
         /// <summary>
         /// Thread safe method for setting the execution state by a child.
         /// </summary>
@@ -226,10 +144,12 @@ namespace Tools.Processes.Core
             {
                 executionState = state;
             }
-        } 
+        }
+
         #endregion
 
         #region OnEvent Methods
+
         /// <summary>
         /// Provides default implementation of the Completed pre-handler
         /// </summary>
@@ -242,6 +162,7 @@ namespace Tools.Processes.Core
 
             CompletedEvent.Set();
         }
+
         /// <summary>
         /// Called when [stopping].
         /// </summary>
@@ -274,16 +195,100 @@ namespace Tools.Processes.Core
             SetExecutionState(ProcessExecutionState.Stopped);
 
             Log.Source.TraceData(TraceEventType.Stop, 0, string.Format
-                                        (
-                                        "{0} process is stopped. Stopped event is about to be raised.",
-                                        Name
-                                        ));
+                                                             (
+                                                             "{0} process is stopped. Stopped event is about to be raised.",
+                                                             Name
+                                                             ));
 
             if (Stopped != null)
             {
                 Stopped(this, EventArgs.Empty);
             }
-        } 
+        }
+
+        #endregion
+
+        #region IDisposable Members
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            if (CompletedEvent != null)
+                CompletedEvent.Close();
+        }
+
+        #endregion
+
+        #region IProcess Members
+
+        /// <summary>
+        /// Only providing the WaitHandle for outside access so outsiders can only
+        /// wait, not control.
+        /// </summary>
+        public WaitHandle CompletedHandle
+        {
+            get { return completedEvent; }
+        }
+
+        /// <summary>
+        /// Initializes this instance. Does nothing by default, override to provide some initialization work.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            //
+        }
+
+        /// <summary>
+        /// When implemented by the child class - starts the instance execution
+        /// </summary>
+        public abstract void Start();
+
+        /// <summary>
+        /// When implemented by the child class - stops the instance execution.
+        /// This implementation only sets the execution state to <see cref="ProcessExecutionState.StopRequested"/>
+        /// </summary>
+        public virtual void Stop()
+        {
+            Log.Source.TraceData(TraceEventType.Stop, 0, string.Format("{0} is requested to Stop.", Name));
+            OnStopping();
+            OnStopped();
+        }
+
+        /// <summary>
+        /// When implemented by the child class - aborts the instance execution.
+        /// This implementation only sets the execution state to <see cref="ProcessExecutionState.AbortRequested"/>
+        /// </summary>
+        public virtual void Abort()
+        {
+            SetExecutionState(ProcessExecutionState.AbortRequested);
+        }
+
+        /// <summary>
+        /// Gets current <see cref="ProcessExecutionState"/>. Thread safe.
+        /// </summary>
+        public ProcessExecutionState ExecutionState
+        {
+            get
+            {
+                lock (ExecutionStateSyncObj)
+                {
+                    return executionState;
+                }
+            }
+        }
+
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Provides the description for the "thing" we need to describe.
+        /// When implementing this member of interface and the type is supposed to be serializable to xml
+        /// then internal guideline is to serialize it as an element as opposed to the <see cref="Name"/>
+        /// </summary>
+        /// <value></value>
+        public string Description { get; set; }
+
         #endregion
     }
 }

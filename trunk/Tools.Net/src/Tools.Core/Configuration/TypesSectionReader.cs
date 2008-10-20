@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Tools.Core.Utils;
 using System.Configuration;
 using System.Xml;
+using Tools.Core.Utils;
 
 namespace Tools.Core.Configuration
 {
     //TODO: (SD) Subject to discard when Spring is used here.
+
     #region class TypeSectionReader
+
     /// <summary>
     /// Summary description for TypesCollectionSectionReader.
     /// </summary>
     public class TypesSectionReader : IConfigurationSectionHandler
     {
-        public TypesSectionReader()
-        {
-        }
         #region IConfigurationSectionHandler Members
 
-        public object Create(object parent, object configContext, System.Xml.XmlNode section)
+        public object Create(object parent, object configContext, XmlNode section)
         {
             object _parent = parent;
 
@@ -59,11 +55,11 @@ namespace Tools.Core.Configuration
                 throw new Exception
                     (
                     String.Format
-                    (
-                    "Exception happened while trying to create the type {0}, from section {1}",
-                    typeAttribute.Value,
-                    _section.Name
-                    ), e);
+                        (
+                        "Exception happened while trying to create the type {0}, from section {1}",
+                        typeAttribute.Value,
+                        _section.Name
+                        ), e);
             }
             object result = null;
 
@@ -76,12 +72,12 @@ namespace Tools.Core.Configuration
                 throw new Exception
                     (
                     String.Format
-                    (
-                    "Attribute \"type\" has different type name {0} from the type element," +
-                    " section {1}",
-                    typeAttribute.Value,
-                    _section.Name
-                    ));
+                        (
+                        "Attribute \"type\" has different type name {0} from the type element," +
+                        " section {1}",
+                        typeAttribute.Value,
+                        _section.Name
+                        ));
             }
             try
             {
@@ -94,12 +90,12 @@ namespace Tools.Core.Configuration
                 throw new Exception
                     (
                     String.Format
-                    (
-                    "Exception happened while trying to deserialize the type {0}, from section content of {1}{2}",
-                    typeAttribute.Value,
-                    System.Environment.NewLine,
-                    _section.OuterXml
-                    ),
+                        (
+                        "Exception happened while trying to deserialize the type {0}, from section content of {1}{2}",
+                        typeAttribute.Value,
+                        Environment.NewLine,
+                        _section.OuterXml
+                        ),
                     e
                     );
             }
@@ -108,6 +104,6 @@ namespace Tools.Core.Configuration
 
         #endregion
     }
-    
+
     #endregion
 }

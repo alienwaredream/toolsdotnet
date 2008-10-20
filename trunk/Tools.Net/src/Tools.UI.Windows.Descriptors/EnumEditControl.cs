@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-
 using Tools.Core;
 
 namespace Tools.UI.Windows.Descriptors
@@ -18,21 +13,9 @@ namespace Tools.UI.Windows.Descriptors
     public partial class EnumEditControl<T> : UserControl, IChangeEventRaiser
         //where T: System.IConvertible
     {
-        System.Type enumType = typeof(T);
-        private List<CheckBox> enumCheckBoxes;
-        int zeroIndex = -1;
-
-        public T Value
-        {
-            get
-            {
-                return getValueFromUI();
-            }
-            set
-            {
-                setValueToUI(value);
-            }
-        }
+        private readonly List<CheckBox> enumCheckBoxes;
+        private readonly Type enumType = typeof (T);
+        private int zeroIndex = -1;
 
         public EnumEditControl
             (
@@ -44,12 +27,24 @@ namespace Tools.UI.Windows.Descriptors
             enumCheckBoxes = new List<CheckBox>(10);
 
             addEnumOptionsToControl
-            (
-            this
-            );
+                (
+                this
+                );
 
             setValueToUI(initialValue);
         }
+
+        public T Value
+        {
+            get { return getValueFromUI(); }
+            set { setValueToUI(value); }
+        }
+
+        #region IChangeEventRaiser Members
+
+        public event EventHandler Changed;
+
+        #endregion
 
         private T getValueFromUI()
         {
@@ -66,8 +61,8 @@ namespace Tools.UI.Windows.Descriptors
             //}
             //else
             //{
-                return
-                    (T)Enum.ToObject(enumType, valCandidate);
+            return
+                (T) Enum.ToObject(enumType, valCandidate);
             //}
         }
 
@@ -89,6 +84,7 @@ namespace Tools.UI.Windows.Descriptors
             }
             return resultValue;
         }
+
         private void setValueToUI(T val)
         {
             Array ar = Enum.GetValues(enumType);
@@ -103,6 +99,7 @@ namespace Tools.UI.Windows.Descriptors
                 }
             }
         }
+
         /// <summary>
         /// Adds check boxes to the control to setup enum options.
         /// Principles of the solution are specific to compatibility with CF.
@@ -115,32 +112,32 @@ namespace Tools.UI.Windows.Descriptors
 
             for (int i = 0; i < names.Length; i++)
             {
-                CheckBox enumCheckBox =
+                var enumCheckBox =
                     new CheckBox();
                 enumCheckBox.Text = names[i];
                 enumCheckBox.Tag = values.GetValue(i);
                 if (Convert.ToInt32(enumCheckBox.Tag) == 0) zeroIndex = i;
-                enumCheckBox.Top = 25 + enumCheckBox.Height * i + 3;
+                enumCheckBox.Top = 25 + enumCheckBox.Height*i + 3;
                 enumCheckBox.Left = 10;
-                enumCheckBox.CheckedChanged += new EventHandler(enumCheckBox_CheckedChanged);
+                enumCheckBox.CheckedChanged += enumCheckBox_CheckedChanged;
                 container.Controls.Add(enumCheckBox);
                 enumCheckBoxes.Add(enumCheckBox);
             }
         }
 
-        void enumCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void enumCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(((CheckBox)sender).Tag) == 0 && ((CheckBox)sender).Checked)
+            if (Convert.ToInt32(((CheckBox) sender).Tag) == 0 && ((CheckBox) sender).Checked)
             {
                 for (int i = 0; i < enumCheckBoxes.Count; i++)
                 {
-                    if (enumCheckBoxes[i] != (CheckBox)sender)
+                    if (enumCheckBoxes[i] != sender)
                     {
                         enumCheckBoxes[i].Checked = false;
                     }
                 }
             }
-            else if (((CheckBox)sender).Checked&&zeroIndex!=-1)
+            else if (((CheckBox) sender).Checked && zeroIndex != -1)
             {
                 enumCheckBoxes[zeroIndex].Checked = false;
             }
@@ -151,12 +148,13 @@ namespace Tools.UI.Windows.Descriptors
             if (!String.IsNullOrEmpty(errorText))
             {
                 MessageBox.Show(errorText + " Change will be discarded.", "Error", MessageBoxButtons.OK);
-                ((CheckBox)sender).Checked = !((CheckBox)sender).Checked;
+                ((CheckBox) sender).Checked = !((CheckBox) sender).Checked;
                 return;
             }
 
             onChanged();
         }
+
         private string validateEnumState()
         {
             int valCandidate = getIntValueFromUI();
@@ -169,14 +167,10 @@ namespace Tools.UI.Windows.Descriptors
             //}
             //else
             //{
-                return
-                    null;
+            return
+                null;
             //}
         }
-
-        #region IChangeEventRaiser Members
-
-        public event EventHandler Changed;
 
         private void onChanged()
         {
@@ -187,9 +181,5 @@ namespace Tools.UI.Windows.Descriptors
                 Changed(this, EventArgs.Empty);
             }
         }
-
-
-
-        #endregion
-}
+    }
 }

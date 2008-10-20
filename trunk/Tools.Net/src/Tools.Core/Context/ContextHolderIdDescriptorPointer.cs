@@ -2,40 +2,30 @@ using System;
 
 namespace Tools.Core.Context
 {
-    [Serializable()]
+    [Serializable]
     public class ContextHolderIdDescriptorPointer : Descriptor, ICloneable
     {
-        private int _contextHolderId;
-        private string _url;
-
-        public string Url
-        {
-            get { return _url; }
-            set { _url = value; }
-        }
-
-        public int ContextHolderId
-        {
-            get { return _contextHolderId; }
-            set { _contextHolderId = value; }
-        }
         public ContextHolderIdDescriptorPointer
             (
             )
         {
         }
+
         public ContextHolderIdDescriptorPointer
             (
             string name,
             string description,
             int contextHolderId,
             string url
-            ): base(name, description)
+            ) : base(name, description)
         {
-            _contextHolderId = contextHolderId;
-            _url = url;
+            ContextHolderId = contextHolderId;
+            Url = url;
         }
 
+        public string Url { get; set; }
+
+        public int ContextHolderId { get; set; }
 
         #region ICloneable Members
 
@@ -43,10 +33,10 @@ namespace Tools.Core.Context
         {
             return new ContextHolderIdDescriptorPointer
                 (
-                this.Name,
-                this.Description,
-                this.ContextHolderId,
-                this.Url
+                Name,
+                Description,
+                ContextHolderId,
+                Url
                 );
         }
 

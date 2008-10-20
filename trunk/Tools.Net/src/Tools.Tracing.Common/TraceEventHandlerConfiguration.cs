@@ -1,65 +1,48 @@
 using System;
-
 using Tools.Core;
-
 
 namespace Tools.Tracing.Common
 {
-	/// <summary>
-	/// Summary description for TraceEventHandlerConfiguration.
-	/// </summary>
-	[Serializable()]
-	public class TraceEventHandlerConfiguration : Descriptor, IEnabled
-	{
-		private TraceEventFilterConfigurationCollection	_filters				= null;
+    /// <summary>
+    /// Summary description for TraceEventHandlerConfiguration.
+    /// </summary>
+    [Serializable]
+    public class TraceEventHandlerConfiguration : Descriptor, IEnabled
+    {
+        #region IEnabled Implementation
 
-		#region IEnabled Implementation
+        private bool _enabled = true;
 
-		private bool _enabled = true;
+        public event EventHandler EnabledChanged = null;
 
-		public event System.EventHandler EnabledChanged = null;
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    OnEnabledChanged();
+                }
+            }
+        }
 
-		public bool Enabled
-		{
-			get
-			{
-				return _enabled;
-			}
-			set
-			{
-				if (_enabled != value)
-				{
-					_enabled = value;
-					OnEnabledChanged();
-				}
+        protected virtual void OnEnabledChanged()
+        {
+            if (EnabledChanged != null)
+            {
+                EnabledChanged(this, EventArgs.Empty);
+            }
+        }
 
-			}
-		}
+        #endregion
 
-		protected virtual void OnEnabledChanged()
-		{
-			if (EnabledChanged!=null)
-			{
-				EnabledChanged(this, System.EventArgs.Empty);
-			}
-		}
+        public TraceEventHandlerConfiguration()
+        {
+            Filters = new TraceEventFilterConfigurationCollection();
+        }
 
-		#endregion
-
-		public TraceEventFilterConfigurationCollection Filters
-		{
-			get
-			{
-				return _filters;
-			}
-			set
-			{
-				_filters = value;
-			}
-		}
-		public TraceEventHandlerConfiguration()
-		{
-			_filters = new TraceEventFilterConfigurationCollection();
-		}
-	}
+        public TraceEventFilterConfigurationCollection Filters { get; set; }
+    }
 }

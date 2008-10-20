@@ -15,7 +15,7 @@ namespace Tools.Remoting.Host
     {
         #region Fields
 
-        static readonly ReaderWriterLock hostsListLock = new ReaderWriterLock();
+        private static readonly ReaderWriterLock hostsListLock = new ReaderWriterLock();
 
         #endregion
 
@@ -30,13 +30,13 @@ namespace Tools.Remoting.Host
                 {
                     ChannelServices.UnregisterChannel(ch);
                 }
-
             }
             finally
             {
                 if (hostsListLock.IsWriterLockHeld) hostsListLock.ReleaseLock();
             }
         }
+
         public static void Register()
         {
             // configure remoting from the file
@@ -65,20 +65,22 @@ namespace Tools.Remoting.Host
                     )
                 {
                     sb.Append(String.Format(CultureInfo.InvariantCulture,
-                        "Registered service for type: [{0}] with uri [{1}]", typeEntry.ObjectType, typeEntry.ObjectUri));
+                                            "Registered service for type: [{0}] with uri [{1}]", typeEntry.ObjectType,
+                                            typeEntry.ObjectUri));
                 }
 
                 foreach (IChannel channel in ChannelServices.RegisteredChannels)
                 {
                     sb.Append(String.Format(CultureInfo.InvariantCulture,
-                        "Registered channel [{0}]", channel.ChannelName));
+                                            "Registered channel [{0}]", channel.ChannelName));
                 }
 
                 return sb.ToString();
             }
             catch (Exception ex)
             {
-                ex.Data.Add("Remoting Service Host", "Exception while querying to query the status of the RemotingServiceHost. ");
+                ex.Data.Add("Remoting Service Host",
+                            "Exception while querying to query the status of the RemotingServiceHost. ");
                 Log.Source.TraceData(TraceEventType.Error, 0, ex);
             }
             finally
@@ -88,6 +90,4 @@ namespace Tools.Remoting.Host
             return "Failed to enumerate registered services";
         }
     }
-
 }
-
