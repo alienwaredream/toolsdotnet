@@ -1,5 +1,4 @@
-﻿using System;
-namespace Tools.UI.Windows.Descriptors
+﻿namespace Tools.UI.Windows.Descriptors
 {
     public interface IListViewSettings
     {

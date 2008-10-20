@@ -40,6 +40,7 @@ namespace Tools.Core
         }
 
         #endregion Implementation of IDescriptor
+
         /// <summary>
         /// Probes for the name of the descriptor instance.
         /// </summary>

@@ -76,7 +76,7 @@ namespace Tools.Processes.Core
             base.Abort();
 
             _workingThread.Abort();
-            OnTerminated(new ProcessExitEventArgs{CompletionState = ProcessExitCode.Terminated});
+            OnTerminated(new ProcessExitEventArgs {CompletionState = ProcessExitCode.Terminated});
         }
 
         public override void Stop()
@@ -93,7 +93,7 @@ namespace Tools.Processes.Core
                 _workingThread.Join();
             }
             base.Stop();
-            OnTerminated(new ProcessExitEventArgs { CompletionState = ProcessExitCode.Terminated });
+            OnTerminated(new ProcessExitEventArgs {CompletionState = ProcessExitCode.Terminated});
         }
 
         public override IAsyncResult BeginStop(object state, AsyncCallback callback)

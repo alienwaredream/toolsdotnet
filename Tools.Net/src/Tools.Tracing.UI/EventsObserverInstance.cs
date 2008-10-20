@@ -4,45 +4,33 @@ using Tools.Tracing.Common;
 
 namespace Tools.Tracing.UI
 {
-	/// <summary>
-	/// Summary description for RemoteConnectionInstance.
-	/// </summary>
-	public class EventsObserverInstance : RemoteConnectionInstance
-	{
-    private TraceEventDelegate _eventDelegate = null;
-
-        public TraceEventDelegate EventDelegate
-        {
-            get
-            {
-                return _eventDelegate;
-            }
-
-            set
-            {
-                _eventDelegate = value;
-            }
-        }
-
+    /// <summary>
+    /// Summary description for RemoteConnectionInstance.
+    /// </summary>
+    public class EventsObserverInstance : RemoteConnectionInstance
+    {
         public EventsObserverInstance
             (
             RemoteConnectionConfiguration configuration,
             TraceEventDelegate eventDelegate
             ) : base(configuration)
         {
-            _eventDelegate = eventDelegate;
+            EventDelegate = eventDelegate;
         }
+
+        public TraceEventDelegate EventDelegate { get; set; }
+
         public override void Connect()
         {
             base.Connect();
 
-            TraceEventHandlerClient client =
+            var client =
                 new TraceEventHandlerClient
-                (
-                Configuration.ServiceHost,
-                Configuration.Port,
-                Configuration.Uri
-                );
+                    (
+                    Configuration.ServiceHost,
+                    Configuration.Port,
+                    Configuration.Uri
+                    );
 
             if (EventDelegate != null)
             {
@@ -56,13 +44,13 @@ namespace Tools.Tracing.UI
 
         public override void Disconnect()
         {
-            TraceEventHandlerClient client =
+            var client =
                 new TraceEventHandlerClient
-                (
-                Configuration.ServiceHost,
-                Configuration.Port,
-                Configuration.Uri
-                );
+                    (
+                    Configuration.ServiceHost,
+                    Configuration.Port,
+                    Configuration.Uri
+                    );
 
             if (EventDelegate != null)
             {
@@ -74,5 +62,5 @@ namespace Tools.Tracing.UI
             }
             base.Disconnect();
         }
-	}
+    }
 }

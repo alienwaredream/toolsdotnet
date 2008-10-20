@@ -9,52 +9,59 @@
 //------------------------------------------------------------------------------
 
 
+using System.CodeDom.Compiler;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-[System.ServiceModel.ServiceContractAttribute(Namespace="http://Dsi.Tools.Common.servicehost.wcf/test", ConfigurationName="IStatusQuerable")]
+[GeneratedCode("System.ServiceModel", "3.0.0.0")]
+[ServiceContract(Namespace = "http://Dsi.Tools.Common.servicehost.wcf/test", ConfigurationName = "IStatusQuerable")]
 public interface IStatusQuerable
 {
-    
-    [System.ServiceModel.OperationContractAttribute(Action="http://Dsi.Tools.Common.servicehost.wcf/test/IStatusQuerable/QueryForStatus", ReplyAction="http://Dsi.Tools.Common.servicehost.wcf/test/IStatusQuerable/QueryForStatusResponse")]
+    [OperationContract(Action = "http://Dsi.Tools.Common.servicehost.wcf/test/IStatusQuerable/QueryForStatus",
+        ReplyAction = "http://Dsi.Tools.Common.servicehost.wcf/test/IStatusQuerable/QueryForStatusResponse")]
     string QueryForStatus();
 }
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-public interface IStatusQuerableChannel : IStatusQuerable, System.ServiceModel.IClientChannel
+[GeneratedCode("System.ServiceModel", "3.0.0.0")]
+public interface IStatusQuerableChannel : IStatusQuerable, IClientChannel
 {
 }
 
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-public partial class StatusQuerableClient : System.ServiceModel.ClientBase<IStatusQuerable>, IStatusQuerable
+[DebuggerStepThrough]
+[GeneratedCode("System.ServiceModel", "3.0.0.0")]
+public class StatusQuerableClient : ClientBase<IStatusQuerable>, IStatusQuerable
 {
-    
     public StatusQuerableClient()
     {
     }
-    
-    public StatusQuerableClient(string endpointConfigurationName) : 
-            base(endpointConfigurationName)
+
+    public StatusQuerableClient(string endpointConfigurationName) :
+        base(endpointConfigurationName)
     {
     }
-    
-    public StatusQuerableClient(string endpointConfigurationName, string remoteAddress) : 
-            base(endpointConfigurationName, remoteAddress)
+
+    public StatusQuerableClient(string endpointConfigurationName, string remoteAddress) :
+        base(endpointConfigurationName, remoteAddress)
     {
     }
-    
-    public StatusQuerableClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-            base(endpointConfigurationName, remoteAddress)
+
+    public StatusQuerableClient(string endpointConfigurationName, EndpointAddress remoteAddress) :
+        base(endpointConfigurationName, remoteAddress)
     {
     }
-    
-    public StatusQuerableClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-            base(binding, remoteAddress)
+
+    public StatusQuerableClient(Binding binding, EndpointAddress remoteAddress) :
+        base(binding, remoteAddress)
     {
     }
-    
+
+    #region IStatusQuerable Members
+
     public string QueryForStatus()
     {
         return base.Channel.QueryForStatus();
     }
+
+    #endregion
 }

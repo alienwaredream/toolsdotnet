@@ -18,13 +18,14 @@ namespace Tools.Logging
     public class DatabaseTraceListener : TraceListener
     {
         private readonly string appDomainName;
-        private string connectionStringName;
+        private readonly string connectionStringName;
         private readonly IExtraDataTransformer extraLogDataProvider;
         private readonly TraceListener fallbackTraceListener;
         private readonly object initSyncObject = new object();
         private readonly string modulePath;
         private readonly string storedProcedureName;
         protected string connectionString;
+
         protected IConfigurationValueProvider connectionStringProvider =
             new ConnectionStringConfigurationProvider();
 

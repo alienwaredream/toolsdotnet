@@ -1,13 +1,14 @@
-﻿namespace Tools.RemotingWcf.Host
+﻿using Tools.Processes.Host;
+
+namespace Tools.RemotingWcf.Host
 {
     public class ServiceHost :
-        Tools.Processes.Host.ProcessServiceHost<RemotingWcfHostProgram>
+        ProcessServiceHost<RemotingWcfHostProgram>
     {
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             EntryPoint<ServiceHost>(args);
         }

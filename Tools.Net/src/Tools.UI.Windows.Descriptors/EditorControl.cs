@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Tools.UI.Windows.Descriptors
@@ -12,21 +6,15 @@ namespace Tools.UI.Windows.Descriptors
     // prototype vresion.
     public partial class EditorControl : UserControl
     {
-        public override string Text
-        {
-            get
-            {
-                return this.textRichTextBox.Text;
-            }
-            set
-            {
-                this.textRichTextBox.Text = value;
-            }
-        }
-
         public EditorControl()
         {
             InitializeComponent();
+        }
+
+        public override string Text
+        {
+            get { return textRichTextBox.Text; }
+            set { textRichTextBox.Text = value; }
         }
     }
 }

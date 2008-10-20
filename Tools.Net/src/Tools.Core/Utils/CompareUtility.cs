@@ -13,7 +13,7 @@ namespace Tools.Core.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static bool AllValuesSetAsString<T>(params T[] args) where T: class
+        public static bool AllValuesSetAsString<T>(params T[] args) where T : class
         {
             if (args == null)
                 throw new ArgumentNullException(

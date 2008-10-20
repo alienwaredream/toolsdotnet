@@ -1,83 +1,71 @@
-using System;
 using System.Collections;
 
 namespace Tools.Processes.Core
 {
-	#region IProcessEnumerator class
-		
-	public class IProcessEnumerator : object, IEnumerator 
-	{
-            
-		#region Fields
-           
-		private IEnumerator baseEnumerator;
-		private IEnumerable temp;
 
-		#endregion
-            
-		#region Constructors
-			
-		public IProcessEnumerator(IProcessCollection mappings) 
-		{
-			this.temp = ((IEnumerable)(mappings));
-			this.baseEnumerator = temp.GetEnumerator();
-		}
+    #region IProcessEnumerator class
 
-		
-		#endregion
-            
-		#region Properties
-		
-		public IProcess Current 
-		{
-			get 
-			{
-				return ((IProcess)(baseEnumerator.Current));
-			}
-		}
-            
+    public class IProcessEnumerator : object, IEnumerator
+    {
+        #region Fields
 
-		#endregion
-           
-		#region IEnumerator implementation
+        private readonly IEnumerator baseEnumerator;
+        private readonly IEnumerable temp;
 
-		object IEnumerator.Current 
-		{
-			get 
-			{
-				return baseEnumerator.Current;
-			}
-		}
+        #endregion
 
-		bool IEnumerator.MoveNext() 
-		{
-			return baseEnumerator.MoveNext();
-		}
-            
-		void IEnumerator.Reset() 
-		{
-			baseEnumerator.Reset();
-		}
+        #region Constructors
 
-			
-		#endregion
+        public IProcessEnumerator(IProcessCollection mappings)
+        {
+            temp = ((mappings));
+            baseEnumerator = temp.GetEnumerator();
+        }
 
-		#region Methods
+        #endregion
 
-		public bool MoveNext() 
-		{
-			return baseEnumerator.MoveNext();
-		}
-            
-		public void Reset() 
-		{
-			baseEnumerator.Reset();
-		}
-            
+        #region Properties
 
-		#endregion
-	
-	}	
-	#endregion
+        public IProcess Current
+        {
+            get { return ((IProcess) (baseEnumerator.Current)); }
+        }
+
+        #endregion
+
+        #region IEnumerator implementation
+
+        object IEnumerator.Current
+        {
+            get { return baseEnumerator.Current; }
+        }
+
+        bool IEnumerator.MoveNext()
+        {
+            return baseEnumerator.MoveNext();
+        }
+
+        void IEnumerator.Reset()
+        {
+            baseEnumerator.Reset();
+        }
+
+        #endregion
+
+        #region Methods
+
+        public bool MoveNext()
+        {
+            return baseEnumerator.MoveNext();
+        }
+
+        public void Reset()
+        {
+            baseEnumerator.Reset();
+        }
+
+        #endregion
+    }
+
+    #endregion
 }
-

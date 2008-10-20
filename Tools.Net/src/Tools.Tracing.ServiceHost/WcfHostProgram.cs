@@ -8,6 +8,5 @@ namespace Tools.Tracing.ServiceHost
     /// <remarks>Supposed to be called only on the single thread</remarks>
     public class PublishingHostProgram : RemotingWcfHostProgram
     {
-
     }
 }

@@ -2,14 +2,18 @@ using System;
 
 namespace Tools.UI.Windows.Descriptors
 {
-    [Serializable()]
-    public class ListSettings : Tools.UI.Windows.Descriptors.IListSettings
+    [Serializable]
+    public class ListSettings : IListSettings
     {
-        public ListViewSettings ListViewSettings { get; set; }
-
         public ListSettings()
         {
             ListViewSettings = new ListViewSettings();
         }
+
+        #region IListSettings Members
+
+        public ListViewSettings ListViewSettings { get; set; }
+
+        #endregion
     }
 }

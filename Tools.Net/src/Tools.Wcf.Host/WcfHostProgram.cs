@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Diagnostics;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
-using System.Diagnostics;
-using System.Configuration;
-using System.ServiceModel.Configuration;
-using System.Collections.Specialized;
-using Tools.Processes;
-using Tools.Processes.Core;
 using Tools.Core.Asserts;
+using Tools.Processes.Core;
 
 #endregion
 
@@ -23,22 +22,27 @@ namespace Tools.Wcf.Host
     public class WcfHostProgram : ThreadedProcess
     {
         #region Fields
+
         //private volatile static WcfHostProgram _program;
         //private static object instanceSync = new object();
 
-        static ReaderWriterLock hostsListLock = new ReaderWriterLock();
-        List<Type> contracts = new List<Type>();
-        static List<System.ServiceModel.ServiceHost> hosts = new List<System.ServiceModel.ServiceHost>(); 
+        private static readonly List<ServiceHost> hosts = new List<ServiceHost>();
+        private static readonly ReaderWriterLock hostsListLock = new ReaderWriterLock();
+        private readonly List<Type> contracts = new List<Type>();
+
         #endregion
 
         #region Public properties
+
         protected List<Type> Contracts
         {
             get { return contracts; }
-        } 
+        }
+
         #endregion
 
         #region Public methods
+
         /// <summary>
         /// Supposed to be called only on the single thread
         /// </summary>
@@ -59,20 +63,18 @@ namespace Tools.Wcf.Host
                 hostsListLock.AcquireWriterLock(10000);
 
                 //TODO: (SD) unregister remoting, close hosts
-                foreach (System.ServiceModel.ServiceHost sh in hosts)
+                foreach (ServiceHost sh in hosts)
                 {
                     try
                     {
                         sh.Close();
                         //TODO:(SD) Handle lock is not acquired.
-
                     }
                     catch (Exception ex)
                     {
                         ex.Data.Add("Wcf Service Host", "Exception while trying to close the service host for type " +
-                            sh.SingletonInstance.GetType().FullName);
+                                                        sh.SingletonInstance.GetType().FullName);
                         Log.Source.TraceData(TraceEventType.Error, 0, ex);
-
                     }
                 }
                 hosts.Clear();
@@ -98,41 +100,37 @@ namespace Tools.Wcf.Host
 
                 foreach (Type t in contracts)
                 {
-                    System.ServiceModel.ServiceHost sh = null;
+                    ServiceHost sh = null;
                     try
                     {
                         sh =
-                            new System.ServiceModel.ServiceHost(t);
+                            new ServiceHost(t);
 
                         try
                         {
-
-
                             sh.Open();
 
                             //TODO:(SD) Handle lock is not acquired.
                             hosts.Add(sh);
-
-
                         }
                         catch (Exception ex)
                         {
                             //TODO:(SD) Handle disposal
                             //TODO: (SD) Put appropriate ExceptionPolicyName
                             ex.Data.Add("Wcf Service Host", "Exception while trying to open a service host for type " +
-                                t.FullName + ", review the configuration and binaries deployment and retry.");
+                                                            t.FullName +
+                                                            ", review the configuration and binaries deployment and retry.");
                             Log.Source.TraceData(TraceEventType.Error, 0, ex);
                             throw;
-
                         }
                     }
                     catch (Exception ex)
                     {
-                        ex.Data.Add("Wcf Service Host:" + Guid.NewGuid() , "Exception while trying to create a service host for type " +
-    t.FullName + ", review the configuration and binaries deployment and retry.");
+                        ex.Data.Add("Wcf Service Host:" + Guid.NewGuid(),
+                                    "Exception while trying to create a service host for type " +
+                                    t.FullName + ", review the configuration and binaries deployment and retry.");
                         Log.Source.TraceData(TraceEventType.Error, 0, ex);
                         throw;
-
                     }
                 }
             }
@@ -144,7 +142,6 @@ namespace Tools.Wcf.Host
             finally
             {
                 if (hostsListLock.IsWriterLockHeld) hostsListLock.ReleaseLock();
-
             }
             Log.Source.TraceInformation("Hosting report:" + Environment.NewLine + QueryForServices());
         }
@@ -159,12 +156,11 @@ namespace Tools.Wcf.Host
             {
                 hostsListLock.AcquireReaderLock(10000);
 
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.Append("Enumerating registered services:" + Environment.NewLine);
 
-                foreach (System.ServiceModel.ServiceHost sh in hosts)
+                foreach (ServiceHost sh in hosts)
                 {
-
                     try
                     {
                         sb.Append("******").Append(Environment.NewLine);
@@ -173,7 +169,7 @@ namespace Tools.Wcf.Host
                     catch (Exception ex)
                     {
                         ex.Data.Add("Wcf Service Host", "Exception while querying the service host for type " +
-                            sh.SingletonInstance.GetType().FullName);
+                                                        sh.SingletonInstance.GetType().FullName);
                         Log.Source.TraceData(TraceEventType.Error, 0, ex);
                     }
                 }
@@ -189,38 +185,40 @@ namespace Tools.Wcf.Host
                 if (hostsListLock.IsReaderLockHeld) hostsListLock.ReleaseLock();
             }
             return "Failed to enumerate registered services";
-        } 
+        }
+
         #endregion
 
         #region Private methods
+
         /// <summary>
         /// Adds the contracts from configuration.
         /// </summary>
         private void AddContractsFromConfiguration()
         {
-            NameValueCollection servicesConfig =
+            var servicesConfig =
                 ConfigurationManager.GetSection(
-                "Tools.ServiceModelHost") as NameValueCollection;
+                    "Tools.ServiceModelHost") as NameValueCollection;
 
             ErrorTrap.AddRaisableAssertion<ConfigurationErrorsException>
-                (servicesConfig != null, "Section Tools.ServiceModelHost is not present in the configuration file or is misconfigured!" +
-                " Setup the section properly!");
+                (servicesConfig != null,
+                 "Section Tools.ServiceModelHost is not present in the configuration file or is misconfigured!" +
+                 " Setup the section properly!");
 
             foreach (string serviceName in servicesConfig.Keys)
             {
-
                 Type t = Type.GetType(servicesConfig[serviceName], true); //Throw if any error (SD)
                 if (t == null)
                 {
                     throw new ConfigurationErrorsException(String.Format(
-                        "Can't create a type for the {0} service name, " +
-                        "type activation data is: {1}", serviceName,
-                        servicesConfig[serviceName]));
+                                                               "Can't create a type for the {0} service name, " +
+                                                               "type activation data is: {1}", serviceName,
+                                                               servicesConfig[serviceName]));
                 }
                 Contracts.Add(t);
             }
+        }
 
-        } 
         #endregion
     }
 }

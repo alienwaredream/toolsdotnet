@@ -1,11 +1,11 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 //
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
+
 [assembly: AssemblyTitle("")]
 [assembly: AssemblyDescription("Provides events monitoring and events handling management. Prototype only.")]
 [assembly: AssemblyConfiguration("")]
@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("Event Monitoring Gui - Prototype")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:
@@ -27,7 +27,6 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.0.0")]
-
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]

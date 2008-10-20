@@ -16,6 +16,7 @@ namespace Tools.RemotingWcf.Host
             // then register the remoting services
             RemotingRegistrator.Register();
         }
+
         public override void Stop()
         {
             base.Stop();

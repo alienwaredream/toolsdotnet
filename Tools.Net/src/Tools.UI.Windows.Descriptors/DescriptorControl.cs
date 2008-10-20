@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-
 using Tools.Core;
 
 namespace Tools.UI.Windows.Descriptors
@@ -13,52 +7,7 @@ namespace Tools.UI.Windows.Descriptors
     public partial class DescriptorControl : UserControl, IChangeEventRaiser
     {
         private IDescriptor _descriptor;
-        private bool _readOnly = false;
-
-        public IDescriptor Descriptor
-        {
-            get 
-            {
-                if (_descriptor == null) return null;
-
-                _descriptor.Name = nameTextBox.Text;
-                _descriptor.Description = descriptionRichTextBox.Text;
-                return _descriptor;
-            }
-            set 
-            {
-                nameTextBox.Clear();
-                descriptionRichTextBox.Clear();
-
-                _descriptor = value;
-
-                if (_descriptor == null) return;
-                
-                nameTextBox.Text = _descriptor.Name;
-                descriptionRichTextBox.Text = _descriptor.Description;
-            }
-        }
-        public bool ReadOnly
-        {
-            get
-            {
-                return _readOnly;
-            }
-            set
-            {
-                if (_readOnly != value)
-                {
-                    _readOnly = value;
-                    this.nameTextBox.ReadOnly = _readOnly;
-                    this.descriptionRichTextBox.ReadOnly = _readOnly;
-                }
-            }
-        }
-        public void Clear()
-        {
-            this.nameTextBox.Text = null;
-            this.descriptionRichTextBox.Text = null;
-        }
+        private bool _readOnly;
 
         public DescriptorControl
             (
@@ -66,26 +15,71 @@ namespace Tools.UI.Windows.Descriptors
         {
             InitializeComponent();
 
-            this.nameTextBox.TextChanged += new EventHandler(nameTextBox_TextChanged);
-            this.descriptionRichTextBox.TextChanged += new EventHandler(descriptionRichTextBox_TextChanged);
-
+            nameTextBox.TextChanged += nameTextBox_TextChanged;
+            descriptionRichTextBox.TextChanged += descriptionRichTextBox_TextChanged;
         }
 
-        void descriptionRichTextBox_TextChanged(object sender, EventArgs e)
+        public IDescriptor Descriptor
         {
-            this._descriptor.Description = this.descriptionRichTextBox.Text;
-            OnChanged();
+            get
+            {
+                if (_descriptor == null) return null;
+
+                _descriptor.Name = nameTextBox.Text;
+                _descriptor.Description = descriptionRichTextBox.Text;
+                return _descriptor;
+            }
+            set
+            {
+                nameTextBox.Clear();
+                descriptionRichTextBox.Clear();
+
+                _descriptor = value;
+
+                if (_descriptor == null) return;
+
+                nameTextBox.Text = _descriptor.Name;
+                descriptionRichTextBox.Text = _descriptor.Description;
+            }
         }
 
-        void nameTextBox_TextChanged(object sender, EventArgs e)
+        public bool ReadOnly
         {
-            this._descriptor.Name = this.nameTextBox.Text;
-            OnChanged();
+            get { return _readOnly; }
+            set
+            {
+                if (_readOnly != value)
+                {
+                    _readOnly = value;
+                    nameTextBox.ReadOnly = _readOnly;
+                    descriptionRichTextBox.ReadOnly = _readOnly;
+                }
+            }
         }
 
         #region IChangeEventRaiser Members
 
         public event EventHandler Changed;
+
+        #endregion
+
+        public void Clear()
+        {
+            nameTextBox.Text = null;
+            descriptionRichTextBox.Text = null;
+        }
+
+        private void descriptionRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _descriptor.Description = descriptionRichTextBox.Text;
+            OnChanged();
+        }
+
+        private void nameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _descriptor.Name = nameTextBox.Text;
+            OnChanged();
+        }
 
         private void OnChanged()
         {
@@ -94,7 +88,5 @@ namespace Tools.UI.Windows.Descriptors
                 Changed(this, EventArgs.Empty);
             }
         }
-
-        #endregion
-}
+    }
 }

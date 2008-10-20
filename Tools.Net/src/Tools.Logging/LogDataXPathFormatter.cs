@@ -53,7 +53,7 @@ namespace Tools.Logging
                     return new XPathDocument(new StringReader(sb.ToString())).CreateNavigator();
                 }
             }
-            if (data!=null)
+            if (data != null)
             {
                 return new XPathDocument(new StringReader(
                                              CombineTraceStringForMessageOnly(data.ToString()))).CreateNavigator();

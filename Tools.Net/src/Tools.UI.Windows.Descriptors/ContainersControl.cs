@@ -9,16 +9,19 @@ namespace Tools.UI.Windows.Descriptors
      * ContainedType will DescritiveList<T>
      * SettingsType will be ListViewSettings
      * */
+
     public partial class ContainersControl
         <SettingsType, ContainedType, T> : UserControl
         where ContainedType : new()
-        where SettingsType : IListSettings, new() 
-        where T: ICloneable, new()
+        where SettingsType : IListSettings, new()
+        where T : ICloneable, new()
     {
-        private Dictionary<string, TabPage> tabPages;
-        private IDomainsProvider<T> domainsProvider;
+        private readonly IDomainsProvider<T> domainsProvider;
         // This is a workaround for the bug of resource manager for generic controls!
-        private ImageListHolderControl imageListControl = new ImageListHolderControl();
+        private readonly ImageListHolderControl imageListControl = new ImageListHolderControl();
+
+        private DescriptiveList<Container<SettingsType, ContainedType>> _containers;
+        private Dictionary<string, TabPage> tabPages;
 
         #region Events
 
@@ -33,34 +36,14 @@ namespace Tools.UI.Windows.Descriptors
             if (ValueSelected != null)
             {
                 ValueSelected
-                (
-                this,
-                e
-                );
+                    (
+                    this,
+                    e
+                    );
             }
-        } 
+        }
 
         #endregion
-
-        private DescriptiveList<Container<SettingsType, ContainedType>> _containers;
-
-        public DescriptiveList<Container<SettingsType, ContainedType>> Containers
-        {
-            get { return _containers; }
-            set 
-            { 
-                _containers = value;
-                InitializePages(value);
-            }
-        }
-        public Container<SettingsType, ContainedType> SelectedContainer
-        {
-            get
-            {
-                if (this.containersTabControl.SelectedTab == null) return null;
-                return this.containersTabControl.SelectedTab.Tag as Container<SettingsType, ContainedType>;
-            }
-        }
 
         public ContainersControl
             (
@@ -70,19 +53,38 @@ namespace Tools.UI.Windows.Descriptors
         {
             InitializeComponent();
             this.domainsProvider = domainsProvider;
-            this.containersTabControl.ImageList = imageListControl.LockImageList;
+            containersTabControl.ImageList = imageListControl.LockImageList;
             tabPages = new Dictionary<string, TabPage>();
-            this._containers = containers;
+            _containers = containers;
             InitializePages(_containers);
             //this.containersTabControl.
-
         }
+
+        public DescriptiveList<Container<SettingsType, ContainedType>> Containers
+        {
+            get { return _containers; }
+            set
+            {
+                _containers = value;
+                InitializePages(value);
+            }
+        }
+
+        public Container<SettingsType, ContainedType> SelectedContainer
+        {
+            get
+            {
+                if (containersTabControl.SelectedTab == null) return null;
+                return containersTabControl.SelectedTab.Tag as Container<SettingsType, ContainedType>;
+            }
+        }
+
         private void InitializePages
             (
             DescriptiveList<Container<SettingsType, ContainedType>> containers
             )
         {
-            this.SuspendLayout();
+            SuspendLayout();
 
             foreach (TabPage tp in containersTabControl.TabPages)
             {
@@ -95,7 +97,7 @@ namespace Tools.UI.Windows.Descriptors
                 bindContainer(containers[i]);
             }
 
-            this.ResumeLayout(true);
+            ResumeLayout(true);
         }
 
         private void bindContainer
@@ -103,39 +105,38 @@ namespace Tools.UI.Windows.Descriptors
             Container<SettingsType, ContainedType> container
             )
         {
-
-            TabPage page = new TabPage((container as Container<SettingsType, ContainedType>).Name);
+            var page = new TabPage((container).Name);
             page.ImageIndex = 0;
             page.Tag = container;
-            
+
             containersTabControl.TabPages.Add(page);
 
 
-            GenericCollectionControl<T, SettingsType> collControl =
+            var collControl =
                 new GenericCollectionControl<T, SettingsType>
-                (
-                domainsProvider,
-                (IList<T>)container.ContainerObject, // This cast is a violation of course.
-                container,
-                container.Settings
-                );
+                    (
+                    domainsProvider,
+                    (IList<T>) container.ContainerObject, // This cast is a violation of course.
+                    container,
+                    container.Settings
+                    );
 
             collControl.ValueSelected +=
-                new ValueSelectedDelegate<T>(collControl_ValueSelected);
+                collControl_ValueSelected;
 
             page.Controls.Add(collControl);
             //page.an
             collControl.Size = page.ClientSize;
             collControl.Dock = DockStyle.Fill;
-            collControl.DockChanged += new EventHandler(collControl_DockChanged);
+            collControl.DockChanged += collControl_DockChanged;
             collControl.Parent.Dock = DockStyle.Fill;
-
         }
 
-        void collControl_DockChanged(object sender, EventArgs e)
+        private void collControl_DockChanged(object sender, EventArgs e)
         {
             throw new Exception("The method or operation is not implemented.");
         }
+
         private void collControl_ValueSelected(object sender, ValueSelectedEventArgs<T> e)
         {
             OnValueSelected(e);
@@ -143,25 +144,22 @@ namespace Tools.UI.Windows.Descriptors
 
         private void containersTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void addNewListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Container<SettingsType, ContainedType> container =
+            var container =
                 new Container<SettingsType, ContainedType>();
-            this._containers.Add(container);
-            this.bindContainer(container);
+            _containers.Add(container);
+            bindContainer(container);
         }
 
         private void removeTheListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

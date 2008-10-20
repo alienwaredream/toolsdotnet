@@ -46,6 +46,7 @@ namespace Tools.Processes.Host
                                              RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
             }
         }
+
         /// <summary>
         /// Writes text to the listview item in the gui.
         /// </summary>
@@ -66,7 +67,6 @@ namespace Tools.Processes.Host
             }
             else
             {
-
                 Match match = descriptionRegex.Match(text);
 
                 if (match != null && match.Groups.Count > 1)
@@ -80,15 +80,12 @@ namespace Tools.Processes.Host
                     entry.Append(text);
                     detail.Append(text);
                 }
-                
             }
-
-
         }
 
         private void WrapLogMessage()
         {
-            var item = new ListViewItem { Tag = detail.ToString(), Text = entry.ToString() };
+            var item = new ListViewItem {Tag = detail.ToString(), Text = entry.ToString()};
             viewControl.SuspendLayout();
             viewControl.Items.Add(item);
 

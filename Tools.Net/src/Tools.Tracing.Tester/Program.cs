@@ -1,15 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using Tools.Core.Context;
-using Tools.Remoting.Client.Common;
 using Tools.Tracing.ClientHandler;
 using Tools.Tracing.Common;
-using System.Diagnostics;
 
 namespace Tools.Tracing.Tester
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
@@ -19,27 +18,27 @@ namespace Tools.Tracing.Tester
                 var tracingClient = new TraceEventHandlerClient("localhost", "9020", "TraceEventHandlerWrapper.rem");
 
                 tracingClient.HandleEvent(new TraceEvent
-                {
-                    Category = EventCategory.Debugging,
-                    Context = "Context",
-                    ContextIdentifier = new ContextIdentifier
-                    {
-                        AuthenticationTokenId = 0,
-                        ContextGuid = Guid.NewGuid(),
-                        ContextHolderId = 1,
-                        ExternalId = "456454",
-                        ExternalReference = "ERef1",
-                        ExternalParentId = "EParentId",
-                        InternalId = 56,
-                        InternalParentId = 57
-                    },
-                    EventId = new Random().Next(500000),
-                    EventIdText = null,
-                    Handled = false,
-                    LifeCycleType = ApplicationLifeCycleType.Runtime,
-                    Message = "This is a test message sent through the remoting channel",
-                    Type = TraceEventType.Information
-                });
+                                              {
+                                                  Category = EventCategory.Debugging,
+                                                  Context = "Context",
+                                                  ContextIdentifier = new ContextIdentifier
+                                                                          {
+                                                                              AuthenticationTokenId = 0,
+                                                                              ContextGuid = Guid.NewGuid(),
+                                                                              ContextHolderId = 1,
+                                                                              ExternalId = "456454",
+                                                                              ExternalReference = "ERef1",
+                                                                              ExternalParentId = "EParentId",
+                                                                              InternalId = 56,
+                                                                              InternalParentId = 57
+                                                                          },
+                                                  EventId = new Random().Next(500000),
+                                                  EventIdText = null,
+                                                  Handled = false,
+                                                  LifeCycleType = ApplicationLifeCycleType.Runtime,
+                                                  Message = "This is a test message sent through the remoting channel",
+                                                  Type = TraceEventType.Information
+                                              });
             }
             catch (Exception ex)
             {

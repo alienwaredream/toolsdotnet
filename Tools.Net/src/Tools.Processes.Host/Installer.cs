@@ -21,8 +21,6 @@ namespace Tools.Processes.Host
         private readonly ServiceProcessInstaller spInstaller;
         private readonly ServiceInstaller srvInstaller;
 
-        private string serviceName;
-        
 
         /// <summary>
         /// Required designer variable.
@@ -30,9 +28,11 @@ namespace Tools.Processes.Host
 #pragma warning disable 219
         private Container components;
 #pragma warning restore 219
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// The full file path to the file with the installers
         /// </summary>
@@ -42,16 +42,13 @@ namespace Tools.Processes.Host
         {
             get { return installSource; }
         }
+
         /// <summary>
         /// Service name to install.
         /// </summary>
         /// <remarks>This implies that there is only one service per installer. But this is 
         /// true for the current implementation.</remarks>
-        public string ServiceName
-        {
-            get { return serviceName; }
-            private set { serviceName = value; }
-        }
+        public string ServiceName { get; private set; }
 
         #endregion Properties
 
@@ -70,7 +67,6 @@ namespace Tools.Processes.Host
 
                 Installers.Add(srvInstaller);
                 Installers.Add(spInstaller);
-
             }
             catch (Exception ex)
             {

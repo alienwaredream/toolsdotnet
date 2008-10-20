@@ -1,32 +1,29 @@
 using System;
 using System.Collections;
-
 using Tools.Core;
 
 namespace Tools.Tracing.UI
 {
-    
     /// <summary>
     ///     <para>
     ///       A collection that stores <see cref='Tools..FilterEntry'/> objects.
     ///    </para>
     /// </summary>
     /// <seealso cref='Tools..FilterEntryCollection'/>
-    [Serializable()]
+    [Serializable]
     public class FilterEntryCollection : CollectionBase, IChangeEventRaiser
-	{
-        
-		#region Constructors
+    {
+        #region Constructors
 
-		/// <summary>
+        /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools..FilterEntryCollection'/>.
         ///    </para>
         /// </summary>
-        public FilterEntryCollection() 
-		{
+        public FilterEntryCollection()
+        {
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools..FilterEntryCollection'/> based on another <see cref='Tools..FilterEntryCollection'/>.
@@ -35,10 +32,11 @@ namespace Tools.Tracing.UI
         /// <param name='value'>
         ///       A <see cref='Tools..FilterEntryCollection'/> from which the contents are copied
         /// </param>
-        public FilterEntryCollection(FilterEntryCollection value) {
-            this.AddRange(value);
+        public FilterEntryCollection(FilterEntryCollection value)
+        {
+            AddRange(value);
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Initializes a new instance of <see cref='Tools..FilterEntryCollection'/> containing any array of <see cref='Tools..FilterEntry'/> objects.
@@ -47,14 +45,14 @@ namespace Tools.Tracing.UI
         /// <param name='value'>
         ///       A array of <see cref='Tools..FilterEntry'/> objects with which to intialize the collection
         /// </param>
-        public FilterEntryCollection(FilterEntry[] value) {
-            this.AddRange(value);
+        public FilterEntryCollection(FilterEntry[] value)
+        {
+            AddRange(value);
         }
-        
 
-		#endregion
+        #endregion
 
-		#region Indexers
+        #region Indexers
 
         /// <summary>
         /// <para>Represents the entry at the specified index of the <see cref='Tools..FilterEntry'/>.</para>
@@ -66,53 +64,50 @@ namespace Tools.Tracing.UI
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='index'/> 
         /// is outside the valid range of indexes for the collection.
         /// </exception>
-        public FilterEntry this[int index] 
-		{
-            get {
-                return ((FilterEntry)(List[index]));
+        public FilterEntry this[int index]
+        {
+            get { return ((FilterEntry) (List[index])); }
+            set { List[index] = value; }
+        }
+
+        public FilterEntry this[string path]
+        {
+            get
+            {
+                foreach (FilterEntry fdf in this)
+                {
+                    if (fdf.Path == path)
+                    {
+                        return fdf;
+                    }
+                }
+                return null;
             }
-            set {
-                List[index] = value;
+            set
+            {
+                for (int i = 0; i < List.Count; i++)
+                {
+                    if (((FilterEntry) List[i]).Path == path)
+                    {
+                        List[i] = value;
+                        reAssignOnChangeHandler((FilterEntry) List[i], value);
+                        OnChanged();
+                        return;
+                    }
+                }
+                Add(value);
             }
         }
-		private void reAssignOnChangeHandler(FilterEntry oldFilter, FilterEntry newFilter)
-		{
-			oldFilter.Changed -= new System.EventHandler(this.filterEntryChanged);
-			newFilter.Changed += new System.EventHandler(this.filterEntryChanged);
-		}
-		public FilterEntry this[string path] 
-		{
-			get 
-			{
-				foreach (FilterEntry fdf in this)
-				{
-					if (fdf.Path==path) 
-					{
-						return fdf;
-					}
-				}
-				return null;
-			}
-			set 
-			{
-				for (int i = 0; i < List.Count; i++)
-				{
-					if (((FilterEntry)List[i]).Path==path) 
-					{
-						List[i] = value;
-						reAssignOnChangeHandler((FilterEntry)List[i], value);
-						OnChanged();
-						return;
-					}
-				}
-				this.Add(value);
-			}
-		}          
 
+        private void reAssignOnChangeHandler(FilterEntry oldFilter, FilterEntry newFilter)
+        {
+            oldFilter.Changed -= filterEntryChanged;
+            newFilter.Changed += filterEntryChanged;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
         /// <summary>
         ///    <para>Adds a <see cref='Tools..FilterEntry'/> with the specified value to the 
@@ -123,21 +118,20 @@ namespace Tools.Tracing.UI
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
         /// <seealso cref='Tools..FilterEntryCollection.AddRange'/>
-        public int Add(FilterEntry value) 
-		{
-			FilterEntry nv = this.GetEntry(value.Path);
+        public int Add(FilterEntry value)
+        {
+            FilterEntry nv = GetEntry(value.Path);
 
-			if (nv!=null)
-			{ 
-				throw new ArgumentException("Can't add the item with duplicate path of " + nv.Path);
-			}
-			int ret = List.Add(value);
-			value.Changed += new System.EventHandler(this.filterEntryChanged);
-			OnChanged();
-			return ret;
-
+            if (nv != null)
+            {
+                throw new ArgumentException("Can't add the item with duplicate path of " + nv.Path);
+            }
+            int ret = List.Add(value);
+            value.Changed += filterEntryChanged;
+            OnChanged();
+            return ret;
         }
-        
+
         /// <summary>
         /// <para>Copies the elements of an array to the end of the <see cref='Tools..FilterEntryCollection'/>.</para>
         /// </summary>
@@ -148,13 +142,14 @@ namespace Tools.Tracing.UI
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools..FilterEntryCollection.Add'/>
-        public void AddRange(FilterEntry[] value) {
-			for (int i = 0; (i < value.Length); i = (i + 1)) 
-			{
-				this.Add(value[i]);
-			}
+        public void AddRange(FilterEntry[] value)
+        {
+            for (int i = 0; (i < value.Length); i = (i + 1))
+            {
+                Add(value[i]);
+            }
         }
-        
+
         /// <summary>
         ///     <para>
         ///       Adds the contents of another <see cref='Tools..FilterEntryCollection'/> to the end of the collection.
@@ -167,12 +162,14 @@ namespace Tools.Tracing.UI
         ///   <para>None.</para>
         /// </returns>
         /// <seealso cref='Tools..FilterEntryCollection.Add'/>
-        public void AddRange(FilterEntryCollection value) {
-            for (int i = 0; (i < value.Count); i = (i + 1)) {
-                this.Add(value[i]);
+        public void AddRange(FilterEntryCollection value)
+        {
+            for (int i = 0; (i < value.Count); i = (i + 1))
+            {
+                Add(value[i]);
             }
         }
-        
+
         /// <summary>
         /// <para>Gets a value indicating whether the 
         ///    <see cref='Tools..FilterEntryCollection'/> contains the specified <see cref='Tools..FilterEntry'/>.</para>
@@ -183,10 +180,11 @@ namespace Tools.Tracing.UI
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
         /// <seealso cref='Tools..FilterEntryCollection.IndexOf'/>
-        public bool Contains(FilterEntry value) {
+        public bool Contains(FilterEntry value)
+        {
             return List.Contains(value);
         }
-        
+
         /// <summary>
         /// <para>Copies the <see cref='Tools..FilterEntryCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
@@ -200,10 +198,11 @@ namespace Tools.Tracing.UI
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
-        public void CopyTo(FilterEntry[] array, int index) {
+        public void CopyTo(FilterEntry[] array, int index)
+        {
             List.CopyTo(array, index);
         }
-        
+
         /// <summary>
         ///    <para>Returns the index of a <see cref='Tools..FilterEntry'/> in 
         ///       the <see cref='Tools..FilterEntryCollection'/> .</para>
@@ -214,10 +213,11 @@ namespace Tools.Tracing.UI
         /// <see cref='Tools..FilterEntryCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
         /// <seealso cref='Tools..FilterEntryCollection.Contains'/>
-        public int IndexOf(FilterEntry value) {
+        public int IndexOf(FilterEntry value)
+        {
             return List.IndexOf(value);
         }
-        
+
         /// <summary>
         /// <para>Inserts a <see cref='Tools..FilterEntry'/> into the <see cref='Tools..FilterEntryCollection'/> at the specified index.</para>
         /// </summary>
@@ -225,20 +225,22 @@ namespace Tools.Tracing.UI
         /// <param name=' value'>The <see cref='Tools..FilterEntry'/> to insert.</param>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='Tools..FilterEntryCollection.Add'/>
-        public void Insert(int index, FilterEntry value) {
+        public void Insert(int index, FilterEntry value)
+        {
             List.Insert(index, value);
         }
-        
+
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
         ///       the <see cref='Tools..FilterEntryCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
-        public new FilterEntryEnumerator GetEnumerator() {
+        public new FilterEntryEnumerator GetEnumerator()
+        {
             return new FilterEntryEnumerator(this);
         }
-        
+
         /// <summary>
         ///    <para> Removes a specific <see cref='Tools..FilterEntry'/> from the 
         ///    <see cref='Tools..FilterEntryCollection'/> .</para>
@@ -246,119 +248,110 @@ namespace Tools.Tracing.UI
         /// <param name='value'>The <see cref='Tools..FilterEntry'/> to remove from the <see cref='Tools..FilterEntryCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
-        public void Remove(FilterEntry value) 
-		{
-			value.Changed -= new System.EventHandler(this.filterEntryChanged);
+        public void Remove(FilterEntry value)
+        {
+            value.Changed -= filterEntryChanged;
             List.Remove(value);
-			OnChanged();
+            OnChanged();
         }
-		/// <summary>
-		/// Gets an entry for the supplied name.
-		/// </summary>
-		/// <param name="name">Entry name.</param>
-		/// <returns>Entry if exists or null otherwise.</returns>
-		public  FilterEntry GetEntry(string name)
-		{
-			FilterEntryEnumerator ce = this.GetEnumerator();
-			while (ce.MoveNext())
-			{
-				if (ce.Current.Name == name) return ce.Current;
-			}
-			return null;
-		}
-        
 
-		#endregion
-		
-		#region FilterEntryEnumerator class
-		
-		public class FilterEntryEnumerator : object, IEnumerator 
-		{
-            
-			#region Global declarations
-           
-			private IEnumerator baseEnumerator;
-            private IEnumerable temp;
+        /// <summary>
+        /// Gets an entry for the supplied name.
+        /// </summary>
+        /// <param name="name">Entry name.</param>
+        /// <returns>Entry if exists or null otherwise.</returns>
+        public FilterEntry GetEntry(string name)
+        {
+            FilterEntryEnumerator ce = GetEnumerator();
+            while (ce.MoveNext())
+            {
+                if (ce.Current.Name == name) return ce.Current;
+            }
+            return null;
+        }
 
-			#endregion
-            
-			#region Constructors
-			
-			public FilterEntryEnumerator(FilterEntryCollection mappings) 
-			{
-                this.temp = ((IEnumerable)(mappings));
-                this.baseEnumerator = temp.GetEnumerator();
+        #endregion
+
+        #region FilterEntryEnumerator class
+
+        public class FilterEntryEnumerator : object, IEnumerator
+        {
+            #region Global declarations
+
+            private readonly IEnumerator baseEnumerator;
+            private readonly IEnumerable temp;
+
+            #endregion
+
+            #region Constructors
+
+            public FilterEntryEnumerator(FilterEntryCollection mappings)
+            {
+                temp = ((mappings));
+                baseEnumerator = temp.GetEnumerator();
             }
 
-		
-			#endregion
-            
-			#region Properties
-		
-			public FilterEntry Current 
-			{
-                get {
-                    return ((FilterEntry)(baseEnumerator.Current));
-                }
+            #endregion
+
+            #region Properties
+
+            public FilterEntry Current
+            {
+                get { return ((FilterEntry) (baseEnumerator.Current)); }
             }
-            
 
-			#endregion
-           
-			#region IEnumerator implementation
+            #endregion
 
-			object IEnumerator.Current 
-			{
-				get 
-				{
-					return baseEnumerator.Current;
-				}
-			}
+            #region IEnumerator implementation
 
-			bool IEnumerator.MoveNext() 
-			{
-				return baseEnumerator.MoveNext();
-			}
-            
-			void IEnumerator.Reset() 
-			{
-				baseEnumerator.Reset();
-			}
+            object IEnumerator.Current
+            {
+                get { return baseEnumerator.Current; }
+            }
 
-			
-			#endregion
-
-			#region Methods
-
-			public bool MoveNext() 
-			{
+            bool IEnumerator.MoveNext()
+            {
                 return baseEnumerator.MoveNext();
             }
-            
-            public void Reset() {
+
+            void IEnumerator.Reset()
+            {
                 baseEnumerator.Reset();
             }
-            
 
-			#endregion
+            #endregion
+
+            #region Methods
+
+            public bool MoveNext()
+            {
+                return baseEnumerator.MoveNext();
+            }
+
+            public void Reset()
+            {
+                baseEnumerator.Reset();
+            }
+
+            #endregion
         }
 
-		#endregion
+        #endregion
 
-		private void filterEntryChanged(object sender, EventArgs e)
-		{
-			OnChanged();
-		}
+        #region IChangeEventRaiser Members
 
-		#region IChangeEventRaiser Members
+        public event EventHandler Changed;
 
-		private void OnChanged()
-		{
-			if (Changed!=null) Changed(this, EventArgs.Empty);
-		}
+        #endregion
 
-		public event System.EventHandler Changed;
+        private void filterEntryChanged(object sender, EventArgs e)
+        {
+            OnChanged();
+        }
 
-		#endregion
-	}
+        private void OnChanged()
+        {
+            if (Changed != null) Changed(this, EventArgs.Empty);
+        }
+    }
 }

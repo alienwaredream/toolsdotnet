@@ -1,7 +1,7 @@
 using System;
-using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Tools.Core.Context
 {
@@ -197,6 +197,5 @@ namespace Tools.Core.Context
         }
 
         #endregion
-
     }
 }

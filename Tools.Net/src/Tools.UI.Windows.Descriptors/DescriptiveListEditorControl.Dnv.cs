@@ -1,32 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Tools.UI.Windows.Descriptors
 {
     partial class DescriptiveListEditorControl
-	{
-		private DescriptiveNameValueControl descriptiveNameValueControl;
+    {
+        private DescriptiveNameValueControl descriptiveNameValueControl;
 
-		private void initializeDescriptiveNameValueControl
-			(
-			DescriptiveNameValueDomainsProvider domainsProvider
-			)
-		{
-			descriptiveNameValueControl =
-				new Tools.UI.Windows.Descriptors.DescriptiveNameValueControl
-					(
+        private void initializeDescriptiveNameValueControl
+            (
+            DescriptiveNameValueDomainsProvider domainsProvider
+            )
+        {
+            descriptiveNameValueControl =
+                new DescriptiveNameValueControl
+                    (
                     domainsProvider
-					);
-			this.descriptiveNameValueControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.descriptiveNameValueControl.Location = new System.Drawing.Point(0, 0);
-			this.descriptiveNameValueControl.MinimumSize = new System.Drawing.Size(179, 107);
-			this.descriptiveNameValueControl.Name = "descriptiveNameValueControl";
-			this.descriptiveNameValueControl.Size = new System.Drawing.Size(313, 139);
-			this.descriptiveNameValueControl.TabIndex = 0;
-			this.descriptiveNameValueControl.Load += new System.EventHandler(this.descriptiveNameValueControl1_Load);
-			this.splitContainer.Panel1.Controls.Add(this.descriptiveNameValueControl);
-
-		}
-	}
+                    );
+            descriptiveNameValueControl.Dock = DockStyle.Fill;
+            descriptiveNameValueControl.Location = new Point(0, 0);
+            descriptiveNameValueControl.MinimumSize = new Size(179, 107);
+            descriptiveNameValueControl.Name = "descriptiveNameValueControl";
+            descriptiveNameValueControl.Size = new Size(313, 139);
+            descriptiveNameValueControl.TabIndex = 0;
+            descriptiveNameValueControl.Load += descriptiveNameValueControl1_Load;
+            splitContainer.Panel1.Controls.Add(descriptiveNameValueControl);
+        }
+    }
 }

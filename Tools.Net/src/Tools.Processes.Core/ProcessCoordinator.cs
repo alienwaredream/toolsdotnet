@@ -1,12 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using Tools.Core;
 using Tools.Core.Context;
-using Tools.Processes.Core;
-using Process = Tools.Processes.Core.Process;
-using System.Collections.Generic;
 using Tools.Core.Threading;
 
 namespace Tools.Processes.Core
@@ -19,7 +17,11 @@ namespace Tools.Processes.Core
     {
         #region Fields
 
-        private TraceSource log = Log.Source;
+        //private WorkManagerConfiguration _configuration;
+        private readonly ContextIdentifier contextIdentifier = new ContextIdentifier();
+        private readonly TraceSource log = Log.Source;
+
+        private readonly SynchronizedCounter numberOfProcessesRunning = new SynchronizedCounter();
 
         #region Required for IProcess
 
@@ -28,12 +30,7 @@ namespace Tools.Processes.Core
 
         #endregion Required for IProcess
 
-        //private WorkManagerConfiguration _configuration;
-        private readonly ContextIdentifier contextIdentifier = new ContextIdentifier();
-
         public List<IProcess> Processes { get; set; }
-
-        private readonly SynchronizedCounter numberOfProcessesRunning = new SynchronizedCounter();
 
         #endregion
 
@@ -59,16 +56,13 @@ namespace Tools.Processes.Core
             Processes = new List<IProcess>();
         }
 
-
-
         #endregion
 
         #region Methods
 
-
-        void numberOfProcessesRunning_Zeroed()
+        private void numberOfProcessesRunning_Zeroed()
         {
-            lock(waitForProcessesStopSyncObj)
+            lock (waitForProcessesStopSyncObj)
             {
                 Monitor.PulseAll(waitForProcessesStopSyncObj);
             }
@@ -78,27 +72,27 @@ namespace Tools.Processes.Core
         {
             try
             {
-                var aResult = (AsyncResult)ar;
+                var aResult = (AsyncResult) ar;
                 var batchesJoinDelegate =
-                    (VoidDelegate)aResult.AsyncDelegate;
+                    (VoidDelegate) aResult.AsyncDelegate;
 
                 log.TraceData(TraceEventType.Verbose,
-                                     ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
-                                     new ContextualLogEntry
-                                         {
-                                             Message =
-                                                 string.Format
-                                                 (
-                                                 "Manager callback called for stopping {0} process", 
-                                                 ((aResult.AsyncState as Descriptor)!=null)? ((Descriptor)aResult.AsyncState).Name: "Unknown"),
-                             
-                                             ContextIdentifier = contextIdentifier
-                                         });
+                              ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
+                              new ContextualLogEntry
+                                  {
+                                      Message =
+                                          string.Format
+                                          (
+                                          "Manager callback called for stopping {0} process",
+                                          ((aResult.AsyncState as Descriptor) != null)
+                                              ? ((Descriptor) aResult.AsyncState).Name
+                                              : "Unknown"),
+                                      ContextIdentifier = contextIdentifier
+                                  });
 
                 numberOfProcessesRunning.SyncDecrement();
 
                 batchesJoinDelegate.EndInvoke(ar);
-
             }
             catch (Exception ex)
             {
@@ -107,19 +101,19 @@ namespace Tools.Processes.Core
                 // the architecture, on the other side it can provide default logging;
                 // can represent the need for delegates use then. Or logging can be located in the utility (SD)
                 log.TraceData(TraceEventType.Error,
-                                     ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
-                                     new ContextualLogEntry
-                                         {
-                                             Message =
-                                                 string.Format
-                                                 (
-                                                 "Exception happened while trying to StopInternal the process {0}" +
-                                                 " Exception text: {1}",
-                                                 Descriptor.ProbeForName(ar.AsyncState),
-                                                 ex
-                                                 ),
-                                             ContextIdentifier = contextIdentifier
-                                         });
+                              ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
+                              new ContextualLogEntry
+                                  {
+                                      Message =
+                                          string.Format
+                                          (
+                                          "Exception happened while trying to StopInternal the process {0}" +
+                                          " Exception text: {1}",
+                                          Descriptor.ProbeForName(ar.AsyncState),
+                                          ex
+                                          ),
+                                      ContextIdentifier = contextIdentifier
+                                  });
             }
         }
 
@@ -136,12 +130,11 @@ namespace Tools.Processes.Core
         {
             base.Abort();
             //TODO: (SD) Add exception handling
-            Processes.ForEach(p=>p.Abort());
+            Processes.ForEach(p => p.Abort());
         }
 
         public override void Stop()
         {
-
             // When the call to Stop is blocking we need to process callback, not an event (SD)
             foreach (IProcess process in Processes)
             {
@@ -174,7 +167,7 @@ namespace Tools.Processes.Core
 
             base.Stop();
         }
-        
+
         #endregion
     }
 }

@@ -10,45 +10,32 @@ namespace Tools.Tracing.UI
 {
     public class EventHandlerRemoteConnectionInstance : RemoteConnectionInstance
     {
-        private TraceEventDelegate _eventDelegate = null;
-
-        public TraceEventDelegate EventDelegate
-        {
-            get
-            {
-                return _eventDelegate;
-            }
-
-            set
-            {
-                _eventDelegate = value;
-            }
-        }
-
         public EventHandlerRemoteConnectionInstance
             (
             RemoteConnectionConfiguration configuration,
             TraceEventDelegate eventDelegate
             ) : base(configuration)
         {
-            _eventDelegate = eventDelegate;
+            EventDelegate = eventDelegate;
         }
+
+        public TraceEventDelegate EventDelegate { get; set; }
 
         public override void Connect()
         {
             base.Connect();
 
-            TraceEventHandlerClient client =
+            var client =
                 new TraceEventHandlerClient
-                (
-                Configuration.ServiceHost,
-                Configuration.Port,
-                Configuration.Uri
-                );
+                    (
+                    Configuration.ServiceHost,
+                    Configuration.Port,
+                    Configuration.Uri
+                    );
 
             if (EventDelegate != null)
             {
-                client.EventHandled += new TraceEventDelegate(EventDelegate);
+                client.EventHandled += EventDelegate;
             }
             else
             {
@@ -58,10 +45,6 @@ namespace Tools.Tracing.UI
 
         public override void Disconnect()
         {
-
         }
-
-
-
     }
 }

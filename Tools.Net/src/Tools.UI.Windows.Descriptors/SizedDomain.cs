@@ -1,47 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 using Tools.Core;
 
 namespace Tools.UI.Windows.Descriptors
 {
-	class SizedDomain : Descriptor
-	{
-		#region Global declarations
+    internal class SizedDomain : Descriptor
+    {
+        #region Global declarations
 
-		private int _width = 30;
+        private int _width = 30;
 
-		#endregion Global declarations
+        #endregion Global declarations
 
-		#region Properties
+        #region Properties
 
-		public int Width
-		{
-			get { return _width; }
-			set { _width = value; }
-		}
+        public int Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
 
-		#endregion Properties
+        #endregion Properties
 
-		#region Constructors
+        #region Constructors
 
-		public SizedDomain
-		(
-		string name,
-		string description,
-		int width
-		)
-			:
-		base
-		(
-		name,
-		description
-			)
-		{
-			_width = width;
-		}
+        public SizedDomain
+            (
+            string name,
+            string description,
+            int width
+            )
+            :
+                base
+                (
+                name,
+                description
+                )
+        {
+            _width = width;
+        }
 
-		#endregion Constructors
-	}
+        #endregion Constructors
+    }
 }

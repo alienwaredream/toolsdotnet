@@ -24,8 +24,6 @@ namespace Tools.Processes.Host
         private Container components;
 #pragma warning restore 649
 
-        private int customExitCode;
-
         /// <summary>
         /// Stands for the win exit code.
         /// </summary>
@@ -42,11 +40,7 @@ namespace Tools.Processes.Host
         /// <summary>
         /// Custom application exit code.
         /// </summary>
-        protected int CustomExitCode
-        {
-            get { return customExitCode; }
-            private set { customExitCode = value;}
-        }
+        protected int CustomExitCode { get; private set; }
 
         #endregion
 
@@ -59,7 +53,7 @@ namespace Tools.Processes.Host
         public ServiceHost(int customExitCode) : this()
         {
             InitializeComponent();
-            this.customExitCode = customExitCode;
+            this.CustomExitCode = customExitCode;
         }
 
         #endregion

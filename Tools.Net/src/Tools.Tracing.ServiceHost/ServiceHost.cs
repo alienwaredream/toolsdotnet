@@ -1,13 +1,15 @@
-﻿namespace Tools.Tracing.ServiceHost
+﻿using Tools.Processes.Host;
+using Tools.RemotingWcf.Host;
+
+namespace Tools.Tracing.ServiceHost
 {
     public class ServiceHost :
-        Tools.Processes.Host.ProcessServiceHost<Tools.RemotingWcf.Host.RemotingWcfHostProgram>
+        ProcessServiceHost<RemotingWcfHostProgram>
     {
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             EntryPoint<ServiceHost>(args);
         }

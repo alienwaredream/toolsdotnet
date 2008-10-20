@@ -2,90 +2,91 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
 using Tools.Core;
 using Tools.Core.Utils;
 
 namespace Tools.UI.Windows.Descriptors
 {
-	/// <summary>
-	/// Provides list gui for the generic list, requires a default ctor to exist.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-    public partial class GenericCollectionControl<T, SettingsType> : UserControl 
+    /// <summary>
+    /// Provides list gui for the generic list, requires a default ctor to exist.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public partial class GenericCollectionControl<T, SettingsType> : UserControl
         where T : ICloneable, new()
-        where SettingsType : IListSettings, new() 
-	{
-		#region Globals
-		private System.Collections.Generic.ICollection<T> _values;
-		private T _previousValue;
-		private T _selectedValue;
-		private ListViewItem _previousListViewItem;
-		private ListViewItem _selectedListViewItem;
-		private IDomainsProvider<T> domainsProvider;
-        private SettingsType settings = new SettingsType();
+        where SettingsType : IListSettings, new()
+    {
+        #region Globals
 
-		#region Events
+        private readonly IDomainsProvider<T> domainsProvider;
+        private readonly SettingsType settings = new SettingsType();
+        private ListViewItem _previousListViewItem;
+        private T _previousValue;
+        private ListViewItem _selectedListViewItem;
+        private T _selectedValue;
+        private ICollection<T> _values;
 
-		public event ValueSelectedDelegate<T> ValueSelected;
+        #region Events
 
-		#endregion Events
-		#endregion Globals
+        public event ValueSelectedDelegate<T> ValueSelected;
 
-		#region Properties
+        #endregion Events
 
-		public T SelectedValue
-		{
-			get { return _selectedValue; }
-		}
-		public ICollection<T> Values
-		{
-			get { return _values; }
-			set 
-			{
-				_values = value;
-				renderValues();
-			}
-		}
+        #endregion Globals
 
-		#endregion Properties
-		
-		#region Constructors
+        #region Properties
 
-		public GenericCollectionControl
-			(
-			IDomainsProvider<T> domainsProvider,
-			System.Collections.Generic.ICollection<T> values,
+        public T SelectedValue
+        {
+            get { return _selectedValue; }
+        }
+
+        public ICollection<T> Values
+        {
+            get { return _values; }
+            set
+            {
+                _values = value;
+                renderValues();
+            }
+        }
+
+        #endregion Properties
+
+        #region Constructors
+
+        public GenericCollectionControl
+            (
+            IDomainsProvider<T> domainsProvider,
+            ICollection<T> values,
             IDescriptor descriptor,
             SettingsType settings
-			)
-		{
-			InitializeComponent();
+            )
+        {
+            InitializeComponent();
             this.settings = settings;
 
-			this.itemsListView.SelectedIndexChanged += new EventHandler(itemsListView_SelectedIndexChanged);
-			itemsListView.MultiSelect = true;
-			itemsListView.HeaderStyle = ColumnHeaderStyle.Clickable;
-			itemsListView.FullRowSelect = true;
-			itemsListView.AllowColumnReorder = true;
-			//itemsListView.Dock = DockStyle.Fill;
+            itemsListView.SelectedIndexChanged += itemsListView_SelectedIndexChanged;
+            itemsListView.MultiSelect = true;
+            itemsListView.HeaderStyle = ColumnHeaderStyle.Clickable;
+            itemsListView.FullRowSelect = true;
+            itemsListView.AllowColumnReorder = true;
+            //itemsListView.Dock = DockStyle.Fill;
 
-			this.domainsProvider = domainsProvider;
+            this.domainsProvider = domainsProvider;
 
-			foreach (string columnName in domainsProvider.GetDomainNames())
-			{
-				this.itemsListView.Columns.Add
-				(
-				columnName
-				);
-			}
-			Values = values;
-			this.ContextMenuStrip = contextMenuStrip;
+            foreach (string columnName in domainsProvider.GetDomainNames())
+            {
+                itemsListView.Columns.Add
+                    (
+                    columnName
+                    );
+            }
+            Values = values;
+            ContextMenuStrip = contextMenuStrip;
 
 
-
-            descriptorContainer.Collapsed += new EventHandler(descriptorContainer_Collapse);
-            descriptorContainer.Expanded += new EventHandler(descriptorContainer_Expand);
+            descriptorContainer.Collapsed += descriptorContainer_Collapse;
+            descriptorContainer.Expanded += descriptorContainer_Expand;
 
             descriptorControl1 = new DescriptorControl();
             descriptorControl1.Descriptor = descriptor;
@@ -98,16 +99,16 @@ namespace Tools.UI.Windows.Descriptors
                 descriptorContainer.Collapse();
             }
             // That is for the resizing bug in the .NET2.0B2
-            this.Resize += new EventHandler(GenericCollectionControl_Resize);
-		}
+            Resize += GenericCollectionControl_Resize;
+        }
 
-        void descriptorContainer_Expand(object sender, EventArgs e)
+        private void descriptorContainer_Expand(object sender, EventArgs e)
         {
             layoutControls();
             settings.ListViewSettings.ShowListNameDescription = true;
         }
 
-        void descriptorContainer_Collapse(object sender, EventArgs e)
+        private void descriptorContainer_Collapse(object sender, EventArgs e)
         {
             layoutControls();
             settings.ListViewSettings.ShowListNameDescription = false;
@@ -115,245 +116,248 @@ namespace Tools.UI.Windows.Descriptors
 
         private void layoutControls()
         {
-            this.itemsListView.Height = this.ClientSize.Height - descriptorContainer.Height;
-            this.itemsListView.Top = descriptorContainer.Bottom;
+            itemsListView.Height = ClientSize.Height - descriptorContainer.Height;
+            itemsListView.Top = descriptorContainer.Bottom;
         }
 
 
-        void GenericCollectionControl_Resize(object sender, EventArgs e)
+        private void GenericCollectionControl_Resize(object sender, EventArgs e)
         {
-            this.descriptorContainer.Width = ClientSize.Width;
-            this.itemsListView.Width = ClientSize.Width;
-            this.itemsListView.Height = ClientSize.Height - descriptorContainer.Height;
+            descriptorContainer.Width = ClientSize.Width;
+            itemsListView.Width = ClientSize.Width;
+            itemsListView.Height = ClientSize.Height - descriptorContainer.Height;
         }
-#endregion Constructors
 
-		#region List view navigation
+        #endregion Constructors
 
-		private void itemsListView_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (itemsListView.SelectedItems.Count == 0)
-			{
-				if (_previousValue != null)
-				{
-					applyOrdinaryStyle(_previousListViewItem);
-				}
-				return;
-			}
-			if (itemsListView.SelectedItems.Count > 1)
-			{
-				this._selectedValue = default(T); 
-				//Given a variable t of a parameterized type T, the statement t = null is only 
-				//valid if T is a reference type and t = 0 will only work for numeric 
-				//value types but not for structs. The solution is to use the default 
-				//keyword, which will return null for reference types and zero for numeric value types.
-				//For structs, it will return each member of the struct initialized to zero or 
-				//null depending on whether they are value or reference types.
-				OnValueSelected();
-				return;
-			}
+        #region List view navigation
 
-			_selectedListViewItem = itemsListView.SelectedItems[0];
-			_selectedValue = (T)_selectedListViewItem.Tag;
-			// apply styles
+        private void itemsListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemsListView.SelectedItems.Count == 0)
+            {
+                if (_previousValue != null)
+                {
+                    applyOrdinaryStyle(_previousListViewItem);
+                }
+                return;
+            }
+            if (itemsListView.SelectedItems.Count > 1)
+            {
+                _selectedValue = default(T);
+                //Given a variable t of a parameterized type T, the statement t = null is only 
+                //valid if T is a reference type and t = 0 will only work for numeric 
+                //value types but not for structs. The solution is to use the default 
+                //keyword, which will return null for reference types and zero for numeric value types.
+                //For structs, it will return each member of the struct initialized to zero or 
+                //null depending on whether they are value or reference types.
+                OnValueSelected();
+                return;
+            }
 
-			applySelectedStyle(_selectedListViewItem);
+            _selectedListViewItem = itemsListView.SelectedItems[0];
+            _selectedValue = (T) _selectedListViewItem.Tag;
+            // apply styles
 
-			OnValueSelected();
+            applySelectedStyle(_selectedListViewItem);
 
-			updateListViewItem(_previousListViewItem);
+            OnValueSelected();
 
-			_previousListViewItem = _selectedListViewItem;
-			_previousValue = (T)_previousListViewItem.Tag;
-		}
-		private void applySelectedStyle(ListViewItem listItem)
-		{
-			listItem.ForeColor = Color.DarkBlue;
-		}
-		private void applyOrdinaryStyle(ListViewItem listItem)
-		{
-			listItem.ForeColor = Color.Black;
-		}
-		protected void OnValueSelected()
-		{
-			if (ValueSelected != null)
-			{
-				ValueSelected
-				(
-				this,
-				new ValueSelectedEventArgs<T>
-				(
-				_previousValue,
-				_selectedValue
-				));
-			}
-		}
+            updateListViewItem(_previousListViewItem);
 
-		#endregion List view navigation
+            _previousListViewItem = _selectedListViewItem;
+            _previousValue = (T) _previousListViewItem.Tag;
+        }
 
-		#region List view maintenance
+        private void applySelectedStyle(ListViewItem listItem)
+        {
+            listItem.ForeColor = Color.DarkBlue;
+        }
 
-		private void resetValues()
-		{
-			itemsListView.Items.Clear();
+        private void applyOrdinaryStyle(ListViewItem listItem)
+        {
+            listItem.ForeColor = Color.Black;
+        }
 
-		}
-		private void renderValues()
-		{
-			resetValues();
-			itemsListView.SuspendLayout();
-			foreach (T val in Values)
-			{
-				SuspendLayout();
-				AddValue(val, false);
+        protected void OnValueSelected()
+        {
+            if (ValueSelected != null)
+            {
+                ValueSelected
+                    (
+                    this,
+                    new ValueSelectedEventArgs<T>
+                        (
+                        _previousValue,
+                        _selectedValue
+                        ));
+            }
+        }
 
-			}
-			itemsListView.ResumeLayout();
-		}
-		private void updateListViewItem(ListViewItem lvi)
-		{
-			if (lvi == null) return;
+        #endregion List view navigation
 
-			string[] vals =
-				domainsProvider.GetDomainValues
-				(
-				(T)lvi.Tag
-				);
-			if (vals.Length != lvi.SubItems.Count)
-			{
-				throw new Exception
-					(
-					"Count of listview columns is different from domains count!"
-					);
-			}
-			for (int i = 0; i < vals.Length; i++)
-			{
-				lvi.SubItems[i].Text = vals[i];
-			}
-		}
-		public void AddValue(T value)
-		{
-			AddValue(value, true);
-		}
-		private void AddValue(T value, bool applyToValues)
-		{
-			ListViewItem listItem2Add =
-				new ListViewItem
-				(
-				domainsProvider.GetDomainValues
-				(
-				value
-				));
+        #region List view maintenance
 
-			listItem2Add.Tag = value;
-			itemsListView.Items.Insert
-			(
-			0,
-			listItem2Add
-			);
-			itemsListView.TopItem = listItem2Add;
-			if (applyToValues) _values.Add(value);
-		}
-		#endregion List view maintenance
+        private void resetValues()
+        {
+            itemsListView.Items.Clear();
+        }
 
-		#region Item management menu handling
+        private void renderValues()
+        {
+            resetValues();
+            itemsListView.SuspendLayout();
+            foreach (T val in Values)
+            {
+                SuspendLayout();
+                AddValue(val, false);
+            }
+            itemsListView.ResumeLayout();
+        }
 
-		private void removeStripMenuItem_Click(object sender, EventArgs e)
-		{
-			removeSelectedValue(true);
-		}
-		private void removeSelectedValue(bool applyToValues)
-		{
-			if (itemsListView.SelectedItems.Count == 0) return;
+        private void updateListViewItem(ListViewItem lvi)
+        {
+            if (lvi == null) return;
 
-			T dnv = (T)itemsListView.SelectedItems[0].Tag;
+            string[] vals =
+                domainsProvider.GetDomainValues
+                    (
+                    (T) lvi.Tag
+                    );
+            if (vals.Length != lvi.SubItems.Count)
+            {
+                throw new Exception
+                    (
+                    "Count of listview columns is different from domains count!"
+                    );
+            }
+            for (int i = 0; i < vals.Length; i++)
+            {
+                lvi.SubItems[i].Text = vals[i];
+            }
+        }
 
-			itemsListView.Items.RemoveAt
-			(
-			itemsListView.SelectedIndices[0]
-			);
+        public void AddValue(T value)
+        {
+            AddValue(value, true);
+        }
 
-			if (applyToValues) _values.Remove(dnv);
-		}
+        private void AddValue(T value, bool applyToValues)
+        {
+            var listItem2Add =
+                new ListViewItem
+                    (
+                    domainsProvider.GetDomainValues
+                        (
+                        value
+                        ));
 
-		private void copyAsNewToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (itemsListView.SelectedItems.Count == 0)
-				return;
-			copyAsNew((T)SelectedValue);
-		}
+            listItem2Add.Tag = value;
+            itemsListView.Items.Insert
+                (
+                0,
+                listItem2Add
+                );
+            itemsListView.TopItem = listItem2Add;
+            if (applyToValues) _values.Add(value);
+        }
 
-		private void newToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			generateNew();
-		}
+        #endregion List view maintenance
 
-		private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (itemsListView.SelectedItems.Count == 0)
-				return;
-			copySelectedToClipboard();
-		}
+        #region Item management menu handling
 
-		private void copySelectedToClipboard()
-		{
-			try
-			{
-				System.Collections.Generic.ICollection<T> selectedValues =
-					new List<T>();
-				int selectedCount = itemsListView.SelectedItems.Count;
-				for (int i = 0; i < selectedCount; i++)
-				{
-					selectedValues.Add
-					(
-					(T)itemsListView.SelectedItems[i].Tag
-					);
-				}
-				System.Windows.Forms.Clipboard.SetDataObject
-				(
-				SerializationUtility.Serialize2String(selectedValues),
-				true
-				);
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.ToString());
-			}
-		}
-		
+        private void removeStripMenuItem_Click(object sender, EventArgs e)
+        {
+            removeSelectedValue(true);
+        }
+
+        private void removeSelectedValue(bool applyToValues)
+        {
+            if (itemsListView.SelectedItems.Count == 0) return;
+
+            var dnv = (T) itemsListView.SelectedItems[0].Tag;
+
+            itemsListView.Items.RemoveAt
+                (
+                itemsListView.SelectedIndices[0]
+                );
+
+            if (applyToValues) _values.Remove(dnv);
+        }
+
+        private void copyAsNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (itemsListView.SelectedItems.Count == 0)
+                return;
+            copyAsNew(SelectedValue);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            generateNew();
+        }
+
+        private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (itemsListView.SelectedItems.Count == 0)
+                return;
+            copySelectedToClipboard();
+        }
+
+        private void copySelectedToClipboard()
+        {
+            try
+            {
+                ICollection<T> selectedValues =
+                    new List<T>();
+                int selectedCount = itemsListView.SelectedItems.Count;
+                for (int i = 0; i < selectedCount; i++)
+                {
+                    selectedValues.Add
+                        (
+                        (T) itemsListView.SelectedItems[i].Tag
+                        );
+                }
+                Clipboard.SetDataObject
+                    (
+                    SerializationUtility.Serialize2String(selectedValues),
+                    true
+                    );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         #endregion Item management menu handling
 
-		#region Item management - Subject to move elsewhere
+        #region Item management - Subject to move elsewhere
 
-		private void copyAsNew(T valueToCopy)
-		{
-			this.AddValue
-			(
-			(T)valueToCopy.Clone(),
-			true
-			);
-		}
-		private void generateNew()
-		{
-			//// Subject for the where:new because we need to create an instance of this type here.
-			T newItem = domainsProvider.GetNewDefaultInstance();
-			this.AddValue
-			(
-			newItem,
-			true
-			);
-		}
+        private void copyAsNew(T valueToCopy)
+        {
+            AddValue
+                (
+                (T) valueToCopy.Clone(),
+                true
+                );
+        }
 
-		#endregion Item management
+        private void generateNew()
+        {
+            //// Subject for the where:new because we need to create an instance of this type here.
+            T newItem = domainsProvider.GetNewDefaultInstance();
+            AddValue
+                (
+                newItem,
+                true
+                );
+        }
+
+        #endregion Item management
 
         private void descriptorControl1_Load(object sender, EventArgs e)
         {
-
         }
-
-
-
-
-
-	}
+    }
 }

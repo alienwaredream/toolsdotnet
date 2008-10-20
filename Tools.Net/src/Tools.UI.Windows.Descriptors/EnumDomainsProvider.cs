@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tools.UI.Windows.Descriptors
 {
@@ -14,9 +12,9 @@ namespace Tools.UI.Windows.Descriptors
     /// </remarks>
     public class EnumDomainsProvider<T> : IDomainsProvider<T>
     {
-        private System.Type enumType = null;
+        private readonly Type enumType;
 
-        public EnumDomainsProvider(System.Type enumType)
+        public EnumDomainsProvider(Type enumType)
         {
             if (!enumType.IsEnum)
             {
@@ -28,16 +26,17 @@ namespace Tools.UI.Windows.Descriptors
             this.enumType = enumType;
         }
 
-        #region IDomainsProvider<Enum> Members
-/// <summary>
-/// That inconsistency is happening here, we don;t actually need the value here.
-/// To be thought later.
-/// </summary>
-/// <param name="type"></param>
-/// <returns></returns>
+        #region IDomainsProvider<T> Members
+
+        /// <summary>
+        /// That inconsistency is happening here, we don;t actually need the value here.
+        /// To be thought later.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public string[] GetDomainValues(T type)
         {
-            return (string[])Enum.GetValues(enumType);
+            return (string[]) Enum.GetValues(enumType);
         }
 
         public string[] GetDomainNames()
@@ -47,9 +46,9 @@ namespace Tools.UI.Windows.Descriptors
 
         public T GetNewDefaultInstance()
         {
-            return (T)enumType.TypeInitializer.Invoke(null);
+            return (T) enumType.TypeInitializer.Invoke(null);
         }
 
         #endregion
-}
+    }
 }

@@ -1,49 +1,24 @@
 using System;
-using System.Xml.Serialization;
-using System.ComponentModel;
-
 using System.Collections.Generic;
-using Tools.Core;
+using System.Xml.Serialization;
 
 namespace Tools.Core.Configuration
 {
-	/// <summary>
-	/// Summary description for TypeActivationSource.
-	/// </summary>
-	[Serializable()]
-	public class TypeActivationSource : Descriptor
-	{
-		private TypeLocator						_typeLocator	= null;
-		private List<ActivationArgument>	    _arguments		= null;	
+    /// <summary>
+    /// Summary description for TypeActivationSource.
+    /// </summary>
+    [Serializable]
+    public class TypeActivationSource : Descriptor
+    {
+        public TypeActivationSource()
+        {
+            Arguments = new List<ActivationArgument>();
+            TypeLocator = new TypeLocator();
+        }
 
-		public TypeLocator TypeLocator
-		{
-			get
-			{
-				return _typeLocator;
-			}
-			set
-			{
-				_typeLocator = value;
-			}
-		}
-		[XmlArray()]
-		public List<ActivationArgument>	Arguments
-		{
-			get
-			{
-				return _arguments;
-			}
-			set
-			{
-				_arguments = value;
-			}
-		}
+        public TypeLocator TypeLocator { get; set; }
 
-		public TypeActivationSource()
-		{
-			_arguments = new List<ActivationArgument>();
-			_typeLocator = new TypeLocator();
-		}
-	}
+        [XmlArray]
+        public List<ActivationArgument> Arguments { get; set; }
+    }
 }

@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
 //using Tools.Core.document;
 
 namespace Tools.Core.Utils
@@ -252,12 +253,13 @@ namespace Tools.Core.Utils
             }
             return ctc;
         }
-        public static object DeserializeFromFile(string path, System.Type type)
+
+        public static object DeserializeFromFile(string path, Type type)
         {
             object ctc = null;
             if (path != null || path != String.Empty)
             {
-                System.Xml.XmlTextReader reader = null;
+                XmlTextReader reader = null;
 
                 try
                 {
@@ -277,7 +279,8 @@ namespace Tools.Core.Utils
                 {
                     throw new Exception
                         (
-                        "Exception ocurred while reading type " + type.FullName + "from the file " + path + "\r\n" + e.ToString() + "\r\nType:" + e.GetType().Name,
+                        "Exception ocurred while reading type " + type.FullName + "from the file " + path + "\r\n" + e +
+                        "\r\nType:" + e.GetType().Name,
                         e
                         );
                 }
