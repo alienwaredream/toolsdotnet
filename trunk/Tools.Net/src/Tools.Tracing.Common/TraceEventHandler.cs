@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 
 namespace Tools.Tracing.Common
 {
@@ -45,29 +44,6 @@ namespace Tools.Tracing.Common
 
         //private ITraceEventHandler			fallbackHandler		= null;
 
-        protected TraceEventHandler()
-        {
-            //fallbackHandler = new FileLogEventHandler();
-        }
-
-        public static TraceEventHandler Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new TraceEventHandler();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-
         #region ITraceEventHandler Members
 
         /// <summary>
@@ -85,82 +61,8 @@ namespace Tools.Tracing.Common
             // already been handled.
             if (!Enabled || traceEvent.Handled) return;
 
-            ITraceEventHandler eventHandler = null;
+            // The rest of the code is taken away as step of the bigger recode.
 
-            // TODO: Provide a code here to force TraceEventHandlerManager.Instance
-            // pre-initialization, so if there is any problem with that log message can be 
-            // still added to the fallback log at least with the TraceEventHandlerManager
-            // problem description as well (SD)
-            try
-            {
-                lock (TraceEventHandlerManager.Instance.ConfLock)
-                {
-                    if (TraceEventHandlerManager.Instance != null && TraceEventHandlerManager.Instance.Handlers != null)
-                    {
-                        for (int i = 0; i < TraceEventHandlerManager.Instance.Handlers.Count; i++)
-                        {
-                            // TODO: Provide and async version
-                            try
-                            {
-                                eventHandler = TraceEventHandlerManager.Instance.Handlers[i];
-                                eventHandler.HandleEvent
-                                    (
-                                    traceEvent
-                                    );
-                            }
-                            catch (Exception e)
-                            {
-                                string eText =
-                                    "Exception during regular logging attempt: " + e +
-                                    Environment.NewLine +
-                                    // TODO: Take care if more handlers of the same type are present (SD)
-                                    "Thrown by the " + eventHandler.GetType().FullName + " handler.";
-
-                                try
-                                {
-#warning resolve the case when application event could not be deserialized (SD)
-                                    traceEvent.Message +=
-                                        Environment.NewLine + eText + Environment.NewLine;
-                                    //***TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
-                                }
-                                catch (Exception ex)
-                                {
-                                    throw new Exception
-                                        (
-                                        traceEvent.Message +
-                                        "Exception during fall back logging attempt:" +
-                                        ex
-                                        );
-                                }
-                            }
-                        }
-                        // Set handled flag to true to avoid duplicate handling by this Instance.
-                        traceEvent.Handled = true;
-                    }
-                }
-            }
-            catch (ThreadInterruptedException ex)
-            {
-                try
-                {
-                    HandleEvent(traceEvent);
-                }
-                catch (Exception exx)
-                {
-                    traceEvent.Message += exx.ToString();
-                    TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
-                }
-            }
-            catch (ThreadAbortException ex)
-            {
-                traceEvent.Message += ex.ToString();
-                TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
-            }
-            catch (Exception ex)
-            {
-                traceEvent.Message += ex.ToString();
-                TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent(traceEvent);
-            }
         }
 
         #endregion

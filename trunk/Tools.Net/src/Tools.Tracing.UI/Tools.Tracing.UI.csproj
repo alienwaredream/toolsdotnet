@@ -155,9 +155,6 @@
     <Compile Include="DescriptorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EventHandlerManagerConfigurationEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="EventHandlerRemoteConnectionInstance.cs" />
     <Compile Include="EventsObserverInstance.cs">
       <SubType>Code</SubType>
@@ -215,9 +212,6 @@
     <Compile Include="RemoteConnectionInstanceCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RemoteEventHandlerManagerConfiguration.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RemoteServiceConnectionDelegate.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -268,9 +262,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DescriptorControl.resx">
       <DependentUpon>DescriptorControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EventHandlerManagerConfigurationEditorControl.resx">
-      <DependentUpon>EventHandlerManagerConfigurationEditorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EventMultiTracerControl.resx">
       <SubType>Designer</SubType>
@@ -354,10 +345,6 @@
     <ProjectReference Include="..\Tools.Tracing.ClientHandler\Tools.Tracing.ClientHandler.csproj">
       <Project>{2C6093E0-F98A-48FB-824E-6F12287D3C14}</Project>
       <Name>Tools.Tracing.ClientHandler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools.Tracing.ClientManager\Tools.Tracing.ClientManager.csproj">
-      <Project>{9F387596-7C54-4C61-B6EA-0702731883F7}</Project>
-      <Name>Tools.Tracing.ClientManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools.Tracing.Common\Tools.Tracing.Common.csproj">
       <Project>{DACA69D8-9065-4327-925E-3D3A314CB058}</Project>

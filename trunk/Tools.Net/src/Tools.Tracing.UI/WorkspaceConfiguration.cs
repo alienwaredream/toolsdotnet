@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Tools.Core.Context;
-using Tools.Tracing.Common;
 
 namespace Tools.Tracing.UI
 {
@@ -15,12 +14,6 @@ namespace Tools.Tracing.UI
             new ApplicationEventFilter();
 
         private List<ContextHolderIdDescriptorPointer> _keyPointers = new List<ContextHolderIdDescriptorPointer>();
-
-        private RemoteConnectionConfigurationCollection _managementConnections =
-            new RemoteConnectionConfigurationCollection();
-
-        private TraceEventHandlerManagerConfiguration _managerConfiguration =
-            new TraceEventHandlerManagerConfiguration();
 
         private RemoteConnectionConfigurationCollection _observerConnections =
             new RemoteConnectionConfigurationCollection();
@@ -42,18 +35,6 @@ namespace Tools.Tracing.UI
         {
             get { return _filter; }
             set { _filter = value; }
-        }
-
-        public TraceEventHandlerManagerConfiguration ManagerConfiguration
-        {
-            get { return _managerConfiguration; }
-            set { _managerConfiguration = value; }
-        }
-
-        public RemoteConnectionConfigurationCollection ManagementConnections
-        {
-            get { return _managementConnections; }
-            set { _managementConnections = value; }
         }
 
         public RemoteConnectionConfigurationCollection ObserverConnections
