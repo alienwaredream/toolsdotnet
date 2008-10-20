@@ -72,26 +72,13 @@ namespace Tools.Tracing.ClientHandler
             {
                 // TODO: Introduce an option so that writing to the fallback wouldn't
                 // be allowed. (SD)
-                TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent
-                    (
-                    new TraceEvent
-                        (
-                        0,
-                        TraceEventType.Error,
-                        ApplicationLifeCycleType.Runtime,
-                        EventCategory.Debugging,
-                        "Exception occured when trying to write to the remote log." +
-                        "With url " + ProtocolSchema + "://"
-                        + ServiceHost + ":" + ServicePort + @"/" +
-                        ObjectUriPath + ". Exception text: " +
-                        ex,
-                        traceEvent.ContextIdentifier,
-                        null
-                        ));
-                TraceEventHandlerManager.Instance.FallbackHandler.HandleEvent
-                    (
-                    traceEvent
-                    );
+                Log.Source.TraceData(TraceEventType.Error, 0,
+                                     "Exception occured when trying to write to the remote log." +
+                                     "With url " + ProtocolSchema + "://"
+                                     + ServiceHost + ":" + ServicePort + @"/" +
+                                     ObjectUriPath + ". Exception text: " +
+                                     ex);
+                throw;
             }
         }
 

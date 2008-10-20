@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using Tools.Core.Utils;
 using Tools.Tracing.Common;
-using Tools.Tracing.Server;
 
 namespace Tools.Tracing.ClientHandler
 {

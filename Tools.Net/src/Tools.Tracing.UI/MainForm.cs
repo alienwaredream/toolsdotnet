@@ -19,7 +19,6 @@ namespace Tools.Tracing.UI
     {
         #region Global declarations
 
-        private readonly EventHandlerManagerConfigurationEditorControl eventManagerConfigControl;
         private readonly TraceEventHandlerEventStub eventStub;
         private readonly EventMultiTracerControl eventTracerControl;
         private readonly ApplicationEventFilterControl filterControl;
@@ -101,10 +100,6 @@ namespace Tools.Tracing.UI
             observerConnectionsControl = new ObserversConfigurationControl();
             observerConnectionsControl.Dock = DockStyle.Fill;
             connsTabPage.Controls.Add(observerConnectionsControl);
-            //
-            //
-            eventManagerConfigControl = new EventHandlerManagerConfigurationEditorControl();
-            eventManagerConfigControl.Dock = DockStyle.Fill;
 
             //
             eventStub = new TraceEventHandlerEventStub();
@@ -161,10 +156,10 @@ namespace Tools.Tracing.UI
                     );
             }
 
-            TraceEventHandler.Instance.HandleEvent
-                (
-                e
-                );
+            //***TraceEventHandler.Instance.HandleEvent
+            //    (
+            //    e
+            //    );
         }
 
         private void test()
@@ -254,7 +249,7 @@ namespace Tools.Tracing.UI
             handleEvent(eventArgs.Event);
         }
 
-        private void MainForm_Closing(object sender, CancelEventArgs e)
+        private static void MainForm_Closing(object sender, CancelEventArgs e)
         {
 //			if (connected)
 //			{
@@ -281,7 +276,6 @@ namespace Tools.Tracing.UI
         {
             workspaceConfiguration = new WorkspaceConfiguration();
             workspaceConfiguration.Filter = eventFilter;
-            workspaceConfiguration.ManagerConfiguration = eventManagerConfigControl.Configuration;
             workspaceConfiguration.ObserverConnections = observerConnectionsControl.Connections;
             workspaceConfiguration.TracingOptions = eventTracerControl.TracingOptions;
             workspaceConfiguration.KeyPointers = eventTracerControl.KeyPointers;
@@ -291,7 +285,6 @@ namespace Tools.Tracing.UI
         {
             reAssignOnChangeHandler(eventFilter, workspaceConfiguration.Filter);
             eventFilter = workspaceConfiguration.Filter;
-            eventManagerConfigControl.Configuration = workspaceConfiguration.ManagerConfiguration;
             observerConnectionsControl.Connections = workspaceConfiguration.ObserverConnections;
             eventTracerControl.TracingOptions = workspaceConfiguration.TracingOptions;
             eventTracerControl.KeyPointers = workspaceConfiguration.KeyPointers;
