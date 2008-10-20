@@ -1,7 +1,7 @@
 ﻿#region Using directives
 
 using System;
-using Tools.Tracing.Client.Handler;
+using Tools.Tracing.ClientHandler;
 using Tools.Tracing.Common;
 
 #endregion
@@ -38,8 +38,8 @@ namespace Tools.Tracing.UI
         {
             base.Connect();
 
-            ApplicationEventHandlerClient client =
-                new ApplicationEventHandlerClient
+            TraceEventHandlerClient client =
+                new TraceEventHandlerClient
                 (
                 Configuration.ServiceHost,
                 Configuration.Port,

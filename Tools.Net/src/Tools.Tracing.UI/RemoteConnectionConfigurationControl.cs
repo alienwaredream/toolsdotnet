@@ -4,8 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
-
-using Tools.Tracing.Client.Manager;
+using Tools.Tracing.ClientManager;
 using Tools.Tracing.Common;
 
 namespace Tools.Tracing.UI
@@ -538,8 +537,8 @@ namespace Tools.Tracing.UI
 		}
 		private TraceEventHandlerManagerConfiguration getRemoteConfiguration(RemoteConnectionConfiguration rcc)
 		{
-			ApplicationEventHandlerManagerClient client =
-				new ApplicationEventHandlerManagerClient
+			TraceEventHandlerManagerClient client =
+				new TraceEventHandlerManagerClient
 				(
 				rcc.ServiceHost,
 				rcc.Port,
@@ -622,8 +621,8 @@ namespace Tools.Tracing.UI
 			TraceEventHandlerManagerConfiguration ehmc
 			)
 		{
-			ApplicationEventHandlerManagerClient client =
-				new ApplicationEventHandlerManagerClient
+			TraceEventHandlerManagerClient client =
+				new TraceEventHandlerManagerClient
 				(
 				rcc.ServiceHost,
 				rcc.Port,

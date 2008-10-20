@@ -3,12 +3,12 @@ using System.Diagnostics;
 using Tools.Core.Utils;
 using Tools.Tracing.Common;
 
-namespace Tools.Tracing.Client
+namespace Tools.Tracing.ClientHandler
 {
 	/// <summary>
 	/// Summary description for RemotableApplicationEventHandler.
 	/// </summary>
-	public class ApplicationEventHandlerWrapper : 
+	public class TraceEventHandlerWrapper : 
 		MarshalByRefObject, 
 		ITraceEventHandler,
 		ITraceEventHandlingPublisher,
@@ -93,7 +93,7 @@ namespace Tools.Tracing.Client
 
 		#endregion
 
-		public ApplicationEventHandlerWrapper()
+		public TraceEventHandlerWrapper()
 		{
 
 		}

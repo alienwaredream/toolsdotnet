@@ -111,10 +111,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEventHandlerClient.cs">
+    <Compile Include="TraceEventHandlerClient.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationEventHandlerWrapper.cs">
+    <Compile Include="TraceEventHandlerWrapper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssemblyInfo.cs">

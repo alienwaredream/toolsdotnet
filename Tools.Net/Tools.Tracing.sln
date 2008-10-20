@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Ioc", "src\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Logging.Staging", "src\Tools.Logging.Staging\Tools.Logging.Staging.csproj", "{8A04369F-242F-47A1-9A34-0D6D63337775}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Tracing.Tester", "src\Tools.Tracing.Tester\Tools.Tracing.Tester.csproj", "{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,12 @@ Global
 		{8A04369F-242F-47A1-9A34-0D6D63337775}.PerformanceTestConfiguration|Any CPU.Build.0 = Release|Any CPU
 		{8A04369F-242F-47A1-9A34-0D6D63337775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A04369F-242F-47A1-9A34-0D6D63337775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.PerformanceTestConfiguration|Any CPU.ActiveCfg = Release|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.PerformanceTestConfiguration|Any CPU.Build.0 = Release|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C63998C-FE9D-4E1B-85A4-B4A2A440969C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

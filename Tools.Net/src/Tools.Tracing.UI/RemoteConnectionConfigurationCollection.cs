@@ -7,10 +7,10 @@ namespace Tools.Tracing.UI
     
     /// <summary>
     ///     <para>
-    ///       A collection that stores <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> objects.
+    ///       A collection that stores <see cref='Tools..RemoteConnectionConfiguration'/> objects.
     ///    </para>
     /// </summary>
-    /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/>
+    /// <seealso cref='Tools..RemoteConnectionConfigurationCollection'/>
     [Serializable()]
     public class RemoteConnectionConfigurationCollection : CollectionBase
 	{
@@ -37,7 +37,7 @@ namespace Tools.Tracing.UI
 
 		/// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools..RemoteConnectionConfigurationCollection'/>.
         ///    </para>
         /// </summary>
         public RemoteConnectionConfigurationCollection() 
@@ -46,11 +46,11 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> based on another <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools..RemoteConnectionConfigurationCollection'/> based on another <see cref='Tools..RemoteConnectionConfigurationCollection'/>.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> from which the contents are copied
+        ///       A <see cref='Tools..RemoteConnectionConfigurationCollection'/> from which the contents are copied
         /// </param>
         public RemoteConnectionConfigurationCollection(RemoteConnectionConfigurationCollection value) {
             this.AddRange(value);
@@ -58,11 +58,11 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> containing any array of <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> objects.
+        ///       Initializes a new instance of <see cref='Tools..RemoteConnectionConfigurationCollection'/> containing any array of <see cref='Tools..RemoteConnectionConfiguration'/> objects.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A array of <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> objects with which to intialize the collection
+        ///       A array of <see cref='Tools..RemoteConnectionConfiguration'/> objects with which to intialize the collection
         /// </param>
         public RemoteConnectionConfigurationCollection(RemoteConnectionConfiguration[] value) {
             this.AddRange(value);
@@ -74,7 +74,7 @@ namespace Tools.Tracing.UI
 		#region Indexers
 
         /// <summary>
-        /// <para>Represents the entry at the specified index of the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/>.</para>
+        /// <para>Represents the entry at the specified index of the <see cref='Tools..RemoteConnectionConfiguration'/>.</para>
         /// </summary>
         /// <param name='index'><para>The zero-based index of the entry to locate in the collection.</para></param>
         /// <value>
@@ -125,29 +125,29 @@ namespace Tools.Tracing.UI
 		#region Methods
 
         /// <summary>
-        ///    <para>Adds a <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> with the specified value to the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</para>
+        ///    <para>Adds a <see cref='Tools..RemoteConnectionConfiguration'/> with the specified value to the 
+        ///    <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> to add.</param>
+        /// <param name='value'>The <see cref='Tools..RemoteConnectionConfiguration'/> to add.</param>
         /// <returns>
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.AddRange'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.AddRange'/>
         public int Add(RemoteConnectionConfiguration value) 
 		{
             return List.Add(value);
         }
         
         /// <summary>
-        /// <para>Copies the elements of an array to the end of the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/>.</para>
+        /// <para>Copies the elements of an array to the end of the <see cref='Tools..RemoteConnectionConfigurationCollection'/>.</para>
         /// </summary>
         /// <param name='value'>
-        ///    An array of type <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> containing the objects to add to the collection.
+        ///    An array of type <see cref='Tools..RemoteConnectionConfiguration'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.Add'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.Add'/>
         public void AddRange(RemoteConnectionConfiguration[] value) {
             for (int i = 0; (i < value.Length); i = (i + 1)) {
 				RemoteConnectionConfiguration nv = this.GetEntry(value[i].Name);
@@ -164,16 +164,16 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Adds the contents of another <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> to the end of the collection.
+        ///       Adds the contents of another <see cref='Tools..RemoteConnectionConfigurationCollection'/> to the end of the collection.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///    A <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> containing the objects to add to the collection.
+        ///    A <see cref='Tools..RemoteConnectionConfigurationCollection'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.Add'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.Add'/>
         public void AddRange(RemoteConnectionConfigurationCollection value) {
             for (int i = 0; (i < value.Count); i = (i + 1)) {
                 this.Add(value[i]);
@@ -182,28 +182,28 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         /// <para>Gets a value indicating whether the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> contains the specified <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/>.</para>
+        ///    <see cref='Tools..RemoteConnectionConfigurationCollection'/> contains the specified <see cref='Tools..RemoteConnectionConfiguration'/>.</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools..RemoteConnectionConfiguration'/> to locate.</param>
         /// <returns>
-        /// <para><see langword='true'/> if the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> is contained in the collection; 
+        /// <para><see langword='true'/> if the <see cref='Tools..RemoteConnectionConfiguration'/> is contained in the collection; 
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.IndexOf'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.IndexOf'/>
         public bool Contains(RemoteConnectionConfiguration value) {
             return List.Contains(value);
         }
         
         /// <summary>
-        /// <para>Copies the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
+        /// <para>Copies the <see cref='Tools..RemoteConnectionConfigurationCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
         /// </summary>
-        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</para></param>
+        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</para></param>
         /// <param name='index'>The index in <paramref name='array'/> where copying begins.</param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
+        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='Tools..RemoteConnectionConfigurationCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
@@ -212,33 +212,33 @@ namespace Tools.Tracing.UI
         }
         
         /// <summary>
-        ///    <para>Returns the index of a <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> in 
-        ///       the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</para>
+        ///    <para>Returns the index of a <see cref='Tools..RemoteConnectionConfiguration'/> in 
+        ///       the <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools..RemoteConnectionConfiguration'/> to locate.</param>
         /// <returns>
-        /// <para>The index of the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> of <paramref name='value'/> in the 
-        /// <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/>, if found; otherwise, -1.</para>
+        /// <para>The index of the <see cref='Tools..RemoteConnectionConfiguration'/> of <paramref name='value'/> in the 
+        /// <see cref='Tools..RemoteConnectionConfigurationCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.Contains'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.Contains'/>
         public int IndexOf(RemoteConnectionConfiguration value) {
             return List.IndexOf(value);
         }
         
         /// <summary>
-        /// <para>Inserts a <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> into the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> at the specified index.</para>
+        /// <para>Inserts a <see cref='Tools..RemoteConnectionConfiguration'/> into the <see cref='Tools..RemoteConnectionConfigurationCollection'/> at the specified index.</para>
         /// </summary>
         /// <param name='index'>The zero-based index where <paramref name='value'/> should be inserted.</param>
-        /// <param name=' value'>The <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> to insert.</param>
+        /// <param name=' value'>The <see cref='Tools..RemoteConnectionConfiguration'/> to insert.</param>
         /// <returns><para>None.</para></returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection.Add'/>
+        /// <seealso cref='Tools..RemoteConnectionConfigurationCollection.Add'/>
         public void Insert(int index, RemoteConnectionConfiguration value) {
             List.Insert(index, value);
         }
         
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
-        ///       the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</para>
+        ///       the <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
@@ -247,10 +247,10 @@ namespace Tools.Tracing.UI
         }
         
         /// <summary>
-        ///    <para> Removes a specific <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> from the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</para>
+        ///    <para> Removes a specific <see cref='Tools..RemoteConnectionConfiguration'/> from the 
+        ///    <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfiguration'/> to remove from the <see cref='eurocommerce.ie.architecture.root.configuration.RemoteConnectionConfigurationCollection'/> .</param>
+        /// <param name='value'>The <see cref='Tools..RemoteConnectionConfiguration'/> to remove from the <see cref='Tools..RemoteConnectionConfigurationCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
         public void Remove(RemoteConnectionConfiguration value) {
