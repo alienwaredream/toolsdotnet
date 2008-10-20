@@ -1,17 +1,18 @@
 using System;
 
 using Tools.Tracing.Common;
-using Tools.Remoting.Client.Common;
 
-namespace Tools.Tracing.Client.Manager
+namespace Tools.Tracing.ClientHandler
 {
 	/// <summary>
 	/// Summary description for RemotableApplicationEventHandler.
 	/// </summary>
-	public class ApplicationEventHandlerManagerClient : 
-		RemotingClient, 
-		ITraceEventHandlerManager
+	public class TraceEventHandlerWrapper : 
+		MarshalByRefObject /*RemotingClient*/, 
+		ITraceEventHandler,
+		ITraceEventFilterContainer
 	{
+		public event TraceEventDelegate EventHandled = null;
 
 		#region ITraceEventFilterContainer Implementation
 
@@ -76,52 +77,58 @@ namespace Tools.Tracing.Client.Manager
 
 		#endregion
 		
-		public ApplicationEventHandlerManagerClient
-			(
-			string	serviceHost, 
-			string servicePort,
-			string objectUriPath
-			)
-			: base
-			(
-			serviceHost,
-			Convert.ToInt32(servicePort),
-			objectUriPath
-			)
+		public TraceEventHandlerWrapper()
 		{
+
 		}
 
-		public void LoadConfiguration(TraceEventHandlerManagerConfiguration configuration)
+		private void OnEventHandled(TraceEvent e)
 		{
-			(getTransparentProxy
-				(
-				typeof(ITraceEventHandlerManager)
-				) as ITraceEventHandlerManager).LoadConfiguration(configuration);
+			if (this.EventHandled!=null)
+			{
+                EventHandled(new TraceEventArgs { Event = e });
+			}
 		}
-		public TraceEventHandlerManagerConfiguration GetConfiguration()
+		public override object InitializeLifetimeService()
 		{
-			return (getTransparentProxy
+			return null;
+		}
+
+		#region ITraceEventHandler Members
+
+		public void HandleEvent(TraceEvent traceEvent)
+		{
+			throw new NotImplementedException
 				(
-				typeof(ITraceEventHandlerManager)
-				) as ITraceEventHandlerManager).GetConfiguration();
+				"Client method of the TraceEventHandlerWrapper called!" +
+				"Setup remoting logging correctly and try again!"
+				);
 		}
 		public void AddHandler(ITraceEventHandler handler)
 		{
 			throw new NotImplementedException
 				(
-				"Method ApplicationEventHandlerManagerClient.AddHandler is not yet implemented!"
-				);
+				"Client method of the TraceEventHandlerWrapper called!" +
+				"Setup remoting logging correctly and try again!"
+				);	
 		}
 		public void RemoveHandler(ITraceEventHandler handler)
 		{
 			throw new NotImplementedException
 				(
-				"Method ApplicationEventHandlerManagerClient.RemoveHandler is not yet implemented!"
-				);
+				"Client method of the TraceEventHandlerWrapper called!" +
+				"Setup remoting logging correctly and try again!"
+				);	
 		}
 
-
-
-
+		public void Check()
+		{
+			throw new NotImplementedException
+				(
+				"Client method of the TraceEventHandlerWrapper called!" +
+				"Setup remoting logging correctly and try again!"
+				);	
+		}
+		#endregion
 	}
 }

@@ -137,7 +137,7 @@
     <Compile Include="ApplicationEventFilterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AssemblyInfo.cs">
+    <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="VirtualMonitorPanel.cs">

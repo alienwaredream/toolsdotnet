@@ -7,10 +7,10 @@ namespace Tools.Tracing.UI
     
     /// <summary>
     ///     <para>
-    ///       A collection that stores <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> objects.
+    ///       A collection that stores <see cref='Tools..EventsObserverInstance'/> objects.
     ///    </para>
     /// </summary>
-    /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/>
+    /// <seealso cref='Tools..EventsObserverInstanceCollection'/>
     [Serializable()]
     public class EventsObserverInstanceCollection : CollectionBase
 	{
@@ -37,7 +37,7 @@ namespace Tools.Tracing.UI
 
 		/// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools..EventsObserverInstanceCollection'/>.
         ///    </para>
         /// </summary>
         public EventsObserverInstanceCollection() 
@@ -46,11 +46,11 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> based on another <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/>.
+        ///       Initializes a new instance of <see cref='Tools..EventsObserverInstanceCollection'/> based on another <see cref='Tools..EventsObserverInstanceCollection'/>.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> from which the contents are copied
+        ///       A <see cref='Tools..EventsObserverInstanceCollection'/> from which the contents are copied
         /// </param>
         public EventsObserverInstanceCollection(EventsObserverInstanceCollection value) {
             this.AddRange(value);
@@ -58,11 +58,11 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Initializes a new instance of <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> containing any array of <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> objects.
+        ///       Initializes a new instance of <see cref='Tools..EventsObserverInstanceCollection'/> containing any array of <see cref='Tools..EventsObserverInstance'/> objects.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///       A array of <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> objects with which to intialize the collection
+        ///       A array of <see cref='Tools..EventsObserverInstance'/> objects with which to intialize the collection
         /// </param>
         public EventsObserverInstanceCollection(EventsObserverInstance[] value) {
             this.AddRange(value);
@@ -74,7 +74,7 @@ namespace Tools.Tracing.UI
 		#region Indexers
 
         /// <summary>
-        /// <para>Represents the entry at the specified index of the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/>.</para>
+        /// <para>Represents the entry at the specified index of the <see cref='Tools..EventsObserverInstance'/>.</para>
         /// </summary>
         /// <param name='index'><para>The zero-based index of the entry to locate in the collection.</para></param>
         /// <value>
@@ -125,29 +125,29 @@ namespace Tools.Tracing.UI
 		#region Methods
 
         /// <summary>
-        ///    <para>Adds a <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> with the specified value to the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</para>
+        ///    <para>Adds a <see cref='Tools..EventsObserverInstance'/> with the specified value to the 
+        ///    <see cref='Tools..EventsObserverInstanceCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> to add.</param>
+        /// <param name='value'>The <see cref='Tools..EventsObserverInstance'/> to add.</param>
         /// <returns>
         ///    <para>The index at which the new element was inserted.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.AddRange'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.AddRange'/>
         public int Add(EventsObserverInstance value) 
 		{
             return List.Add(value);
         }
         
         /// <summary>
-        /// <para>Copies the elements of an array to the end of the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/>.</para>
+        /// <para>Copies the elements of an array to the end of the <see cref='Tools..EventsObserverInstanceCollection'/>.</para>
         /// </summary>
         /// <param name='value'>
-        ///    An array of type <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> containing the objects to add to the collection.
+        ///    An array of type <see cref='Tools..EventsObserverInstance'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.Add'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.Add'/>
         public void AddRange(EventsObserverInstance[] value) {
             for (int i = 0; (i < value.Length); i = (i + 1)) {
 				EventsObserverInstance nv = this.GetEntry(value[i].Configuration.Name);
@@ -164,16 +164,16 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         ///     <para>
-        ///       Adds the contents of another <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> to the end of the collection.
+        ///       Adds the contents of another <see cref='Tools..EventsObserverInstanceCollection'/> to the end of the collection.
         ///    </para>
         /// </summary>
         /// <param name='value'>
-        ///    A <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> containing the objects to add to the collection.
+        ///    A <see cref='Tools..EventsObserverInstanceCollection'/> containing the objects to add to the collection.
         /// </param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.Add'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.Add'/>
         public void AddRange(EventsObserverInstanceCollection value) {
             for (int i = 0; (i < value.Count); i = (i + 1)) {
                 this.Add(value[i]);
@@ -182,28 +182,28 @@ namespace Tools.Tracing.UI
         
         /// <summary>
         /// <para>Gets a value indicating whether the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> contains the specified <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/>.</para>
+        ///    <see cref='Tools..EventsObserverInstanceCollection'/> contains the specified <see cref='Tools..EventsObserverInstance'/>.</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools..EventsObserverInstance'/> to locate.</param>
         /// <returns>
-        /// <para><see langword='true'/> if the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> is contained in the collection; 
+        /// <para><see langword='true'/> if the <see cref='Tools..EventsObserverInstance'/> is contained in the collection; 
         ///   otherwise, <see langword='false'/>.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.IndexOf'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.IndexOf'/>
         public bool Contains(EventsObserverInstance value) {
             return List.Contains(value);
         }
         
         /// <summary>
-        /// <para>Copies the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
+        /// <para>Copies the <see cref='Tools..EventsObserverInstanceCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the 
         ///    specified index.</para>
         /// </summary>
-        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</para></param>
+        /// <param name='array'><para>The one-dimensional <see cref='System.Array'/> that is the destination of the values copied from <see cref='Tools..EventsObserverInstanceCollection'/> .</para></param>
         /// <param name='index'>The index in <paramref name='array'/> where copying begins.</param>
         /// <returns>
         ///   <para>None.</para>
         /// </returns>
-        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
+        /// <exception cref='System.ArgumentException'><para><paramref name='array'/> is multidimensional.</para> <para>-or-</para> <para>The number of elements in the <see cref='Tools..EventsObserverInstanceCollection'/> is greater than the available space between <paramref name='arrayIndex'/> and the end of <paramref name='array'/>.</para></exception>
         /// <exception cref='System.ArgumentNullException'><paramref name='array'/> is <see langword='null'/>. </exception>
         /// <exception cref='System.ArgumentOutOfRangeException'><paramref name='arrayIndex'/> is less than <paramref name='array'/>'s lowbound. </exception>
         /// <seealso cref='System.Array'/>
@@ -212,33 +212,33 @@ namespace Tools.Tracing.UI
         }
         
         /// <summary>
-        ///    <para>Returns the index of a <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> in 
-        ///       the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</para>
+        ///    <para>Returns the index of a <see cref='Tools..EventsObserverInstance'/> in 
+        ///       the <see cref='Tools..EventsObserverInstanceCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> to locate.</param>
+        /// <param name='value'>The <see cref='Tools..EventsObserverInstance'/> to locate.</param>
         /// <returns>
-        /// <para>The index of the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> of <paramref name='value'/> in the 
-        /// <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/>, if found; otherwise, -1.</para>
+        /// <para>The index of the <see cref='Tools..EventsObserverInstance'/> of <paramref name='value'/> in the 
+        /// <see cref='Tools..EventsObserverInstanceCollection'/>, if found; otherwise, -1.</para>
         /// </returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.Contains'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.Contains'/>
         public int IndexOf(EventsObserverInstance value) {
             return List.IndexOf(value);
         }
         
         /// <summary>
-        /// <para>Inserts a <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> into the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> at the specified index.</para>
+        /// <para>Inserts a <see cref='Tools..EventsObserverInstance'/> into the <see cref='Tools..EventsObserverInstanceCollection'/> at the specified index.</para>
         /// </summary>
         /// <param name='index'>The zero-based index where <paramref name='value'/> should be inserted.</param>
-        /// <param name=' value'>The <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> to insert.</param>
+        /// <param name=' value'>The <see cref='Tools..EventsObserverInstance'/> to insert.</param>
         /// <returns><para>None.</para></returns>
-        /// <seealso cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection.Add'/>
+        /// <seealso cref='Tools..EventsObserverInstanceCollection.Add'/>
         public void Insert(int index, EventsObserverInstance value) {
             List.Insert(index, value);
         }
         
         /// <summary>
         ///    <para>Returns an enumerator that can iterate through 
-        ///       the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</para>
+        ///       the <see cref='Tools..EventsObserverInstanceCollection'/> .</para>
         /// </summary>
         /// <returns><para>None.</para></returns>
         /// <seealso cref='System.Collections.IEnumerator'/>
@@ -247,10 +247,10 @@ namespace Tools.Tracing.UI
         }
         
         /// <summary>
-        ///    <para> Removes a specific <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> from the 
-        ///    <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</para>
+        ///    <para> Removes a specific <see cref='Tools..EventsObserverInstance'/> from the 
+        ///    <see cref='Tools..EventsObserverInstanceCollection'/> .</para>
         /// </summary>
-        /// <param name='value'>The <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstance'/> to remove from the <see cref='eurocommerce.ie.architecture.root.configuration.EventsObserverInstanceCollection'/> .</param>
+        /// <param name='value'>The <see cref='Tools..EventsObserverInstance'/> to remove from the <see cref='Tools..EventsObserverInstanceCollection'/> .</param>
         /// <returns><para>None.</para></returns>
         /// <exception cref='System.ArgumentException'><paramref name='value'/> is not found in the Collection. </exception>
         public void Remove(EventsObserverInstance value) {

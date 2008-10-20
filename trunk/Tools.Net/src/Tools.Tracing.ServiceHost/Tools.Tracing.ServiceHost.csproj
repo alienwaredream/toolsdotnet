@@ -79,7 +79,7 @@
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -171,6 +171,10 @@
     <ProjectReference Include="..\Tools.RemotingWcf.Host\Tools.RemotingWcf.Host.csproj">
       <Project>{5C3C07BB-E08E-4EEF-8AAC-688AB55124D6}</Project>
       <Name>Tools.RemotingWcf.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Tracing.ClientHandler\Tools.Tracing.ClientHandler.csproj">
+      <Project>{2C6093E0-F98A-48FB-824E-6F12287D3C14}</Project>
+      <Name>Tools.Tracing.ClientHandler</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools.Tracing.Common\Tools.Tracing.Common.csproj">
       <Project>{DACA69D8-9065-4327-925E-3D3A314CB058}</Project>

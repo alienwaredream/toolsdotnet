@@ -90,7 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEventHandlerManagerClient.cs">
+    <Compile Include="TraceEventHandlerManagerClient.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssemblyInfo.cs">

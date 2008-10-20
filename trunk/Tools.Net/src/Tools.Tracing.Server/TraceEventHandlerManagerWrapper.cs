@@ -7,16 +7,10 @@ namespace Tools.Tracing.Server
 	/// <summary>
 	/// Summary description for ApplicationEventHandlerManagerClient.
 	/// </summary>
-	public class ApplicationEventHandlerManagerWrapper
+	public class TraceEventHandlerManagerWrapper
 		:	MarshalByRefObject,
 			ITraceEventHandlerManager
 	{
-
-		
-
-		public ApplicationEventHandlerManagerWrapper()
-		{
-		}
 
 		public void LoadConfiguration(TraceEventHandlerManagerConfiguration configuration)
 		{
