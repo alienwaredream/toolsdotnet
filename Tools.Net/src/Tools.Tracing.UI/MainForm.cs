@@ -48,12 +48,13 @@ namespace Tools.Tracing.UI
         private MenuItem saveMenuItem;
         private MenuItem showTestToolBarMenuItem;
         private ToolStripButton startTestToolStripButton;
-        private StatusBar statusBar1;
+        private StatusBar mainStatusBar;
         private ToolStripButton stopTestToolStripButton;
         private long testIterations = 100;
         private ToolStripTextBox testIterationsCountToolStripTextBox;
         private ToolStrip testToolStrip;
         private Thread workerThread;
+        private StatusBarPanel statsStatusBarPanel;
         private WorkspaceConfiguration workspaceConfiguration = new WorkspaceConfiguration();
 
         #endregion Global declarations
@@ -151,7 +152,7 @@ namespace Tools.Tracing.UI
             {
                 eventTracerControl.Invoke
                     (
-                    new TraceEventHandlerDelegate(eventTracerControl.HandleEvent),
+                    new Action<TraceEvent>(eventTracerControl.HandleEvent),
                     new object[] {e}
                     );
             }
@@ -185,14 +186,15 @@ namespace Tools.Tracing.UI
                                                 startTestToolStripButton.Enabled = true;
                                                 stopTestToolStripButton.Enabled = false;
                                             };
-            MessageBox.Show
-                (
-                String.Format
-                    (
-                    "Test finished. Items count is {0}. Execution time {1} ms",
-                    testIterations,
-                    (DateTime.Now - preStartStamp).TotalMilliseconds
-                    ));
+            Invoke(new VoidDelegate(()=>
+                       {
+                           statsStatusBarPanel.Text =
+                               String.Format
+                                   (
+                                   "Self Test finished. Items count is {0}. Execution time {1} ms",
+                                   testIterations,
+                                   (DateTime.Now - preStartStamp).TotalMilliseconds);
+                       }));
 
             Invoke
                 (
@@ -386,7 +388,7 @@ namespace Tools.Tracing.UI
             this.encryptionInfoLabel = new System.Windows.Forms.Label();
             this.connsTabPage = new System.Windows.Forms.TabPage();
             this.filterTabPage = new System.Windows.Forms.TabPage();
-            this.statusBar1 = new System.Windows.Forms.StatusBar();
+            this.mainStatusBar = new System.Windows.Forms.StatusBar();
             this.fileNameStatusBarPanel = new System.Windows.Forms.StatusBarPanel();
             this.keyDownStatusBarPanel = new System.Windows.Forms.StatusBarPanel();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
@@ -406,14 +408,16 @@ namespace Tools.Tracing.UI
             this.startTestToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.stopTestToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.testIterationsCountToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.statsStatusBarPanel = new System.Windows.Forms.StatusBarPanel();
             this.mainTabControl.SuspendLayout();
             this.encryptionTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.fileNameStatusBarPanel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.keyDownStatusBarPanel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileNameStatusBarPanel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.keyDownStatusBarPanel)).BeginInit();
             this.mainToolStripContainer.ContentPanel.SuspendLayout();
             this.mainToolStripContainer.TopToolStripPanel.SuspendLayout();
             this.mainToolStripContainer.SuspendLayout();
             this.testToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statsStatusBarPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -458,8 +462,7 @@ namespace Tools.Tracing.UI
             this.encryptionInfoLabel.Name = "encryptionInfoLabel";
             this.encryptionInfoLabel.Size = new System.Drawing.Size(457, 13);
             this.encryptionInfoLabel.TabIndex = 0;
-            this.encryptionInfoLabel.Text =
-                "This tab will be used for managing keys, containers and encryption/decryption of " +
+            this.encryptionInfoLabel.Text = "This tab will be used for managing keys, containers and encryption/decryption of " +
                 "the messages.";
             // 
             // connsTabPage
@@ -480,20 +483,19 @@ namespace Tools.Tracing.UI
             this.filterTabPage.Text = "Filter";
             this.filterTabPage.UseVisualStyleBackColor = true;
             // 
-            // statusBar1
+            // mainStatusBar
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 244);
-            this.statusBar1.Name = "statusBar1";
-            this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[]
-                                                {
-                                                    this.fileNameStatusBarPanel,
-                                                    this.keyDownStatusBarPanel
-                                                });
-            this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(936, 22);
-            this.statusBar1.SizingGrip = false;
-            this.statusBar1.TabIndex = 1;
-            this.statusBar1.Text = "statusBar1";
+            this.mainStatusBar.Location = new System.Drawing.Point(0, 244);
+            this.mainStatusBar.Name = "mainStatusBar";
+            this.mainStatusBar.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+            this.fileNameStatusBarPanel,
+            this.keyDownStatusBarPanel,
+            this.statsStatusBarPanel});
+            this.mainStatusBar.ShowPanels = true;
+            this.mainStatusBar.Size = new System.Drawing.Size(936, 22);
+            this.mainStatusBar.SizingGrip = false;
+            this.mainStatusBar.TabIndex = 1;
+            this.mainStatusBar.Text = "statusBar1";
             // 
             // fileNameStatusBarPanel
             // 
@@ -508,23 +510,19 @@ namespace Tools.Tracing.UI
             // 
             // mainMenu1
             // 
-            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-                                                  {
-                                                      this.menuItem1,
-                                                      this.menuItem2,
-                                                      this.menuItem5
-                                                  });
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem2,
+            this.menuItem5});
             // 
             // menuItem1
             // 
             this.menuItem1.Index = 0;
-            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-                                                  {
-                                                      this.saveAsMenuItem,
-                                                      this.saveMenuItem,
-                                                      this.openMenuItem,
-                                                      this.menuItem4
-                                                  });
+            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.saveAsMenuItem,
+            this.saveMenuItem,
+            this.openMenuItem,
+            this.menuItem4});
             this.menuItem1.Text = "&File";
             // 
             // saveAsMenuItem
@@ -553,10 +551,8 @@ namespace Tools.Tracing.UI
             // menuItem2
             // 
             this.menuItem2.Index = 1;
-            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-                                                  {
-                                                      this.menuItem3
-                                                  });
+            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem3});
             this.menuItem2.Text = "Help";
             // 
             // menuItem3
@@ -568,27 +564,22 @@ namespace Tools.Tracing.UI
             // menuItem5
             // 
             this.menuItem5.Index = 2;
-            this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-                                                  {
-                                                      this.showTestToolBarMenuItem
-                                                  });
+            this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.showTestToolBarMenuItem});
             this.menuItem5.Text = "View";
             // 
             // showTestToolBarMenuItem
             // 
-            this.showTestToolBarMenuItem.Checked =
-                global::Tools.Tracing.UI.ApplicationEventsGuiSettings.Default.showTestToolBarMenuItemChecked;
+            this.showTestToolBarMenuItem.Checked = global::Tools.Tracing.UI.ApplicationEventsGuiSettings.Default.showTestToolBarMenuItemChecked;
             this.showTestToolBarMenuItem.Index = 0;
             this.showTestToolBarMenuItem.Text = "Test Toolbar";
             this.showTestToolBarMenuItem.Click += new System.EventHandler(this.menuItem6_Click);
             // 
             // mainToolStripContainer
             // 
-            this.mainToolStripContainer.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                 ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                    | System.Windows.Forms.AnchorStyles.Left)
-                   | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainToolStripContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // mainToolStripContainer.ContentPanel
             // 
@@ -607,12 +598,10 @@ namespace Tools.Tracing.UI
             // testToolStrip
             // 
             this.testToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.testToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
-                                                  {
-                                                      this.startTestToolStripButton,
-                                                      this.stopTestToolStripButton,
-                                                      this.testIterationsCountToolStripTextBox
-                                                  });
+            this.testToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startTestToolStripButton,
+            this.stopTestToolStripButton,
+            this.testIterationsCountToolStripTextBox});
             this.testToolStrip.Location = new System.Drawing.Point(3, 0);
             this.testToolStrip.Name = "testToolStrip";
             this.testToolStrip.Size = new System.Drawing.Size(108, 25);
@@ -647,16 +636,18 @@ namespace Tools.Tracing.UI
             this.testIterationsCountToolStripTextBox.Text = "100";
             this.testIterationsCountToolStripTextBox.ToolTipText = "Number of test events to generate";
             // 
+            // statsStatusBarPanel
+            // 
+            this.statsStatusBarPanel.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            this.statsStatusBarPanel.Name = "statsStatusBarPanel";
+            this.statsStatusBarPanel.Width = 10;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(936, 266);
             this.Controls.Add(this.mainToolStripContainer);
-            this.Controls.Add(this.statusBar1);
-            this.DataBindings.Add(new System.Windows.Forms.Binding("Size",
-                                                                   global::Tools.Tracing.UI.ApplicationEventsGuiSettings
-                                                                       .Default, "MainFormSize", true,
-                                                                   System.Windows.Forms.DataSourceUpdateMode.
-                                                                       OnPropertyChanged));
+            this.Controls.Add(this.mainStatusBar);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Size", global::Tools.Tracing.UI.ApplicationEventsGuiSettings.Default, "MainFormSize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Menu = this.mainMenu1;
             this.Name = "MainForm";
             this.Text = "EventTracer";
@@ -664,8 +655,8 @@ namespace Tools.Tracing.UI
             this.mainTabControl.ResumeLayout(false);
             this.encryptionTabPage.ResumeLayout(false);
             this.encryptionTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.fileNameStatusBarPanel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.keyDownStatusBarPanel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileNameStatusBarPanel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.keyDownStatusBarPanel)).EndInit();
             this.mainToolStripContainer.ContentPanel.ResumeLayout(false);
             this.mainToolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.mainToolStripContainer.TopToolStripPanel.PerformLayout();
@@ -673,7 +664,9 @@ namespace Tools.Tracing.UI
             this.mainToolStripContainer.PerformLayout();
             this.testToolStrip.ResumeLayout(false);
             this.testToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statsStatusBarPanel)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

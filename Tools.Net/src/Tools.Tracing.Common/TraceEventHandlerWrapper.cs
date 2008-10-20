@@ -143,16 +143,6 @@ namespace Tools.Tracing.ClientHandler
             return null;
         }
 
-        public void AddHandler(ITraceEventHandler handler)
-        {
-            //***TraceEventHandlerManager.Instance.AddHandler(handler);
-        }
-
-        public void RemoveHandler(ITraceEventHandler handler)
-        {
-            //***TraceEventHandlerManager.Instance.RemoveHandler(handler);
-        }
-
         // TODO: for test purposes only
         public void Check()
         {

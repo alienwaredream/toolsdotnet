@@ -3,7 +3,7 @@ using System;
 namespace Tools.Tracing.Common
 {
     /// <summary>
-    /// Summary description for TraceEventHandlerDelegate.
+    /// TraceEventHandlerDelegate. Keeping for backward compatibility only, should be Action&lt;TraceEventArgs&gt;
     /// </summary>
     [Serializable]
     public delegate void TraceEventDelegate
