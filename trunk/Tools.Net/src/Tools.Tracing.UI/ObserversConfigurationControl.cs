@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Tools.Remoting.Client.Common;
 using Tools.Tracing.Common;
 
 namespace Tools.Tracing.UI

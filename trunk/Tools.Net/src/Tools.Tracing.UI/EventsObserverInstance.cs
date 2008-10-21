@@ -1,4 +1,5 @@
 using System;
+using Tools.Remoting.Client.Common;
 using Tools.Tracing.ClientHandler;
 using Tools.Tracing.Common;
 

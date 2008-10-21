@@ -191,16 +191,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ProtocolType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RecordEditingMode.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteConnectionConfiguration.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteConnectionConfigurationCollection.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RemoteConnectionInstance.cs">

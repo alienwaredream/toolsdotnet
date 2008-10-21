@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Collection.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">

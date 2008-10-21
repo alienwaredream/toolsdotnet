@@ -1,4 +1,4 @@
-namespace Tools.Tracing.UI
+namespace Tools.Remoting.Client.Common
 {
     /// <summary>
     /// Summary description for PtotocolType.

@@ -2,11 +2,8 @@ using System;
 using System.Xml.Serialization;
 using Tools.Core;
 
-namespace Tools.Tracing.UI
+namespace Tools.Remoting.Client.Common
 {
-    // TODO: Refactor to the separate package (SD)
-    // TODO: Implementing the IChangeEventRaiser interface may represent a mixed cohesion of the domain here
-    // Interface implementation might be moved elsewhere then to address this (like Adaptor or Decorator). (SD)
     /// <summary>
     /// Summary description for RemoteConnectionConfiguration.
     /// </summary>
