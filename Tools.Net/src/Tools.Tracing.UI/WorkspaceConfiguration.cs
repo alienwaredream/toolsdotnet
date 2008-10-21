@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Tools.Core.Context;
+using Tools.Remoting.Client.Common;
 
 namespace Tools.Tracing.UI
 {

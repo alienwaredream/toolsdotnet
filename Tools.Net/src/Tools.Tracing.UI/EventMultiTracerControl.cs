@@ -22,7 +22,7 @@ namespace Tools.Tracing.UI
     {
         #region Global Declarations
 
-        private readonly TraceEventCollection _eventsCache = new TraceEventCollection();
+        private readonly ICollection<TraceEvent> _eventsCache = new List<TraceEvent>();
         private readonly FilterViewControl _filterViewControl;
         private readonly ContextHolderPointersControl keysControl;
         private readonly XPathNavigator navigator;
@@ -30,7 +30,7 @@ namespace Tools.Tracing.UI
         private readonly XmlDocument xEventsFilteredCache = new XmlDocument();
         private readonly DescriptiveListEditorControl xPathStatementControl;
         private ApplicationEventFilter _filter;
-        private TraceEventCollection _runEventsCache = new TraceEventCollection();
+        private ICollection<TraceEvent> _runEventsCache = new List<TraceEvent>();
         private TracingOptions _tracingOptions;
         private ToolStripMenuItem applyFilterToolStripMenuItem;
         private ToolStripLabel cachedCountToolStripLabel;

@@ -122,6 +122,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Log.cs" />
+    <Compile Include="ProtocolType.cs" />
+    <Compile Include="RemoteConnectionConfiguration.cs" />
+    <Compile Include="RemoteConnectionConfigurationCollection.cs" />
     <Compile Include="RemotingClient.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,6 +137,12 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

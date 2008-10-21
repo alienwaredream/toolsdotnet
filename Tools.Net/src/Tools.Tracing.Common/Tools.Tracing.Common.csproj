@@ -121,9 +121,6 @@
     <Compile Include="TraceEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TraceEventCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TraceEventHandler.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,14 +1,8 @@
 using System;
 using System.Collections;
 
-namespace Tools.Tracing.UI
+namespace Tools.Remoting.Client.Common
 {
-    /// <summary>
-    ///     <para>
-    ///       A collection that stores <see cref='Tools..RemoteConnectionConfiguration'/> objects.
-    ///    </para>
-    /// </summary>
-    /// <seealso cref='Tools..RemoteConnectionConfigurationCollection'/>
     [Serializable]
     public class RemoteConnectionConfigurationCollection : CollectionBase
     {

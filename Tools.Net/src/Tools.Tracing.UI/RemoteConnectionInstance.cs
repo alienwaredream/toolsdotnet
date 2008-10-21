@@ -1,4 +1,5 @@
 using System;
+using Tools.Remoting.Client.Common;
 
 namespace Tools.Tracing.UI
 {
