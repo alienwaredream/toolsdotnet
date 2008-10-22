@@ -52,6 +52,8 @@ For the scalability and grow analysis
 == Event stream processing ==
 Review in order not to invent the own wheel in some areas.
 Find ESPER project.
+== Complex event processing ==
+Correlation of events and patterns search.
 
 = Definitions =
 == Event ==
