@@ -53,4 +53,6 @@ For the scalability and grow analysis
 Review in order not to invent the own wheel in some areas.
 Find ESPER project.
 
-
+= Definitions =
+== Event ==
+An event is an immutable record of a past occurrence of an action or state change. Event properties capture the state information for an event.
