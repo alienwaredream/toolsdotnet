@@ -2,13 +2,20 @@
 
 = STRIDE =
 Spoofing identity
+
 Tampering with data
+
 Repudiation
+
 Information Disclosure
+
 Denial of Service
+
 Elevation of Privilege
 
 = SD^3^=
 Secure in design
+
 Secure in deployment
+
 Secure by default
