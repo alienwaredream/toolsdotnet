@@ -1,6 +1,10 @@
 #summary Multithreading and concurrent programming links collection
 #labels threading,concurrency
 
+= Preemption =
+[http://en.wikipedia.org/wiki/Preemption_(computing)]
+
+
 = False sharing =
 [http://msdn.microsoft.com/en-us/magazine/cc872851.aspx]
 
