@@ -1,4 +1,5 @@
 #summary Multithreading and concurrent programming links collection
+#labels threading,concurrency
 
 = False sharing =
 [http://msdn.microsoft.com/en-us/magazine/cc872851.aspx]
@@ -14,3 +15,21 @@ General, including low locking concepts [http://msdn.microsoft.com/en-us/magazin
 General guidelines [http://www.bluebytesoftware.com/blog/PermaLink,guid,f8404ab3-e3e6-4933-a5bc-b69348deedba.aspx]
 
 Concurrency oriented code reviews [http://www.bluebytesoftware.com/blog/CommentView,guid,6e62a753-75b9-4486-92e8-e32c38a85ad4.aspx]
+
+= Synchronization =
+Deadlock [http://en.wikipedia.org/wiki/Deadlock]
+
+Sleeping Barber problem [http://en.wikipedia.org/wiki/Sleeping_barber_problem]
+
+Resource starvation [http://en.wikipedia.org/wiki/Resource_starvation]
+
+Rendezvous problem [http://en.wikipedia.org/wiki/Rendezvous_problem]
+
+Race condition [http://en.wikipedia.org/wiki/Race_condition]
+
+Reader-writer problem [http://en.wikipedia.org/wiki/Readers-writers_problem]
+
+Dining philosophers problem [http://en.wikipedia.org/wiki/Dining_philosophers_problem]
+
+
+
