@@ -36,3 +36,18 @@ Race condition [http://en.wikipedia.org/wiki/Race_condition]
 Reader-writer problem [http://en.wikipedia.org/wiki/Readers-writers_problem]
 
 Dining philosophers problem [http://en.wikipedia.org/wiki/Dining_philosophers_problem]
+
+==== Rendezvous ====
+
+1. an agreement between two or more persons to meet at a certain time and place. 
+2. the meeting itself. 
+3. a place designated for a meeting or assembling, esp. of troops or ships. 
+4. a meeting of two or more spacecraft in outer space. 
+5. a favorite or popular gathering place. 
+–verb (used with object), verb (used without object) 6. to assemble at an agreed time and place. 
+
+
+--------------------------------------------------------------------------------
+
+Origin: 
+1585–95; < MF, n. use of rendez-vous (impv.) present or betake yourselves;
