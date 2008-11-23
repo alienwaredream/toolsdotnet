@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{05D55626-0200-4EB7-8D81-66F853654A7B}</ProjectGuid>
     <SccProjectName>
@@ -234,6 +234,7 @@
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationEventFilterControl.resx">
       <DependentUpon>ApplicationEventFilterControl.cs</DependentUpon>
@@ -241,9 +242,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DescriptiveNameValueControl.resx">
       <DependentUpon>DescriptiveNameValueControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DescriptorControl.resx">
       <DependentUpon>DescriptorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EventMultiTracerControl.resx">
       <SubType>Designer</SubType>
@@ -276,6 +279,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabContentControl.resx">
       <DependentUpon>TabContentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="ApplicationEventsGuiSettings.settings">
