@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4328428B-3B2C-414B-9AC2-E041AE66D81C}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -237,9 +237,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditorStandardButtonsControl.resx">
       <DependentUpon>EditorStandardButtonsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EnumEditControl.resx">
       <DependentUpon>EnumEditControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericCollectionControl.resx">
       <DependentUpon>GenericCollectionControl.cs</DependentUpon>
@@ -263,6 +265,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainApplicationPreferencesControl.resx">
       <DependentUpon>MainApplicationPreferencesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordEntryControl.resx">
       <SubType>Designer</SubType>
