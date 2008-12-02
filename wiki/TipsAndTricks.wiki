@@ -199,3 +199,6 @@ Sample (for the stackoverflow exception):
     </Exceptions>
 </ADPlus>
 }}}
+
+== A nasty thing about SC.EXE ==
+There is a space after every parameter, e.g. binPath=[space]xyz!!
