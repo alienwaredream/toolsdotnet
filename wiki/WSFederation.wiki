@@ -7,6 +7,8 @@ Specs: http://www.ibm.com/developerworks/library/specification/ws-fed/
 
 20 minutes path: http://msdn.microsoft.com/en-us/library/bb498017.aspx
 
+White paper on the "Geneva" Beta 1 framework: [http://download.microsoft.com/download/7/d/0/7d0b5166-6a8a-418a-addd-95ee9b046994/GenevaFrameworkBeta1_Whitepaper_KBrown_FINAL.docx]
+
 = Components and collaborators. =
 
 Requestor
