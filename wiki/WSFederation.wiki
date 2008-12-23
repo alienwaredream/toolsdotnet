@@ -7,12 +7,15 @@ Specs: http://www.ibm.com/developerworks/library/specification/ws-fed/
 
 20 minutes path: http://msdn.microsoft.com/en-us/library/bb498017.aspx
 
+Small sample for implementing Secure Token Service with wcf: http://weblogs.asp.net/cibrax/archive/2006/03/14/440222.aspx
+
 == Microsoft "Geneva" framework ==
 http://msdn.microsoft.com/en-us/security/aa570351.aspx
 
 White paper on Beta 1: [http://download.microsoft.com/download/7/d/0/7d0b5166-6a8a-418a-addd-95ee9b046994/GenevaFrameworkBeta1_Whitepaper_KBrown_FINAL.docx]
 
 Download and links on connect: https://connect.microsoft.com/site/sitehome.aspx?SiteID=642
+
 
 
 
