@@ -43,3 +43,6 @@ resources/services or in different realms, and to optionally have the pseudonym 
 _Sample collaboration scenario:
 
 Requestor in realm A obtains an alias from the Pseudonym service in its own realm for accessing the resource in the realm B. This alias is then provided to STS in realm B._
+
+= Some troubleshooting =
+Setting up the stateful security context token: http://msdn.microsoft.com/en-us/library/ms731814.aspx (also notes the need for the local profile)
