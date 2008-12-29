@@ -1,0 +1,15 @@
+#summary Notes while reading Oracle TimesTen documentation.
+#labels oracle
+
+= Proposed hands ons =
+== Have a windbg lab to see where timesten is located when it runs in the direct link mode. ==
+
+"An application can create a direct driver connection when it runs on the same
+machine as the TimesTen database. In a direct driver connection, the ODBC
+driver directly loads the TimesTen database into either the application’s heap
+space or a shared memory segment. The application then uses the direct driver to
+access the memory image of the database. Because no inter-process
+communication (IPC) of any kind is required, a direct-driver connection provides
+extremely fast performance and is the preferred way for applications to access
+TimesTen databases."
+
