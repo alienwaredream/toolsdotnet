@@ -18,3 +18,20 @@ If I understand it correctly then, MS ODBC .NET driver should be using the "Driv
 
 = To clarify = 
 == What !TimesTen windows service is exactly serving for ==
+
+= Oops! =
+== Read committed isolation ==
+Desription of Read commited default contradicts to my standard understanding of the READ COMMITTED isolation level:
+Oracle:
+
+_"Read committed isolation
+
+
+When an application uses read committed isolation, readers use a separate copy
+of the data from writers, so read locks are not needed. Read committed isolation
+is non-blocking for queries and can work with Serializable isolation or read
+committed isolation. Under read committed isolation, writers block only other
+writers and readers using serializable isolation; writers do not block readers using
+read committed isolation. Read committed isolation is the default isolation level."_
+
+This corresponds to what I know as SNAPSHOT_READ_COMMITTED, READ_COMMITTED would block until row in question would become comitted. SNAPSHOT would read the last committed value without locks or waiting.
