@@ -1,6 +1,6 @@
 #summary Notes while reading Oracle TimesTen documentation.
 #labels oracle
-
+<wiki:toc max_depth="1" />
 = Proposed hands ons =
 == Have a windbg lab to see where timesten is located when it runs in the direct link mode. ==
 
@@ -13,3 +13,5 @@ communication (IPC) of any kind is required, a direct-driver connection provides
 extremely fast performance and is the preferred way for applications to access
 TimesTen databases."
 
+= Connection types =
+If I understand it correctly then, MS ODBC .NET driver should be using the "Driver manager connection" option. It is only layer of indirection and should still correspond to the direct link if accessed from the same machine. This to be verified by 
