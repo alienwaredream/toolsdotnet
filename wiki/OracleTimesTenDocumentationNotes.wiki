@@ -17,4 +17,4 @@ TimesTen databases."
 If I understand it correctly then, MS ODBC .NET driver should be using the "Driver manager connection" option. It is only layer of indirection and should still correspond to the direct link if accessed from the same machine. This to be verified by "Proposed hands ons".
 
 = To clarify = 
-== What TimesTen windows service is exactly serving for ==
+== What !TimesTen windows service is exactly serving for ==
