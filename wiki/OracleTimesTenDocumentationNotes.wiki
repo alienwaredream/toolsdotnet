@@ -18,6 +18,7 @@ If I understand it correctly then, MS ODBC .NET driver should be using the "Driv
 
 = To clarify = 
 == What !TimesTen windows service is exactly serving for ==
+My current bets are: Replication agents
 == Usage of T-tree indexes instead of B-Tree ==
 "A typical disk-based
 RDBMS uses B-tree indexes to reduce the amount of disk I/O needed to
