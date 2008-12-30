@@ -50,7 +50,7 @@ Two types of checkpoints - blocking (fuzzy) and non-blocking.
 == Active Standby ==
 == Cases of the Distributed or Split workload ==
 == Specifics of return receipt service and return twosafe service ==
-== Possible use of the SNMP traps for the DB/App switch? ==
+== Possible use of the SNMP traps for the DB/App LB switch? ==
 _"SNMP traps
 Simple Network Management Protocol (SNMP) is a protocol for network
 management services. Network management software typically uses SNMP to
