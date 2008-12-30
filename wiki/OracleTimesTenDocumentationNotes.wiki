@@ -18,7 +18,7 @@ If I understand it correctly then, MS ODBC .NET driver should be using the "Driv
 
 = To clarify = 
 == What !TimesTen windows service is exactly serving for ==
-My current bets are: Replication agents, TimesTen Data Manager os ,y next candidate to run out-of in-memory process. One of the things TimesTen Data Manager does is to synchronization for Cache Connect.
+My current bets are: Replication agents, TimesTen Data Manager os ,y next candidate to run out-of in-memory process. One of the things TimesTen Data Manager does is to execute synchronous actions like cache group creation. ? Are cache agents (that are executing the async cache synchronization) running in the off-in-memory?
 
 == Usage of T-tree indexes instead of B-Tree ==
 "A typical disk-based
