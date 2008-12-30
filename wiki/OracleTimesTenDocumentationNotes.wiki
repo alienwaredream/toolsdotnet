@@ -41,3 +41,24 @@ writers and readers using serializable isolation; writers do not block readers u
 read committed isolation. Read committed isolation is the default isolation level."_
 
 This corresponds to what I know as SNAPSHOT_READ_COMMITTED, READ_COMMITTED would block until row in question would become comitted. SNAPSHOT would read the last committed value without locks or waiting.
+
+= Failure and recovery =
+_"SNMP traps
+Simple Network Management Protocol (SNMP) is a protocol for network
+management services. Network management software typically uses SNMP to
+query or control the state of network devices like routers and switches. These
+devices sometimes also generate asynchronous alerts in the form of UDP/IP
+packets, called SNMP traps, to inform the management systems of problems._
+
+_TimesTen cannot be queried or controlled through SNMP. However, TimesTen
+sends SNMP traps for certain critical events to facilitate user recovery
+mechanisms. TimesTen sends traps for the following events:
+• Cache Connect to Oracle autorefresh failure
+• Database out of space
+• Replicated transaction failure
+• Death of daemons
+• Database invalidation
+• Assertion failure
+These events also cause log entries to be written by the TimesTen daemon, but
+exposing them through SNMP traps allows properly configured network
+management software to take immediate action."_
