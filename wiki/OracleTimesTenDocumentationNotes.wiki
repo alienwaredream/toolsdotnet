@@ -42,7 +42,12 @@ read committed isolation. Read committed isolation is the default isolation leve
 
 This corresponds to what I know as SNAPSHOT_READ_COMMITTED, READ_COMMITTED would block until row in question would become comitted. SNAPSHOT would read the last committed value without locks or waiting.
 
+
 = Failure and recovery =
+== Hot Standby ==
+== Active Standby ==
+== Cases of the Distributed or Split workload ==
+== Possible use of the SNMP traps for the DB/App switch? ==
 _"SNMP traps
 Simple Network Management Protocol (SNMP) is a protocol for network
 management services. Network management software typically uses SNMP to
