@@ -44,9 +44,12 @@ This corresponds to what I know as SNAPSHOT_READ_COMMITTED, READ_COMMITTED would
 
 
 = Failure and recovery =
+== Chechpoints and logs ==
+Two types of checkpoints - blocking (fuzzy) and non-blocking.
 == Hot Standby ==
 == Active Standby ==
 == Cases of the Distributed or Split workload ==
+== Specifics of return receipt service and return twosafe service ==
 == Possible use of the SNMP traps for the DB/App switch? ==
 _"SNMP traps
 Simple Network Management Protocol (SNMP) is a protocol for network
