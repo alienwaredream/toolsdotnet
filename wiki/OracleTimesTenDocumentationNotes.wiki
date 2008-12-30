@@ -71,4 +71,4 @@ These events also cause log entries to be written by the TimesTen daemon, but
 exposing them through SNMP traps allows properly configured network
 management software to take immediate action."_
 
-*I see my own preference currently as either split or distributed workload.* That would support scale out and still provides availability. Concurrency wise one should be very careful how to split the load so there is as little contention as possible.
+*I see my own preference currently as either split or distributed workload.* That would support scale out and still provides availability. Concurrency wise one should be very careful how to split the load so there is as little contention as possible. In case of distributed or split workflow DB failure can be implied application failure in means of Load Balancing.
