@@ -44,7 +44,14 @@ read committed isolation. Read committed isolation is the default isolation leve
 
 This corresponds to what I know as SNAPSHOT_READ_COMMITTED, READ_COMMITTED would block until row in question would become comitted. SNAPSHOT would read the last committed value without locks or waiting.
 
-
+== Cache instances limitations (reasonable) ==
+_"A cache instance is the set of rows that are associated by foreign key
+relationships with a particular row in the cache group root table. Each primary
+key value in the root table specifies a cache instance. Cache instances form the
+unit of cache loading and cache aging. No table in the cache group can be a child
+to more than one parent in the cache group. Each TimesTen record belongs to
+only one cache instance and has only one parent in its cache group."_
+*I can understand the simplifying justification behind this, but it may cause some ugly constraints in some cases.*
 = Failure and recovery =
 == Chechpoints and logs ==
 Two types of checkpoints - blocking (fuzzy) and non-blocking.
