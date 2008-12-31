@@ -26,7 +26,13 @@ RDBMS uses B-tree indexes to reduce the amount of disk I/O needed to
 accomplish indexed look-up of data files. TimesTen uses T-tree indexes, which
 are optimized for main memory access. T-tree indexes are more economical than
 B-trees because they require less memory space and fewer CPU cycles."
-
+== Cache connect from TT to Oracle. PROPAGATE, investigate on how below two options are different ==
+_"Propagate – This is performed by one of the following methods:
+– Specifying the PROPAGATE option in the CREATE USERMANAGED
+CACHE GROUP statement.
+– Creating a synchronous writethrough (SWT) cache group with the
+CREATE SYNCHRONOUS WRITETHROUGH CACHE GROUP
+statement."_
 = Oops! =
 == Read committed isolation ==
 Desription of Read commited default contradicts to my standard understanding of the READ COMMITTED isolation level:
