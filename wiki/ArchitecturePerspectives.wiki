@@ -82,7 +82,7 @@ We have views and perpectives. We have levels as well.
 Here I just want to provide some extra aspects I consider to be important when I do architectural analysis.
 
 == Latency ==
-[http://en.wikipedia.org/wiki/Latency_(engineering)|Wikipedia]
+[http://en.wikipedia.org/wiki/Latency_(engineering) | Wikipedia]
 Latency should be considered in Availability, Resilience, Performance, Location, Usability perspectives. That is actually almost all of the perspectives and that is why I consider it to one of the most important aspects to take into account.
 
 == Upgrades ==
