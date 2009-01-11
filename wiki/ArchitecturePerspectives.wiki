@@ -86,5 +86,5 @@ Here I just want to provide some extra aspects I consider to be important when I
 Latency should be considered in Availability, Resilience, Performance, Location, Usability perspectives. That is actually almost all of the perspectives and that is why I consider it to one of the most important aspects to take into account.
 
 == Upgrades ==
-Aspect definitely belongs to the Operational viewpoint. Main impact are on the following perspectives: Availability and Resilience, Evolution, Location, Performance and Scalability, Usability.
+Aspect definitely belongs to the Operational viewpoint. Main impact are on the following perspectives: Availability and Resilience, Evolution, Location, Performance and Scalability, Usability. We can say that Upgrades aspect facilitates Evolution (one of facilitators).
 Again we can see that Upgrades have impact in almost all perspectives.
