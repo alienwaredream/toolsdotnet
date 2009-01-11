@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Original lists are taken from here: http://www.informit.com/articles/article.aspx?p=417090 but they are defined in the [http://standards.ieee.org/reading/ieee/std_public/description/se/1471-2000_desc.html|IEEE Standard 1471]
+Original lists are taken from here: http://www.informit.com/articles/article.aspx?p=417090 but they are defined in the [http://standards.ieee.org/reading/ieee/std_public/description/se/1471-2000_desc.html | IEEE Standard 1471]
 
 = Views and Viewpoints =
 
