@@ -3,7 +3,28 @@
 
 = Introduction =
 
-Original list is taken from here: http://www.informit.com/articles/article.aspx?p=417090
+Original lists aretaken from here: http://www.informit.com/articles/article.aspx?p=417090
+
+= Views and Viewpoints =
+
+Fundamental organization of the system:
+
+== Functional Viewpoint ==
+Describes the system's functional elements as well as their responsibilities, interfaces, and primary interactions. 
+== Information Viewpoint ==
+Describes the way that the architecture stores, manipulates, manages, and distributes information. 
+== Concurrency Viewpoint ==
+Describes the concurrency structure of the system, mapping functional elements to concurrency units to clearly identify the parts of the system that can execute concurrently and how this execution is coordinated and controlled. 
+== Development Viewpoint ==
+Exists to support the system's construction. It describes how the architecture supports the software development process.
+
+_Characterize the system once it's in its live environment:_
+
+== Deployment Viewpoint ==
+Describes the environment into which the system will be deployed, including capturing the dependencies the system has on its runtime environment. 
+== Operational Viewpoint ==
+Describes how the system will be operated, administered, and supported when it's running in its production environment. 
+
 
 
 = Perspective Catalog =
@@ -63,5 +84,3 @@ Here I just want to provide some extra aspects I consider to be important when I
 == Latency ==
 [http://en.wikipedia.org/wiki/Latency_(engineering)|Wikipedia]
 Latency should be considered in Availability, Resilience, Performance, Location, Usability perspectives. That is actually almost all of the perspectives and that is why I consider it to one of the most important aspects to take into account.
-
-
