@@ -1,0 +1,57 @@
+#summary Perspectives of Architecture.
+#labels architecture
+
+= Introduction =
+
+Original list is taken from here:
+
+
+= Perspective Catalog =
+
+A perspective catalog defines a number of perspectives, which the following table briefly describes. The perspective catalog aims to identify all of the quality properties that may be important to a modern information system. Some will be more relevant than others, depending on the goals of the system, the context in which it's being built, and the concerns and priorities of the stakeholders.
+
+ 
+== Accessibility ==
+ Ability of the system to be used by people with disabilities
+ 
+== Availability and Resilience ==
+ Ability of the system to be fully or partly operational as and when required and to effectively handle failures that could affect system availability
+ 
+== Development Resource ==
+ Ability of the system to be designed, built, deployed, and operated within known constraints around people, budget, time, and materials
+ 
+== Evolution ==
+ Ability of the system to be flexible in the face of the inevitable change that all systems experience after deployment, balanced against the costs of providing such flexibility
+ 
+== Internationalization ==
+ Ability of the system to be independent from any particular language, country, or cultural group
+ 
+== Location ==
+ Ability of the system to overcome problems brought about by the absolute location of the system's elements and the distances between them
+ 
+== Performance and Scalability ==
+ Ability of the system to execute predictably within its mandated performance profile and to handle increased processing volumes
+ 
+== Regulation ==
+ Ability of the system to conform to local and international laws, quasi-legal regulations, company policies, and other rules and standards
+ 
+== Security ==
+ Ability of the system to reliably control, monitor, and audit who can perform what actions on which resources and to detect and recover from failures in security mechanisms
+ 
+== Usability ==
+ Ease with which people who interact with the system can work effectively
+ 
+
+= Perspectives: Key Tasks =
+
+* Familiarize yourself with the nonfunctional requirements of the system.
+
+* Identify the most important perspectives for your architectural evaluation.
+
+* Apply perspectives to the architectural models to help ensure that the architecture exhibits the required quality properties.
+
+* Validate the architectural models against the nonfunctional requirements.
+
+* Revise or improve your architecture based on the results of applying the perspectives.
+
+*Iterate until you produce an acceptable architecture.
