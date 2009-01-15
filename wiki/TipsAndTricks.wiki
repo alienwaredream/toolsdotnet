@@ -202,3 +202,6 @@ Sample (for the stackoverflow exception):
 
 == A nasty thing about SC.EXE ==
 There is a space after every parameter, e.g. binPath=[space]xyz!!
+
+== Troubleshooting msi installer issues ==
+msiexec /i product.msi /L*v c:\log.txt
