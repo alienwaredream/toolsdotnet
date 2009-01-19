@@ -1,0 +1,9 @@
+#summary Regex samples.
+
+
+= Replace with negative look ahead =
+
+\[[\s\t]*assembly[\s\t]*\:[\s\t]*AssemblyVersion(Attribute){0,1}[\s\t]*\([\s\t]*".*"[\s\t]*\)[\s\t]*\](?![\s\t]*--[\s\t]*Skip[\s\t]*replace)
+
+
+
