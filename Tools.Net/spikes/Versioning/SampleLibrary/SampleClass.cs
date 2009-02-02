@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 
 namespace SampleLibrary
 {
     public class SampleClass
     {
+        public SampleClass()
+        {
+            Trace.WriteLine("In the SampleClass ctor");
+        }
     }
 }
