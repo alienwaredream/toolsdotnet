@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <Import Project="Projects\SampleLibrary1.PubPolicy.proj" />
+  <Import Project="...\Deployment\Targets\Sample.Common.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -48,7 +49,9 @@
     <None Include="Targets\Sample.Common.targets" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PublisherPolicy\Policy.1.0.xml" />
+    <Content Include="PublisherPolicy\Policy.1.0.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

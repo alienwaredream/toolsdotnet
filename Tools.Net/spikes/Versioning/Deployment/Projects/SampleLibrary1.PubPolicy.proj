@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="PublisherPolicy">
   
   <PropertyGroup>
     <OutputPath>..\Build\$(Platform)\$(Configuration)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
-  <Target Name="Build">
+  <Target Name="PublisherPolicy">
     <AL CompanyName="Sample"
         KeyFile="SampleDevelopmentKey.snk"
-        EmbedResources="PublisherPolicy\Policy.1.0.xml" OutputAssembly="..\Build\policy.1.0.SampleLibrary.dll" />
+        LinkResources="PublisherPolicy\Policy.1.0.xml" OutputAssembly="$(OutputPath)\PublisherPolicy\policy.1.0.SampleLibrary.dll" />
   </Target>
 
 </Project>
