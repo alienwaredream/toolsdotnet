@@ -45,8 +45,11 @@
     <None Include="Projects\SampleLibrary1.PubPolicy.proj" />
     <None Include="Projects\SampleLibrary.PubPolicy.proj" />
     <None Include="SampleDevelopmentKey.snk" />
-    <None Include="Targets\Sample.PublisherPolicy.targets" />
     <None Include="Targets\Sample.Common.targets" />
+    <None Include="Targets\Sample.Wix.Common.targets" />
+    <None Include="Targets\Sample.PublisherPolicy.targets" />
+    <None Include="Targets\Sample.CS2008.Common.targets" />
+    <None Include="Reference\wix.targets" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PublisherPolicy\Policy.1.0.xml">

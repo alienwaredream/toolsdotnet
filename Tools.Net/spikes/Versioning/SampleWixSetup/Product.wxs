@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="26870ca4-a83f-4a82-8fde-a4926b2e2f6b" Name="SampleApp" Language="1033" Version="1.0.0.0" Manufacturer="Spike project of Tools.Net" UpgradeCode="e8e00b24-7f52-4194-9bb4-5d6713a5da9e">
+    <Package InstallerVersion="200" Compressed="yes" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="SampleWixSetup">
+          <Component Id="ProductComponent" Guid="c121aac3-6d5e-436b-924d-5e7aa21005b0">
+            <File Source="..\Build\$(var.Build_Platform)\$(var.Build_Configuration)\SampleApp.exe" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="SampleWixSetup" Level="1">
+      <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
+      <ComponentRef Id="ProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

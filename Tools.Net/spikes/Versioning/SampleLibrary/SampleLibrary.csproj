@@ -44,5 +44,5 @@
       <Link>SampleDevelopmentKey.snk</Link>
     </None>
   </ItemGroup>
-  <Import Project="...\Deployment\Targets\Sample.Common.targets" />
+  <Import Project="...\Deployment\Targets\Sample.CS2008.Common.targets" />
 </Project>
