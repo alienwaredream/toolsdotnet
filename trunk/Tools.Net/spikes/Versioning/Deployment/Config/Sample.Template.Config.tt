@@ -1,0 +1,4 @@
+﻿<#@ template language="C#" #>
+<#@ output extension="config" #>
+
+<# Write("Code2"); #>
