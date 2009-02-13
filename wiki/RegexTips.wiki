@@ -2,12 +2,14 @@
 
 
 = Replace with negative look ahead =
-'
-\[[\s\t]*assembly[\s\t]*\:[\s\t]*AssemblyVersion(Attribute){0,1}[\s\t]*\([\s\t]*".*"[\s\t]*\)[\s\t]*\](?![\s\t]*--[\s\t]*Skip[\s\t]*replace)'
+{{{
+\[[\s\t]*assembly[\s\t]*\:[\s\t]*AssemblyVersion(Attribute){0,1}[\s\t]*\([\s\t]*".*"[\s\t]*\)[\s\t]*\](?![\s\t]*--[\s\t]*Skip[\s\t]*replace)
+}}}
 
 = Distinguish matches in the regex grep =
-
+{{{
 \d{1,2}\smatch[es]?.*?(?=\d{1,2}\smatch[es]?)
+}}}
 
 = Find/Replace source control elements in the project files =
 {{{
