@@ -8,3 +8,8 @@
 = Distinguish matches in the regex grep =
 
 \d{1,2}\smatch[es]?.*?(?=\d{1,2}\smatch[es]?)
+
+= Find/Replace source control elements in the project files =
+{{{
+<SccProjectName>.\s*?</SccProjectName>\r\n\s*<SccLocalPath>.*?</SccLocalPath>\r\n\s*<SccAuxPath>.*?</SccAuxPath>\r\n\s*<SccProvider>.*?</SccProvider>
+}}}
