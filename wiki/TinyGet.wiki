@@ -4,7 +4,7 @@
 
 Microsoft TinyGet utility is part of the IIS 6 ResourceKit. As of this moment I was not able to find IIS 7 Resource Kit, and IIS 6 Resource kit declines to install on Windows Vista Home Premium Edition I have, so I had to copy the tinyget from the Resource kit installed on the W2003.
 
-= Samples =
+= Examples=
 Invoking the page for 4000 times.
 {{{
 tinyget -srv:localhost -uri:/BuggyBits/Links.aspx -loop:4000
@@ -13,7 +13,24 @@ Invoking the page on 30 threads, 50 times each.
 {{{
 tinyget -srv:localhost -uri:/BuggyBits/FeaturedProducts.aspx -threads:30 -loop:50
 }}}
-= Help =
+
+More samples available here:
+http://www.robertbeal.info/archives/30
+http://code.msdn.microsoft.com/AsyncMvc/Wiki/View.aspx?id=11350 (also shows how to measure execution time with Powershell's Measure-Command cmdlet):
+{{{
+Measure-Command {.\tinyget -srv:localhost -r:7788 -uri:/Home/SyncAction -threads:30 -loop:1}
+[System.Threading.Thread]::Sleep(2000)
+Measure-Command {.\tinyget -srv:localhost -r:7788 -uri:/Home/AsyncAction -threads:30 -loop:1}
+[System.Threading.Thread]::Sleep(2000)
+}}}
+
+= Using tinyget to replay http traffic and validate results =
+
+http://technet.microsoft.com/en-us/library/cc656685.aspx
+
+
+
+= Command line help =
 
  
 Microsoft (R) TINYGET Version 5.2
