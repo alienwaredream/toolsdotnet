@@ -4,6 +4,15 @@
 
 Microsoft TinyGet utility is part of the IIS 6 ResourceKit. As of this moment I was not able to find IIS 7 Resource Kit, and IIS 6 Resource kit declines to install on Windows Vista Home Premium Edition I have, so I had to copy the tinyget from the Resource kit installed on the W2003.
 
+= Samples =
+Invoking the page for 4000 times.
+{{{
+tinyget -srv:localhost -uri:/BuggyBits/Links.aspx -loop:4000
+}}}
+Invoking the page on 30 threads, 50 times each.
+{{{
+tinyget -srv:localhost -uri:/BuggyBits/FeaturedProducts.aspx -threads:30 -loop:50
+}}}
 = Help =
 
  
@@ -178,4 +187,3 @@ MANDATORY PARAMETERS
 [-srv:<server name>]   - name of server to connect to
    
 [-uri:<URI>]           - URI (path) to get
-
