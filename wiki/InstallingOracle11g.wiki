@@ -1,0 +1,43 @@
+#summary Installation expirience with Oracle 11g
+#labels oracle
+
+
+
+= Excerpt from Oracle installation docs for installing on DHCP =
+
+==2.6.1 Installing Oracle Database on DHCP Computers ==
+
+Dynamic Host Configuration Protocol (DHCP) assigns dynamic IP addresses on a network. Dynamic addressing allows a computer to have a different IP address each time it connects to the network. In some cases, the IP address can change while the computer is still connected. You can have a mixture of static and dynamic IP addressing in a DHCP system.
+
+In a DHCP setup, the software tracks IP addresses, which simplifies network administration. This lets you add a new computer to the network without having to manually assign that computer a unique IP address. However, before installing Oracle Database onto a computer that uses the DHCP protocol, you need to install a loopback adapter to assign a local IP address to that computer.
+
+See Also:
+"Checking if a Loopback Adapter Is Installed on Your Computer"
+
+==2.6.2 Installing Oracle Database on Computers with Multiple IP Addresses==
+
+You can install Oracle Database on a computer that has multiple IP addresses, also known as a multihomed computer. Typically, a multihomed computer has multiple network cards. Each IP address is associated with a host name; additionally, you can set up aliases for the host name. By default, Oracle Universal Installer uses the ORACLE_HOSTNAME environment variable setting to find the host name. If ORACLE_HOSTNAME is not set and you are installing on a computer that has multiple network cards, Oracle Universal Installer determines the host name by using the first name in the hosts file, typically located in DRIVE_LETTER:\ WINDOWS\system32\drivers\etc on Windows 2003, Windows Server 2003 R2, Windows XP, and Windows Vista or DRIVE_LETTER:\WINNT\system32\drivers\etc on Windows 2000.
+
+Clients must be able to access the computer using this host name, or using aliases for this host name. To check, ping the host name from the client computers using the short name (host name only) and the full name (host name and domain name). Both must work.
+
+Setting the ORACLE_HOSTNAME Environment Variable
+
+To set the ORACLE_HOSTNAME environment variable:
+
+Display System in the Windows Control Panel.
+
+In the System Properties dialog box, click Advanced.
+
+In the Advanced tab, click Environment Variables.
+
+In the Environment Variables dialog box, under System Variables, click New.
+
+In the New System Variable dialog box, enter the following information:
+
+Variable name: ORACLE_HOSTNAME
+
+Variable value: The host name of the computer that you want to use.
+
+Click OK, then in the Environment Variables dialog box, click OK.
+
+Click OK in the Environment Variables dialog box, then in the System Properties dialog box, click OK.
