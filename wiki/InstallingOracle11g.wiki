@@ -4,6 +4,7 @@
 
 
 = Excerpt from Oracle installation docs for installing on DHCP =
+http://download.oracle.com/docs/cd/B28359_01/install.111/b32006/reqs.htm
 
 ==2.6.1 Installing Oracle Database on DHCP Computers ==
 
