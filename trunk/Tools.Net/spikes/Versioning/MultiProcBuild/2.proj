@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <UsingTask TaskName="MultiProcBuild.SleepTask" AssemblyFile="bin\Debug\MultiProcBuild.dll"/>
+  <Target Name="t">
+    <Message Importance="high" Text="## starting 2 ##"/>
+    <SleepTask Time="3000" />
+    <Message Importance="high" Text="## finishing 2 ##"/>
+  </Target>
+</Project>
