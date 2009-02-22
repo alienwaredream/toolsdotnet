@@ -1,0 +1,14 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <UsingTask TaskName="MultiProcBuild.SleepTask" AssemblyFile="bin\Debug\MultiProcBuild.dll"/>
+    <ItemGroup>
+      <ProjectReference Include="2.proj"/>
+    </ItemGroup>
+    <Target Name="t" DependsOnTargets="BuildProjectReferences">
+      <Message Importance="high" Text="## starting 3 ##"/>
+      <SleepTask Time="3000" />
+      <Message Importance="high" Text="## finishing 3 ##"/>
+    </Target>
+    <Target Name="BuildProjectReferences">
+      <MSBuild Projects="@(ProjectReference)" />
+    </Target>
+</Project>

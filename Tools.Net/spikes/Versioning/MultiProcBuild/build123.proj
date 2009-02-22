@@ -1,0 +1,7 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Target Name="t">
+    <Message Importance="high" Text="## in root building children ##"/>
+    <MSBuild Projects="1.proj;2.proj;3.proj" BuildInParallel="true"/>
+    <Message Importance="high" Text="## in root done building ##"/>
+  </Target>
+</Project>
