@@ -1,10 +1,14 @@
-﻿
+﻿using System;
+
 namespace IncBuildAssemblyLinker
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            Console.WriteLine("Test output.\r\nPress any key to exit.");
+            
+            Console.ReadKey();
         }
     }
 }

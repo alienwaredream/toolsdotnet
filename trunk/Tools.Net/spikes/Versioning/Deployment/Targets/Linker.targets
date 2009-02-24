@@ -1,12 +1,21 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Target Name="BeforeCompile">
+  <Target Name="BeforeCompile" Condition="$(OutputType) == 'library'">
     <ItemGroup>
       <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
     </ItemGroup>
     <CreateProperty Value="$(OutputType)">
       <Output PropertyName="Linker_OutputType" TaskParameter="Value"/>
     </CreateProperty>
+    
+    <CreateProperty Value="$(StartupObject)">
+      <Output PropertyName="Linker_StartupObject" TaskParameter="Value"/>
+    </CreateProperty>
+
+    <CreateProperty Value="">
+      <Output PropertyName="StartupObject" TaskParameter="Value"/>
+    </CreateProperty>
+    
     <CreateProperty Value="$(TargetName).netmodule">
       <Output PropertyName="TargetFileName" TaskParameter="Value"/>
     </CreateProperty>
@@ -23,12 +32,11 @@
     <Message Importance="high" Text="** Linker_OutputType = $(Linker_OutputType); OutputType = $(OutputType)" />
   </Target>
   
-  <Target Name="AfterCompile">
+  <Target Name="AfterCompile" Condition="$(OutputType) == 'module'">
     
     <Message Importance="high" Text="** Executing AssemblyLinker task" />
     
     <AL 
-    
     CompanyName="$(Satellite_CompanyName)"
     Copyright="$(Satellite_Copyright)"
     Description="$(Satellite_Description)"
@@ -39,22 +47,26 @@
     ProductVersion="$(Satellite_ProductVersion)"
     ResponseFiles="@(AlResponseFile)"
     SourceModules="$(IntermediateOutputPath)\$(TargetName).netmodule"
-    TargetType="$(LinkerTargetType)"
+    TargetType="$(Linker_OutputType)"
     Title="$(Satellite_Title)"
     ToolPath="$(AlToolPath)"
     Trademark="$(Satellite_Trademark)"
-    Version="9.9.9.9" MainEntryPoint="IncBuildAssemblyLinker.Main">
+    Version="9.9.9.9"
+    >
 
       <Output TaskParameter="OutputAssembly" ItemName="FileWrites"/>
 
     </AL>
     <ItemGroup>
+      <FileWrites Include="$(IntermediateOutputPath)$(TargetName).netmodule"/>
+    </ItemGroup>
+    <ItemGroup>
       <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
     </ItemGroup>
+    
     <CreateItem Include="$(IntermediateOutputPath)$(TargetName).$(Linker_OutputType)">
       <Output ItemName="IntermediateAssembly" TaskParameter="Include"/>
     </CreateItem>
-    
+    <Message Importance="high" Text="*** @(FileWrites)" />
   </Target>
-  
 </Project>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8A72CB4B-62FC-484C-9C01-14D04FC00199}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -47,8 +47,6 @@
   <!--<Import Project="Projects\SampleLibrary1.PubPolicy.proj" />-->
   <Import Project="Targets\Sample.Common.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -70,6 +68,8 @@
     <None Include="Projects\SampleLibrary1.PubPolicy.proj" />
     <None Include="Projects\SampleLibrary.PubPolicy.proj" />
     <None Include="SampleDevelopmentKey.snk" />
+    <None Include="Targets\ILMerge.targets" />
+    <None Include="Targets\Linker.targets" />
     <None Include="Targets\Sample.Common.targets" />
     <None Include="Targets\Sample.Wix.Common.targets" />
     <None Include="Targets\Sample.PublisherPolicy.targets" />

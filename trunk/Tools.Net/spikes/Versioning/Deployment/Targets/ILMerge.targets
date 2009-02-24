@@ -1,0 +1,37 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <UsingTask TaskName="BuildTasks.ILMerge" AssemblyFile="..\..\lib\BuildTasks.dll"/>
+  
+  <Target Name="BeforeCompile" Condition="$(OutputType) == 'library'">
+    
+    <ItemGroup>
+      <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
+    </ItemGroup>
+    
+    <CreateItem Include="$(IntermediateOutputPath)$(TargetName).t$(TargetExt)">
+      <Output ItemName="IntermediateAssembly" TaskParameter="Include"/>
+    </CreateItem>
+
+    <Message Importance="high" Text="** IntermediateAssembly = @(IntermediateAssembly)" />    
+  
+  </Target>
+  
+  <Target Name="AfterCompile" Condition="$(OutputType) == 'library'">
+    
+    <Message Importance="high" Text="** Executing ILMerge task" />
+
+    <ILMerge 
+       InputAssemblies="@(IntermediateAssembly)" 
+       OutputFile="$(IntermediateOutputPath)$(TargetName)$(TargetExt)" 
+       DebugInfo="true"/>
+
+    <ItemGroup>
+      <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
+    </ItemGroup>
+    
+    <CreateItem Include="$(IntermediateOutputPath)$(TargetName)$(TargetExt)">
+      <Output ItemName="IntermediateAssembly" TaskParameter="Include"/>
+    </CreateItem>
+
+  </Target>
+</Project>
