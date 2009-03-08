@@ -10,10 +10,13 @@ namespace BuildTasks
 {
     public class ILMerge : Task
     {
+        #region Fields
         ILMerging.ILMerge mergeSession;
 
-        private ILMerging.ILMerge.Kind targetKind;
+        private ILMerging.ILMerge.Kind targetKind; 
+        #endregion
 
+        #region Properties that are mapped indirectly to ILMerge
         [Required()]
         public virtual ITaskItem[] InputAssemblies { get; set; }
 
@@ -52,7 +55,10 @@ namespace BuildTasks
                         Enum.GetNames(typeof(ILMerging.ILMerge.Kind)), ILMerging.ILMerge.Kind.SameAsPrimaryAssembly));
                 }
             }
-        }
+        } 
+        #endregion
+
+        #region Properties that belong directly to ILMerge
 
         public bool AllowMultipleAssemblyLevelAttributes { get; set; }
         public bool AllowWildCards { get; set; }
@@ -78,11 +84,21 @@ namespace BuildTasks
         public Version Version { get; set; }
         public bool XmlDocumentation { get; set; }
 
+        #endregion
+
+        #region Extra properties
+
+        public bool ApplyPrimaryAssemblyDate { get; set; }
+
+        #endregion
+
         public ILMerge()
         {
             mergeSession = new ILMerging.ILMerge();
         }
 
+        #region Implementation of Task methods
+        
         public override bool Execute()
         {
 
@@ -153,7 +169,8 @@ namespace BuildTasks
             }
 
             return true;
-        }
+        } 
+        #endregion
 
     }
 }
