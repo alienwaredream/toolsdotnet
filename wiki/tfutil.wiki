@@ -14,11 +14,11 @@ namespace TfsFindUserByWindowsAccount
     {
         static void Main(string[] args)
         {
-            if (args == null || args.Length)
-            {
-                Console.WriteLine(String.Format(CultureInfo.InvariantCulture(
-                    "Usage: tfutil " + 
-            }
+            //if (args == null || args.Length)
+            //{
+            //    //Console.WriteLine(String.Format(CultureInfo.InvariantCulture(
+            //    //    "Usage: tfutil " + 
+            //}
             ResolveUser resUser = new ResolveUser(args[0]);
 
             resUser.WindowsAccountName = args[1];
@@ -48,6 +48,8 @@ namespace TfsFindUserByWindowsAccount
         [Microsoft.Build.Framework.Output()]
         public string DisplayName { get; set; }
 
+        public ResolveUser() { }
+
         public ResolveUser(string tfsUrl)
         {
             this.tfsUrl = tfsUrl;
@@ -58,7 +60,7 @@ namespace TfsFindUserByWindowsAccount
             try
             {
 
-                TeamFoundationServer server = new TeamFoundationServer(,
+                TeamFoundationServer server = new TeamFoundationServer(tfsUrl,
                                                                        CredentialCache.DefaultNetworkCredentials);
 
 
@@ -81,4 +83,5 @@ namespace TfsFindUserByWindowsAccount
 
     }
 }
+
 }}}
