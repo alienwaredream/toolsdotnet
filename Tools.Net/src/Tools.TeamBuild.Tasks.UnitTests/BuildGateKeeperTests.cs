@@ -11,19 +11,44 @@ namespace Tools.TeamBuild.Tasks.UnitTests
     public class BuildGateKeeperTests
     {
         [Test()]
-        public void Execute_Should_ReturnBreakerData()
+        public void Execute_Should_ReturnBreakerDataForFreshFailure()
         {
+            // When build failed and there was no a break before, keeper should save the failure state
+            // and return requestor as a build breaker
             TestHelper(BuildStatus.Failure, (persistor, record) =>
             {
-                //SetupResult.For<bool>(persistor.ContainsBreak).Return(false);
-                //persistor.Expect<IStatePersistor>((p) => p.WriteState(record))//.Do(new Action(() =>
-               // {
-               //     Console.WriteLine("State:" + record);
-               // }));
+                SetupResult.For<bool>(persistor.ContainsBreak).Return(false);
+                persistor.Expect<IStatePersistor>((p) => p.WriteState(record)).Do(new Action<string>((s) =>
+                {
+                    Console.WriteLine("--State:" + s);
+                }));
+            },
+            k =>
+            {
+                Assert.AreEqual(k.RequestorMailAddress, k.BreakerMailAddress);
+                Assert.AreEqual(k.RequestorDisplayName, k.BreakerDisplayName);
             });
         }
 
-        private void TestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup)
+        [Test()]
+        public void Execute_Should_ReturnBreakerDataForSubseqFailure()
+        {
+            TestHelper(BuildStatus.Success, (persistor, record) =>
+            {
+                SetupResult.For<bool>(persistor.ContainsBreak).Return(true);
+                persistor.Expect<IStatePersistor>((p) => p.CleanState()).Do(new Action(() =>
+                {
+                    Console.WriteLine("--State Cleaned.");
+                }));
+            }, k =>
+            {
+                Assert.IsNull(k.BreakerMailAddress);
+                Assert.IsNull(k.BreakerDisplayName);
+            });
+        }
+
+        private void TestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup,
+            Action<BuildGateKeeper> validateKeeper)
         {
             // Set values.
             string keeperFileName = @"c:\build\tools.buildkeeper.state.xml";
@@ -43,9 +68,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
 
             using (mocks.Record())
             {
-                //expectationSetup(statePersistor, expectedRecord);
-                SetupResult.For<bool>(statePersistor.ContainsBreak).Return(false);
-                statePersistor.Expect<IStatePersistor>((p) => p.WriteState(expectedRecord));
+                expectationSetup(statePersistor, expectedRecord);
             }
 
             // Create task instance
@@ -68,10 +91,13 @@ namespace Tools.TeamBuild.Tasks.UnitTests
                 {
 
                     keeper.StatePersistor = statePersistor;
+                    keeper.DateProvider = dateProvider;
 
                     keeper.Execute();
                 }
             }
+
+            validateKeeper(keeper);
         }
     }
 }

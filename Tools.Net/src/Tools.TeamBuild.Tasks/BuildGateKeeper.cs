@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 
 namespace Tools.TeamBuild.Tasks
 {
@@ -66,7 +67,11 @@ namespace Tools.TeamBuild.Tasks
                 // If build is a success, then clean the state
                 if (BuildStatus == BuildStatus.Success)
                 {
+                    
                     StatePersistor.CleanState();
+
+                    Debug.WriteLine("**State cleaned");
+
                     return true;
                 }
                 // There is a break that happened before, set the original breaker details
@@ -81,10 +86,12 @@ namespace Tools.TeamBuild.Tasks
                 // persist it in the state and set breaker details to the requestor.
                 if (BuildStatus == BuildStatus.Failure && !StatePersistor.ContainsBreak)
                 {
-                    StatePersistor.WriteState(
-                        String.Format("{0};{1};{2};{3}",
-                        DateProvider.GetTimeStamp().ToString(DateFormat), RequestorDisplayName, RequestorMailAddress, 
-                        BuildStatus));
+                    string stateTemp = String.Format("{0};{1};{2};{3}",
+                        DateProvider.GetTimeStamp().ToString(DateFormat), RequestorDisplayName, RequestorMailAddress,
+                        BuildStatus);
+                    Debug.WriteLine("**State:" + stateTemp);
+                    StatePersistor.WriteState(stateTemp);
+
                     BreakerDisplayName = RequestorDisplayName;
                     BreakerMailAddress = RequestorMailAddress;
 
