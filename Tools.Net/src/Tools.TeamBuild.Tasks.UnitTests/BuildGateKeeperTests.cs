@@ -15,7 +15,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
         {
             // When build failed and there was no a break before, keeper should save the failure state
             // and return requestor as a build breaker
-            TestHelper(BuildStatus.Failure, (persistor, record) =>
+            UnitTestHelper(BuildStatus.Failure, (persistor, record) =>
             {
                 SetupResult.For<bool>(persistor.ContainsBreak).Return(false);
                 persistor.Expect<IStatePersistor>((p) => p.WriteState(record)).Do(new Action<string>((s) =>
@@ -31,11 +31,10 @@ namespace Tools.TeamBuild.Tasks.UnitTests
         }
 
         [Test()]
-        public void Execute_Should_ReturnBreakerDataForSubseqFailure()
+        public void Execute_Should_CleanStateForSuccessfulBuild()
         {
-            TestHelper(BuildStatus.Success, (persistor, record) =>
+            UnitTestHelper(BuildStatus.Success, (persistor, record) =>
             {
-                SetupResult.For<bool>(persistor.ContainsBreak).Return(true);
                 persistor.Expect<IStatePersistor>((p) => p.CleanState()).Do(new Action(() =>
                 {
                     Console.WriteLine("--State Cleaned.");
@@ -47,7 +46,72 @@ namespace Tools.TeamBuild.Tasks.UnitTests
             });
         }
 
-        private void TestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup,
+        [Test()]
+        public void Execute_Should_GetOriginalBreakerForSubseqFailedBuild()
+        {
+            UnitTestHelper(BuildStatus.Failure, (persistor, record) =>
+            {
+                SetupResult.For<bool>(persistor.ContainsBreak).Return(true);
+                SetupResult.For<string>(persistor.BreakerDisplayName).Return("sd");
+                SetupResult.For<string>(persistor.BreakerEmailAddress).Return("sd@sd.com");
+                SetupResult.For<string>(persistor.BreakDate).Return("13-Mar-2009T12:23:13");
+            }, k =>
+            {
+                Assert.AreEqual("sd", k.BreakerDisplayName);
+                Assert.AreEqual("sd@sd.com", k.BreakerMailAddress);
+                Assert.AreEqual("13-Mar-2009T12:23:13", k.BreakTimeStamp);
+            });
+        }
+        [Test()]
+        public void Integration_Execute_Should_GetOriginalBreakerForSubseqFailedBuild()
+        {
+            string keeperFileName = @"c:\build\tools.buildkeeper.state.xml";
+            string requestorEmail = "stan@stan.com";
+            string requestorDisplayName = "Stanislav Dvoychenko";
+            string dateFormat = "dd-MMM-yyyTHH:mm:ss";
+
+            // First lets have a good build
+            BuildGateKeeper keeper = new BuildGateKeeper
+            {
+                BuildStatus = BuildStatus.Success,
+                RequestorDisplayName = requestorDisplayName,
+                RequestorMailAddress = requestorEmail,
+                DateFormat = dateFormat,
+                StateFilePath = keeperFileName
+            };
+            keeper.Execute();
+
+            // Second, lets have a failed build
+            requestorDisplayName = "Stanislav TheBad";
+            requestorEmail = "sd@thebad.com";
+            keeper = new BuildGateKeeper
+            {
+                BuildStatus = BuildStatus.Failure,
+                RequestorDisplayName = requestorDisplayName,
+                RequestorMailAddress = requestorEmail,
+                DateFormat = dateFormat,
+                StateFilePath = keeperFileName
+            };
+            keeper.Execute();
+            // Third, lets have a failed build again
+            requestorDisplayName = "Stanislav Undetermined";
+            requestorEmail = "sd@undertemined.com";
+            keeper = new BuildGateKeeper
+            {
+                BuildStatus = BuildStatus.Failure,
+                RequestorDisplayName = requestorDisplayName,
+                RequestorMailAddress = requestorEmail,
+                DateFormat = dateFormat,
+                StateFilePath = keeperFileName
+            };
+            keeper.Execute();
+
+            Assert.AreEqual("sd@thebad.com", keeper.BreakerMailAddress);
+            Assert.AreEqual("Stanislav TheBad", keeper.BreakerDisplayName);
+
+        }
+
+        private void UnitTestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup,
             Action<BuildGateKeeper> validateKeeper)
         {
             // Set values.
@@ -99,5 +163,6 @@ namespace Tools.TeamBuild.Tasks.UnitTests
 
             validateKeeper(keeper);
         }
+
     }
 }
