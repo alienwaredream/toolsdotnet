@@ -6,15 +6,27 @@ using Rhino.Mocks;
 
 namespace Tools.TeamBuild.Tasks.UnitTests
 {
+
     [TestFixture]
     public class BuildGateKeeperTests
     {
         [Test()]
         public void Execute_Should_ReturnBreakerData()
         {
+            TestHelper(BuildStatus.Failure, (persistor, record) =>
+            {
+                //SetupResult.For<bool>(persistor.ContainsBreak).Return(false);
+                //persistor.Expect<IStatePersistor>((p) => p.WriteState(record))//.Do(new Action(() =>
+               // {
+               //     Console.WriteLine("State:" + record);
+               // }));
+            });
+        }
+
+        private void TestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup)
+        {
             // Set values.
             string keeperFileName = @"c:\build\tools.buildkeeper.state.xml";
-            BuildStatus status = BuildStatus.Failure;
             string requestorEmail = "stan@stan.com";
             string requestorDisplayName = "Stanislav Dvoychenko";
             DateTime expectedTimeStamp = DateTime.Now;
@@ -31,6 +43,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
 
             using (mocks.Record())
             {
+                //expectationSetup(statePersistor, expectedRecord);
                 SetupResult.For<bool>(statePersistor.ContainsBreak).Return(false);
                 statePersistor.Expect<IStatePersistor>((p) => p.WriteState(expectedRecord));
             }
@@ -48,7 +61,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
             // Prepare a string builder to hold the keeper output
             StringBuilder sb = new StringBuilder();
 
-            
+
             using (StringWriter writer = new StringWriter(sb))
             {
                 using (mocks.Playback())
@@ -59,11 +72,6 @@ namespace Tools.TeamBuild.Tasks.UnitTests
                     keeper.Execute();
                 }
             }
-        }
-
-        private void TestHelper(BuildStatus status, Action expectationSetup)
-        {
-
         }
     }
 }
