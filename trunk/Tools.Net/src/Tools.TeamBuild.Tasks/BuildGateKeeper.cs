@@ -70,7 +70,7 @@ namespace Tools.TeamBuild.Tasks
                     
                     StatePersistor.CleanState();
 
-                    Debug.WriteLine("**State cleaned");
+                    Trace.WriteLine("**State cleaned");
 
                     return true;
                 }
@@ -80,6 +80,7 @@ namespace Tools.TeamBuild.Tasks
                     BreakerDisplayName = StatePersistor.BreakerDisplayName;
                     BreakerMailAddress = StatePersistor.BreakerEmailAddress;
                     BreakTimeStamp = StatePersistor.BreakDate;
+                    
                     return true;
                 }
                 // If there is no state, then it means that this break is the first,
@@ -89,7 +90,7 @@ namespace Tools.TeamBuild.Tasks
                     string stateTemp = String.Format("{0};{1};{2};{3}",
                         DateProvider.GetTimeStamp().ToString(DateFormat), RequestorDisplayName, RequestorMailAddress,
                         BuildStatus);
-                    Debug.WriteLine("**State:" + stateTemp);
+                    Trace.WriteLine("**Writing keeper state:" + stateTemp);
                     StatePersistor.WriteState(stateTemp);
 
                     BreakerDisplayName = RequestorDisplayName;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace Tools.TeamBuild.Tasks
 {
@@ -61,6 +62,7 @@ namespace Tools.TeamBuild.Tasks
         private void AcquireState()
         {
             state = File.ReadAllText(filePath);
+            Trace.WriteLine("**Acquired keeper state is:" + state);
         }
     }
 }
