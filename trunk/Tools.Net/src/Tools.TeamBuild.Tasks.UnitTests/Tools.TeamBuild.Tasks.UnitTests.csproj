@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="BuildGateKeeperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatePersistorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tools.TeamBuild.Tasks\Tools.TeamBuild.Tasks.csproj">

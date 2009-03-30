@@ -9,10 +9,15 @@ namespace Tools.TeamBuild.Tasks
     {
         private string filePath;
         private string state;
+        private IStateProvider stateProvider;
 
-        internal StatePersistor(string filePath)
+        internal StatePersistor(string filePath) : this(filePath, new FileStateProvider(filePath))
+        {
+        }
+        internal StatePersistor(string filePath, IStateProvider stateProvider)
         {
             this.filePath = filePath;
+            this.stateProvider = stateProvider;
         }
 
         #region IStatePersistor Members
@@ -59,7 +64,7 @@ namespace Tools.TeamBuild.Tasks
 
         private void AcquireState()
         {
-            state = File.ReadAllText(filePath);
+            state = stateProvider.AcquireState();
             Trace.WriteLine("**Acquired keeper state is:" + state);
         }
     }
