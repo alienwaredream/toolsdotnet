@@ -95,7 +95,7 @@ namespace Tools.TeamBuild.Tasks
 
                     BreakerDisplayName = RequestorDisplayName;
                     BreakerMailAddress = RequestorMailAddress;
-
+                    BreakTimeStamp = DateTime.Now.ToString(DateFormat);
                 }
 
                 return true;
