@@ -9,7 +9,7 @@ namespace Tools.TeamBuild.Tasks
         #region Input Properties
 
         [Microsoft.Build.Framework.Required()]
-        public BuildStatus BuildStatus { get; set; }
+        public string BuildStatus { get; set; }
 
         [Microsoft.Build.Framework.Required()]
         public string RequestorMailAddress { get; set; }
@@ -65,7 +65,7 @@ namespace Tools.TeamBuild.Tasks
                     StatePersistor = new StatePersistor(StateFilePath);
                 }
                 // If build is a success, then clean the state
-                if (BuildStatus == BuildStatus.Success)
+                if (BuildStatus == "Success")
                 {
                     
                     StatePersistor.CleanState();
@@ -75,7 +75,7 @@ namespace Tools.TeamBuild.Tasks
                     return true;
                 }
                 // There is a break that happened before, set the original breaker details
-                if (BuildStatus == BuildStatus.Failure && StatePersistor.ContainsBreak)
+                if (BuildStatus == "Failure" && StatePersistor.ContainsBreak)
                 {
                     BreakerDisplayName = StatePersistor.BreakerDisplayName;
                     BreakerMailAddress = StatePersistor.BreakerEmailAddress;
@@ -85,7 +85,7 @@ namespace Tools.TeamBuild.Tasks
                 }
                 // If there is no state, then it means that this break is the first,
                 // persist it in the state and set breaker details to the requestor.
-                if (BuildStatus == BuildStatus.Failure && !StatePersistor.ContainsBreak)
+                if (BuildStatus == "Failure" && !StatePersistor.ContainsBreak)
                 {
                     string stateTemp = String.Format("{0};{1};{2};{3}",
                         DateProvider.GetTimeStamp().ToString(DateFormat), RequestorDisplayName, RequestorMailAddress,

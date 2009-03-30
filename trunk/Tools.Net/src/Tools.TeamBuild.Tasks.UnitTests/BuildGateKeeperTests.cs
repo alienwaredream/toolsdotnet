@@ -15,7 +15,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
         {
             // When build failed and there was no a break before, keeper should save the failure state
             // and return requestor as a build breaker
-            UnitTestHelper(BuildStatus.Failure, (persistor, record) =>
+            UnitTestHelper("Failure", (persistor, record) =>
             {
                 SetupResult.For<bool>(persistor.ContainsBreak).Return(false);
                 persistor.Expect<IStatePersistor>((p) => p.WriteState(record)).Do(new Action<string>((s) =>
@@ -33,7 +33,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
         [Test()]
         public void Execute_Should_CleanStateForSuccessfulBuild()
         {
-            UnitTestHelper(BuildStatus.Success, (persistor, record) =>
+            UnitTestHelper("Success", (persistor, record) =>
             {
                 persistor.Expect<IStatePersistor>((p) => p.CleanState()).Do(new Action(() =>
                 {
@@ -49,7 +49,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
         [Test()]
         public void Execute_Should_GetOriginalBreakerForSubseqFailedBuild()
         {
-            UnitTestHelper(BuildStatus.Failure, (persistor, record) =>
+            UnitTestHelper("Failure", (persistor, record) =>
             {
                 SetupResult.For<bool>(persistor.ContainsBreak).Return(true);
                 SetupResult.For<string>(persistor.BreakerDisplayName).Return("sd");
@@ -73,7 +73,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
             // First lets have a good build
             BuildGateKeeper keeper = new BuildGateKeeper
             {
-                BuildStatus = BuildStatus.Success,
+                BuildStatus = "Success",
                 RequestorDisplayName = requestorDisplayName,
                 RequestorMailAddress = requestorEmail,
                 DateFormat = dateFormat,
@@ -86,7 +86,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
             requestorEmail = "sd@thebad.com";
             keeper = new BuildGateKeeper
             {
-                BuildStatus = BuildStatus.Failure,
+                BuildStatus = "Failure",
                 RequestorDisplayName = requestorDisplayName,
                 RequestorMailAddress = requestorEmail,
                 DateFormat = dateFormat,
@@ -98,7 +98,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
             requestorEmail = "sd@undertemined.com";
             keeper = new BuildGateKeeper
             {
-                BuildStatus = BuildStatus.Failure,
+                BuildStatus = "Failure",
                 RequestorDisplayName = requestorDisplayName,
                 RequestorMailAddress = requestorEmail,
                 DateFormat = dateFormat,
@@ -111,7 +111,7 @@ namespace Tools.TeamBuild.Tasks.UnitTests
 
         }
 
-        private void UnitTestHelper(BuildStatus status, Action<IStatePersistor, string> expectationSetup,
+        private void UnitTestHelper(string status, Action<IStatePersistor, string> expectationSetup,
             Action<BuildGateKeeper> validateKeeper)
         {
             // Set values.
