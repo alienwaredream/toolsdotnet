@@ -260,7 +260,7 @@ Outputs:
 		<BuildGateKeeper BuildStatus="$(BuildStatus)" StateFilePath="c:\Build\$(BuildDefinition).txt" RequestorMailAddress="$(MailAddress)" RequestorDisplayName="$(Requestor)">		
 		</BuildGateKeeper>
 	
-		<Mail SmtpServer="exalfa.stromtelecom.cz" IsBodyHtml="true" Username="xxx\xxx" Password="xxx" To="$(MailAddress)" CC="sdvoychenko@sitronicsts.com" From="build@sitronicsts.com" Body="Successful check-in! Your checkin to SP5 Dev branch was built successfuly. Check-in number and comments to be provided soon. Build log: %3CBR%2F%3E $(DropLocation)\$(BuildNumber)\BuildLog.txt;" Subject="Your checkin to SP5 Dev branch was built successfuly."></Mail>
+		<Mail SmtpServer="YourSmtpServer" IsBodyHtml="true" Username="xxx\xxx" Password="xxx" To="$(MailAddress)" CC="controlfreak@controlfreak.com" From="build@sitronicsts.com" Body="Successful check-in! Your checkin to SP5 Dev branch was built successfuly. Check-in number and comments to be provided soon. Build log: %3CBR%2F%3E $(DropLocation)\$(BuildNumber)\BuildLog.txt;" Subject="Your checkin to SP5 Dev branch was built successfuly."></Mail>
 
 	    <BuildStep TeamFoundationServerUrl="$(TeamFoundationServerUrl)" BuildUri="$(BuildUri)" Id="$(CurrentBuildStepId)" Status="Succeeded" />
     	   <SetBuildProperties TeamFoundationServerUrl="$(TeamFoundationServerUrl)"
@@ -346,7 +346,7 @@ Outputs:
 			<Output TaskParameter="BreakTimeStamp" PropertyName="BreakTimeStamp" />					
 		</BuildGateKeeper>
 
-	<Mail SmtpServer="exalfa.stromtelecom.cz" IsBodyHtml="true" Username="xxx\xxx" Password="xxx" To="$(MailAddress)" CC="sdvoychenko@sitronicsts.com;$(BreakerMailAddress)" From="build@sitronicsts.com" Body="You got this email message because the code you checked in recently was not compiled successfully during verification build. Changeset number and comments to be provided soon. &lt;br/&gt; The build was broken first by $(BreakerDisplayName) at $(BreakTimeStamp). &lt;br/&gt;&lt;br/&gt; Errors log: &lt;br/&gt; &lt;b&gt; @(BuildErrorLines) &lt;/b&gt; &lt;br/&gt; &lt;br/&gt; More detailed info: &lt;a href='file:///$(DropLocation)\$(BuildNumber)\BuildLog.txt' &gt; $(DropLocation)\$(BuildNumber)\BuildLog.txt &lt;/a &gt;. &lt;br/&gt; If you believe this informatin is false positive or need help with fixing check-in, please reply to the Dvoychenko Stanislav." Subject="FAILURE! Build - $(BuildNumber) - changes your checked in were not compiled successfuly."></Mail>
+	<Mail SmtpServer="YourSmtpServer" IsBodyHtml="true" Username="xxx\xxx" Password="xxx" To="$(MailAddress)" CC="controlfreak@controlfreak.com;$(BreakerMailAddress)" From="build@sitronicsts.com" Body="You got this email message because the code you checked in recently was not compiled successfully during verification build. Changeset number and comments to be provided soon. &lt;br/&gt; The build was broken first by $(BreakerDisplayName) at $(BreakTimeStamp). &lt;br/&gt;&lt;br/&gt; Errors log: &lt;br/&gt; &lt;b&gt; @(BuildErrorLines) &lt;/b&gt; &lt;br/&gt; &lt;br/&gt; More detailed info: &lt;a href='file:///$(DropLocation)\$(BuildNumber)\BuildLog.txt' &gt; $(DropLocation)\$(BuildNumber)\BuildLog.txt &lt;/a &gt;. &lt;br/&gt; If you believe this informatin is false positive or need help with fixing check-in, please reply to the Dvoychenko Stanislav." Subject="FAILURE! Build - $(BuildNumber) - changes your checked in were not compiled successfuly."></Mail>
   
   </Target>
 
