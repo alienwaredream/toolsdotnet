@@ -28,7 +28,8 @@ Measure-Command {.\tinyget -srv:localhost -r:7788 -uri:/Home/AsyncAction -thread
 
 http://technet.microsoft.com/en-us/library/cc656685.aspx
 
-
+= Http record&replay alternatives =
+http://blogs.msdn.com/drnick/archive/2009/04/13/debugging-http-with-replay.aspx
 
 = Command line help =
 
