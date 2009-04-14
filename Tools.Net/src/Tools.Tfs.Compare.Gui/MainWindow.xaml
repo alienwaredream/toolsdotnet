@@ -1,0 +1,30 @@
+﻿<Window x:Class="Tools.Tfs.Compare.Gui.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Tools.Tfs.Compare.Gui"
+    Title="Tools.Net - Tfs.Compare" Height="300" Width="300">
+    <Window.Resources>
+    </Window.Resources>
+    <DockPanel Name="xx">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Name="openProjectMenuItem">
+                <MenuItem.Header>
+                    <TextBlock>File</TextBlock>
+                </MenuItem.Header>
+                <MenuItem Header="Save Project" Click="saveProjectButton_Click"></MenuItem>
+                <MenuItem Header="Open Project" Click="openProjectMenuItem_Click"></MenuItem>
+                <MenuItem Header="New Project" Name="newProjectMenuItem" Click="newProjectMenuItem_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Name="mainGrid" DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TabControl Name="itemsTabControl" Grid.Row="0" ItemsSource="{Binding}" Loaded="itemsTabControl_Loaded">
+            </TabControl>
+            <local:LogViewControl x:Name="logControl" Grid.Row="1"></local:LogViewControl>
+        </Grid>
+
+    </DockPanel>
+</Window>
