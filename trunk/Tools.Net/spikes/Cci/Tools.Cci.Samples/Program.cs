@@ -41,7 +41,8 @@ namespace Tools.Net.Cci.Samples
                                 String.Format("{0}|{1}|{2}|{3}",
                                     assembly.AssemblyIdentity.Location,
                                     assembly.AssemblyIdentity.Name,
-                                    assembly.AssemblyIdentity.Version));
+                                    assembly.AssemblyIdentity.Version,
+                                    String.Empty));
                     }
                     catch (Exception ex)
                     {
