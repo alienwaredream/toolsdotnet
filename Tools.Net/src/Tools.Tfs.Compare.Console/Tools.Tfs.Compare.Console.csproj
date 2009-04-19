@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2D5C2317-75A0-47AE-BA00-83E5F8E95098}</ProjectGuid>
+    <ProjectGuid>{103BD256-4312-4600-92E5-3BD5E6783398}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tools.Net.Cci.Samples</RootNamespace>
-    <AssemblyName>assemblyversion</AssemblyName>
+    <RootNamespace>Tools.Tfs.Compare.Console</RootNamespace>
+    <AssemblyName>Tools.Tfs.Compare.Console</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Tools.Net.Cci.Samples.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,22 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Cci.MetadataHelper, Version=0.0.0.2, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Cci.MetadataHelper.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.MetadataModel, Version=0.0.0.2, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Cci.MetadataModel.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.PeReader, Version=0.0.0.2, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Cci.PeReader.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HostEnvironment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

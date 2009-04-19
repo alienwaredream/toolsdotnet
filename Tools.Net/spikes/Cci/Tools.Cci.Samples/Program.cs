@@ -38,7 +38,7 @@ namespace Tools.Net.Cci.Samples
                             (IAssembly)env.LoadUnitFrom(file);
 
                         Console.WriteLine(
-                                String.Format("{0}|{1}|{2}",
+                                String.Format("{0}|{1}|{2}|{3}",
                                     assembly.AssemblyIdentity.Location,
                                     assembly.AssemblyIdentity.Name,
                                     assembly.AssemblyIdentity.Version));
@@ -46,10 +46,11 @@ namespace Tools.Net.Cci.Samples
                     catch (Exception ex)
                     {
                         Console.WriteLine(
-                            String.Format("{0}|{1}|{2}",
+                            String.Format("{0}|{1}|{2}|{3}",
                                     file,
                                     Path.GetFileName(file),
-                                    "N/A"));
+                                    "N/A",
+                                    ex.Message));
                     }
                 }
             }
