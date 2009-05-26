@@ -15,3 +15,17 @@
 {{{
 <SccProjectName>.\s*?</SccProjectName>\r\n\s*<SccLocalPath>.*?</SccLocalPath>\r\n\s*<SccAuxPath>.*?</SccAuxPath>\r\n\s*<SccProvider>.*?</SccProvider>
 }}}
+
+= Groups =
+
+{{{
+^:61:.{10}(D|RC|RD)
+}}}
+{{{
+:61:0903310331C6179
+:61:0903310331D6179
+:61:0903310331RC6179
+:61:0903310331RD6179
+:61:0903310331D6179
+
+}}}
