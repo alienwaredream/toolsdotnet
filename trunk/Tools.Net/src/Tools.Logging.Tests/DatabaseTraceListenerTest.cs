@@ -362,7 +362,7 @@ namespace Tools.Logging.Tests
             target = new DatabaseTraceListener_Accessor(
     storedProcedureName, logConnectionStringName, null, null);
 
-            target.connectionStringName = "TestConnectionString";
+            //target.connectionStringName = "TestConnectionString";
 
             target.factory = MockRepository.GenerateStub<DbProviderFactory>();
             target.connectionStringProvider = MockRepository.GenerateStub<IConfigurationValueProvider>();

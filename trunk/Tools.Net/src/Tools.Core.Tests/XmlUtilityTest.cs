@@ -1,7 +1,7 @@
 ﻿using Tools.Core.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using Microsoft.Pex.Framework;
+//using Microsoft.Pex.Framework;
 namespace Tools.Core.Tests
 {
     
@@ -81,7 +81,7 @@ namespace Tools.Core.Tests
             //Assert.AreEqual<string>("&gt;", XmlUtility.Encode('>'));
             Assert.AreEqual<string>("a", XmlUtility.Encode('a'));
         }
-        [PexMethod()]
+        //[PexMethod()]
         public void EncodeTest(char input)
         {
             if (input == '\n') { Assert.AreEqual<string>("&#xA;", XmlUtility.Encode(input)); return; }
@@ -94,7 +94,7 @@ namespace Tools.Core.Tests
             // Everything else should not be encoded
             Assert.AreEqual<string>(new string(input, 1), XmlUtility.Encode(input));
         }
-        [PexMethod(MaxRuns=20000, Timeout = -1, MaxConstraintSolverTime = 10000)]
+        //[PexMethod(MaxRuns=20000, Timeout = -1, MaxConstraintSolverTime = 10000)]
         public void EncodeTestWithSwitch(char input)
         {
             switch (input)
