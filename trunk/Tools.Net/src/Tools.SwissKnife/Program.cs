@@ -16,7 +16,7 @@ namespace Tools.SwissKnife
                     System.Console.WriteLine("Commands:");
                     System.Console.WriteLine("SetFileModifiedDate|sfmd");
                     System.Console.WriteLine("ProtectConfigSection|pcs");
-                    System.Console.WriteLine("GetUserSid|gus");
+                    System.Console.WriteLine("GetUser|gu");
                     System.Console.WriteLine("Use no parameters to get help on a command.");
                     //TODO: (SD) Add usage info
                     return;
@@ -32,8 +32,8 @@ namespace Tools.SwissKnife
                     case "pcs" :
                     case "ProtectConfigSection": ProtectConfigSection.Main(argsProxy);
                         break;
-                    case "gus" :
-                    case "GetUserSid": GetUserSid.Main(argsProxy);
+                    case "gu" :
+                    case "GetUser": GetUserSid.Main(argsProxy);
                         break;
                     default: throw new Exception("Incorrect usage!");
                 }
