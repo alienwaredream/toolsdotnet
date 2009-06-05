@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tools.Processes.Core.ProcessCoordinator">
+    <Position X="1" Y="0.5" Width="2" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Processes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tools.Coordination.ProducerConsumer.ConsumerManager">
+    <Position X="10.25" Y="0.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MQAAACAAACCgACBAARgCEAEAAIIAgAAiJAADSAUAgCA=</HashCode>
+      <FileName>ProducerConsumer\ConsumerManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Consumers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tools.Coordination.ProducerConsumer.Consumer" Collapsed="true">
+    <Position X="8.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAACAAECARAAAAAAAAAAAAAAAgAAAAgAAAQAAAABg=</HashCode>
+      <FileName>ProducerConsumer\Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.ProducerConsumer.JobConsumer&lt;JobType&gt;" Collapsed="true">
+    <Position X="7.75" Y="3.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAABAAIAAUAAaAAADACQCECiACIACAAIAAE=</HashCode>
+      <FileName>ProducerConsumer\JobConsumer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tools.Coordination.ProducerConsumer.Producer">
+    <Position X="4.75" Y="2.25" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ICAAAAAAQACAAgIAAEAQAIAAUACIAAAggIAAAQQASAA=</HashCode>
+      <FileName>ProducerConsumer\Producer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.ProducerConsumer.ProducerManager">
+    <Position X="0.5" Y="3" Width="2.5" />
+    <AssociationLine Name="producers" Type="Tools.Processes.Core.IProcess">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.106" Y="-0.354" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAjAACEQAEBAAFAAAAAABIAAAoBAAADA=</HashCode>
+      <FileName>ProducerConsumer\ProducerManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="producers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tools.Processes.Core.ThreadedProcess" Collapsed="true">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <InheritanceLine Type="Tools.Processes.Core.Process" FixedFromPoint="true">
+      <Path>
+        <Point X="5.25" Y="1.125" />
+        <Point X="6.75" Y="1.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tools.Processes.Core.Process" Collapsed="true">
+    <Position X="3.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tools.Processes.Core.IProcess" Collapsed="true">
+    <Position X="7.75" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

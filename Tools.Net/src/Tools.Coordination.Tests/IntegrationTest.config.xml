@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+		<objects xmlns="http://www.springframework.net">
+			<!-- Batch processors -->
+			<object name="ScheduledBatchProcessor" singleton="true" type="Tools.Coordination.Batch.ScheduleTaskProcessor, Tools.Coordination">
+				<property name="Name" value="EEOrchestrator"/>
+				<property name="Description" value="Orchestrates the EE process"/>
+				<property name="Schedule" ref="ScheduledBatchProcessorSchedule"/>
+			</object>
+			<object name="ScheduledBatchProcessorSchedule" singleton="true" type="Tools.Coordination.Scheduling.SlidingSchedule, Tools.Coordination">
+				<property name="Name" value="ScheduledBatchProcessorSchedule"/>
+				<property name="Description" value="Schedule to run the process"/>
+				<property name="Definition">
+					<object type="Tools.Coordination.Scheduling.ScheduleDefinition, Tools.Coordination">
+						<property name="Recurrence">
+							<object type="Tools.Coordination.Scheduling.RecurrencePattern, Tools.Coordination">
+								<property name="MillisecondRecurrence" value="30000"/>
+							</object>
+						</property>
+					</object>
+				</property>
+			</object>
+			<!-- End of batch processors -->
+			<!-- Producer-Consumer -->
+			<object name="ProducerManager" singleton="true" type="Tools.Coordination.ProducerConsumer.ProducerManager, Tools.Coordination">
+				<property name="Name" value="ProducerManager"/>
+				<property name="Description" value="Provides configuration for the producer work manager"/>
+				<property name="MaxTotalRetrievedItemsCount" value="1"/>
+				<property name="ProducersDefinition">
+					<list element-type="Tools.Coordination.Core.ProcessorConfiguration, Tools.Coordination">
+						<ref object="ProducerConfiguration"/>
+					</list>
+				</property>
+			</object>
+			<object name="ConsumerManager" singleton="true" type="Tools.Coordination.ProducerConsumer.ConsumerManager, Tools.Coordination">
+				<property name="Name" value="ConsumerManager"/>
+				<property name="Description" value="Provides configuration for the Consumer work manager"/>
+				<property name="ConsumerThreadsCount" value="2"/>
+				<property name="ConsumerConfiguration" ref="ConsumerConfiguration"/>
+			</object>
+			<object name="ProducerConfiguration" singleton="true" type="Tools.Coordination.Core.ProcessorConfiguration, Tools.Coordination">
+				<property name="Name" value="RegularProducer"/>
+				<property name="Priority" value="Normal"/>
+				<property name="Count" value="1"/>
+				<property name="Enabled" value="true"/>
+			</object>
+			<object name="ConsumerConfiguration" singleton="true" type="Tools.Coordination.ProducerConsumer.ConsumerConfiguration, Tools.Coordination">
+				<property name="Name" value="Consumer"/>
+			</object>
+			<object name="RegularProducer" singleton="false" type="Tools.Coordination.Sample.Implementation.SampleWorkItemsProducer, Tools.Coordination.Sample.Implementation">
+				<property name="Name" value="RegularProducer"/>
+				<property name="StateData" ref="ProcessingStateData"/>
+				<property name="ItemProvider" ref="ItemProvider"/>
+			</object>
+			<object name="Consumer" singleton="false" type="Tools.Coordination.Sample.Implementation.SampleJobConsumer, Tools.Coordination.Sample.Implementation">
+				<property name="Name" value="Consumer"/>
+				<property name="StateData" ref="ProcessingStateData"/>
+				<property name="Configuration" ref="ConsumerConfiguration"/>
+				<property name="JobProcessor" ref="JobProcessor"/>
+			</object>
+			<object name="ItemProvider" singleton="false" type="Tools.Coordination.Sample.Implementation.JobProvider, Tools.Coordination.Sample.Implementation">
+			</object>
+			<object name="JobProcessor" singleton="false" type="Tools.Coordination.Sample.Implementation.JobProcessor, Tools.Coordination.Sample.Implementation">
+			</object>
+			<object name="Coordinator" singleton="true" type="Tools.Processes.Core.ProcessCoordinator, Tools.Processes.Core">
+				<property name="Name" value="Coordinator"/>
+				<property name="Description" value="Coordinates the creation and start, stop of of child processes"/>
+				<property name="Processes">
+					<list element-type="Tools.Processes.Core.IProcess, Tools.Processes.Core">
+						<!-- Attention, order can be important (SD)!-->
+						<ref object="ScheduledBatchProcessor" />
+						<ref object="ConsumerManager" />
+						<ref object="ProducerManager" />
+					</list>
+				</property>
+			</object>
+			<object name="ProcessingStateData" singleton="true" type="Tools.Coordination.WorkItems.ProcessingStateData, Tools.Coordination">
+				<constructor-arg name="configuration" ref="WorkItemSlotsConfiguration"/>
+			</object>
+			<object name="WorkItemSlotsConfiguration" singleton="true" type="Tools.Coordination.WorkItems.WorkItemSlotsConfiguration, Tools.Coordination">
+				<property name="Name"  value="Work items slots"/>
+				<property name="Description" value="Provides slots for work items"/>
+				<property name="PrioritySlotCounts">
+					<list>
+						<ref object="NormalSlots"/>
+						<ref object="SecondarySlots"/>
+					</list>
+				</property>
+			</object>
+			<object name="NormalSlots" singleton="true" type="Tools.Coordination.WorkItems.PrioritySlotsConfiguration, Tools.Coordination">
+				<property name="SubmissionPriority" value="Normal"/>
+				<property name="Count" value="2"/>
+				<property name="Timeout" value="5000"/>
+			</object>
+			<object name="SecondarySlots" singleton="true" type="Tools.Coordination.WorkItems.PrioritySlotsConfiguration, Tools.Coordination">
+				<property name="SubmissionPriority" value="Low"/>
+				<property name="Count" value="0"/>
+			</object>
+			<!-- End of Producer-Consumer -->
+			<!-- Logging -->
+			<object name="XmlLogger"
+		type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging"
+		singleton="false">
+				<constructor-arg type="int" name="maxFileSizeBytes" value="2000000" />
+				<constructor-arg name="logRootLocation" value="C:\logs\toolssample\" />
+				<constructor-arg name="fileDatetimePattern" value="dd-MMM-yyTHH-mm-ss" />
+				<constructor-arg name="fileStaticPattern" value="log_" />
+				<constructor-arg name="name" value="XmlLogger" />
+			</object>
+			<!-- End of Logging -->
+		</objects>
