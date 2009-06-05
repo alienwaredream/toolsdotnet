@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tools.Coordination.Sample.Implementation.HealthMonitorProcessor" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAICAAAAQAAAAAgAAEAEAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>HealthMonitorProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.ItemProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.Job" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Job.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.JobConsumer" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAEAABAQAAAQAiRAAgCIEABAAEIAAAAkAAiAUEACA=</HashCode>
+      <FileName>JobConsumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.JobController" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAQAAAAEAAAAAAAAACAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JobController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.JobPreHandleResult" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAEACAAAAAAAAAEAAAIBAAAAA=</HashCode>
+      <FileName>JobPreHandleResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.JobProcessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JobProcessor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.Log" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.ProcessCoordinator" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEBAACAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessCoordinator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.SampleConsumerManager">
+    <Position X="0.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgABAAAAIABAAgBABAIAAAAgAAAAAAAAAAYAAA=</HashCode>
+      <FileName>SampleConsumerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.SampleCoordinator" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SampleCoordinator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.SampleJobConsumer" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SampleJobConsumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.BatchJobTimeoutSubmissionsCollector" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAEAAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SampleTimeoutSubmissionsCollector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.Coordination.Sample.Implementation.SampleWorkItemsProducer" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAwAAAAAAIAAAAAAAAAAAAAAAAAAAAAAASAA=</HashCode>
+      <FileName>SampleWorkItemsProducer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Tools.Coordination.Sample.Implementation.JobConsumerMessage" Collapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAABBBBABgCMA4EVCsjFJIEIjEYJAQAAQAAAJCIQaA=</HashCode>
+      <FileName>JobConsumerMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Tools.Coordination.Sample.Implementation.ProcessCoordinatorMessage" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>ProcessCoordinatorMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Tools.Coordination.Sample.Implementation.SampleTimeoutCollectorMessage" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQABAAAQCgAAgAAAAAAAAgAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>SampleTimeoutCollectorMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8AE0ABB-8512-4F3F-ADF4-1758C814D788}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools.Coordination</RootNamespace>
+    <AssemblyName>Tools.Coordination</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="antlr.runtime, Version=2.7.6.2, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\Spring.Net\antlr.runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\Spring.Net\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\Spring.Net\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\SubmittingJobEventArgs.cs" />
+    <Compile Include="Batch\BatchProcessConfiguration.cs" />
+    <Compile Include="Core\IJobProcessor.cs" />
+    <Compile Include="Core\IJobProvider.cs" />
+    <Compile Include="Core\IResultHandler.cs" />
+    <Compile Include="Core\VerificationResult.cs" />
+    <Compile Include="Core\JobProcessedDelegate.cs" />
+    <Compile Include="Core\JobProcessedEventArgs.cs" />
+    <Compile Include="Core\JobCompletedEventHandler.cs" />
+    <Compile Include="Core\ProcessorConfiguration.cs" />
+    <Compile Include="ProducerConsumer\ConsumerManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\Consumer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ConsumerConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ConsumerManagerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ConsumerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\JobConsumer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\JobConsumerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ProcessCoordinatorMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\Producer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ProducerManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ProducerManagerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\ProducerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\RetrievalStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\RetrievedItemsCleaner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\RetrievedItemsCleanerManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\RetrievedItemsCleanerManagerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\RetrievedItemsCleanerMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\TimeoutSubmissionsCollector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\TimeOutSubmissionsCollectorConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProducerConsumer\TimeOutSubmissionsCollectorMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WorkItems\PrioritySlotsIndexCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WorkItems\QueueWorkItem.cs" />
+    <Compile Include="WorkItems\QueueWorkItemCollection.cs" />
+    <Compile Include="Core\InconsistentStateException.cs" />
+    <Compile Include="WorkItems\StateQueueWorkItem.cs" />
+    <Compile Include="Core\SubmitJobCallbackDelegate.cs" />
+    <Compile Include="Core\SubmittingJobDelegate.cs" />
+    <Compile Include="Core\WorkIndicationMessage.cs" />
+    <Compile Include="Core\ProcessorFactory.cs" />
+    <Compile Include="WorkItems\WorkItemProcessStatus.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scheduling\RecurrencePattern.cs" />
+    <Compile Include="Scheduling\Schedule.cs" />
+    <Compile Include="Scheduling\ScheduleDefinition.cs" />
+    <Compile Include="Batch\ScheduleTaskProcessor.cs" />
+    <Compile Include="Batch\ScheduleTaskProcessorMessage.cs" />
+    <Compile Include="Scheduling\SlidingSchedule.cs" />
+    <Compile Include="WorkItems\AssignmentState.cs" />
+    <Compile Include="WorkItems\IPriorityHolder.cs" />
+    <Compile Include="WorkItems\PrioritySlotsConfiguration.cs" />
+    <Compile Include="WorkItems\PrioritySlotsCountCollection.cs" />
+    <Compile Include="WorkItems\PrioritySlotsIndex.cs" />
+    <Compile Include="WorkItems\PriorityWorkItemsRequestedCounter.cs" />
+    <Compile Include="WorkItems\PriorityWorkItemsRequestedCounterCollection.cs" />
+    <Compile Include="WorkItems\ProcessingStateData.cs" />
+    <Compile Include="WorkItems\RequestWorkItem.cs" />
+    <Compile Include="WorkItems\ResponseReceivedStatus.cs" />
+    <Compile Include="WorkItems\ResponseWorkItem.cs" />
+    <Compile Include="WorkItems\SubmissionPriority.cs" />
+    <Compile Include="WorkItems\SubmissionStatus.cs" />
+    <Compile Include="WorkItems\SubmissionType.cs" />
+    <Compile Include="WorkItems\WorkItem.cs" />
+    <Compile Include="WorkItems\WorkItemCollection.cs" />
+    <Compile Include="WorkItems\WorkItemEventArgs.cs" />
+    <Compile Include="WorkItems\WorkItemEventHandler.cs" />
+    <Compile Include="WorkItems\WorkItemLookupToken.cs" />
+    <Compile Include="WorkItems\WorkItemSlot.cs" />
+    <Compile Include="WorkItems\WorkItemSlotCollection.cs" />
+    <Compile Include="WorkItems\WorkItemSlotsConfiguration.cs" />
+    <Compile Include="WorkItems\WorkItemState.cs" />
+    <Compile Include="WorkItems\WorkItemType.cs" />
+    <Compile Include="WorkItems\WorkItemUpdateStateResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="licence.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Failover\Tools.Failover.csproj">
+      <Project>{58AD51F4-066A-4E45-9C2D-9379C44B9870}</Project>
+      <Name>Tools.Failover</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Logging.Staging\Tools.Logging.Staging.csproj">
+      <Project>{8A04369F-242F-47A1-9A34-0D6D63337775}</Project>
+      <Name>Tools.Logging.Staging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Processes.Core\Tools.Processes.Core.csproj">
+      <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
+      <Name>Tools.Processes.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ProducerConsumer\ProducerConsumer.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
