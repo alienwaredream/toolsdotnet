@@ -74,6 +74,18 @@
       <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
       <Name>Tools.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Ioc\Tools.Logging.Ioc.csproj">
+      <Project>{E534EDE7-6F4F-46A4-B697-D066C83A5810}</Project>
+      <Name>Tools.Logging.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Staging\Tools.Logging.Staging.csproj">
+      <Project>{8A04369F-242F-47A1-9A34-0D6D63337775}</Project>
+      <Name>Tools.Logging.Staging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Tools.Processes.Core\Tools.Processes.Core.csproj">
       <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
       <Name>Tools.Processes.Core</Name>
@@ -81,6 +93,10 @@
     <ProjectReference Include="..\..\..\src\Tools.Processes.Host\Tools.Processes.Host.csproj">
       <Project>{44600F98-8BEE-49F0-83B4-6A51689145F7}</Project>
       <Name>Tools.Processes.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Monitoring.Implementation\Tools.Monitoring.Implementation.csproj">
+      <Project>{D746B625-AB8D-41D8-AE0B-CD4F5273EE93}</Project>
+      <Name>Tools.Monitoring.Implementation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
