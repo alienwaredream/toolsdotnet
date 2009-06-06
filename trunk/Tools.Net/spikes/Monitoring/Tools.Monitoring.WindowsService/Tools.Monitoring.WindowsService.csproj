@@ -67,7 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="InstallGenericService.cmd" />
+    <Content Include="UninstallGenericService.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InstallGenericService.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Tools.Core\Tools.Core.csproj">

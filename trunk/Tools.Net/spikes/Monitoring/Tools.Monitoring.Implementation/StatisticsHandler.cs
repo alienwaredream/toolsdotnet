@@ -30,13 +30,15 @@ namespace Tools.Monitoring.Implementation
         {
             Dictionary<string, int> data = this.statisticsData.GatherStatistics();
 
+            InternalProcessStatistics(data);
+
             this.UpdatePerformanceHandler(
                 this.CreatePerformanceCounters(data)
                 );
 
             this.UpdatePerformanceCounters(data);
 
-
+            
 
             return false;
         }
@@ -65,7 +67,7 @@ namespace Tools.Monitoring.Implementation
                 new PerformanceEventHandlerConfiguration
                 {
                     Counters = counters,
-                    CategoryName = "Tools.Monitoring",
+                    CategoryName = "Tools.Monitoring.Service",
                     Description = "Tools.Monitoring performance counters.",
                     EnableSetupOnInitialization = false,
                     MachineName = ".",
@@ -84,63 +86,78 @@ namespace Tools.Monitoring.Implementation
 
         internal bool InternalProcessStatistics(Dictionary<string, int> statistics)
         {
-            int totalTransactions = 0;
-            bool totalTransactionsIsValid = false;
+            int newCommands = 0;
+            bool newCommandsIsValid = false;
 
-            if (statistics.ContainsKey("Total transactions"))
+            if (statistics.ContainsKey("New Commands"))
             {
-                totalTransactionsIsValid = true;
-                totalTransactions = statistics["Total transactions"];
+                newCommandsIsValid = true;
+                newCommands = statistics["New Commands"];
             }
 
-            int totalFamilies = 0;
-            bool totalFamiliesIsValid = false;
-            if (statistics.ContainsKey("Total families"))
-            {
-                totalFamiliesIsValid = true;
-                totalFamilies = statistics["Total families"];
-            }
+            int completedCommands = 0;
+            bool completedCommandsIsValid = false;
 
-            int totalEndpoints = 0;
-            bool totalEndpointsIsValid = false;
-            if (statistics.ContainsKey("Conversing endpoints"))
+            if (statistics.ContainsKey("Completed commands"))
             {
-                totalEndpointsIsValid = true;
-                totalEndpoints = statistics["Conversing endpoints"];
+                completedCommandsIsValid = true;
+                completedCommands = statistics["Completed commands"];
             }
 
             // the number of transactions must be equal or higher to the number of families
-            if (totalTransactionsIsValid && totalFamiliesIsValid)
+            if (newCommands > 0 && completedCommands == 0)
             {
-                if (totalTransactions < totalFamilies)
-                {
-                    this.TraceInvalidStatistics(
-                        "StatisticsHandler: Statistics validation failed (totalTransactions < totalFamilies). Statistics:", statistics);
+
+                    this.TraceStatistics(
+                        "Health Checker: There were no commands completed within configured period!\r\n", statistics,
+                        EventLogEntryType.Warning, 1);
 
                     return false;
-                }
             }
 
-            Log.Source.TraceData(TraceEventType.Information, 0,
-                "StatisticsHandler: Statistics validation success"
-                );
+            TraceStatistics("Health monitoring stats: \r\n", statistics, EventLogEntryType.Information, 2);
+
+
 
             return true;
         }
 
-        private void TraceInvalidStatistics(string message, Dictionary<string, int> statistics)
+        private void TraceStatistics(string message, Dictionary<string, int> statistics, EventLogEntryType entryType, int eventId)
         {
             DataContractSerializer serializer = new DataContractSerializer(
                 typeof(Dictionary<string, int>)
                 );
 
-            using (MemoryStream sw = new MemoryStream())
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string s in statistics.Keys)
             {
-                serializer.WriteObject(sw, statistics);
-                Log.Source.TraceData(
-                    TraceEventType.Error, 0, message + Encoding.UTF8.GetString(sw.ToArray())
-                    );
+                sb.Append(s).Append(":").Append(statistics[s]).Append(Environment.NewLine);
             }
+
+            EventLog eventLog = new EventLog("Foris-Monitoring", ".", "Foris-Monitoring");
+
+            eventLog.WriteEntry(message + sb.ToString(), entryType, eventId);
+
+
+    //        Log.Source.TraceData(
+    //TraceEventType.Error, 0, message + sb.ToString()
+    //);
+
+            //using (MemoryStream sw = new MemoryStream())
+            //{
+            //    //serializer.WriteObject(sw, statistics);
+
+            //    string stats = Encoding.UTF8.GetString(sw.ToArray());
+
+            //    Log.Source.TraceData(
+            //        TraceEventType.Error, 0, message + stats
+            //        );
+
+            //    EventLog eventLog = new EventLog("Foris-Monitoring", ".", "Foris-Monitoring");
+
+            //    eventLog.WriteEntry(message + stats, entryType, eventId);
+            //}
         }
     }
 }
