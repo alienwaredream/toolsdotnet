@@ -66,7 +66,7 @@ namespace Tools.Logging
                     return;
                 }
 
-                Log.Source.TraceData(TraceEventType.Error, 1001,
+                Log.TraceData(Log.Source,TraceEventType.Error, 1001,
                                      "Category" + config.CategoryName +
                                      " already exists, and new counters can't be added. Delete the category " +
                                      " (unlodctr) and recreate with new set of counters"
@@ -125,7 +125,7 @@ namespace Tools.Logging
                 }
                 catch (Exception ex)
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          1001,
                                          ex);
                     Enabled = false;
