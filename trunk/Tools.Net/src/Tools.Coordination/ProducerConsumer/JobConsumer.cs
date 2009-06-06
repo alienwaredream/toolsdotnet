@@ -79,7 +79,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 #region Log
 
-                Log.Source.TraceData(TraceEventType.Start,
+                Log.TraceData(Log.Source,TraceEventType.Start,
                                      JobConsumerMessage.
                                          QueueWorkItemsConsumerStarted,
                                      new ContextualLogEntry
@@ -182,7 +182,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             submissionStatus = SubmissionStatus.InvalidItemType;
 
-                            Log.Source.TraceData(TraceEventType.Error,
+                            Log.TraceData(Log.Source,TraceEventType.Error,
                                                  JobConsumerMessage.InvalidMessageType,
                                                  new ContextualLogEntry
                                                      {
@@ -224,7 +224,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                             #region Log
 
-                            Log.Source.TraceData(TraceEventType.Warning,
+                            Log.TraceData(Log.Source,TraceEventType.Warning,
                                                  JobConsumerMessage.
                                                      PreHandleNotSuccessful,
                                                  new ContextualLogEntry
@@ -307,7 +307,7 @@ namespace Tools.Coordination.ProducerConsumer
                     {
                         #region Log and handle gracefull StopInternal
 
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              JobConsumerMessage.
                                                  UnexpectedSubmissionStatus,
                                              new ContextualLogEntry
@@ -344,7 +344,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             #region Log and handle gracefull StopInternal
 
-                            Log.Source.TraceData(TraceEventType.Stop,
+                            Log.TraceData(Log.Source,TraceEventType.Stop,
                                                  JobConsumerMessage.ThreadInterrupted,
                                                  new ContextualLogEntry
                                                      {
@@ -380,7 +380,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                             #region Log
 
-                            Log.Source.TraceData(TraceEventType.Stop,
+                            Log.TraceData(Log.Source,TraceEventType.Stop,
                                                  JobConsumerMessage.AbortRequested,
                                                  new ContextualLogEntry
                                                      {
@@ -406,7 +406,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                         #region Log and handle gracefull loop exception
 
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.ErrorOccuredInConsumerLoop,
                                              new ContextualLogEntry
                                                  {
@@ -439,7 +439,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (ThreadInterruptedException)
             {
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      JobConsumerMessage.ThreadInterrupted,
                                      new ContextualLogEntry
                                          {
@@ -456,7 +456,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (ThreadAbortException)
             {
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      JobConsumerMessage.
                                          AbortRequested,
                                      new ContextualLogEntry
@@ -474,7 +474,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      JobConsumerMessage.ErrorOccuredInConsumer,
                                      new ContextualLogEntry
                                          {
@@ -529,7 +529,7 @@ namespace Tools.Coordination.ProducerConsumer
                     !(ConsumerManager.SubmittedItemsCounter.Value < Configuration.MaxTotalSubmittedItemsCount)
                     )
                 {
-                    Log.Source.TraceData(TraceEventType.Verbose,
+                    Log.TraceData(Log.Source,TraceEventType.Verbose,
                                          JobConsumerMessage.
                                              CallingMonitorWaitOnSubmittedItems,
                                          new ContextualLogEntry
@@ -582,7 +582,7 @@ namespace Tools.Coordination.ProducerConsumer
                 //						(workItem as StateQueueWorkItem).SyncStatus = 
                 //							WorkItemProcessStatus.SubmittedToSubmittedItems;
 
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      JobConsumerMessage.
                                          ItemAddedToSubmittedItems,
                                      new ContextualLogEntry
@@ -610,7 +610,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 #region Log
 
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      JobConsumerMessage.SubmittingMessageToTheSender,
                                      new ContextualLogEntry
                                          {
@@ -662,7 +662,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 #region Log
 
-                Log.Source.TraceData(TraceEventType.Warning,
+                Log.TraceData(Log.Source,TraceEventType.Warning,
                                      JobConsumerMessage.SubmittingMessageToTheSenderTimedOut,
                                      new ContextualLogEntry
                                          {
@@ -707,7 +707,7 @@ namespace Tools.Coordination.ProducerConsumer
                 {
                     #region Log
 
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          JobConsumerMessage.ErrorOccuredInSubmittingDelegate,
                                          new ContextualLogEntry
                                              {
@@ -761,7 +761,7 @@ namespace Tools.Coordination.ProducerConsumer
                 //{
                 //    state.WorkItem.Transaction.Rollback(ex);
                 //}
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      JobConsumerMessage.ErrorInSenderAsyncCall,
                                      new ContextualLogEntry
                                          {
@@ -887,7 +887,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.InvalidItemType:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.InvalidMessageType,
                                              new ContextualLogEntry
                                                  {
@@ -919,7 +919,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.JobPreHandledAndLoggingUnsuccess:
                     {
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              JobConsumerMessage.PreHandleNotSuccessful,
                                              new ContextualLogEntry
                                                  {
@@ -952,7 +952,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.JobSubmittedToSender:
                     {
-                        Log.Source.TraceData(TraceEventType.Warning,
+                        Log.TraceData(Log.Source,TraceEventType.Warning,
                                              JobConsumerMessage.
                                                  StopRequestedAfterSubmissionToSender,
                                              new ContextualLogEntry
@@ -970,7 +970,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.LoggingSubmissionTimeOut:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.
                                                  SubmittingMessageToTheSenderTimedOut,
                                              new ContextualLogEntry
@@ -989,7 +989,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 default:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.
                                                  UnexpectedSubmissionStatus,
                                              new ContextualLogEntry
@@ -1053,7 +1053,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.InvalidItemType:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.InvalidMessageType,
                                              new ContextualLogEntry
                                                  {
@@ -1089,7 +1089,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.JobPreHandledAndLoggingUnsuccess:
                     {
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              JobConsumerMessage.
                                                  PreHandleNotSuccessful,
                                              new ContextualLogEntry
@@ -1136,7 +1136,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.JobSubmittedToSender:
                     {
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              JobConsumerMessage.StopRequestedAfterSubmissionToSender,
                                              new ContextualLogEntry
                                                  {
@@ -1156,7 +1156,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 case SubmissionStatus.LoggingSubmissionTimeOut:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.SubmittingMessageToTheSenderTimedOut,
                                              new ContextualLogEntry
                                                  {
@@ -1176,7 +1176,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                 default:
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              JobConsumerMessage.
                                                  UnexpectedSubmissionStatus,
                                              new ContextualLogEntry
@@ -1243,7 +1243,7 @@ namespace Tools.Coordination.ProducerConsumer
                         //if (InstrumentationManager.Level == InstrumentationLevel.Debug)
                         //{
 
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              JobConsumerMessage.ResponseReceivedFromTheSender,
                                              new ContextualLogEntry
                                                  {
@@ -1273,7 +1273,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 if (workItem == null)
                 {
-                    Log.Source.TraceData(TraceEventType.Warning,
+                    Log.TraceData(Log.Source,TraceEventType.Warning,
                                          JobConsumerMessage.
                                              DelayedMessageArrived,
                                          new ContextualLogEntry
@@ -1406,7 +1406,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                     #region Log the final status
 
-                    Log.Source.TraceData(TraceEventType.Verbose,
+                    Log.TraceData(Log.Source,TraceEventType.Verbose,
                                          JobConsumerMessage.WorkItemFullyProcessed,
                                          new ContextualLogEntry
                                              {
@@ -1419,7 +1419,7 @@ namespace Tools.Coordination.ProducerConsumer
                 }
                 else
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          JobConsumerMessage.
                                              ErrorOccuredInResponseReceivedDelegate,
                                          new ContextualLogEntry
@@ -1448,7 +1448,7 @@ namespace Tools.Coordination.ProducerConsumer
             // global catches for response received
             catch (ThreadAbortException)
             {
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      JobConsumerMessage.
                                          AbortRequested,
                                      new ContextualLogEntry
@@ -1469,7 +1469,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      JobConsumerMessage.ErrorOccuredInResponseReceivedDelegate,
                                      new ContextualLogEntry
                                          {

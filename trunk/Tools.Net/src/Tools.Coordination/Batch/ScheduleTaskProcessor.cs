@@ -42,7 +42,7 @@ namespace Tools.Coordination.Batch
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ScheduleTaskProcessorMessage.Stopped,
                                  new ContextualLogEntry
                                      {
@@ -71,7 +71,7 @@ namespace Tools.Coordination.Batch
                 Log.Source.TraceEvent(TraceEventType.Start, 0, String.Format(
                                                                    CultureInfo.InvariantCulture,
                                                                    "{0}: Health data collection", Name));
-                Log.Source.TraceData(TraceEventType.Information,
+                Log.TraceData(Log.Source,TraceEventType.Information,
                                      ScheduleTaskProcessorMessage.Started,
                                      new ContextualLogEntry
                                          {
@@ -95,7 +95,7 @@ namespace Tools.Coordination.Batch
 
                     DateTime nextScheduledTime = DateTime.UtcNow.Add(waitTime);
 
-                    Log.Source.TraceData(TraceEventType.Verbose,
+                    Log.TraceData(Log.Source,TraceEventType.Verbose,
                                          ScheduleTaskProcessorMessage.SuspendingTheProcessUntilTheNextRun,
                                          new ContextualLogEntry
                                              {
@@ -123,7 +123,7 @@ namespace Tools.Coordination.Batch
 
                     try
                     {
-                        Log.Source.TraceData(TraceEventType.Information,
+                        Log.TraceData(Log.Source,TraceEventType.Information,
                              ScheduleTaskProcessorMessage.ScheduledTaskIsAboutToBeExecuted,
                              new ContextualLogEntry
                              {
@@ -135,7 +135,7 @@ namespace Tools.Coordination.Batch
                     }
                     catch (Exception ex)
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              ScheduleTaskProcessorMessage.ErrorWhileExecutingScheduledTask,
                                              new ContextualLogEntry
                                                  {
@@ -154,7 +154,7 @@ namespace Tools.Coordination.Batch
             }
             catch (ThreadInterruptedException)
             {
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      ScheduleTaskProcessorMessage.ThreadInterrupted,
                                      new ContextualLogEntry
                                          {
@@ -169,7 +169,7 @@ namespace Tools.Coordination.Batch
             }
             catch (ThreadAbortException)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ScheduleTaskProcessorMessage.AbortRequested,
                                      new ContextualLogEntry
                                          {
@@ -184,7 +184,7 @@ namespace Tools.Coordination.Batch
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ScheduleTaskProcessorMessage.ErrorWhileExecutingScheduledTask,
                                      new ContextualLogEntry
                                          {
@@ -200,7 +200,7 @@ namespace Tools.Coordination.Batch
                                          });
             }
 
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ScheduleTaskProcessorMessage.FinishingNormally,
                                  new ContextualLogEntry
                                      {

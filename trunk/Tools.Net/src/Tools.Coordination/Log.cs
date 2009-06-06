@@ -13,7 +13,7 @@ namespace Tools.Coordination
             get { return traceSource; }
         }
 
-        internal static void TraceData(this TraceSource source, TraceEventType eventType,
+        internal static void TraceData(TraceSource source, TraceEventType eventType,
                                        Enum eventId, object data)
         {
             try
@@ -26,6 +26,10 @@ namespace Tools.Coordination
                 // this is the lowest fallback possible (SD)
             }
             
+        }
+        internal static void TraceData(TraceSource traceSource, TraceEventType traceEventType, int p, string data)
+        {
+            traceSource.TraceData(traceEventType, p, data);
         }
     }
 }

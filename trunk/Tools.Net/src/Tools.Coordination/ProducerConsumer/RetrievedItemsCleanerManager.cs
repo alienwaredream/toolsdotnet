@@ -80,7 +80,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             try
             {
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      RetrievedItemsCleanerMessage.SavingRetrievedMessagesStarted,
                                      new ContextualLogEntry
                                          {
@@ -110,7 +110,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             // TODO: handle this case
 
-                            Log.Source.TraceData(TraceEventType.Error,
+                            Log.TraceData(Log.Source,TraceEventType.Error,
                                                  RetrievedItemsCleanerMessage.SavingRetrievedMessageFailed,
                                                  new ContextualLogEntry
                                                      {
@@ -137,7 +137,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (ThreadAbortException)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      RetrievedItemsCleanerMessage.AbortRequested,
                                      new ContextualLogEntry
                                          {
@@ -160,7 +160,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      RetrievedItemsCleanerMessage.SavingRetrievedMessagesFailed,
                                      new ContextualLogEntry
                                          {
@@ -183,7 +183,7 @@ namespace Tools.Coordination.ProducerConsumer
                 // TODO: dump all items in RetrievedItems
             }
 
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  RetrievedItemsCleanerMessage.FinishingNormally,
                                  new ContextualLogEntry
                                      {
@@ -266,7 +266,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  RetrievedItemsCleanerManagerMessage.RetrievedItemsCleanerManagerStopped,
                                  new ContextualLogEntry
                                      {
@@ -288,7 +288,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. (SD)
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  RetrievedItemsCleanerManagerMessage.RetrievedItemsCleanerManagerStartRequested,
                                  new ContextualLogEntry
                                      {
@@ -327,7 +327,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. (SD)
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  RetrievedItemsCleanerManagerMessage.RetrievedItemsCleanerManagerStarted,
                                  new ContextualLogEntry
                                      {
@@ -352,7 +352,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  RetrievedItemsCleanerManagerMessage.RetrievedItemsCleanerManagerStopRequested,
                                  // TODO: Better name can be Stopping, but Graig L. on other side use Startup name nicely,
                                  // stopping is just not sounding nice (SD)

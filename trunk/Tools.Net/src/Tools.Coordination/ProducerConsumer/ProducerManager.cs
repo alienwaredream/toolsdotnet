@@ -122,7 +122,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             #endregion Create producers
 
-            Log.Source.TraceData(TraceEventType.Verbose,
+            Log.TraceData(Log.Source,TraceEventType.Verbose,
                                  ProducerManagerMessage.StartingProducing,
                                  new ContextualLogEntry
                                      {
@@ -151,7 +151,7 @@ namespace Tools.Coordination.ProducerConsumer
         {
             base.Stop();
 
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ProducerManagerMessage.StoppingProducing,
                                  new ContextualLogEntry
                                      {
@@ -220,7 +220,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 if (!processesStoppedWithinTimeout)
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          ProducerManagerMessage.ProducersStoppingTimeoutError,
                                          new ContextualLogEntry
                                              {
@@ -244,7 +244,7 @@ namespace Tools.Coordination.ProducerConsumer
                          false
                          ))
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          ProducerManagerMessage.CleanerManagerStoppingTimeout,
                                          new ContextualLogEntry
                                              {
@@ -281,7 +281,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 ds = ar.AsyncState as Descriptor;
 
-                Log.Source.TraceData(TraceEventType.Information,
+                Log.TraceData(Log.Source,TraceEventType.Information,
                                      ProducerManagerMessage.ProducerCalledCallback,
                                      new ContextualLogEntry
                                          {
@@ -301,7 +301,7 @@ namespace Tools.Coordination.ProducerConsumer
                 // it can be prefferable to have it lower as it gets in
                 // the architecture, on the other side it can provide default logging;
                 // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ProducerManagerMessage.ErrorWhileStoppingProducer,
                                      new ContextualLogEntry
                                          {
@@ -323,7 +323,7 @@ namespace Tools.Coordination.ProducerConsumer
         {
             base.Abort();
 
-            Log.Source.TraceData(TraceEventType.Error,
+            Log.TraceData(Log.Source,TraceEventType.Error,
                                  ProducerManagerMessage.AbortingProducing,
                                  new ContextualLogEntry
                                      {
