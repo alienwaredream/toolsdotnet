@@ -13,7 +13,7 @@ namespace Tools.Monitoring.Implementation
 
         internal static TraceSource Source { get { return traceSource; } }
 
-        internal static void TraceData(this TraceSource source, TraceEventType eventType,
+        internal static void TraceData(TraceSource source, TraceEventType eventType,
     Enum eventId, object data)
         {
             source.TraceData(eventType, Convert.ToInt32(eventId), data);

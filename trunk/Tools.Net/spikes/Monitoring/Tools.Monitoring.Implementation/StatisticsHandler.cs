@@ -140,7 +140,7 @@ namespace Tools.Monitoring.Implementation
             eventLog.WriteEntry(message + sb.ToString(), entryType, eventId);
 
 
-    //        Log.Source.TraceData(
+    //        Log.TraceData(Log.Source,
     //TraceEventType.Error, 0, message + sb.ToString()
     //);
 
@@ -150,7 +150,7 @@ namespace Tools.Monitoring.Implementation
 
             //    string stats = Encoding.UTF8.GetString(sw.ToArray());
 
-            //    Log.Source.TraceData(
+            //    Log.TraceData(Log.Source,
             //        TraceEventType.Error, 0, message + stats
             //        );
 
