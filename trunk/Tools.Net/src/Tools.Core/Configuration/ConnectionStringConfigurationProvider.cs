@@ -22,7 +22,7 @@ namespace Tools.Core.Configuration
                     (ConfigurationManager.ConnectionStrings[connectionStringName] == null)
                     )
                 {
-                    Log.Source.TraceData(TraceEventType.Warning, 2013,
+                    Log.TraceData(Log.Source, TraceEventType.Warning, 2013,
                                          String.Format(CultureInfo.InvariantCulture,
                                                        "Connection configuration for name {0} is not present in the config file",
                                                        connectionStringName));
