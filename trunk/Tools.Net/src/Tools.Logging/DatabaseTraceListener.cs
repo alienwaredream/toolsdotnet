@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using Tools.Core.Configuration;
+using Tools.Core;
 
 namespace Tools.Logging
 {
@@ -144,7 +145,7 @@ namespace Tools.Logging
 
         #region Private implementation methods
 
-        private void WriteInternal(Action write)
+        private void WriteInternal(VoidDelegate write)
         {
             write();
             //throw new NotImplementedException("Method WriteInternal(Action write) is not implemented!");
@@ -162,29 +163,31 @@ namespace Tools.Logging
                 try
                 {
                     using (IDbConnection conn =
-                        factory.CreateConnection((c) => c.ConnectionString = connectionString))
+                        factory.CreateConnection())
                     {
-                        using (IDbCommand command = factory.CreateCommand((c) =>
-                                                                              {
-                                                                                  c.CommandText = storedProcedureName;
-                                                                                  c.CommandType =
-                                                                                      CommandType.StoredProcedure;
-                                                                                  c.Connection = conn as DbConnection;
-                                                                              }))
+                        conn.ConnectionString = connectionString;
+
+                        using (IDbCommand command = factory.CreateCommand())
                         {
+
+                            command.CommandText = storedProcedureName;
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Connection = conn as DbConnection;
+
                             AddContextParameters(eventCache, eventType, id, command);
 
                             AddTransformerParameters(data, command);
 
                             if (!command.Parameters.Contains("Message") && data != null)
                             {
-                                command.Parameters.Add(factory.CreateParameter(
-                                                           (p) =>
-                                                               {
-                                                                   p.DbType = DbType.String;
-                                                                   p.Value = data.ToString();
-                                                                   p.ParameterName = "Message";
-                                                               }));
+                                DbParameter param = factory.CreateParameter();
+
+
+                                param.DbType = DbType.String;
+                                param.Value = data.ToString();
+                                param.ParameterName = "Message";
+
+                                command.Parameters.Add(param);
                             }
 
                             conn.Open();
@@ -230,39 +233,40 @@ namespace Tools.Logging
                 try
                 {
                     using (IDbConnection conn =
-                        factory.CreateConnection((c) => c.ConnectionString = connectionString))
+                        factory.CreateConnection())
                     {
-                        using (IDbCommand command = factory.CreateCommand((c) =>
-                                                                              {
-                                                                                  c.CommandText = storedProcedureName;
-                                                                                  c.CommandType =
-                                                                                      CommandType.StoredProcedure;
-                                                                                  c.Connection = conn as DbConnection;
-                                                                              }))
+                        conn.ConnectionString = connectionString;
+
+                        using (IDbCommand command = factory.CreateCommand())
                         {
+
+                            command.CommandText = storedProcedureName;
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Connection = conn as DbConnection;
+
                             AddContextParameters(eventCache, eventType, id, command);
 
                             AddTransformerParameters(message, command);
 
-                            if (!command.Parameters.Contains("Message"))
+                            if (!command.Parameters.Contains("Message") && message != null)
                             {
-                                command.Parameters.Add(factory.CreateParameter(
-                                                           (p) =>
-                                                               {
-                                                                   p.DbType = DbType.String;
-                                                                   p.Value = message;
-                                                                   p.ParameterName = "Message";
-                                                               }));
+                                DbParameter param = factory.CreateParameter();
+
+
+                                param.DbType = DbType.String;
+                                param.Value = message;
+                                param.ParameterName = "Message";
+
+                                command.Parameters.Add(param);
                             }
 
-                            command.Parameters.Add(factory.CreateParameter(
-                                                       (p) =>
-                                                           {
-                                                               p.DbType = DbType.Guid;
-                                                               p.Value = correlationId;
-                                                               p.ParameterName = "CorrelationId";
-                                                           }));
+                            DbParameter corrParam = factory.CreateParameter();
 
+                            corrParam.DbType = DbType.Guid;
+                            corrParam.Value = correlationId;
+                            corrParam.ParameterName = "CorrelationId";
+
+                            command.Parameters.Add(corrParam);
 
                             conn.Open();
 
@@ -311,13 +315,13 @@ namespace Tools.Logging
                         {
                             // Normalizing parameters to the string type here and
                             // normalizing values to be .ToString().
-                            command.Parameters.Add(factory.CreateParameter(
-                                                       (p) =>
-                                                           {
-                                                               p.DbType = DbType.String;
-                                                               p.Value = objValue.ToString();
-                                                               p.ParameterName = paramName;
-                                                           }));
+                            DbParameter param = factory.CreateParameter();
+
+                            param.DbType = DbType.String;
+                            param.Value = objValue.ToString();
+                            param.ParameterName = paramName;
+
+                            command.Parameters.Add(param);
                             //? Why to normalize - another option would be to use
                             // extensive mapping or DbType.Object, the latter one
                             // would lead to the sql_variant on the sql server
@@ -332,95 +336,96 @@ namespace Tools.Logging
         private void AddContextParameters(TraceEventCache eventCache, TraceEventType eventType, int id,
                                           IDbCommand command)
         {
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.DateTime;
-                                               p.Value = (eventCache != null) ? eventCache.DateTime : DateTime.UtcNow;
-                                               p.ParameterName = "Date";
-                                           }));
+            //**
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.DateTime;
+            //                               p.Value = (eventCache != null) ? eventCache.DateTime : DateTime.UtcNow;
+            //                               p.ParameterName = "Date";
+            //                           }));
 
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.Int32;
-                                               p.Value = id;
-                                               p.ParameterName = "MessageId";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.Int32;
-                                               p.Value = Convert.ToInt32(eventType);
-                                               p.ParameterName = "TypeId";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.String;
-                                               p.Value = eventType.ToString();
-                                               p.ParameterName = "TypeName";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.String;
-                                               p.Value = Environment.MachineName;
-                                               p.ParameterName = "MachineName";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.String;
-                                               p.Value = modulePath;
-                                               p.ParameterName = "ModulePath";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.String;
-                                               p.Value = appDomainName;
-                                               p.ParameterName = "ModuleName";
-                                           }));
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.String;
-                                               p.Value = Thread.CurrentThread.Name;
-                                               p.ParameterName = "ThreadName";
-                                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.Int32;
+            //                               p.Value = id;
+            //                               p.ParameterName = "MessageId";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.Int32;
+            //                               p.Value = Convert.ToInt32(eventType);
+            //                               p.ParameterName = "TypeId";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.String;
+            //                               p.Value = eventType.ToString();
+            //                               p.ParameterName = "TypeName";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.String;
+            //                               p.Value = Environment.MachineName;
+            //                               p.ParameterName = "MachineName";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.String;
+            //                               p.Value = modulePath;
+            //                               p.ParameterName = "ModulePath";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.String;
+            //                               p.Value = appDomainName;
+            //                               p.ParameterName = "ModuleName";
+            //                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.String;
+            //                               p.Value = Thread.CurrentThread.Name;
+            //                               p.ParameterName = "ThreadName";
+            //                           }));
 
-            if (Thread.CurrentPrincipal != null && Thread.CurrentPrincipal.Identity != null)
-            {
-                command.Parameters.Add(factory.CreateParameter(
-                                           (p) =>
-                                               {
-                                                   p.DbType = DbType.String;
-                                                   p.Value = Thread.CurrentPrincipal.Identity.Name;
-                                                   p.ParameterName = "ThreadIdentity";
-                                               }));
-            }
-            // (SD) question is if there should be a factory method for getting the identity, 
-            // what is on Mono/Linux for this?
-            IIdentity identity = WindowsIdentity.GetCurrent();
-            if (identity != null)
-            {
-                command.Parameters.Add(factory.CreateParameter(
-                                           (p) =>
-                                               {
-                                                   p.DbType = DbType.String;
-                                                   p.Value = identity.Name;
-                                                   p.ParameterName = "OSIdentity";
-                                               }));
-            }
+            //if (Thread.CurrentPrincipal != null && Thread.CurrentPrincipal.Identity != null)
+            //{
+            //    command.Parameters.Add(factory.CreateParameter(
+            //                               (p) =>
+            //                               {
+            //                                   p.DbType = DbType.String;
+            //                                   p.Value = Thread.CurrentPrincipal.Identity.Name;
+            //                                   p.ParameterName = "ThreadIdentity";
+            //                               }));
+            //}
+            //// (SD) question is if there should be a factory method for getting the identity, 
+            //// what is on Mono/Linux for this?
+            //IIdentity identity = WindowsIdentity.GetCurrent();
+            //if (identity != null)
+            //{
+            //    command.Parameters.Add(factory.CreateParameter(
+            //                               (p) =>
+            //                               {
+            //                                   p.DbType = DbType.String;
+            //                                   p.Value = identity.Name;
+            //                                   p.ParameterName = "OSIdentity";
+            //                               }));
+            //}
 
-            command.Parameters.Add(factory.CreateParameter(
-                                       (p) =>
-                                           {
-                                               p.DbType = DbType.Guid;
-                                               p.Value = Trace.CorrelationManager.ActivityId;
-                                               p.ParameterName = "ActivityId";
-                                           }));
+            //command.Parameters.Add(factory.CreateParameter(
+            //                           (p) =>
+            //                           {
+            //                               p.DbType = DbType.Guid;
+            //                               p.Value = Trace.CorrelationManager.ActivityId;
+            //                               p.ParameterName = "ActivityId";
+            //                           }));
         }
 
         #endregion
