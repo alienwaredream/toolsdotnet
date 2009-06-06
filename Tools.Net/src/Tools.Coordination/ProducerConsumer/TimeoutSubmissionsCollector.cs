@@ -39,7 +39,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source, TraceEventType.Stop,
                                  TimeOutSubmissionsCollectorMessage.TimeOutSubmissionsCollectorStopped,
                                  // TODO: Better name can be Stopping, but Graig L. on other side use Startup name nicely,
                                  // stopping is just not sounding nice (SD)
@@ -71,7 +71,7 @@ namespace Tools.Coordination.ProducerConsumer
             workingThread.Name = Name;
             workingThread.IsBackground = true;
 
-            Log.Source.TraceData(TraceEventType.Verbose,
+            Log.TraceData(Log.Source,TraceEventType.Verbose,
                                  TimeOutSubmissionsCollectorMessage.TimeOutSubmissionsCollectorStarted,
                                  new ContextualLogEntry
                                      {
@@ -112,7 +112,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             if (!stoppedWithinRegularTimeout)
             {
-                Log.Source.TraceData(TraceEventType.Warning,
+                Log.TraceData(Log.Source,TraceEventType.Warning,
                                      TimeOutSubmissionsCollectorMessage.RegularCollectionStopTimeout,
                                      new ContextualLogEntry
                                          {
@@ -146,7 +146,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             if (!finalCollectionRanWithinTimout)
             {
-                Log.Source.TraceData(TraceEventType.Warning,
+                Log.TraceData(Log.Source,TraceEventType.Warning,
                                      TimeOutSubmissionsCollectorMessage.RegularCollectionStopTimeout,
                                      new ContextualLogEntry
                                          {
@@ -173,7 +173,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      TimeOutSubmissionsCollectorMessage.ErrorDuringFinalCollection,
                                      new ContextualLogEntry
                                          {
@@ -202,7 +202,7 @@ namespace Tools.Coordination.ProducerConsumer
                 {
                     if (ExecutionState != ProcessExecutionState.Running)
                     {
-                        Log.Source.TraceData(TraceEventType.Stop,
+                        Log.TraceData(Log.Source,TraceEventType.Stop,
                                              TimeOutSubmissionsCollectorMessage.BreakingFromInfiniteLoop,
                                              // TODO: Better name can be Stopping, but Graig L. on other side use Startup name nicely,
                                              // stopping is just not sounding nice (SD)
@@ -229,7 +229,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      TimeOutSubmissionsCollectorMessage.UnexpectedErrorOccured,
                                      new ContextualLogEntry
                                          {
@@ -253,7 +253,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 #region Log
 
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      TimeOutSubmissionsCollectorMessage.RegularCollectionStarted,
                                      new ContextualLogEntry
                                          {
@@ -324,7 +324,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             #region Log
 
-                            Log.Source.TraceData(TraceEventType.Error,
+                            Log.TraceData(Log.Source,TraceEventType.Error,
                                                  TimeOutSubmissionsCollectorMessage.RemovalFromSubmittedItemsFailed,
                                                  new ContextualLogEntry
                                                      {
@@ -344,7 +344,7 @@ namespace Tools.Coordination.ProducerConsumer
                             continue;
                         }
 
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              TimeOutSubmissionsCollectorMessage.ItemRemovedFromSubmittedItems,
                                              new ContextualLogEntry
                                                  {
@@ -382,7 +382,7 @@ namespace Tools.Coordination.ProducerConsumer
                              > TimeSpan.FromMilliseconds(Configuration.ResponseTimeout)
                         )
                     {
-                        Log.Source.TraceData(TraceEventType.Warning,
+                        Log.TraceData(Log.Source,TraceEventType.Warning,
                                              TimeOutSubmissionsCollectorMessage.ResponseFromExternalModuleDelayed,
                                              new ContextualLogEntry
                                                  {
@@ -410,7 +410,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 #region Log
 
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      TimeOutSubmissionsCollectorMessage.RegularShutdownCollectionStarted,
                                      new ContextualLogEntry
                                          {
@@ -439,7 +439,7 @@ namespace Tools.Coordination.ProducerConsumer
                     {
                         #region Log
 
-                        Log.Source.TraceData(TraceEventType.Stop,
+                        Log.TraceData(Log.Source,TraceEventType.Stop,
                                              TimeOutSubmissionsCollectorMessage.RemovalFromSubmittedItemsFailed,
                                              new ContextualLogEntry
                                                  {
@@ -461,7 +461,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                     #region Log
 
-                    Log.Source.TraceData(TraceEventType.Stop,
+                    Log.TraceData(Log.Source,TraceEventType.Stop,
                                          TimeOutSubmissionsCollectorMessage.OrphanedItemProbability,
                                          new ContextualLogEntry
                                              {
@@ -481,7 +481,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 #region Log end of the collection
 
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      TimeOutSubmissionsCollectorMessage.RegularShutdownCollectionFinished,
                                      new ContextualLogEntry
                                          {

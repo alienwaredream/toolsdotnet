@@ -15,6 +15,8 @@ using Tools.Coordination.Core;
 
 namespace Tools.Coordination.ProducerConsumer
 {
+    delegate IProcess CreateProcess(string name);
+
     /// <summary>
     /// Summary description for QueueWorkItemsConsumerManager.
     /// </summary>
@@ -35,7 +37,7 @@ namespace Tools.Coordination.ProducerConsumer
         //TODO: (SD) Change to the instance field after covering with tests
         private static readonly SynchronizedCounter submittedItemsCounter = new SynchronizedCounter();
 
-        private Func<string, IProcess> createConsumerFunction = ProcessorFactory.CreateProcess;
+        private CreateProcess createConsumerFunction = new CreateProcess(ProcessorFactory.CreateProcess);
 
         #endregion
 
@@ -145,7 +147,7 @@ namespace Tools.Coordination.ProducerConsumer
                 // it can be prefferable to have it lower as it gets in
                 // the architecture, on the other side it can provide default logging;
                 // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ConsumerMessage.ErrorWhileStoppingConsumer,
                                      new ContextualLogEntry
                                          {
@@ -189,7 +191,7 @@ namespace Tools.Coordination.ProducerConsumer
         {
             contextIdentifier = new ContextIdentifier();
 
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  ConsumerManagerMessage.QueueWorkItemsConsumerManagerStartRequested,
                                  new ContextualLogEntry
                                      {
@@ -204,7 +206,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             CreateConsumers();
 
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  ConsumerManagerMessage.QueueWorkItemsConsumerManagerStartRequested,
                                  new ContextualLogEntry
                                      {
@@ -231,7 +233,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             SetExecutionState(ProcessExecutionState.Running);
 
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  ConsumerManagerMessage.QueueWorkItemsConsumerManagerStartRequested,
                                  new ContextualLogEntry
                                      {
@@ -261,7 +263,7 @@ namespace Tools.Coordination.ProducerConsumer
 
         public override void Stop()
         {
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ConsumerManagerMessage.QueueWorkItemsConsumerManagerStopRequested,
                                  new ContextualLogEntry
                                      {
@@ -330,7 +332,7 @@ namespace Tools.Coordination.ProducerConsumer
 
             if (!processesStoppedWithinTimeout)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ConsumerManagerMessage.ConsumersStoppingTimeoutError,
                                      new ContextualLogEntry
                                          {
@@ -352,7 +354,7 @@ namespace Tools.Coordination.ProducerConsumer
                 TimeOutSubmissionsCollector.Stop();
             }
 
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ConsumerManagerMessage.QueueWorkItemsConsumerManagerStopped,
                                  new ContextualLogEntry
                                      {
@@ -455,20 +457,20 @@ namespace Tools.Coordination.ProducerConsumer
                 try
                 {
                     // That event is supposed to be handled by the Navitaire's handler as well
-                    Log.Source.TraceData(TraceEventType.Warning,
+                    Log.TraceData(Log.Source,TraceEventType.Warning,
                                          0,
-                                         new ContextualLogEntry
-                                             {
-                                                 Message =
+                                         //**new ContextualLogEntry
+                                         //    {
+                                         //        Message =
                                                      string.Format
                                                      (
                                                      "Number of Regularly Obtained Responses: {0}" +
                                                      "Number of Pending Responses: {1}",
                                                      RegularResponseObtainedCount,
                                                      PendingResponseObtainedCount
-                                                     ),
-                                                 ContextIdentifier = e.OperationContextShortcut
-                                             });
+                                                     )//,
+                                             //**    ContextIdentifier = e.OperationContextShortcut
+                                             );
                 }
                 catch
                 {

@@ -48,7 +48,7 @@ namespace Tools.Coordination.ProducerConsumer
         {
             #region Log
 
-            Log.Source.TraceData(TraceEventType.Verbose,
+            Log.TraceData(Log.Source,TraceEventType.Verbose,
                                  ConsumerMessage.WorkItemRetrieved,
                                  new ContextualLogEntry
                                      {
@@ -81,7 +81,7 @@ namespace Tools.Coordination.ProducerConsumer
             // it can be prefferable to have it lower as it gets in
             // the architecture, on the other side it can provide default logging;
             // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-            Log.Source.TraceData(TraceEventType.Stop,
+            Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ConsumerMessage.QueueWorkItemsConsumerStopped,
                                  new ContextualLogEntry
                                      {
@@ -101,7 +101,7 @@ namespace Tools.Coordination.ProducerConsumer
         {
             _contextIdentifier = new ContextIdentifier();
 
-            Log.Source.TraceData(TraceEventType.Start,
+            Log.TraceData(Log.Source,TraceEventType.Start,
                                  ConsumerMessage.QueueWorkItemsConsumerStartRequested,
                                  new ContextualLogEntry
                                      {

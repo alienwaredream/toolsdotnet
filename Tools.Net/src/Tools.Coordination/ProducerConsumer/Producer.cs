@@ -104,7 +104,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                     //if (Tools.Instrumentation.Common.InstrumentationManager.Level == InstrumentationLevel.Debug)
                     //{
-                    Log.Source.TraceData(
+                    Log.TraceData(Log.Source,
                         TraceEventType.Verbose,
                         20000,
                         "**" + Name + ": Reserve slot attempt (priority:" + priority +
@@ -126,7 +126,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                         #region Instrumenting
 
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              20000, "**" + Name + ": Reserve attempt succeeded.");
 
                         #endregion Instrumenting
@@ -141,7 +141,7 @@ namespace Tools.Coordination.ProducerConsumer
                     {
                         #region Instrumenting
 
-                        Log.Source.TraceData(TraceEventType.Verbose,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                                              20000, "**" + Name + ": Reserve attempt failed after waiting for, ms " + timeout);
 
                         #endregion Instrumenting
@@ -163,7 +163,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                 //if (Tools.Instrumentation.Common.InstrumentationManager.Level == InstrumentationLevel.Debug)
                 //{
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      20000, "**" + Name + ": Cancelling slot reservation");
                 //}
 
@@ -179,13 +179,13 @@ namespace Tools.Coordination.ProducerConsumer
 
             try
             {
-                Log.Source.TraceData(TraceEventType.Start,
+                Log.TraceData(Log.Source,TraceEventType.Start,
                                      ProducerMessage.ThreadStarted,
                                      String.Format("'{0}': Thread Started", Name));
 
                 while (true)
                 {
-                    Log.Source.TraceData(TraceEventType.Verbose,
+                    Log.TraceData(Log.Source,TraceEventType.Verbose,
                                          ProducerMessage.QueringForAnItem,
                                          string.Format
                                              (
@@ -208,7 +208,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                     //if (Tools.Instrumentation.Common.InstrumentationManager.Level == InstrumentationLevel.High)
                     //{
-                    Log.Source.TraceData(TraceEventType.Verbose,
+                    Log.TraceData(Log.Source,TraceEventType.Verbose,
                                          ProducerMessage.QueringForAnItem,
                                          string.Format
                                                      (
@@ -229,7 +229,7 @@ namespace Tools.Coordination.ProducerConsumer
                     }
                     catch (Exception ex)
                     {
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              ProducerMessage.RetrieveMessageFailed,
                                              "Error during getting work item." + ex);
                     }
@@ -250,7 +250,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 try
                 {
-                    Log.Source.TraceData(TraceEventType.Stop,
+                    Log.TraceData(Log.Source,TraceEventType.Stop,
                                          ProducerMessage.ThreadInterrupted,
                                          string.Format
                                                      (
@@ -260,7 +260,7 @@ namespace Tools.Coordination.ProducerConsumer
                     if (workItem != null)
                     {
                         // TODO: (SD) return to it, why would not we store the message back?
-                        Log.Source.TraceData(TraceEventType.Error,
+                        Log.TraceData(Log.Source,TraceEventType.Error,
                                              ProducerMessage.RetrievedMessageNotExpected,
                                              string.Format
                                                          (
@@ -273,14 +273,14 @@ namespace Tools.Coordination.ProducerConsumer
                 }
                 catch (Exception ex)
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          ProducerMessage.ErrorProcessingInterruptionBlock,
                                          "Exception when processing the interruption block. " + ex);
                 }
             }
             catch (ThreadAbortException)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ProducerMessage.AbortRequested,
                                      string.Format
                                                  (
@@ -294,7 +294,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ProducerMessage.RetrievingMessagesFailed,
                                      string.Format
                                                  (
@@ -324,7 +324,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 // Assumes that at this point the lock cannot be owned
 
-                Log.Source.TraceData(TraceEventType.Stop,
+                Log.TraceData(Log.Source,TraceEventType.Stop,
                                      ProducerMessage.ThreadInterrupted,
                                      new ContextualLogEntry
                                          {
@@ -349,7 +349,7 @@ namespace Tools.Coordination.ProducerConsumer
                 }
                 catch (Exception ex)
                 {
-                    Log.Source.TraceData(TraceEventType.Error,
+                    Log.TraceData(Log.Source,TraceEventType.Error,
                                          ProducerMessage.
                                              ErrorStoringItemToRetrievedCollection,
                                          new ContextualLogEntry
@@ -396,7 +396,7 @@ namespace Tools.Coordination.ProducerConsumer
                 }
                 Monitor.Pulse(RetrievedItems);
 
-                Log.Source.TraceData(TraceEventType.Verbose,
+                Log.TraceData(Log.Source,TraceEventType.Verbose,
                                      ProducerMessage.MessageAddedToRetrievedItems,
                                      new ContextualLogEntry
                                          {
@@ -414,7 +414,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 // TODO: handle this case (SD)
 
-                Log.Source.TraceData(TraceEventType.Error,
+                Log.TraceData(Log.Source,TraceEventType.Error,
                                      ProducerMessage.MessageAdditionToRetrievedItemsFailed,
                                      new ContextualLogEntry
                                          {
