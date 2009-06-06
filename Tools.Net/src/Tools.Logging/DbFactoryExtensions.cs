@@ -6,15 +6,38 @@ namespace Tools.Logging
 {
     internal static class DbFactoryExtensions
     {
-        internal static IDbConnection CreateConnection(this DbProviderFactory factory,
-                                                       Action<IDbConnection> setup)
+        //internal static IDbConnection CreateConnection(this DbProviderFactory factory,
+        //                                               Action<IDbConnection> setup)
+        //{
+        //    IDbConnection connection = factory.CreateConnection();
+        //    setup(connection);
+        //    return connection;
+        //}
+
+        //internal static DbParameter CreateParameter(this DbProviderFactory factory,
+        //                                            Action<DbParameter> setup)
+        //{
+        //    DbParameter parameter = factory.CreateParameter();
+        //    setup(parameter);
+        //    return parameter;
+        //}
+
+        //internal static DbCommand CreateCommand(this DbProviderFactory factory,
+        //                                        Action<DbCommand> setup)
+        //{
+        //    DbCommand command = factory.CreateCommand();
+        //    setup(command);
+        //    return command;
+        //}
+        internal static IDbConnection CreateConnection(DbProviderFactory factory,
+                                               Action<IDbConnection> setup)
         {
             IDbConnection connection = factory.CreateConnection();
             setup(connection);
             return connection;
         }
 
-        internal static DbParameter CreateParameter(this DbProviderFactory factory,
+        internal static DbParameter CreateParameter(DbProviderFactory factory,
                                                     Action<DbParameter> setup)
         {
             DbParameter parameter = factory.CreateParameter();
@@ -22,7 +45,7 @@ namespace Tools.Logging
             return parameter;
         }
 
-        internal static DbCommand CreateCommand(this DbProviderFactory factory,
+        internal static DbCommand CreateCommand(DbProviderFactory factory,
                                                 Action<DbCommand> setup)
         {
             DbCommand command = factory.CreateCommand();

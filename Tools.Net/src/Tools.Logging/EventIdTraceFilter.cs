@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Tools.Logging
 {
@@ -10,7 +9,7 @@ namespace Tools.Logging
 
         public EventIdTraceFilter(IEnumerable<int> eventIds)
         {
-            if (eventIds != null && (eventIds.Count() > 0))
+            if (eventIds != null /*&& (eventIds.Count() > 0)*/)
             {
                 this.eventIds = new List<int>(eventIds);
                 this.eventIds.Sort();

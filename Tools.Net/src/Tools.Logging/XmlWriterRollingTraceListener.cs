@@ -331,7 +331,7 @@ namespace Tools.Logging
 
         #region Methods - Helper write methods
 
-        private void DoWrite(Action writeAction)
+        private void DoWrite(VoidDelegate writeAction)
         {
             if (isRolling)
             {
