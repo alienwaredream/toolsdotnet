@@ -70,7 +70,7 @@ namespace Tools.Processes.Host
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error, 3001,
+                Log.TraceData(Log.Source,TraceEventType.Error, 3001,
                                      ex.ToString());
                 throw;
             }
@@ -89,7 +89,7 @@ namespace Tools.Processes.Host
             }
             catch (Exception ex)
             {
-                Log.Source.TraceData(TraceEventType.Error, 3002,
+                Log.TraceData(Log.Source,TraceEventType.Error, 3002,
                                      "Excception while trying to StopInternal process service host: " + ex);
                 //throw ex;
             }
