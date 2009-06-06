@@ -194,7 +194,7 @@ namespace Tools.Processes.Core
         {
             SetExecutionState(ProcessExecutionState.Stopped);
 
-            Log.Source.TraceData(TraceEventType.Stop, 0, string.Format
+            Log.TraceData(Log.Source,TraceEventType.Stop, 0, string.Format
                                                              (
                                                              "{0} process is stopped. Stopped event is about to be raised.",
                                                              Name
@@ -251,7 +251,7 @@ namespace Tools.Processes.Core
         /// </summary>
         public virtual void Stop()
         {
-            Log.Source.TraceData(TraceEventType.Stop, 0, string.Format("{0} is requested to Stop.", Name));
+            Log.TraceData(Log.Source,TraceEventType.Stop, 0, string.Format("{0} is requested to Stop.", Name));
             OnStopping();
             OnStopped();
         }

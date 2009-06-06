@@ -76,7 +76,7 @@ namespace Tools.Processes.Core
                 var batchesJoinDelegate =
                     (VoidDelegate) aResult.AsyncDelegate;
 
-                log.TraceData(TraceEventType.Verbose,
+                Log.TraceData(log, TraceEventType.Verbose,
                               ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
                               new ContextualLogEntry
                                   {
@@ -100,7 +100,7 @@ namespace Tools.Processes.Core
                 // it can be prefferable to have it lower as it gets in
                 // the architecture, on the other side it can provide default logging;
                 // can represent the need for delegates use then. Or logging can be located in the utility (SD)
-                log.TraceData(TraceEventType.Error,
+                Log.TraceData(log,TraceEventType.Error,
                               ProcessCoordinatorMessage.ErrorWhileStoppingProcess,
                               new ContextualLogEntry
                                   {
