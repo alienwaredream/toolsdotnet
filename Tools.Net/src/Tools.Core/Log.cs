@@ -13,10 +13,22 @@ namespace Tools.Core
             get { return traceSource; }
         }
 
-        internal static void TraceData(this TraceSource source, TraceEventType eventType,
+        //internal static void TraceData(this TraceSource source, TraceEventType eventType,
+        //                               Enum eventId, object data)
+        //{
+        //    source.TraceData(eventType, Convert.ToInt32(eventId), data);
+        //}
+
+
+        internal static void TraceData(TraceSource source, TraceEventType eventType,
                                        Enum eventId, object data)
         {
             source.TraceData(eventType, Convert.ToInt32(eventId), data);
+        }
+
+        internal static void TraceData(TraceSource traceSource, TraceEventType traceEventType, int p, string data)
+        {
+            traceSource.TraceData(traceEventType, p, data);
         }
     }
 }

@@ -218,12 +218,12 @@ namespace Tools.Core.Asserts
 
         #region Nested type: AssertionEvent
 
-        private struct AssertionEvent
-        {
-            private Enum MessageId { get; set; }
-            private string Text { get; set; }
-            private Func<bool> Condition { get; set; }
-        }
+        //private struct AssertionEvent
+        //{
+        //    private Enum MessageId { get; set; }
+        //    private string Text { get; set; }
+        //    //private Func<bool> Condition { get; set; }
+        //}
 
         #endregion
 

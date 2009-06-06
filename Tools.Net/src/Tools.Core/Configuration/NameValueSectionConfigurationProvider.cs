@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using Tools.Core.Asserts;
 
 namespace Tools.Core.Configuration
@@ -38,20 +37,22 @@ namespace Tools.Core.Configuration
         {
             get
             {
-                if (keyValueCollection.AllKeys.Contains(keyName))
+                foreach (string s in keyValueCollection.AllKeys)
                 {
-                    return keyValueCollection[keyName];
+                    if (keyName == s)
+                    {
+                        return keyValueCollection[keyName];
+                    }
                 }
-                else
-                {
-                    Log.Source.TraceData(TraceEventType.Warning, 2013,
-                                         String.Format(CultureInfo.InvariantCulture,
-                                                       "Configuration key {0} is requested from the NameValue section {1} but" +
-                                                       " it is not found!", keyName, configSectionName));
-                    return null;
-                    // (SD) no assert here as probing the config and fallback is absolutely
-                    // natural scenario
-                }
+
+                Log.TraceData(Log.Source, TraceEventType.Warning, 2013,
+                                     String.Format(CultureInfo.InvariantCulture,
+                                                   "Configuration key {0} is requested from the NameValue section {1} but" +
+                                                   " it is not found!", keyName, configSectionName));
+                return null;
+                // (SD) no assert here as probing the config and fallback is absolutely
+                // natural scenario
+
             }
         }
 

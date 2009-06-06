@@ -47,7 +47,7 @@ namespace Tools.Core.Configuration
                 }
                 else
                 {
-                    Log.Source.TraceData(TraceEventType.Warning, 2014,
+                    Log.TraceData(Log.Source,TraceEventType.Warning, 2014,
                                          String.Format(CultureInfo.InvariantCulture,
                                                        "Configuration key {0} is requested from the NameValue section {1} but" +
                                                        " it is not found!", keyName, configSectionName));

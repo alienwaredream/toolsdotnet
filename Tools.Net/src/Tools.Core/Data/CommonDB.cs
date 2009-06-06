@@ -80,12 +80,12 @@ namespace Tools.Core.Data
             return command.ExecuteScalar();
         }
         
-        protected virtual IDbConnection CreateConnection()
-        {
-            ConnectionStringSettings csSettings = this.Settings;
-            DbProviderFactory factory = DbProviderFactories.GetFactory(csSettings.ProviderName);
-            IDbConnection connection = factory.CreateConnection((c => c.ConnectionString = csSettings.ConnectionString));
-            return connection;
-        }
+        //protected virtual IDbConnection CreateConnection()
+        //{
+        //    ConnectionStringSettings csSettings = this.Settings;
+        //    DbProviderFactory factory = DbProviderFactories.GetFactory(csSettings.ProviderName);
+        //    IDbConnection connection = factory.CreateConnection((c => c.ConnectionString = csSettings.ConnectionString));
+        //    return connection;
+        //}
     }
 }
