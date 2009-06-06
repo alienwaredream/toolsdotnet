@@ -11,6 +11,24 @@ namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
             InitializeComponent();
 
             SetupCounters();
+
+            SetupEventLog();
+        }
+
+        protected void SetupEventLog()
+        {
+            // Create an instance of an EventLogInstaller.
+            var eventLogInstaller = new EventLogInstaller();
+
+            // Set the source name of the event log.
+            eventLogInstaller.Source = "Foris-Monitoring";
+
+            // Set the event log that the source writes entries to.
+            eventLogInstaller.Log = "Foris-Monitoring";
+
+            // Add eventLogInstaller to the Installer collection.
+            Installers.Add(eventLogInstaller);
+
         }
 
         protected void SetupCounters()
@@ -28,128 +46,53 @@ namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
 
             var turnoverTimeCounterCreation = new CounterCreationData
                                                 {
-                                                    CounterName = "Family Preprocessing time, ms",
-                                                    CounterHelp = "Time, in milliseconds, to preprocess the single family.",
+                                                    CounterName = "Command Avg Execution time, ms",
+                                                    CounterHelp = "Time, in milliseconds, to process the single command.",
                                                     CounterType = PerformanceCounterType.AverageTimer32
                                                 };
             performanceCounterInstaller.Counters.Add(turnoverTimeCounterCreation);
 
-            var familyTimeAverageCounterCreation = new CounterCreationData
+            var turnoverTimeAverageCounterCreation = new CounterCreationData
                                                                        {
-                                                                           CounterName = "Family Preprocessing time base, ms",
+                                                                           CounterName = "Command Avg Execution time base, ms",
                                                                            CounterHelp =
-                                                                               "Time, in milliseconds, to preprocess single family.",
+                                                                               "Average time, in milliseconds, to process single command.",
                                                                            CounterType =
                                                                                PerformanceCounterType.AverageBase
                                                                        };
-            performanceCounterInstaller.Counters.Add(familyTimeAverageCounterCreation);
+            performanceCounterInstaller.Counters.Add(turnoverTimeAverageCounterCreation);
 
             // Add a counter to collection of  performanceCounterInstaller.
 
             #endregion Processing - item processing time
 
-            #region Processing - Rate of items production per second
+            #region Processing - Statistics - commands
 
-            var queueCounterCreation = new CounterCreationData
-                                           {
-                                               CounterName = "Family/sec",
-                                               CounterType = PerformanceCounterType.RateOfCountsPerSecond32,
-                                               CounterHelp =
-                                                   "Rate of families preprocessed per second."
-                                           };
-            // Add a counter to collection of  performanceCounterInstaller.
-            performanceCounterInstaller.Counters.Add(queueCounterCreation);
-
-            #endregion Processing - Rate of items production per second
-
-            #region Processing - Statistics - Families
-
-            var familyTotalCounterCreation = new CounterCreationData{
-                CounterName = "Total families",
+            var commandsTotalCounterCreation = new CounterCreationData {
+                CounterName = "New Commands",
                 CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of families"
+                CounterHelp = "Commands that came within specified period"
                 };
-            performanceCounterInstaller.Counters.Add(familyTotalCounterCreation);
 
-            var familyUnprocessedCounterCreation = new CounterCreationData {
-                CounterName = "Total unprocessed families",
+            performanceCounterInstaller.Counters.Add(commandsTotalCounterCreation);
+
+            var commandsUnprocessedCounterCreation = new CounterCreationData {
+                CounterName = "Commands in process",
                 CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of families that have not been processed"
+                CounterHelp = "Total of commands that are being currently processed"
                 };
-            performanceCounterInstaller.Counters.Add(familyUnprocessedCounterCreation);
+            performanceCounterInstaller.Counters.Add(commandsUnprocessedCounterCreation);
 
-            var familyUnprocessedPercentageCounterCreation = new CounterCreationData {
-                CounterName = "% Unprocessed families",
+            var commandsProcessedCounterCreation = new CounterCreationData {
+                CounterName = "Completed commands",
                 CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Percentage of families that have not been processed"
-            };
-            performanceCounterInstaller.Counters.Add(familyUnprocessedPercentageCounterCreation);
-
-            var familyProcessedCounterCreation = new CounterCreationData {
-                CounterName = "Total processed families",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of families that have been processed"
+                CounterHelp = "Total of commands that have been processed within the defined period"
                 };
-            performanceCounterInstaller.Counters.Add(familyProcessedCounterCreation);
 
-            var familyProcessedPercentageCounterCreation = new CounterCreationData {
-                CounterName = "% Processed families",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Percentage of families that have been processed"
-            };
-            performanceCounterInstaller.Counters.Add(familyProcessedPercentageCounterCreation);
+            performanceCounterInstaller.Counters.Add(commandsProcessedCounterCreation);
 
             #endregion
 
-            #region Processing - Statistics - Transactions
-
-            var transactionsTotalCounterCreation = new CounterCreationData {
-                CounterName = "Total transactions",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of transactions that have not been processed"
-                };
-            performanceCounterInstaller.Counters.Add(transactionsTotalCounterCreation);
-
-            var transactionsUnprocessedCounterCreation = new CounterCreationData {
-                CounterName = "Unprocessed transactions",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of transactions that have not been processed"
-                };
-            performanceCounterInstaller.Counters.Add(transactionsUnprocessedCounterCreation);
-
-            var transactionsUnprocessedPercentageCounterCreation = new CounterCreationData{
-                CounterName = "% Unprocessed transactions",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Percentage of transactions that have not been processed"
-            };
-            performanceCounterInstaller.Counters.Add(transactionsUnprocessedPercentageCounterCreation);
-
-            var transactionsProcessedCounterCreation = new CounterCreationData {
-                CounterName = "Processed transactions",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Total of transactions that have been processed"
-                };
-            performanceCounterInstaller.Counters.Add(transactionsProcessedCounterCreation);
-
-            var transactionsProcessedPercentageCounterCreation = new CounterCreationData {
-                CounterName = "% Unprocessed transactions",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Percentage of transactions that have been processed"
-            };
-            performanceCounterInstaller.Counters.Add(transactionsProcessedPercentageCounterCreation);
-
-            #endregion
-
-            #region Processing - Statistics - Endpoints
-
-            var conversingEndPointsCounterCreation = new CounterCreationData {
-                CounterName = "Conversing endpoints",
-                CounterType = PerformanceCounterType.NumberOfItems32,
-                CounterHelp = "Number of conversing endpoints."
-                };
-            performanceCounterInstaller.Counters.Add(conversingEndPointsCounterCreation);
-
-            #endregion Processing - Statistics
         }
     }
 }
