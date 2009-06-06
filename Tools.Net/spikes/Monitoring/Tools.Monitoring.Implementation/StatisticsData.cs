@@ -2,44 +2,65 @@
 using System.Collections.Generic;
 using System.Data;
 
-using Tools.Core.Data;
 using System.Data.Common;
+using System.Configuration;
+using Oracle.DataAccess.Client;
+
 
 namespace Tools.Monitoring.Implementation
 {
-    public class StatisticsData : CommonDB, IStatisticsData
+    public class StatisticsData : IStatisticsData
     {
         public StatisticsData() { }
-
-        public StatisticsData(string connectionName) : base(connectionName) { }
 
         public Dictionary<string, int> GatherStatistics()
         {
             Dictionary<string, int> results = new Dictionary<string, int>();
 
-            using (IDbConnection connection = this.CreateConnection())
+            using (OracleConnection con = new OracleConnection(ConfigurationManager.ConnectionStrings["SourceDB"].ConnectionString))
             {
-                IDbCommand command = connection.CreateCommand(
-                    (c) =>
-                    {
-                        c.CommandType = CommandType.StoredProcedure;
-                        c.CommandText = "prGatherStatistics";
-                    });
-
-                using (command)
+                // create the command object and set attributes
+                using (OracleCommand cmd = new OracleCommand("prov_monitor.getstatisticsforperiod", con))
                 {
-                    IDataReader reader = this.ExecuteReader(command, CommandBehavior.CloseConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.BindByName = true;
 
-                    while (reader.Read())
+                    // create parameter object for the cursor
+                    using (OracleParameter pRefCursor = new OracleParameter("out_CountersForPeriod", OracleDbType.RefCursor))
                     {
-                        results.Add(reader["Name"].ToString(), ((reader.IsDBNull(reader.GetOrdinal("Value"))) ? 0 : Convert.ToInt32(reader["Value"])));
+
+                        // this is an output parameter so we must indicate that fact
+                        pRefCursor.Direction = ParameterDirection.Output;
+
+                        // add the parameter to the collection
+                        cmd.Parameters.Add(pRefCursor);
+
+                        OracleParameter pStartDate = new OracleParameter("in_PeriodStart", OracleDbType.Date);
+                        pStartDate.Direction = ParameterDirection.Input;
+
+                        OracleParameter pEndDate = new OracleParameter("in_PeriodEnd", OracleDbType.Date);
+                        pEndDate.Direction = ParameterDirection.Input;
+
+                        cmd.Parameters.Add(pStartDate);
+                        cmd.Parameters.Add(pEndDate);
+
+                        con.Open();
+
+                        using (IDataReader dr = cmd.ExecuteReader())
+                        {
+
+                            while (dr.Read())
+                            {
+                                results.Add(dr["Name"].ToString(), ((dr.IsDBNull(dr.GetOrdinal("Value"))) ? 0 : Convert.ToInt32(dr["Value"])));
+                            }
+                        }
+
                     }
                 }
 
-                connection.Close();
-            }
 
-            return results;
+                return results;
+            }
         }
     }
 }

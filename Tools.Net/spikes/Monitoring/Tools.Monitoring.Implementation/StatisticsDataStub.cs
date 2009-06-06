@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-
-using Tools.Core.Data;
 using System.Data.Common;
 
 namespace Tools.Monitoring.Implementation
 {
-    public class StatisticsDataStub : CommonDB, IStatisticsData
+    public class StatisticsDataStub : IStatisticsData
     {
         public StatisticsDataStub() { }
-
-        public StatisticsDataStub(string connectionName) : base(connectionName) { }
 
         public Dictionary<string, int> GatherStatistics()
         {
