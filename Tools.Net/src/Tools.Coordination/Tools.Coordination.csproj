@@ -175,11 +175,6 @@
     <Compile Include="WorkItems\WorkItemUpdateStateResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="licence.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Tools.Core\Tools.Core.csproj">
       <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
       <Name>Tools.Core</Name>

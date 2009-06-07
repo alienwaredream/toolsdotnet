@@ -15,9 +15,6 @@ namespace Tools.Monitoring.Implementation
         private IStatisticsData statisticsData;
         private PerformanceEventHandler performanceHandler;
 
-        public bool TestingIsEnabled { get; set; }
-        public string TestPath { get; set; }
-
         public StatisticsHandler() { }
 
         public StatisticsHandler(IStatisticsData statisticsData)
@@ -71,7 +68,7 @@ namespace Tools.Monitoring.Implementation
                     Description = "Tools.Monitoring performance counters.",
                     EnableSetupOnInitialization = false,
                     MachineName = ".",
-                    Name = ""
+                    Name = "StatsHandler"
                 });
 
             // enable the performance handler
@@ -138,26 +135,6 @@ namespace Tools.Monitoring.Implementation
             EventLog eventLog = new EventLog("Foris-Monitoring", ".", "Foris-Monitoring");
 
             eventLog.WriteEntry(message + sb.ToString(), entryType, eventId);
-
-
-    //        Log.TraceData(Log.Source,
-    //TraceEventType.Error, 0, message + sb.ToString()
-    //);
-
-            //using (MemoryStream sw = new MemoryStream())
-            //{
-            //    //serializer.WriteObject(sw, statistics);
-
-            //    string stats = Encoding.UTF8.GetString(sw.ToArray());
-
-            //    Log.TraceData(Log.Source,
-            //        TraceEventType.Error, 0, message + stats
-            //        );
-
-            //    EventLog eventLog = new EventLog("Foris-Monitoring", ".", "Foris-Monitoring");
-
-            //    eventLog.WriteEntry(message + stats, entryType, eventId);
-            //}
         }
     }
 }
