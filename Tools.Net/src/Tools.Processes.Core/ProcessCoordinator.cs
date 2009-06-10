@@ -157,9 +157,9 @@ namespace Tools.Processes.Core
 
             if (!processesStoppedWithinTimeout)
             {
-                // TODO: Handle the case when processesStoppedWithinTimeout is false (SD)
             }
-            // No own thread of execution otherwise is present here, so just end the method
+
+            //no own thread of execution otherwise is present here, so just end the method
             // So we can count that upper IProcess will apply the async to the "parts" here and in this method we just call
             // the Stopped event so the process will manage to wait as well untill it gathers all stopped events
             // to finish its "Whole" method, or it can know the call is blocking, but that might break the 
