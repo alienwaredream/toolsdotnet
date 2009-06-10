@@ -113,12 +113,13 @@ namespace Tools.Core.Context
 
         public ContextIdentifier()
         {
+            _externalReference = _contextGuid.ToString();
         }
 
         public ContextIdentifier
             (
             Guid contextGuid
-            )
+            ) : this()
         {
             _contextGuid = contextGuid;
         }
@@ -133,7 +134,7 @@ namespace Tools.Core.Context
             decimal internalParentId,
             int contextHolderId,
             int authenticationTokenId
-            )
+            ) : this()
         {
             _externalId = externalId;
             _externalParentId = externalParentId;
