@@ -149,7 +149,6 @@ namespace Tools.Coordination.ProducerConsumer
         /// </summary>
         public override void Stop()
         {
-            base.Stop();
 
             Log.TraceData(Log.Source,TraceEventType.Stop,
                                  ProducerManagerMessage.StoppingProducing,
@@ -261,6 +260,7 @@ namespace Tools.Coordination.ProducerConsumer
                     // TODO: we can think about calling abort onto the cleaner manager here. (SD)
                 }
             }
+            base.Stop();
 
             OnStopped();
         }

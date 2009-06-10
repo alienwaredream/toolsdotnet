@@ -72,6 +72,13 @@ namespace Tools.Coordination.ProducerConsumer
 
         #region Methods
 
+        public override void Stop()
+        {
+            JobProcessor.Dispose();
+
+            base.Stop();
+        }
+
         protected override void StartInternal()
         {
             SubmissionStatus submissionStatus = SubmissionStatus.Starting;
@@ -172,11 +179,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                         submissionStatus = SubmissionStatus.CheckingItemType;
 
-                        object objTest = workItem.GetObjectFromMessageBody();
-
-                        //job = objTest as Job;
-
-                        job = objTest as JobType;
+                        job = GetWorkItemBody(workItem);
 
                         if (job == null)
                         {
@@ -194,10 +197,10 @@ namespace Tools.Coordination.ProducerConsumer
                                                              "Process will continue with retrieving next message.",
                                                              Name,
                                                              workItem.ContextIdentifier,
-                                                             objTest == null
+                                                             job == null
                                                                  ?
                                                                      "null"
-                                                                 : objTest.GetType().FullName
+                                                                 : job.GetType().FullName
                                                              ),
                                                          ContextIdentifier = workItem.ContextIdentifier
                                                      });
@@ -489,6 +492,12 @@ namespace Tools.Coordination.ProducerConsumer
                                          });
                 //throw;
             }
+        }
+
+        protected virtual JobType GetWorkItemBody(WorkItem workItem)
+        {
+            return workItem.GetObjectFromMessageBody() as JobType;
+
         }
 
         protected void UpdateJobWithResponse
