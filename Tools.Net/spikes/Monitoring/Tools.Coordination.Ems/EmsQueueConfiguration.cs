@@ -1,7 +1,7 @@
 ﻿
 namespace Tools.Coordination.Ems
 {
-    public class EMSQueueConfiguration
+    public class EmsReaderQueueConfiguration
     {
         public string Name { get; set; }
 
