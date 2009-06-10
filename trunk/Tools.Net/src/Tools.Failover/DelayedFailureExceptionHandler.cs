@@ -5,31 +5,41 @@ namespace Tools.Failover
 {
     public class DelayedFailureExceptionHandler : IFailureExceptionHandler
     {
-        private int defaultDelay;
+        private int defaultDelay = 5000;
         private int currentDelay;
-        private int delayFactor;
+        private int delayFactor = 2;
+        private int maxDelay = 30000;
 
-        public DelayedFailureExceptionHandler(int defaultDelay, int delayFactor)
+        public DelayedFailureExceptionHandler()
+        {
+        }
+
+        public DelayedFailureExceptionHandler(int defaultDelay, int delayFactor, int maxDelay)
         {
             this.defaultDelay = defaultDelay;
             this.currentDelay = defaultDelay;
             this.delayFactor = delayFactor;
+            this.maxDelay = maxDelay;
         }
 
         internal int UpdateDelay()
         {
-            if (this.currentDelay == 0)
-                this.currentDelay = this.defaultDelay;
+            if (currentDelay == 0)
+                currentDelay = defaultDelay;
             else
-                this.currentDelay *= this.delayFactor;
-            return this.currentDelay;
+                currentDelay *= delayFactor;
+
+            if (maxDelay < currentDelay) currentDelay = maxDelay;
+
+            return currentDelay;
         }
 
         #region IFailureExceptionHandler Members
 
-        public FailureExceptionType HandleFailure(Exception ex)
+        public virtual FailureExceptionType HandleFailure(Exception ex)
         {
             Thread.Sleep(this.UpdateDelay());
+
             return FailureExceptionType.Recoverable;
         }
 
