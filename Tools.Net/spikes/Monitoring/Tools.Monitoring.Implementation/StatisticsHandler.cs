@@ -95,10 +95,10 @@ namespace Tools.Monitoring.Implementation
             int completedCommands = 0;
             bool completedCommandsIsValid = false;
 
-            if (statistics.ContainsKey("Completed commands"))
+            if (statistics.ContainsKey("Completed Commands"))
             {
                 completedCommandsIsValid = true;
-                completedCommands = statistics["Completed commands"];
+                completedCommands = statistics["Completed Commands"];
             }
 
             // the number of transactions must be equal or higher to the number of families
