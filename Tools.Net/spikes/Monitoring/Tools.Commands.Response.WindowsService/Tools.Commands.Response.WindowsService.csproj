@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{483CDFDA-7298-4B27-9E45-71609E2CF3B5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools.Commands.Response.WindowsService</RootNamespace>
+    <AssemblyName>Tools.Commands.Response.WindowsService</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="antlr.runtime, Version=2.7.6.2, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\antlr.runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.102.3.2, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TIBCO.EMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b83db8ff05c64ba, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\TIBCO.EMS.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Log.cs" />
+    <Compile Include="MonitoringServiceHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="InstallGenericService.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UninstallGenericService.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Tools.Coordination\Tools.Coordination.csproj">
+      <Project>{F8AE0ABB-8512-4F3F-ADF4-1758C814D788}</Project>
+      <Name>Tools.Coordination</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Failover\Tools.Failover.csproj">
+      <Project>{58AD51F4-066A-4E45-9C2D-9379C44B9870}</Project>
+      <Name>Tools.Failover</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Ioc\Tools.Logging.Ioc.csproj">
+      <Project>{E534EDE7-6F4F-46A4-B697-D066C83A5810}</Project>
+      <Name>Tools.Logging.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Staging\Tools.Logging.Staging.csproj">
+      <Project>{8A04369F-242F-47A1-9A34-0D6D63337775}</Project>
+      <Name>Tools.Logging.Staging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Processes.Core\Tools.Processes.Core.csproj">
+      <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
+      <Name>Tools.Processes.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Processes.Host\Tools.Processes.Host.csproj">
+      <Project>{44600F98-8BEE-49F0-83B4-6A51689145F7}</Project>
+      <Name>Tools.Processes.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Commands.Definitions\Tools.Commands.Definitions.csproj">
+      <Project>{F5C5F1F4-D1EC-43FC-8D87-56CC4BAD769B}</Project>
+      <Name>Tools.Commands.Definitions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Commands.Implementation\Tools.Commands.Implementation.csproj">
+      <Project>{49874FA6-B400-428B-9026-062C6C19A59A}</Project>
+      <Name>Tools.Commands.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Coordination.Ems\Tools.Coordination.Ems.csproj">
+      <Project>{C84AA4D6-63C6-4082-B70B-C6E8BE21EDFC}</Project>
+      <Name>Tools.Coordination.Ems</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
