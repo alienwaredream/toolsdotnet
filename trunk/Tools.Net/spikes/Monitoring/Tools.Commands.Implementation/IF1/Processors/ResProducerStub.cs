@@ -18,9 +18,9 @@ namespace Tools.Commands.Implementation.IF1.Processors
     #region EmsReader class
 
     /// <summary>
-    /// Summary description for EmsReader.
+    /// Produces responses as per IncreaseBC schema spec. Only for test purposes.
     /// </summary>
-    public class ResponseProducerStub : Producer
+    public class ResProducerStub : Producer
     {
         private WorkItem workItemCandidate;
 
@@ -28,7 +28,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
         #region Constructors
 
-        private ResponseProducerStub(IFailureExceptionHandler exHandler)
+        private ResProducerStub(IFailureExceptionHandler exHandler)
             : base(exHandler)
         {
 
@@ -104,7 +104,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
             //TODO: Pay great attention here, now workItemCandidate is an instance field!!! (SD)
             workItemCandidate = null;
             WorkItem workItem = null;
-            Tools.Commands.Implementation.IF1.req item = null;
+            Tools.Commands.Implementation.IF1.Ibc.res item = null;
 
             Trace.CorrelationManager.ActivityId = Guid.NewGuid();
 
@@ -117,22 +117,17 @@ namespace Tools.Commands.Implementation.IF1.Processors
             {
                 #region Get next job from the queue
 
-                //var 
-
                 using (DependentTransaction dependentTransaction =
                     transaction.DependentClone(DependentCloneOption.BlockCommitUntilComplete))
                 {
                     using (var scope = new TransactionScope(dependentTransaction))
                     {
                         //TODO: (SD) Provide timeout option
-                        item = new Tools.Commands.Implementation.IF1.req
+                        item = new Tools.Commands.Implementation.IF1.Ibc.res
                         {
-                            reqId = (++IdSequence).ToString(),
-                            processingStatus = "P",
-                            errorDesc = "ok",
-                            returnValue = "ok",
-                            updateMechanism = "JMS"
-                        }; 
+                             code = "c.error",
+                             desc = "desc.error"
+                        };
                         
                         scope.Complete();
                     }
@@ -156,7 +151,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
                 {
                     workItemCandidate = new RequestWorkItem(0, 0, WorkItemState.AvailableForProcessing,
                         SubmissionPriority.Normal, Encoding.UTF8.GetBytes(SerializationUtility.Serialize2String(item)), false, false, this.Name,
-                        new ContextIdentifier { InternalId = 0, ExternalReference = item.ToString(), ExternalId = item.ToString() })
+                        new ContextIdentifier { InternalId = 0, ExternalReference = (++IdSequence).ToString(), ExternalId = IdSequence.ToString() })
                         {
                             Transaction = transaction,
                             RetrievedAt = DateTime.Now

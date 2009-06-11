@@ -11,10 +11,15 @@ namespace Tools.Monitoring.Implementation
 {
     public class ResponseData
     {
-        public ResponseData() { }
+        string updateResponseSPName;
+
+        public ResponseData(string updateResponseSPName) 
+        {
+            this.updateResponseSPName = updateResponseSPName;
+        }
 
         public bool UpdateResponseToFtPro(
-            Int32 reqId,
+            decimal reqId,
             string processingStatus,
             string code,
             string updateMechanism,
@@ -26,7 +31,8 @@ namespace Tools.Monitoring.Implementation
             using (OracleConnection con = new OracleConnection(ConfigurationManager.ConnectionStrings["SourceDB"].ConnectionString))
             {
                 // create the command object and set attributes
-                using (OracleCommand cmd = new OracleCommand("prov_test_standa.updateresponsetoftpro", con))
+                // "prov_test_standa.updateresponsetoftpro" - test one
+                using (OracleCommand cmd = new OracleCommand(updateResponseSPName, con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.BindByName = true;

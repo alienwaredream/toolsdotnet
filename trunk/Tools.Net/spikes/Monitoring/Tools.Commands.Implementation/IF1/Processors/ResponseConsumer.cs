@@ -9,11 +9,11 @@ using System.Text;
 
 namespace Tools.Commands.Implementation.IF1.Processors
 {
-    public class ItemConsumerStub
+    public class ResponseConsumer
         : JobConsumer<string>
     {
 
-        public ItemConsumerStub
+        public ResponseConsumer
             (
             )
         {
