@@ -48,12 +48,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IF1\DataAccess\CommandsReader.cs" />
     <Compile Include="IF1\DataAccess\ResponseData.cs" />
+    <Compile Include="IF1\GenericCommand.cs" />
+    <Compile Include="IF1\NormalizedResponse.cs" />
+    <Compile Include="IF1\Processors\BCResponseStatusTranslator.cs" />
+    <Compile Include="IF1\Processors\ResponseStatusTranslator.cs" />
+    <Compile Include="IF1\Processors\ReqProducerStub.cs" />
+    <Compile Include="IF1\Processors\IResponseStatusTranslator.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IF1\Processors\ItemConsumerStub.cs" />
-    <Compile Include="IF1\Processors\ItemProcessorStub.cs" />
-    <Compile Include="IF1\Processors\ResponseProducerStub.cs" />
+    <Compile Include="IF1\Processors\ResponseConsumer.cs" />
+    <Compile Include="IF1\Processors\ResponseProcessor.cs" />
+    <Compile Include="IF1\Processors\ResProducerStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Tools.Coordination\Tools.Coordination.csproj">
