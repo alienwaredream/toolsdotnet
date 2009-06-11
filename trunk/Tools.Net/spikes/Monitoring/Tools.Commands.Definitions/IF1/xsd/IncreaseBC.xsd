@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/UsageBlocking/SharedResources/XSD/Schema.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/UsageBlocking/SharedResources/XSD/Schema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="InreaseBCLimit">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="phoneNumber"/>
+				<xs:element ref="amount"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="code"/>
+				<xs:element ref="desc"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="amount" type="xs:decimal"/>
+	<xs:element name="code" type="xs:string"/>
+	<xs:element name="desc" type="xs:string"/>
+	<xs:element name="phoneNumber" type="xs:string"/>
+</xs:schema>
