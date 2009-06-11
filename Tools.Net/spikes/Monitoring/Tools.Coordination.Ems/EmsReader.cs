@@ -58,6 +58,7 @@ namespace Tools.Coordination.Ems
         public override WorkItem GetNextWorkItem(WorkItemSlotCollection slots)
         {
             //TODO: This will be working on one thread only so skipping the synchronization here
+            Trace.CorrelationManager.ActivityId = Guid.NewGuid();
 
             try
             {
@@ -139,12 +140,9 @@ namespace Tools.Coordination.Ems
             TextMessage message = null;
             Message msgTest = null;
 
-            Trace.CorrelationManager.ActivityId = Guid.NewGuid();
-
-
             #region Get message from queue
 
-            var transaction = new CommittableTransaction();
+            //var transaction = new CommittableTransaction();
 
             try
             {
@@ -152,29 +150,29 @@ namespace Tools.Coordination.Ems
 
                 //var 
 
-                using (DependentTransaction dependentTransaction =
-                    transaction.DependentClone(DependentCloneOption.BlockCommitUntilComplete))
-                {
-                    using (var scope = new TransactionScope(dependentTransaction))
-                    {
-                        //TODO: (SD) Provide timeout option
-                        msgTest = queue.ReadNext();
+                //using (DependentTransaction dependentTransaction =
+                //    transaction.DependentClone(DependentCloneOption.BlockCommitUntilComplete))
+                //{
+                //    using (var scope = new TransactionScope(dependentTransaction))
+                //    {
+                //TODO: (SD) Provide timeout option
+                msgTest = queue.ReadNext();
 
-                        message = msgTest as TextMessage;
+                message = msgTest as TextMessage;
 
-                        scope.Complete();
-                    }
+                //    scope.Complete();
+                //}
 
-                    dependentTransaction.Complete();
+                //dependentTransaction.Complete();
 
-                    if (message == null)
-                    {
-                        // if token is equal to null then commit here, as 
-                        // consumer will not get to the item anyway.
-                        if (transaction.TransactionInformation.Status == TransactionStatus.Active)
-                            transaction.Commit();
-                    }
-                }
+                //    if (message == null)
+                //    {
+                //        // if token is equal to null then commit here, as 
+                //        // consumer will not get to the item anyway.
+                //        //if (transaction.TransactionInformation.Status == TransactionStatus.Active)
+                //        //    transaction.Commit();
+                //    }
+                //}
 
                 #endregion
 
@@ -185,15 +183,15 @@ namespace Tools.Coordination.Ems
                     //utf-8 is a default encoding for ems
                     workItemCandidate = new EmsWorkItem(0, 0, WorkItemState.AvailableForProcessing,
                         SubmissionPriority.Normal, Encoding.UTF8.GetBytes(message.Text), false, false, this.Name,
-                        new ContextIdentifier { InternalId = 0, ExternalReference = message.CorrelationID, ExternalId = message.MessageID },
+                        new ContextIdentifier { InternalId = 0, ExternalReference = message.CorrelationID, ExternalId = message.MessageID, ContextGuid = Trace.CorrelationManager.ActivityId },
                         queue, message)
                         {
-                            Transaction = transaction,
+                            //Transaction = transaction,
                             RetrievedAt = DateTime.Now
                         };
 
-                    //**Trace.CorrelationManager.ActivityId = .ContextUid;
-                    Log.Source.TraceEvent(TraceEventType.Start, 0, "Received the item " + message.CorrelationID);
+                    //Trace.CorrelationManager.ActivityId = .ContextUid;
+                    Log.Source.TraceEvent(TraceEventType.Start, 0, "Received: " + message.CorrelationID);
 
                     // Set transaction on the work item
                 }
@@ -211,11 +209,11 @@ namespace Tools.Coordination.Ems
                 {
                     queue.Rollback();
                     // Rollback the commitable transaction
-                    transaction.Rollback(ex);
+                    //transaction.Rollback(ex);
                 }
                 finally
                 {
-                    transaction.Dispose();
+                    //transaction.Dispose();
                 }
 
                 Log.TraceData(Log.Source,

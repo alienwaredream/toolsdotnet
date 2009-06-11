@@ -54,9 +54,9 @@ namespace Tools.Coordination.Ems
                 using (var scope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
                     queue.Open();
-                    queue.WriteTextMessage(job, Guid.NewGuid().ToString(), "changebclimit");
+                    queue.WriteTextMessage(job, workItem.ContextIdentifier.ExternalReference.ToString(), "changebclimit");
 
-                    Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, EmsCoordinationMessages.MessageDispatchedByEmsWriter,
+                    Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Verbose, EmsCoordinationMessages.MessageDispatchedByEmsWriter,
     job);
                     scope.Complete();
                 }
@@ -98,9 +98,6 @@ namespace Tools.Coordination.Ems
                 Success = true,
                 WorkItem = workItem
             });
-
-
-
         }
 
         #endregion
