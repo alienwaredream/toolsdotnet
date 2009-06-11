@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/UpdateProcessing.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/UpdateProcessing.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="UpdateProcessing">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="reqId"/>
+				<xs:element ref="processingStatus"/>
+				<xs:element ref="updateMechanism"/>
+				<xs:element ref="errorDesc" minOccurs="0"/>
+				<xs:element ref="returnValue" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res" type="xs:string"/>
+	<xs:element name="reqId" type="xs:string"/>
+	<xs:element name="processingStatus" type="xs:string"/>
+	<xs:element name="updateMechanism" type="xs:string"/>
+	<xs:complexType name="EXtKeySDPRO">
+		<xs:sequence>
+			<xs:element ref="reqId"/>
+			<xs:element ref="customerId" minOccurs="0"/>
+			<xs:element ref="updateMechanism"/>
+			<xs:element ref="oldWalletId" minOccurs="0"/>
+			<xs:element ref="newWalletId" minOccurs="0"/>
+			<xs:element ref="balance" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="customerId" type="xs:string"/>
+	<xs:element name="errorDesc" type="xs:string"/>
+	<xs:element name="oldWalletId" type="xs:string"/>
+	<xs:element name="newWalletId" type="xs:string"/>
+	<xs:element name="balance" type="xs:string"/>
+	<xs:element name="returnValue" type="xs:string"/>
+</xs:schema>
