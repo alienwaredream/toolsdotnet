@@ -8,9 +8,9 @@ using Tools.Core.Asserts;
 namespace Tools.Commands.Implementation
 {
     public delegate bool ExecuteCommand(GenericCommand command);
-    
 
-    public class CommandExecutor
+
+    public class CommandExecutor : ICommandExecutor
     {
 
         private EmsWriterQueue queue;
@@ -42,9 +42,8 @@ namespace Tools.Commands.Implementation
             {
                 MessageShim shim = translator.TranslateToShim(command);
 
-                Console.WriteLine(String.Format("CorellationId: {0}, message text: \r\n{1}", shim.CorrelationId, shim.Text));
-
-                return false;
+                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Verbose, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("CorellationId: {0}, message text: \r\n{1}", shim.CorrelationId, shim.Text));
+                return true;
 
             }
             catch (Exception ex)

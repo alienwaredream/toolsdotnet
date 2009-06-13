@@ -42,6 +42,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools.Commands.Definitions\Tools.Commands.Definitions.csproj">
       <Project>{F5C5F1F4-D1EC-43FC-8D87-56CC4BAD769B}</Project>
       <Name>Tools.Commands.Definitions</Name>

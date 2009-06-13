@@ -1,6 +1,8 @@
 ﻿using System;
 using Tools.Commands.Implementation;
 using Tools.Commands.Implementation.IF1.Ctd;
+using Tools.Core.Utils;
+using System.Collections.Generic;
 
 namespace Tools.Commands.Translators
 {
@@ -13,15 +15,51 @@ namespace Tools.Commands.Translators
         {
             CreateTerminalDevice ctd = new CreateTerminalDevice();
 
+            ctd.req = new req();
+
             ctd.req.reqId = command.ReqId.ToString();
 
             CreateTerminalDevice createTD = new CreateTerminalDevice();
 
-            return null;
+
+            bool baseMPSet = false;
+            //TODO: (SD) can't use extension methods
+            foreach (MarketingPackage mp in command.MarketingPackages)
+            {
+                // Base package is discriminated by the BASE MPType
+                if (mp.MPType.ToUpper() == "BASE")
+                {
+                    baseMPSet = true;
+
+                    baseMP bmp = new baseMP { id = mp.MPId.ToString() };
+
+                    List<@params> parameters = new List<@params>();
+
+                    foreach (PackageParameter pp in mp.Parameters)
+                    {
+                        parameters.Add(new @params
+                        {
+                            code = pp.ParamCode,
+                            productCode = pp.ProductCode,
+                            value = pp.Value
+                        });
 
 
-            //BaseMP baseMP = new BaseMP();
-            //MPInstance mpInstance = null;
+
+                    }
+
+                    bmp.@params = parameters.ToArray();
+
+                    ctd.req.baseMP = bmp;
+                }
+            }
+
+            return new MessageShim
+            {
+                CorrelationId = command.ReqId.ToString(),
+                Text = SerializationUtility.Serialize2String(ctd.req)
+            };
+
             //for (Iterator<MPInstance> iter = request.getMarketingPackages().iterator(); iter.hasNext();) {
             //    mpInstance = iter.next();
             //    if (mpInstance instanceof BaseMPInstance) {
