@@ -39,6 +39,9 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -48,11 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IF1\CommandSelectionOptions.cs" />
     <Compile Include="IF1\CommandExecutor.cs" />
-    <Compile Include="IF1\DataAccess\CommandsReader.cs" />
+    <Compile Include="IF1\CommandMessages.cs" />
+    <Compile Include="IF1\CommandsProcessor.cs" />
     <Compile Include="IF1\DataAccess\ResponseData.cs" />
     <Compile Include="IF1\GenericCommand.cs" />
     <Compile Include="IF1\ICommand2MessageTranslator.cs" />
+    <Compile Include="IF1\ICommandExecutor.cs" />
     <Compile Include="IF1\MarketingPackage.cs" />
     <Compile Include="IF1\MessageShim.cs" />
     <Compile Include="IF1\NormalizedResponse.cs" />
