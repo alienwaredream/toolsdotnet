@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 
 
-namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
+namespace Tools.Monitoring.WindowsService
 {
     public class MonitoringServiceHost : 
         Tools.Processes.Host.ProcessServiceHost<Program>

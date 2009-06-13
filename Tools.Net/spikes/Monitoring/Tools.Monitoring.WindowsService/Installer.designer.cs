@@ -1,4 +1,4 @@
-namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
+namespace Tools.Monitoring.WindowsService
 {
     partial class Installer
     {

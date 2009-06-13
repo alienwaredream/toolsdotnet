@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Spring.Context.Support;
 using Tools.Processes.Core;
 
-namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
+namespace Tools.Monitoring.WindowsService
 {
     public class Program : ThreadedProcess
     {
@@ -15,6 +15,7 @@ namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
         {
             try
             {
+
                 Log.Source.TraceEvent(TraceEventType.Start, 0, GetType() + " start method called.");
                 process = ContextRegistry.GetContext().GetObject("Coordinator") as IProcess;
                 //Debugger.Launch();

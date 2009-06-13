@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
+namespace Tools.Monitoring.WindowsService
 {
     internal static class Log
     {
@@ -13,7 +13,7 @@ namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
 
         internal static TraceSource Source { get { return traceSource; } }
 
-        internal static void TraceData(this TraceSource source, TraceEventType eventType,
+        internal static void TraceData(TraceSource source, TraceEventType eventType,
             Enum eventId, object data)
         {
             source.TraceData(eventType, Convert.ToInt32(eventId), data);
