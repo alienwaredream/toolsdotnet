@@ -212,7 +212,7 @@ namespace Tools.Core.Utils
             }
             finally
             {
-                sw.Close();
+                if (sw!=null) sw.Close();
             }
             return retVal;
         }
