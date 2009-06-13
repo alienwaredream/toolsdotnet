@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tools.Commands.Implementation
 {
+    [Serializable]
     public class GenericCommand
     {
         //"COMMAND_TYPE" NUMBER, 
-        public Int32 CommandType { get; set; }
+        public Decimal CommandType { get; set; }
 //    "REQ_ID" NUMBER NOT NULL ENABLE, 
         public Decimal ReqId { get; set; }
 //    "REQ_TIME" DATE, 
@@ -15,17 +17,17 @@ namespace Tools.Commands.Implementation
 //    "TIS_WALLET_ID" VARCHAR2(20), 
         public string TisWalletId { get; set; }
 //    "TIS_TD_ID" NUMBER, 
-        public Int32 TisTDId { get; set; }
+        public Decimal TisTDId { get; set; }
 //    "CUSTOMER_TYPE" CHAR(1), 
         public string CustomerType { get; set; }
 //    "NAME" VARCHAR2(200), 
         public string Name { get; set; }
 //    "BILLING_CYCLE" NUMBER, 
-        public Int32 BillingCycle { get; set; }
+        public Decimal BillingCycle { get; set; }
 //    "TAX_GROUP" VARCHAR2(1), 
         public string TaxGroup { get; set; }
 //    "TD_TYPE" NUMBER, 
-        public Int32 TDType { get; set; }
+        public Decimal TDType { get; set; }
 //    "MONTHLY_LIMIT" NUMBER(22,4), 
         public decimal MonthlyLimit { get; set; }
 //    "ICCID" VARCHAR2(64), 
@@ -35,9 +37,9 @@ namespace Tools.Commands.Implementation
 //    "BLOCK_REASON" VARCHAR2(20), 
         public string BlockReason { get; set; }
 //    "BLOCK_STATUS" NUMBER, 
-        public Int32 BlockStatus { get; set; }
+        public Decimal BlockStatus { get; set; }
 //    "VPN_PROFILE" NUMBER, 
-        public Int32 VpnProfile { get; set; }
+        public Decimal VpnProfile { get; set; }
 //    "SHORT_NUMBER" VARCHAR2(64), 
         public string ShortNumber { get; set; }
 //    "NEW_PHONE_NUMBER" VARCHAR2(64), 
@@ -57,6 +59,13 @@ namespace Tools.Commands.Implementation
 //    "TIS_POSAO_ID" VARCHAR2(15), 
         public string TisPosAOId { get; set; }
 //    "PRIORITY" NUMBER, 
-        public Int32 Priority {get; set;}
+        public Decimal Priority {get; set;}
+
+        public List<MarketingPackage> MarketingPackages { get; set; }
+
+        public GenericCommand()
+        {
+            MarketingPackages = new List<MarketingPackage>();
+        }
     }
 }
