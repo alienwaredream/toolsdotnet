@@ -48,10 +48,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IF1\CommandExecutor.cs" />
     <Compile Include="IF1\DataAccess\CommandsReader.cs" />
     <Compile Include="IF1\DataAccess\ResponseData.cs" />
     <Compile Include="IF1\GenericCommand.cs" />
+    <Compile Include="IF1\ICommand2MessageTranslator.cs" />
+    <Compile Include="IF1\MarketingPackage.cs" />
+    <Compile Include="IF1\MessageShim.cs" />
     <Compile Include="IF1\NormalizedResponse.cs" />
+    <Compile Include="IF1\PackageParameter.cs" />
     <Compile Include="IF1\Processors\BCResponseStatusTranslator.cs" />
     <Compile Include="IF1\Processors\ResponseStatusTranslator.cs" />
     <Compile Include="IF1\Processors\ReqProducerStub.cs" />

@@ -1,0 +1,691 @@
+﻿package com.telekomsrbija.foris.converters;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.telekomsrbija.converter.Converter;
+import com.telekomsrbija.entities.schema.ftpro.foris.AddonInstance;
+import com.telekomsrbija.entities.schema.ftpro.foris.BaseMPInstance;
+import com.telekomsrbija.entities.schema.ftpro.foris.MPInstance;
+import com.telekomsrbija.entities.schema.ftpro.foris.Param;
+import com.telekomsrbija.entities.schema.ftpro.foris.Request;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.AddCustomerLevelAddonMPRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.AddTDLevelAddonMPRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.BlockTerminalDeviceRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ChangeBaseMPParamsRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ChangeBaseMPRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ChangeSIMCardRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.CreateCustomerRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.CreateTerminalDeviceRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.CreateWalletRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.IncreaseBCLimitRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ModifyCustomerRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ModifyTerminalDeviceRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.ModifyWalletRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.TerminateTDLevelAddonMPRequest;
+import com.telekomsrbija.entities.schema.ftpro.foris.requests.TerminateTerminalDeviceRequest;
+import com.telekomsrbija.foris.commandtypes.addaddonmp.AddAddonMP;
+import com.telekomsrbija.foris.commandtypes.addaddonmp.AddonMP;
+import com.telekomsrbija.foris.commandtypes.alltypes.Cid;
+import com.telekomsrbija.foris.commandtypes.blockterminaldevice.BlockReason;
+import com.telekomsrbija.foris.commandtypes.blockterminaldevice.BlockTerminalDevice;
+import com.telekomsrbija.foris.commandtypes.changebasemp.ChangeBaseMP;
+import com.telekomsrbija.foris.commandtypes.changesimcard.ChangeSIMCard;
+import com.telekomsrbija.foris.commandtypes.createcustomer.CreateCustomer;
+import com.telekomsrbija.foris.commandtypes.createterminaldevice.AddOnMPs;
+import com.telekomsrbija.foris.commandtypes.createterminaldevice.BaseMP;
+import com.telekomsrbija.foris.commandtypes.createterminaldevice.CreateTerminalDevice;
+import com.telekomsrbija.foris.commandtypes.createterminaldevice.Mobile;
+import com.telekomsrbija.foris.commandtypes.createterminaldevice.TDelements;
+import com.telekomsrbija.foris.commandtypes.createwallet.CreateWallet;
+import com.telekomsrbija.foris.commandtypes.increasebc.InreaseBCLimit;
+import com.telekomsrbija.foris.commandtypes.modifycustomer.ModifyCustomer;
+import com.telekomsrbija.foris.commandtypes.modifyterminaldevice.ModifyTerminalDevice;
+import com.telekomsrbija.foris.commandtypes.modifywallet.ModifyWallet;
+import com.telekomsrbija.foris.commandtypes.terminateaddonmp.MP;
+import com.telekomsrbija.foris.commandtypes.terminateaddonmp.TerminateAddonMP;
+import com.telekomsrbija.foris.commandtypes.terminateterminaldevice.TerminateTerminalDevice;
+import com.telekomsrbija.foris.utils.ConvertResolver;
+import com.telekomsrbija.transport.TransportObject;
+
+public class ForisCommandsConverter extends Converter {
+	
+	//Map<String, String> convertResolver;
+	ConvertResolver convertResolver;
+	
+	public enum Queue {
+		COMMAND,
+		INCREASE_LIMIT
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void dbCommandToJAXBCommand() {
+		TransportObject out = new TransportObject();
+		List<Request> requests = (List<Request>) getTransportObject().get("dbRequestList");
+		
+		List<Object[]> commands = new ArrayList<Object[]>();
+		TransportObject in;
+		for (Request req : requests) {
+			in = new TransportObject();
+			in.add("request", req);
+			TransportObject outTO = 
+				convert(this, in, convertResolver.resolveConvertMethodName(req.getClass()));
+			Object[] command = new Object[4];
+			command[0] = outTO.get("payload");
+			command[1] = outTO.get("id");
+			command[2] = outTO.get("commandName");
+			command[3] = outTO.get("queue");
+			commands.add(command);
+		}
+		
+		out.add("commands", commands);
+		setTransportObject(out);
+	}
+	
+	public void createCustomer() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		CreateCustomerRequest request = 
+			(CreateCustomerRequest) getTransportObject().get("request");
+		
+		CreateCustomer createCustomer = new CreateCustomer();
+		
+		com.telekomsrbija.foris.commandtypes.createcustomer.Req req = 
+			new com.telekomsrbija.foris.commandtypes.createcustomer.Req();
+		String billingCycle = (request.getBillingCycle() == null 
+				? null : String.valueOf(request.getBillingCycle()));
+		req.setBillingCycle(billingCycle);
+		req.setCustomerType(request.getTisCustomerType());
+		req.setName(request.getName());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setTaxGroup(request.getTaxGroup());
+		req.setTISCustomerId(request.getTisCustomerId());
+		req.setTISwalletId(request.getTisWalletId());
+		
+		createCustomer.setReq(req);
+			
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", createCustomer.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void modifyCustomer() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ModifyCustomerRequest request = 
+			(ModifyCustomerRequest) getTransportObject().get("request");
+		
+		ModifyCustomer modifyCustomer = new ModifyCustomer();
+		
+		com.telekomsrbija.foris.commandtypes.modifycustomer.Req req =
+			new com.telekomsrbija.foris.commandtypes.modifycustomer.Req();
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setName(request.getName());
+		req.setTISCustomerId(request.getTisCustomerId());
+		
+		modifyCustomer.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", modifyCustomer.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void createWallet() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		CreateWalletRequest request = 
+			(CreateWalletRequest) getTransportObject().get("request");
+		
+		CreateWallet createWallet = new CreateWallet();
+		
+		com.telekomsrbija.foris.commandtypes.createwallet.Req req =
+			new com.telekomsrbija.foris.commandtypes.createwallet.Req();
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setTISCustomerId(request.getTisCustomerId());
+		req.setTISwalletId(request.getTisWalletId());
+		String billingCycle = (request.getBillingCycle() == null 
+				? null : String.valueOf(request.getBillingCycle()));
+		req.setBillingCycle(billingCycle);
+		req.setTaxGroup(request.getTaxGroup());
+		
+		createWallet.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", createWallet.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void modifyWallet() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ModifyWalletRequest request = 
+			(ModifyWalletRequest) getTransportObject().get("request");
+		
+		ModifyWallet modifyWallet = new ModifyWallet();
+		
+		com.telekomsrbija.foris.commandtypes.modifywallet.Req req = 
+			new com.telekomsrbija.foris.commandtypes.modifywallet.Req();
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setTISwalletId(request.getTisWalletId());
+		String billingCycle = (request.getBillingCycle() == null 
+				? null : String.valueOf(request.getBillingCycle()));
+		req.setBillingCycle(billingCycle);
+		req.setTaxGroup(request.getTaxGroup());
+		
+		modifyWallet.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", modifyWallet.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void createTerminalDevice() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		CreateTerminalDeviceRequest request = 
+			(CreateTerminalDeviceRequest) getTransportObject().get("request");
+		
+		CreateTerminalDevice createTD = new CreateTerminalDevice();
+		
+		com.telekomsrbija.foris.commandtypes.createterminaldevice.Req req = 
+			new com.telekomsrbija.foris.commandtypes.createterminaldevice.Req();
+		
+		BaseMP baseMP = new BaseMP();
+		MPInstance mpInstance = null;
+		for (Iterator<MPInstance> iter = request.getMarketingPackages().iterator(); iter.hasNext();) {
+			mpInstance = iter.next();
+			if (mpInstance instanceof BaseMPInstance) {
+				baseMP.setId(new BigInteger(String.valueOf(mpInstance.getMarketingPackageId())));
+				for (Param param : mpInstance.getParams()) {
+					com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+						new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+					p.setCode(param.getPk().getParamCode());
+					p.setProductCode(param.getPk().getProductCode());
+					p.setValue(param.getValue());
+					
+					baseMP.getParams().add(p);
+				}
+			}
+			
+			/*if (mpInstance instanceof AddonInstance) {
+				AddOnMPs addon = new AddOnMPs();
+				addon.setId(new BigInteger(String.valueOf(mpInstance.getMarketingPackageId())));
+				for (Param param : mpInstance.getParams()) {
+					com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+						new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+					p.setCode(param.getPk().getParamCode());
+					p.setProductCode(param.getPk().getProductCode());
+					p.setValue(param.getValue());
+					
+					addon.getParams().add(p);
+				}
+				req.getAddOnMPs().add(addon);
+			}*/
+		}
+		
+		
+		// treba dodati preslikavanje za params
+		// treba dodati i req.getAddonMPs - ovo proveriti kako ce ici
+		req.setBaseMP(baseMP);
+		req.setContractEnd(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getContractEndDate()));
+		req.setMonthlyLimit(request.getMonthlyLimit());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTIme(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setTDtype(String.valueOf(request.getTdType().toInt()));
+		req.setP2p(request.getP2P());
+		
+		TDelements tdElements = new TDelements();
+		if (request.getTdElements().getIccid() != null) {
+			Mobile mobile = new Mobile();
+			mobile.setICCID(request.getTdElements().getIccid());
+			mobile.setPhoneNumber(request.getTdElements().getPhoneNumber());
+			mobile.setProfile(request.getTdElements().getProfile());
+			mobile.setShortNumber(request.getTdElements().getShortNumber());
+			
+			tdElements.setMobile(mobile);
+		}
+		
+		req.setTDelements(tdElements);
+		
+		req.setTISCustomerId(request.getTisCustomerId());
+		req.setTISTDid(request.getTisTerminalDeviceId());
+		req.setTISwalletId(request.getTisWalletId());
+		
+		createTD.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", createTD.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+	}
+	
+	public void terminateTerminalDevice() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		TerminateTerminalDeviceRequest request = 
+			(TerminateTerminalDeviceRequest) getTransportObject().get("request");
+		
+		TerminateTerminalDevice terminateTD = new TerminateTerminalDevice();
+		
+		com.telekomsrbija.foris.commandtypes.terminateterminaldevice.Req req = 
+			new com.telekomsrbija.foris.commandtypes.terminateterminaldevice.Req();
+		
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setTISTDid(request.getTisTerminalDeviceId());
+		
+		terminateTD.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", terminateTD.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+	}
+	
+	public void addTDLevelAddonMP() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		AddTDLevelAddonMPRequest request = 
+			(AddTDLevelAddonMPRequest) getTransportObject().get("request");
+		
+		AddAddonMP addAddonMP = new AddAddonMP();
+		
+		com.telekomsrbija.foris.commandtypes.addaddonmp.Req req = 
+			new com.telekomsrbija.foris.commandtypes.addaddonmp.Req();
+		
+		Cid cid = new Cid();
+		cid.setTISTDid(request.getTisTerminalDeviceId());
+		req.setCid(cid);
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		
+		AddonMP addon = null;
+		
+		for (MPInstance mpInstance : request.getMarketingPackages()) {
+			addon = new AddonMP();
+			AddonInstance a = (AddonInstance) mpInstance;
+			addon.setId(new BigInteger(a.getMarketingPackageId().toString()));
+			for (Param param : a.getParams()) {
+				com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+					new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+				
+				if (param.getPk().getProductCode().equals("N/A"))
+					continue;
+				
+				//if (param.getPk().getProductCode().equals("N/A"))
+				p.setCode((param.getPk().getParamCode().equals("N/A") 
+						? "" : param.getPk().getParamCode()));
+				p.setProductCode(param.getPk().getProductCode());
+				p.setValue(param.getValue());
+				
+				addon.getParams().add(p);
+			}
+			
+		}
+		
+		req.setAddonMP(addon);
+		
+		addAddonMP.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", "AddAddonTDlevelMP");//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+	}
+	
+	public void terminateTDLevelAddonMP() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		TerminateTDLevelAddonMPRequest request = 
+			(TerminateTDLevelAddonMPRequest) getTransportObject().get("request");
+		
+		TerminateAddonMP terminateAddon = new TerminateAddonMP();
+		
+		com.telekomsrbija.foris.commandtypes.terminateaddonmp.Req req = 
+			new com.telekomsrbija.foris.commandtypes.terminateaddonmp.Req();
+		
+		Cid cid = new Cid();
+		cid.setTISTDid(request.getTisTerminalDeviceId());
+		req.setCid(cid);
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		
+		MP mp = new MP();
+		
+		for (MPInstance mpInstance : request.getMarketingPackages()) {
+			AddonInstance a = (AddonInstance) mpInstance;
+			mp.setId(new BigInteger(a.getMarketingPackageId().toString()));
+		}
+		
+		req.setMP(mp);
+		
+		terminateAddon.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", "TerminateAddonTDLevelMP");//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+		
+	}
+	
+	public void changeBaseMP() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ChangeBaseMPRequest request = 
+			(ChangeBaseMPRequest) getTransportObject().get("request");
+		
+		ChangeBaseMP changeBaseMP = new ChangeBaseMP();
+		
+		com.telekomsrbija.foris.commandtypes.changebasemp.Req req = 
+			new com.telekomsrbija.foris.commandtypes.changebasemp.Req();
+		
+		req.setTISTdid(request.getTisTerminalDeviceId());
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		
+		com.telekomsrbija.foris.commandtypes.changebasemp.BaseMP baseMP = 
+			new com.telekomsrbija.foris.commandtypes.changebasemp.BaseMP();
+		
+		for (MPInstance mpInstance : request.getMarketingPackages()) {
+			BaseMPInstance b = (BaseMPInstance) mpInstance;
+			baseMP.setId(new BigInteger(b.getMarketingPackageId().toString()));
+			
+			for (Param param : b.getParams()) {
+				com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+					new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+				p.setCode((param.getPk().getParamCode().equals("N/A") 
+						? "" : param.getPk().getParamCode()));
+				p.setProductCode(param.getPk().getProductCode());
+				p.setValue(param.getValue());
+				
+				baseMP.getParams().add(p);
+			}
+		}
+		
+		req.setBaseMP(baseMP);
+		
+		changeBaseMP.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", changeBaseMP.getClass().getSimpleName());//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void changeSIMCard() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ChangeSIMCardRequest request = 
+			(ChangeSIMCardRequest) getTransportObject().get("request");
+		
+		ChangeSIMCard changeSIMCard = new ChangeSIMCard();
+		
+		com.telekomsrbija.foris.commandtypes.changesimcard.Req req = 
+			new com.telekomsrbija.foris.commandtypes.changesimcard.Req();
+		
+		req.setTISTdid(request.getTisTerminalDeviceId());
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setNewICCID(request.getNewIccid());
+		
+		changeSIMCard.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", changeSIMCard.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+		
+	}
+	
+	public void modifyTerminalDevice() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ModifyTerminalDeviceRequest request = 
+			(ModifyTerminalDeviceRequest) getTransportObject().get("request");
+		
+		ModifyTerminalDevice modifyTerminalDevice = new ModifyTerminalDevice();
+		
+		com.telekomsrbija.foris.commandtypes.modifyterminaldevice.Req req = 
+			new com.telekomsrbija.foris.commandtypes.modifyterminaldevice.Req();
+		
+		req.setTISTdid(request.getTisTerminalDeviceId());
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		req.setContractEnd(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()).toString());
+		req.setMonthlyLimit(request.getMonthlyLimit());
+		req.setTISwalletId(request.getTisWalletId());
+		
+		modifyTerminalDevice.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", modifyTerminalDevice.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void addCustomerLevelAddonMP() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		AddCustomerLevelAddonMPRequest request = 
+			(AddCustomerLevelAddonMPRequest) getTransportObject().get("request");
+		
+		AddAddonMP addAddonMP = new AddAddonMP();
+		
+		com.telekomsrbija.foris.commandtypes.addaddonmp.Req req = 
+			new com.telekomsrbija.foris.commandtypes.addaddonmp.Req();
+		
+		Cid cid = new Cid();
+		cid.setTIScustomerId(request.getTisCustomerId());
+		req.setCid(cid);
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		//req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		
+		AddonMP addon = null;
+		
+		for (MPInstance mpInstance : request.getMarketingPackages()) {
+			addon = new AddonMP();
+			AddonInstance a = (AddonInstance) mpInstance;
+			addon.setId(new BigInteger(a.getMarketingPackageId().toString()));
+			for (Param param : a.getParams()) {
+				com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+					new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+				
+				if (param.getPk().getProductCode().equals("N/A"))
+					continue;
+				
+				//if (param.getPk().getProductCode().equals("N/A"))
+				p.setCode((param.getPk().getParamCode().equals("N/A") 
+						? "" : param.getPk().getParamCode()));
+				p.setProductCode(param.getPk().getProductCode());
+				p.setValue(param.getValue());
+				
+				addon.getParams().add(p);
+			}
+			
+		}
+		
+		req.setAddonMP(addon);
+		
+		addAddonMP.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", "AddAddonCustLevelMP");//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+	}
+	
+	public void blockTerminalDevice() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		BlockTerminalDeviceRequest request = 
+			(BlockTerminalDeviceRequest) getTransportObject().get("request");
+		
+		BlockTerminalDevice blockTerminalDevice = new BlockTerminalDevice();
+		
+		com.telekomsrbija.foris.commandtypes.blockterminaldevice.Req req = 
+			new com.telekomsrbija.foris.commandtypes.blockterminaldevice.Req();
+		
+		req.setBlockReason(BlockReason.fromValue(request.getBlockReason()));
+		req.setBlockStatus(new BigInteger(request.getBlockStatus().toString()));
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setTISTdid(request.getTisTerminalDeviceId());
+		
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		
+		blockTerminalDevice.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", blockTerminalDevice.getClass().getSimpleName());//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+		
+	}
+	
+	public void changeBaseMPParams() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		ChangeBaseMPParamsRequest request = 
+			(ChangeBaseMPParamsRequest) getTransportObject().get("request");
+		
+		com.telekomsrbija.foris.commandtypes.changebasempparams.ChangeBaseMP changeBaseMP = 
+			new com.telekomsrbija.foris.commandtypes.changebasempparams.ChangeBaseMP();
+		
+		com.telekomsrbija.foris.commandtypes.changebasempparams.Req req = 
+			new com.telekomsrbija.foris.commandtypes.changebasempparams.Req();
+		
+		req.setTISTdid(request.getTisTerminalDeviceId());
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));
+		
+		com.telekomsrbija.foris.commandtypes.changebasempparams.BaseMP baseMP = 
+			new com.telekomsrbija.foris.commandtypes.changebasempparams.BaseMP();
+		
+		for (MPInstance mpInstance : request.getMarketingPackages()) {
+			BaseMPInstance b = (BaseMPInstance) mpInstance;
+			//baseMP.setId(new BigInteger(b.getMarketingPackageId().toString()));
+			
+			for (Param param : b.getParams()) {
+				com.telekomsrbija.foris.commandtypes.alltypes.Params p = 
+					new com.telekomsrbija.foris.commandtypes.alltypes.Params();
+				p.setCode((param.getPk().getParamCode().equals("N/A") 
+						? "" : param.getPk().getParamCode()));
+				p.setProductCode(param.getPk().getProductCode());
+				p.setValue(param.getValue());
+				
+				baseMP.getParams().add(p);
+			}
+		}
+		
+		req.setBaseMP(baseMP);
+		
+		changeBaseMP.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", req.getReqId());
+		out.add("commandName", "ChangeBaseMPparams");//addAddonMP.getClass().getSimpleName());
+		out.add("queue", Queue.COMMAND);
+		setTransportObject(out);
+	}
+	
+	public void increaseLimit() throws Throwable {
+		TransportObject out = new TransportObject();
+		
+		IncreaseBCLimitRequest request = 
+			(IncreaseBCLimitRequest) getTransportObject().get("request");
+		
+		InreaseBCLimit increaseBCLimit = new InreaseBCLimit();
+		
+		com.telekomsrbija.foris.commandtypes.increasebc.Req req = 
+			new com.telekomsrbija.foris.commandtypes.increasebc.Req();
+		
+		req.setPhoneNumber(request.getTdElements().getPhoneNumber());
+		
+		req.setAmount(request.getAmount());
+		
+		/*req.setReqId(request.getRequestId().toString());
+		req.setReqTime(
+				BasicConverter.timestampToXMLGregorianCalendar(request.getRequestTime()));*/
+		
+		increaseBCLimit.setReq(req);
+		
+		out.add("payload", req);
+		out.add("id", request.getRequestId().toString());
+		out.add("commandName", "IncreaseBCLimit");//increaseBCLimit.getClass().getSimpleName());
+		out.add("queue", Queue.INCREASE_LIMIT);
+		setTransportObject(out);
+		
+	}
+
+	public ConvertResolver getConvertResolver() {
+		return convertResolver;
+	}
+
+	public void setConvertResolver(ConvertResolver convertResolver) {
+		this.convertResolver = convertResolver;
+	}
+
+	/*public Map<String, String> getConvertResolver() {
+		return convertResolver;
+	}
+
+	public void setConvertResolver(Map<String, String> convertResolver) {
+		this.convertResolver = convertResolver;
+	}
+	
+	private String resolveConvertMethodName(Class<?> clazz) {
+		return convertResolver.get(clazz.getName());
+	}*/
+
+}
