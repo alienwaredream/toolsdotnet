@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
+namespace Tools.Monitoring.WindowsService
 {
     [RunInstaller(true)]
     public partial class Installer : Tools.Processes.Host.Installer
@@ -90,6 +90,16 @@ namespace Wds.EligLoad.Preprocessing.Batch.WindowsService
                 };
 
             performanceCounterInstaller.Counters.Add(commandsProcessedCounterCreation);
+
+
+            var commandsFailedCounterCreation = new CounterCreationData
+            {
+                CounterName = "Failed commands",
+                CounterType = PerformanceCounterType.NumberOfItems32,
+                CounterHelp = "Total of commands that failed within the defined period"
+            };
+
+            performanceCounterInstaller.Counters.Add(commandsFailedCounterCreation);
 
             #endregion
 
