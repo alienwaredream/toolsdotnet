@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Tools.Core.Context;
 using Tools.Core.Messaging;
+using System.Text;
 
 namespace Tools.Core
 {
@@ -85,7 +86,7 @@ namespace Tools.Core
         /// Initializes a new instance of the <see cref="BaseException"/> class.
         /// </summary>
         /// <param name="loggingEventID">The logging event ID.</param>
-        public BaseException(int loggingEventID)
+        public BaseException(int loggingEventID) : this()
         {
             LoggingEventID = loggingEventID;
         }
@@ -188,9 +189,9 @@ namespace Tools.Core
         /// <PermissionSet><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*"/></PermissionSet>
         public override string ToString()
         {
-            string messagesDump = null;
-            Messages.ForEach(delegate(Message m) { messagesDump += m.Text; });
-            return base.ToString() + Environment.NewLine + messagesDump;
+            StringBuilder messagesDump = new StringBuilder();
+            Messages.ForEach(delegate(Message m) { messagesDump.Append(m.Text); });
+            return base.ToString() + Environment.NewLine + messagesDump.ToString();
         }
     }
 }
