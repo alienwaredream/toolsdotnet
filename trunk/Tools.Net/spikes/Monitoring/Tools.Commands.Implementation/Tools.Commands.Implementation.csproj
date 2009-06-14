@@ -55,7 +55,10 @@
     <Compile Include="IF1\CommandExecutor.cs" />
     <Compile Include="IF1\CommandMessages.cs" />
     <Compile Include="IF1\CommandsProcessor.cs" />
-    <Compile Include="IF1\DataAccess\ResponseData.cs" />
+    <Compile Include="IF1\CommandValidationException.cs" />
+    <Compile Include="IF1\CommandValidtionError.cs" />
+    <Compile Include="IF1\DataAccess\IResponseDataProvider.cs" />
+    <Compile Include="IF1\DataAccess\ResponseDataProvider.cs" />
     <Compile Include="IF1\GenericCommand.cs" />
     <Compile Include="IF1\ICommand2MessageTranslator.cs" />
     <Compile Include="IF1\ICommandExecutor.cs" />
