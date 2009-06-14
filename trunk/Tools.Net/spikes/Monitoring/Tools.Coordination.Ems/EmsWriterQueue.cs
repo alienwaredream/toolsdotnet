@@ -12,7 +12,7 @@ namespace Tools.Coordination.Ems
     {
         private SessionConfiguration sessionConfig;
         public ServerConfiguration ServerConfig { get; private set; }
-        private EmsReaderQueueConfiguration queueConfig;
+        private EmsReaderQueueConfiguration QueueConfig { get; set; }
 
         private ConnectionFactory factory;
         private Connection connection;
@@ -40,22 +40,10 @@ namespace Tools.Coordination.Ems
         {
             this.sessionConfig = sessionConfig;
             ServerConfig = serverConfig;
-            this.queueConfig = queueConfig;
+            QueueConfig = queueConfig;
             this.connectionFailureExceptionHandler = connectionFailureExceptionHandler;
         }
-        // This is a bit from the java code used for the commands sending.
 
-
-        //   public static boolean sendFullCommandMessage(String paramString1, String paramString2, String paramString3)
-        //        TextMessage localTextMessage = localQueueSession.createTextMessage();
-        //localTextMessage.setText(paramString3);
-        //localTextMessage.setJMSCorrelationID(paramString1);
-        //localTextMessage.setJMSType(paramString2);
-        //localTextMessage.setJMSReplyTo(localTemporaryQueue);
-        //localQueueSender.send(localTextMessage);
-        //log.info(" --- Message sent --- Correlation: " + paramString1 + ", --- Type: " + paramString2 + ", --- Body: " + paramString3);
-        // For the mts commands messageType is a command name and a sample is "increaselimit" for example.
-        // I'm not sure if this is used for anything on the tibco side.
         public void WriteTextMessage(string body, string correlationId, string messageType)
         {
 
@@ -164,7 +152,7 @@ namespace Tools.Coordination.Ems
                 try
                 {
                     destination =
-                        CreateDestination(session, queueConfig.Name, queueConfig.Type);
+                        CreateDestination(session, QueueConfig.Name, QueueConfig.Type);
 
                     producer =
                         session.CreateProducer(destination);
