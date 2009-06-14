@@ -13,12 +13,17 @@ namespace Tools.Coordination.Ems
         private SessionConfiguration sessionConfig;
         public ServerConfiguration ServerConfig { get; private set; }
         private EmsReaderQueueConfiguration queueConfig;
+        public EmsReaderQueueConfiguration QueueConfig { get { return queueConfig; } private set { queueConfig = value; } }
 
         private ConnectionFactory factory;
         private Connection connection;
         private Session session;
         private MessageConsumer consumer;
         private Destination destination;
+        /// <summary>
+        /// Zero is a special value meaning no timeout
+        /// </summary>
+        private long readTimeout = 0;
 
         private bool initialized;
         private IFailureExceptionHandler connectionFailureExceptionHandler =
@@ -35,6 +40,8 @@ namespace Tools.Coordination.Ems
             get { return initialized; }
             set { initialized = value; }
         }
+
+        public long ReadTimeout { get { return readTimeout; } set { readTimeout = value; } }
 
         public EmsReaderQueue(SessionConfiguration sessionConfig, ServerConfiguration serverConfig, EmsReaderQueueConfiguration queueConfig, IFailureExceptionHandler connectionFailureExceptionHandler)
         {
@@ -55,7 +62,7 @@ namespace Tools.Coordination.Ems
 
         public Message ReadNext()
         {
-            return consumer.Receive();
+            return consumer.Receive(readTimeout);
         }
 
         public void Close()

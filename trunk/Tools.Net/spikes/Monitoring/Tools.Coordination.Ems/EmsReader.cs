@@ -165,13 +165,14 @@ namespace Tools.Coordination.Ems
 
                 //dependentTransaction.Complete();
 
-                //    if (message == null)
-                //    {
-                //        // if token is equal to null then commit here, as 
-                //        // consumer will not get to the item anyway.
-                //        //if (transaction.TransactionInformation.Status == TransactionStatus.Active)
-                //        //    transaction.Commit();
-                //    }
+                    if (message == null)
+                    {
+                        // if token is equal to null then commit here, as 
+                        // consumer will not get to the item anyway.
+                        //if (transaction.TransactionInformation.Status == TransactionStatus.Active)
+                        //    transaction.Commit();
+                        Log.TraceData(Log.Source, TraceEventType.Verbose, 10001, "Null message received because of the timeout. Queue: " + queue.ServerConfig.Url + ":" + queue.QueueConfig.Name); 
+                    }
                 //}
 
                 #endregion
