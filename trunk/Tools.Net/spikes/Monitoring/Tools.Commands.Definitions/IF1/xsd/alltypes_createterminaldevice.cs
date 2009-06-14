@@ -297,11 +297,11 @@ namespace Tools.Commands.Implementation.IF1.Ctd
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
+        Item1 = 1,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
+        Item2 = 2,
     }
 
     /// <remarks/>

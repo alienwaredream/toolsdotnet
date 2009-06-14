@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+  
+	<xs:complexType name="result">
+		<xs:sequence>
+			<xs:element ref="code" minOccurs="0"/>
+			<xs:element ref="desc" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="params">
+		<xs:sequence>
+			<xs:element ref="code"/>
+			<xs:element ref="value"/>
+			<xs:element ref="productCode"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="code" type="xs:string"/>
+	<xs:element name="desc" type="xs:string"/>
+	<xs:element name="value" type="xs:string"/>
+	<xs:complexType name="cid">
+		<xs:choice>
+			<xs:element ref="TISTDid"/>
+			<xs:element ref="TIScustomerId"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="TISTDid" type="xs:string"/>
+	<xs:element name="TIScustomerId" type="xs:string"/>
+	<xs:element name="productCode" type="xs:string"/>
+	<xs:simpleType name="blockReason">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BLOCK_USER"/>
+			<xs:enumeration value="BLOCK_FINANCIAL"/>
+			<xs:enumeration value="BLOCK_USAGE"/>
+			<xs:enumeration value="BLOCK_ADMIN"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
