@@ -192,7 +192,8 @@ namespace Tools.Coordination.Ems
                         };
 
                     //Trace.CorrelationManager.ActivityId = .ContextUid;
-                    Log.Source.TraceEvent(TraceEventType.Start, 0, "Received: " + message.CorrelationID);
+
+                    Log.TraceData(Log.Source, TraceEventType.Start, 0, String.Format("{0} [{1}:{2}]", message.CorrelationID, queue.ServerConfig.Url, queue.QueueConfig.Name));
 
                     // Set transaction on the work item
                 }

@@ -8,7 +8,7 @@ using Tools.Core.Configuration;
 
 namespace Tools.Coordination.Ems
 {
-    public class EmsReaderQueue : EmsQueueBase, IDisposable 
+    public class EmsReaderQueue : EmsQueueBase, IDisposable
     {
         private SessionConfiguration sessionConfig;
         public ServerConfiguration ServerConfig { get; private set; }
@@ -20,6 +20,17 @@ namespace Tools.Coordination.Ems
         private Session session;
         private MessageConsumer consumer;
         private Destination destination;
+
+        private Int32 forceReconnectAfterMs = 120000;
+        private Int32 numberOfTimeoutsToIgnore = 2;
+
+        private DateTime lastReconnectTime;
+        private Int32 numberOfTimeouts;
+
+
+        public Int32 ForceReconnectAfterMs { get { return forceReconnectAfterMs; } set { forceReconnectAfterMs = value; } }
+        public Int32 NumberOfTimeoutsToIgnore { get { return numberOfTimeoutsToIgnore; } set { numberOfTimeoutsToIgnore = value; } }
+
         /// <summary>
         /// Zero is a special value meaning no timeout
         /// </summary>
@@ -53,16 +64,54 @@ namespace Tools.Coordination.Ems
 
         public void Commit()
         {
-            session.Commit();
+            if (session != null)
+            {
+                session.Commit();
+                return;
+            }
+            Log.TraceData(Log.Source2, TraceEventType.Warning, EmsCoordinationMessages.CommitCalledOnTheClosedSession,
+                ServerConfig.Url + ":" + queueConfig.Name);
         }
         public void Rollback()
         {
-            session.Rollback();
+            if (session != null)
+            {
+                session.Rollback();
+                return;
+            }
+            Log.TraceData(Log.Source2, TraceEventType.Warning, EmsCoordinationMessages.RollbackCalledOnTheClosedSession,
+    ServerConfig.Url + ":" + queueConfig.Name);
         }
 
         public Message ReadNext()
         {
-            return consumer.Receive(readTimeout);
+            Message msg = consumer.Receive(readTimeout);
+
+            if (msg == null) // timeout on read
+            {
+
+
+                if ((forceReconnectAfterMs > 0) &&
+                ((DateTime.Now - lastReconnectTime) > TimeSpan.FromMilliseconds(forceReconnectAfterMs)))
+                {
+
+                    numberOfTimeouts++;
+
+                    if (numberOfTimeouts > numberOfTimeoutsToIgnore)
+                    {
+                        Close(); // It is currently responsibility of a caller to check always if queue is open.
+                        Log.TraceData(Log.Source2, TraceEventType.Start, EmsCoordinationMessages.ForceReconnectExecuted, String.Format("Force reconnect {0}:{1} ", ServerConfig.Url, QueueConfig.Name));
+                        numberOfTimeouts = 0;
+                        lastReconnectTime = DateTime.Now;
+                    }
+                }
+            }
+            else
+            {
+                //reset the timeouts counter
+                numberOfTimeouts = 0;
+            }
+            return msg;
         }
 
         public void Close()
@@ -93,8 +142,10 @@ namespace Tools.Coordination.Ems
             {
                 exText += ex.ToString();
             }
-
-            Log.TraceData(Log.Source, TraceEventType.Error, EmsCoordinationMessages.ErrorDuringEmsResourceCleanup, exText);
+            if (!String.IsNullOrEmpty(exText))
+            {
+                Log.TraceData(Log.Source, TraceEventType.Error, EmsCoordinationMessages.ErrorDuringEmsResourceCleanup, exText);
+            }
         }
         /// <summary>
         /// Opens if is not initialized yet, otherwise just returns with no action.
