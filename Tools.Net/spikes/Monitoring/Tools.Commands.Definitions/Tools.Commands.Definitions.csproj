@@ -42,17 +42,27 @@
     <Compile Include="IF1\xsd\alltypes_createterminaldevice.cs" />
     <Compile Include="IF1\xsd\IncreaseBC.cs">
       <DependentUpon>IncreaseBC.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="IF1\xsd\updateprocessing.cs">
       <DependentUpon>UpdateProcessing.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IF1\xsd\AllTypes.xsd" />
-    <None Include="IF1\xsd\CreateTerminalDevice.xsd" />
-    <None Include="IF1\xsd\IncreaseBC.xsd" />
-    <None Include="IF1\xsd\UpdateProcessing.xsd" />
+    <None Include="IF1\xsd\AllTypes.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IF1\xsd\CreateTerminalDevice.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IF1\xsd\IncreaseBC.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IF1\xsd\UpdateProcessing.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

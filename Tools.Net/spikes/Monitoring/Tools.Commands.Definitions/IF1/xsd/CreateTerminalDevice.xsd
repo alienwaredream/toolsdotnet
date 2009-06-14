@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd"
+	 xmlns:ns0="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd" schemaLocation="AllTypes.xsd"/>
+	<xs:element name="CreateTerminalDevice">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TIScustomerId" minOccurs="0"/>
+				<xs:element ref="TISwalletId"/>
+				<xs:element ref="TDtype"/>
+				<xs:element ref="TISTDid"/>
+				<xs:element ref="monthlyLimit" minOccurs="0"/>
+				<xs:element ref="baseMP"/>
+				<xs:element ref="addOnMPs" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="TDelements"/>
+				<xs:element ref="contractEnd" minOccurs="0"/>
+				<xs:element ref="p2p" minOccurs="0"/>
+				<xs:element ref="reqId"/>
+				<xs:element ref="reqTIme"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TISwalletId" type="xs:string"/>
+	<xs:element name="TDtype">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TISTDid" type="xs:string"/>
+	<xs:element name="monthlyLimit" type="xs:double"/>
+	<xs:element name="baseMP">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="params" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="addOnMPs">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="params" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="reqId" type="xs:string"/>
+	<xs:element name="reqTIme" type="xs:dateTime"/>
+	<xs:element name="id" type="xs:positiveInteger"/>
+	<xs:element name="params" type="ns0:params"/>
+	<xs:element name="ICCID" type="xs:string"/>
+	<xs:element name="phoneNumber" type="xs:string"/>
+	<xs:element name="profile" type="xs:string"/>
+	<xs:element name="shortNumber" type="xs:string"/>
+	<xs:element name="result" type="ns0:result"/>
+	<xs:element name="TDelements">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="fix"/>
+				<xs:element ref="mobile"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fix">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="phoneNumber"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mobile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ICCID"/>
+				<xs:element ref="phoneNumber"/>
+				<xs:element ref="profile" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="shortNumber" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TIScustomerId" type="xs:string"/>
+	<xs:element name="contractEnd" type="xs:dateTime"/>
+	<xs:element name="p2p" type="xs:string"/>
+</xs:schema>
