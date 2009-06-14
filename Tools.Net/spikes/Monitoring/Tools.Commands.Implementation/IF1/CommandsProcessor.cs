@@ -19,33 +19,42 @@ namespace Tools.Commands.Implementation
     public class CommandsProcessor
     {
         string readerSPName;
+        string invalidCommandStatus = "INVALID";
+        IResponseDataProvider responseDataProvider;
+        CommandSelectionOptions Filter { get; set; }
+
 
         Dictionary<decimal, ICommandExecutor> executors;
 
-        public CommandsProcessor(string readerSPName, Dictionary<decimal, ICommandExecutor> executors)
+        public string InvalidCommandStatus { get { return invalidCommandStatus; } set { invalidCommandStatus = value; } }
+
+        public CommandsProcessor(string readerSPName, Dictionary<decimal, ICommandExecutor> executors, IResponseDataProvider responseDataProvider)
         {
-            Init(readerSPName, executors);
+            Init(readerSPName, executors, responseDataProvider);
         }
-        private void Init(string readerSPName, Dictionary<decimal, ICommandExecutor> executors)
+        private void Init(string readerSPName, Dictionary<decimal, ICommandExecutor> executors, IResponseDataProvider responseDataProvider)
         {
-            ErrorTrap.AddAssertion(!String.IsNullOrEmpty(readerSPName), "readerSPName should be assign in the ctor of " + this.GetType().FullName + ". Please correct the configuration and restart.");
+            ErrorTrap.AddAssertion(!String.IsNullOrEmpty(readerSPName), "readerSPName should be assigned in the ctor of " + this.GetType().FullName + ". Please correct the configuration and restart.");
 
             ErrorTrap.AddAssertion(executors != null && executors.Count != 0, "Dictionary<decimal, ICommandExecutor> executors can't be null. Please correct the configuration for " + this.GetType().FullName + " and restart.");
+
+            ErrorTrap.AddAssertion(responseDataProvider != null, "responseDataProvider can't be null. Please correct the configuration for " + this.GetType().FullName + " and restart.");
 
             ErrorTrap.RaiseTrappedErrors<ConfigurationErrorsException>();
 
             this.readerSPName = readerSPName;
             this.executors = executors;
+            this.responseDataProvider = responseDataProvider;
         }
 
-        public void ExecuteNextCommand(CommandSelectionOptions options)
+        public void ExecuteNextCommand()
         {
-            ErrorTrap.AddAssertion(options != null, "Filter parameter of ExecuteNextCommand should not be null!");
+            ErrorTrap.AddAssertion(Filter != null, "Filter parameter of ExecuteNextCommand should not be null!");
             ErrorTrap.RaiseTrappedErrors<ArgumentNullException>();
 
-            options.MachineName = Environment.MachineName;
+            Filter.MachineName = Environment.MachineName;
             OracleTransaction transaction = null;
-            //NOTE: (SD) The code bellow is written for only one record!!! Even if it is a collection.
+            //NOTE: (SD) The code bellow is written for only one record!!!
             //Different handling of exception/transaction would be required if there are multiple records
             try
             {
@@ -56,32 +65,93 @@ namespace Tools.Commands.Implementation
 
                     transaction = connection.BeginTransaction();
 
-                    Dictionary<decimal, GenericCommand> commands = PopulateCommands(options, connection);
+                    Dictionary<decimal, GenericCommand> commands = PopulateCommands(Filter, connection);
 
                     LogCommands(commands);
 
-
+                    GenericCommand command = null;
+                    ICommandExecutor executor = null;
 
                     foreach (decimal reqId in commands.Keys)
                     {
                         try
                         {
-                            GenericCommand command = commands[reqId];
-                            executors[command.CommandType].Execute(command);
+                            #region Process single command
+                            command = commands[reqId];
+                            executor = executors[command.CommandType];
 
+                            if (executor.Execute(command))
+                            {
+                                transaction.Commit();
+                                executor.Commit();
+                                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information,
+CommandMessages.WorkOnCommandCommitted,
+                                    "Work on command Id " + command.ReqId + " commited.");
+                            }
+                            else
+                            { 
+                                //if (transaction != null) transaction.Rollback();
+
+                                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information,
+CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identified as invalid because:\r\n" + ErrorTrap.Text);
+
+                                if (ErrorTrap.HasErrors)
+                                {
+
+
+                                    // normalize the error text for the length as db column is limited to 1000 chars.
+                                    string errorDescription = null;
+                                    if (!String.IsNullOrEmpty(ErrorTrap.Text))
+                                    {
+                                        errorDescription = (ErrorTrap.Text.Length <= 1000) ? ErrorTrap.Text : ErrorTrap.Text.Substring(0, 1000);
+                                    }
+
+
+                                    responseDataProvider.UpdateResponseToFtPro(
+                                        command.ReqId,
+                                        "B",
+                                        invalidCommandStatus,
+                                        "CEA",
+                                        DateTime.Now,
+                                        errorDescription,
+                                        String.Empty,
+                                        connection);
+
+                                    ErrorTrap.Reset();
+                                }
+                            }
+                            #endregion
                         }
-
-                        catch
+                        catch (Exception ex)
                         {
 
-                                if (transaction!=null) transaction.Rollback();
-                                throw;
+                            if (transaction != null) transaction.Rollback();
+
+                            Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, CommandMessages.ErrorWhileExecutingTheCommand,
+                                String.Format("Exception happened while trying to execute the command with id{0} Changes are rollbacked. Exception text is: \r\n{1} and command is: \r\n{2}", command.ReqId, ex.ToString(), SerializationUtility.Serialize2String(command)));
+
+                            // normalize the error text for the length as db column is limited to 1000 chars.
+                            //string errorDescription = 
+                            //    errorDescription = (ex.ToString() <= 1000) ? ex.ToString() : ex.ToString().Substring(0, 1000);
+                            //if (command != null)
+                            //{
+                            //    responseDataProvider.UpdateResponseToFtPro(
+                            //        command.ReqId,
+                            //        "W",
+                            //        invalidCommandStatus,
+                            //        "CEA",
+                            //        DateTime.Now,
+                            //        errorDescription,
+                            //        String.Empty,
+                            //        connection);
+                            //}
+
+                            throw;
                         }
                     }
 
-                    // transaction.Commit();
-                    transaction.Rollback();
 
+                    //transaction.Rollback(); // Only for test purposes
                 }
             }
             catch (Exception ex)
@@ -339,7 +409,7 @@ namespace Tools.Commands.Implementation
                 return 0;
             }
         }
-        
+
         DateTime GetDefaultDate(IDataReader dr, string fieldName, bool mandatory, DateTime defaultValue)
         {
             try

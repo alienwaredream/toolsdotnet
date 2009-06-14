@@ -4,7 +4,6 @@ using Tools.Core.Asserts;
 using System.Transactions;
 using Tools.Coordination.Ems;
 using Tools.Core.Utils;
-using Tools.Monitoring.Implementation;
 using Tools.Commands.Implementation.IF1.Ibc;
 using System.Configuration;
 using System.Diagnostics;
@@ -15,7 +14,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
     public class ResponseProcessor : IJobProcessor<string>
     {
         //TODO: (SD) change to interface for testing later on
-        private ResponseData dataCommand;
+        private ResponseDataProvider dataCommand;
         private IResponseStatusTranslator responseTranslator;
 
         private bool logErrorForMissingCommands = true;
@@ -32,15 +31,15 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
         public ResponseProcessor(string responseSPName, IResponseStatusTranslator responseTranslator)
         {
-            Init(new ResponseData(responseSPName), responseTranslator);
+            Init(new ResponseDataProvider(responseSPName), responseTranslator);
         }
 
-        public ResponseProcessor(ResponseData dataCommand, IResponseStatusTranslator responseTranslator)
+        public ResponseProcessor(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator)
         {
             Init(dataCommand, responseTranslator);
         }
 
-        private void Init(ResponseData dataCommand, IResponseStatusTranslator responseTranslator)
+        private void Init(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator)
         {
             ErrorTrap.AddAssertion(dataCommand != null, "ResponseData dataCommand can't be null for the" + this.GetType().FullName + ". Please correct the configuration and restart.");
 
