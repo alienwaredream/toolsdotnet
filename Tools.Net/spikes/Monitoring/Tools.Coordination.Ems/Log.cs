@@ -7,10 +7,16 @@ namespace Tools.Coordination.Ems
     {
         private static readonly TraceSource traceSource =
             new TraceSource((typeof (Log).Assembly.GetName().Name));
+        private static readonly TraceSource traceSource2 =
+    new TraceSource((typeof(Log).Assembly.GetName().Name + "2"));
 
         internal static TraceSource Source
         {
             get { return traceSource; }
+        }
+        internal static TraceSource Source2
+        {
+            get { return traceSource2; }
         }
 
         internal static void TraceData(TraceSource source, TraceEventType eventType,
