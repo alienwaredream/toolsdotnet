@@ -59,46 +59,11 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             Trace.CorrelationManager.ActivityId = workItem.ContextIdentifier.ContextGuid;
 
-            //var transaction = workItem.Transaction as CommittableTransaction;
             EmsWorkItem ewi = workItem as EmsWorkItem;
-
-            //ErrorTrap.AddRaisableAssertion<InvalidOperationException>(
-            //    transaction != null,
-            //    "precondition: transaction != null");
-
-            //if (transaction.TransactionInformation.Status == TransactionStatus.Aborted)
-            //{
-            //    // what happens here is that we have waited for too long, we picked up a job
-            //    // but transaction on this has already got aborted, we just do
-            //    // nothing then and let transaction to complete abortion process (SD)
-            //    return;
-
-            //}
-
-            //        ErrorTrap.AddRaisableAssertion<InvalidOperationException>(
-            //transaction.TransactionInformation.Status == TransactionStatus.Active,
-            //"transaction.TransactionInformation.Status == TransactionStatus.Active");
-
-
 
             try
             {
                 Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, EmsCoordinationMessages.MessageDispatchedByStub, String.Format("ReqId: {0}, item: {1}", workItem.ContextIdentifier.ExternalReference, job));
-
-                //using (var scope = new TransactionScope(TransactionScopeOption.Suppress))
-                //{
-
-
-                //if (res == null)
-                //{
-                //    Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, EmsCoordinationMessages.InvalidMessageType, "The message will be removed from the queue: " + job);
-
-                //    if (ewi != null)
-                //    {
-                //        ewi.Queue.Commit();
-                //    }
-
-                //}
 
                 //TODO: The action should be provided here
                 responseTranslator.SetResponse(job);
@@ -122,10 +87,11 @@ namespace Tools.Commands.Implementation.IF1.Processors
                 if (!Decimal.TryParse(workItem.ContextIdentifier.ExternalReference.ToString(), out id))
                 {
                     Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, 15052, String.Format("Invalid correlation id of {0} was provided! Message will be removed from the queue! {0}", workItem.ContextIdentifier.ExternalReference, job));
-                    if (ewi != null)
-                    {
+                    //if (ewi != null)
+                    //{
+
                         ewi.Queue.Commit();
-                    }
+                    //}
                     jobProcessedDelegate(new JobProcessedEventArgs
                     {
                         Retry = false,
@@ -143,29 +109,28 @@ namespace Tools.Commands.Implementation.IF1.Processors
                 }
                 Log.Source.TraceData(System.Diagnostics.TraceEventType.Verbose,
                                      0, "Before calling commit on item " + workItem.ContextIdentifier);
-                // ReSharper disable PossibleNullReferenceException - checked with ErrorTrap
+
 
                 //transaction.Commit();
-                if (ewi != null)
-                {
+                //if (ewi != null)
+                //{
                     ewi.Queue.Commit();
-                }
-
-                // ReSharper restore PossibleNullReferenceException
+                //}
 
                 Log.Source.TraceData(System.Diagnostics.TraceEventType.Verbose,
                                      0, "Commit called on item " + workItem.ContextIdentifier);
             }
             catch
             {
-                if (ewi != null)
-                {
-                    Thread.Sleep(60000);
+                //if (ewi != null)
+                //{
+
                     ewi.Queue.Rollback();
-                }
-                // ReSharper disable PossibleNullReferenceException - checked with ErrorTrap
+                    Thread.Sleep(60000);
+                //}
+
                 //transaction.Rollback();
-                // ReSharper restore PossibleNullReferenceException
+
 
                 jobProcessedDelegate(new JobProcessedEventArgs
                 {
@@ -178,9 +143,6 @@ namespace Tools.Commands.Implementation.IF1.Processors
             }
             finally
             {
-                // ReSharper disable PossibleNullReferenceException - checked with ErrorTrap
-                //transaction.Dispose();
-                // ReSharper restore PossibleNullReferenceException
             }
             jobProcessedDelegate(new JobProcessedEventArgs
             {
