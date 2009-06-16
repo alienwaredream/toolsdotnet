@@ -12,7 +12,7 @@ namespace Tools.Coordination.Ems
     {
         private SessionConfiguration sessionConfig;
         public ServerConfiguration ServerConfig { get; private set; }
-        private EmsReaderQueueConfiguration QueueConfig { get; set; }
+        public EmsReaderQueueConfiguration QueueConfig { get; set; }
 
         private ConnectionFactory factory;
         private Connection connection;

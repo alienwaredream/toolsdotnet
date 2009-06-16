@@ -10,6 +10,7 @@ namespace Tools.Coordination.Scheduling
     public abstract class Schedule : Descriptor
     {
         private DateTime _nextRunTime = DateTime.MinValue;
+        private bool setForImmediateRun = false;
 
         public ScheduleDefinition Definition { get; set; }
 
@@ -22,6 +23,11 @@ namespace Tools.Coordination.Scheduling
         {
             get
             {
+                if (setForImmediateRun)
+                {
+                    setForImmediateRun = false;
+                    return TimeSpan.Zero;
+                }
                 //(SD) first fix the date
                 DateTime now = DateTime.UtcNow;
                 // if next time is in the past compared with now, return zero time span
@@ -40,7 +46,10 @@ namespace Tools.Coordination.Scheduling
 
         public virtual DateTime SetForImmidiateRun()
         {
+            setForImmediateRun = true; // setting one time override
+
             return SetNextRunTime(DateTime.UtcNow);
         }
+
     }
 }
