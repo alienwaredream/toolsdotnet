@@ -17,10 +17,10 @@ namespace Tools.Commands.Implementation
 //    "REQ_TIME" DATE, 
         [XmlAttribute]
         public DateTime ReqTime { get; set; }
-//    "TIS_CUSTOMER_ID" VARCHAR2(15), 
+//    "TIS_CUSTOMER_ID" Varchar(15), 
         [XmlAttribute]
         public string TisCustomerId { get; set; }
-//    "TIS_WALLET_ID" VARCHAR2(20), 
+//    "TIS_WALLET_ID" Varchar(20), 
         [XmlAttribute]
         public string TisWalletId { get; set; }
 //    "TIS_TD_ID" NUMBER, 
@@ -29,13 +29,13 @@ namespace Tools.Commands.Implementation
 //    "CUSTOMER_TYPE" CHAR(1), 
         [XmlAttribute]
         public string CustomerType { get; set; }
-//    "NAME" VARCHAR2(200), 
+//    "NAME" Varchar(200), 
         [XmlAttribute]
         public string Name { get; set; }
 //    "BILLING_CYCLE" NUMBER, 
-        [XmlAttribute]
-        public Decimal BillingCycle { get; set; }
-//    "TAX_GROUP" VARCHAR2(1), 
+
+        public Decimal? BillingCycle { get; set; }
+//    "TAX_GROUP" Varchar(1), 
         [XmlAttribute]
         public string TaxGroup { get; set; }
 //    "TD_TYPE" NUMBER, 
@@ -44,13 +44,13 @@ namespace Tools.Commands.Implementation
 //    "MONTHLY_LIMIT" NUMBER(22,4),
         [XmlAttribute]
         public decimal MonthlyLimit { get; set; }
-//    "ICCID" VARCHAR2(64), 
+//    "ICCID" Varchar(64), 
         [XmlAttribute]
         public string IccId { get; set; }
-//    "PHONE_NUMBER" VARCHAR2(64), 
+//    "PHONE_NUMBER" Varchar(64), 
         [XmlAttribute]
         public string PhoneNumber { get; set; }
-//    "BLOCK_REASON" VARCHAR2(20), 
+//    "BLOCK_REASON" Varchar(20), 
         [XmlAttribute]
         public string BlockReason { get; set; }
 //    "BLOCK_STATUS" NUMBER, 
@@ -59,13 +59,13 @@ namespace Tools.Commands.Implementation
 //    "VPN_PROFILE" NUMBER, 
         [XmlAttribute]
         public Decimal VpnProfile { get; set; }
-//    "SHORT_NUMBER" VARCHAR2(64), 
+//    "SHORT_NUMBER" Varchar(64), 
         [XmlAttribute]
         public string ShortNumber { get; set; }
-//    "NEW_PHONE_NUMBER" VARCHAR2(64), 
+//    "NEW_PHONE_NUMBER" Varchar(64), 
         [XmlAttribute]
         public string NewPhoneNumber { get; set; }
-//    "NEW_ICCID" VARCHAR2(64), 
+//    "NEW_ICCID" Varchar(64), 
         [XmlAttribute]
         public string NewIccId { get; set; }
 //    "CONTRACT_END_DATE" DATE, 
@@ -74,16 +74,16 @@ namespace Tools.Commands.Implementation
 //    "VALID_FROM" DATE, 
         [XmlAttribute]
         public DateTime ValidFrom { get; set; }
-//    "P2P" VARCHAR2(2), 
+//    "P2P" Varchar(2), 
         [XmlAttribute]
         public string P2P { get; set; }
 //    "ONETIME_LIMIT_AMOUNT" NUMBER(10,2),
         [XmlAttribute]
         public decimal OnetimeLimitAmount { get; set; }
-//    "STATUS" VARCHAR2(20) DEFAULT 'NEW', 
+//    "STATUS" Varchar(20) DEFAULT 'NEW', 
         [XmlAttribute]
         public string Status { get; set; }
-//    "TIS_POSAO_ID" VARCHAR2(15), 
+//    "TIS_POSAO_ID" Varchar(15), 
         [XmlAttribute]
         public string TisPosAOId { get; set; }
 //    "PRIORITY" NUMBER, 

@@ -19,7 +19,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="TIScustomerId" minOccurs="0"/>
-				<xs:element ref="TISwalletId"/>
+				<xs:element ref="TISwalletId" />
 				<xs:element ref="TDtype"/>
 				<xs:element ref="TISTDid"/>
 				<xs:element ref="monthlyLimit" minOccurs="0"/>
@@ -40,7 +40,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="TISwalletId" type="xs:string"/>
+  <xs:element name="TISwalletId" type="xs:string"/>
 	<xs:element name="TDtype">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">

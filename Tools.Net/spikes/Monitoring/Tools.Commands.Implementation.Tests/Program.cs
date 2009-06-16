@@ -1,5 +1,8 @@
 ﻿using System;
-using Tools.Monitoring.Implementation;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Tools.Coordination.Ems;
+using Spring.Context.Support;
 
 namespace Tools.Commands.Implementation.Tests
 {
@@ -9,6 +12,13 @@ namespace Tools.Commands.Implementation.Tests
         {
             try
             {
+                #region Logging setup
+                //Tools.Commands.Implementation.Log.Source.Listeners.Add(new ConsoleTraceListener());
+                //Tools.Commands.Implementation.Log.Source.Switch.Level = SourceLevels.All;
+                #endregion
+
+                #region Test response data
+
                 //ResponseData rd = new ResponseData("prov_test_standa.updateresponsetoftpro");
 
                 //Console.WriteLine("Result - updated " + rd.UpdateResponseToFtPro(
@@ -21,15 +31,11 @@ namespace Tools.Commands.Implementation.Tests
                 //    "300"
                 //    ).ToString());
 
-                CommandsReader cd = new CommandsReader("prov_cmd_send.GetCommandRecordsToProcess2");
+                #endregion
 
-                cd.ExecuteNextCommandBatch(
-                    String.Empty,
-                    String.Empty,
-                    2,
-                    2,
-                    "test", "dd");
+                CommandsProcessor cd = ContextRegistry.GetContext().GetObject("CommandsProcessor") as CommandsProcessor;
 
+                cd.ExecuteNextCommand();
             }
             catch (Exception ex)
             {

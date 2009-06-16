@@ -38,8 +38,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeBaseMPTranslator.cs" />
+    <Compile Include="CreateWalletTranslator.cs" />
+    <Compile Include="CreateCustomerTranslator.cs" />
+    <Compile Include="IMessageWrapper.cs" />
+    <Compile Include="MessageWrapper.cs" />
+    <Compile Include="TerminateAddonTranslator.cs" />
     <Compile Include="CreateTerminalDeviceTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TranslatorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Tools.Core\Tools.Core.csproj">
@@ -56,7 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="javaoriginal.txt" />
+    <Content Include="_javaoriginal.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

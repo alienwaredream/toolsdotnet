@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xs:element name="ExtendedRequestMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Source"/>
+				<xs:element ref="SourceAddress"/>
+				<xs:element ref="Destination"/>
+				<xs:element ref="DestinationAddress"/>
+				<xs:element ref="ID"/>
+				<xs:element ref="Data"/>
+				<xs:element ref="Priority"/>
+				<xs:element name="AdditionalData">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="MustBeConfirmed"/>
+				<xs:element ref="ActionName"/>
+				<xs:element ref="ActionNameAlias"/>
+				<xs:element ref="IdentifiersList"/>
+				<xs:element ref="ContinueByDefault"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfirmationMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Source"/>
+				<xs:element ref="SourceAddress"/>
+				<xs:element ref="Destination"/>
+				<xs:element ref="DestinationAddress"/>
+				<xs:element ref="ID"/>
+				<xs:element ref="Data"/>
+				<xs:element ref="Priority"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExtendedResponseMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Source"/>
+				<xs:element ref="SourceAddress"/>
+				<xs:element ref="Destination"/>
+				<xs:element ref="DestinationAddress"/>
+				<xs:element ref="ID"/>
+				<xs:element ref="Data"/>
+				<xs:element ref="Priority"/>
+				<xs:element name="AdditionalData" type="xs:anyType"/>
+				<xs:element ref="ActionName"/>
+				<xs:element ref="ActionNameAlias"/>
+				<xs:element ref="OverallResult"/>
+				<xs:element ref="Results" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Source" type="xs:string"/>
+	<xs:element name="SourceAddress" type="xs:string"/>
+	<xs:element name="Destination" type="xs:string"/>
+	<xs:element name="DestinationAddress" type="xs:string"/>
+	<xs:element name="ID" type="xs:decimal"/>
+	<xs:element name="Data" type="xs:anyType"/>
+	<xs:element name="Priority" type="xs:string"/>
+	<xs:element name="MustBeConfirmed" type="xs:boolean"/>
+	<xs:element name="ActionName" type="xs:string"/>
+	<xs:element name="ActionNameAlias" type="xs:string"/>
+	<xs:element name="IdentifiersList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identifier" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ContinueByDefault" type="xs:boolean"/>
+	<xs:element name="Identifier">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MSISDN"/>
+				<xs:element ref="IMSI"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MSISDN" type="xs:string"/>
+	<xs:element name="IMSI" type="xs:string"/>
+	<xs:element name="ProvisionList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="WithdrawalList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RegisteredList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:attribute name="path" type="xs:string"/>
+	<xs:element name="Profile" type="xs:string"/>
+	<xs:element name="OverallResult" type="xs:string"/>
+	<xs:element name="Results">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ActionResultExt" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Result" type="xs:string"/>
+							<xs:element name="Description" type="xs:string" minOccurs="0"/>
+							<xs:element ref="Identifier"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

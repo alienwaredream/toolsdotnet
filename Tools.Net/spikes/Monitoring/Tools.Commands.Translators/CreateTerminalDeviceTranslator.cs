@@ -11,13 +11,12 @@ using System.IO;
 
 namespace Tools.Commands.Translators
 {
-    public class CreateTerminalDeviceTranslator : ICommand2MessageTranslator
+    public class CreateTerminalDeviceTranslator : TranslatorBase
     {
-        //public string XsdPath { get; set; }
 
         #region ICommand2MessageTranslator Members
 
-        public MessageShim TranslateToShim(GenericCommand command)
+        public override MessageShim TranslateToShim(GenericCommand command)
         {
             CreateTerminalDevice ctd = new CreateTerminalDevice();
 
@@ -98,16 +97,16 @@ namespace Tools.Commands.Translators
 
             bool canSerialize = true;
 
-            if (ErrorTrap.AddAssertion(Enum.IsDefined(typeof(TDtype), command.TDType.ToString()),
-                String.Format("Command TDType value {0} doesn't fall in the allowed range.", command.TDType)))
-            {
+            //if (ErrorTrap.AddAssertion(Enum.IsDefined(typeof(TDtype), command.TDType.ToString()),
+            //    String.Format("Command TDType value {0} doesn't fall in the allowed range.", command.TDType)))
+            //{
 
-                ctd.req.TDtype = (TDtype)command.TDType;
-            }
-            else
-            {
-                canSerialize = false;
-            }
+            ctd.req.TDtype = (TDtype)command.TDType;
+            //}
+            //else
+            //{
+            //    canSerialize = false;
+            //}
 
             TDelements tdElements = new TDelements();
 
@@ -131,30 +130,37 @@ namespace Tools.Commands.Translators
 
             if (canSerialize)
             {
-
-                messageText = SerializationUtility.Serialize2String(ctd.req);
-
-                // if xsd is provided, execute xsd validation
-                //if (!String.IsNullOrEmpty(XsdPath))
-                //{
-                XmlSchemaSet sc = new XmlSchemaSet();
-
-                //// Add the schema to the collection.
-                sc.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-                sc.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd", @"IF1\xsd\CreateTerminalDevice.xsd");
-
-                // Set the validation settings.
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.ValidationType = ValidationType.Schema;
-                settings.Schemas = sc;
-                settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-
-                using (StringReader sReader = new StringReader(messageText))
+                try
                 {
-                    using (XmlReader reader = XmlReader.Create(sReader, settings))
+                    messageText = SerializationUtility.Serialize2String(ctd.req);
+
+
+                    // if xsd is provided, execute xsd validation
+                    //if (!String.IsNullOrEmpty(XsdPath))
+                    //{
+                    XmlSchemaSet sc = new XmlSchemaSet();
+
+                    //// Add the schema to the collection.
+                    sc.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
+                    sc.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd", @"IF1\xsd\CreateTerminalDevice.xsd");
+
+                    // Set the validation settings.
+                    XmlReaderSettings settings = new XmlReaderSettings();
+                    settings.ValidationType = ValidationType.Schema;
+                    settings.Schemas = sc;
+                    settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
+
+                    using (StringReader sReader = new StringReader(messageText))
                     {
-                        while (reader.Read()) ;
+                        using (XmlReader reader = XmlReader.Create(sReader, settings))
+                        {
+                            while (reader.Read()) ;
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    ErrorTrap.AddAssertion(false, ex.ToString());
                 }
             }
             //}
@@ -162,14 +168,14 @@ namespace Tools.Commands.Translators
             return new MessageShim
             {
                 CorrelationId = command.ReqId.ToString(),
-                Text = messageText
+                Text = MessageWrapper.Wrap(messageText)
             };
         }
 
         // Display any validation errors.
         private static void ValidationCallBack(object sender, ValidationEventArgs e)
         {
-            ErrorTrap.AppendText("xsd error at pos(" + e.Exception.LineNumber + "," + e.Exception.LinePosition + ") " + e.Message + ". Schema: " + e.Exception.SourceSchemaObject);
+            ErrorTrap.AddAssertion(false, "xsd error at pos(" + e.Exception.LineNumber + "," + e.Exception.LinePosition + ") " + e.Message + ". Schema: " + e.Exception.SourceSchemaObject);
         }
 
         #endregion

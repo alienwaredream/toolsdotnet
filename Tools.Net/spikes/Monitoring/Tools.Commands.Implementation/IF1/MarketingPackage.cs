@@ -16,7 +16,7 @@ namespace Tools.Commands.Implementation
         //"MP_ID" NUMBER, 
         [XmlAttribute]
         public decimal MPId { get; set; }
-        //"MP_TYPE" VARCHAR2(20), 
+        //"MP_TYPE" Varchar(20), 
         [XmlAttribute]
         public string MPType { get; set; }
 

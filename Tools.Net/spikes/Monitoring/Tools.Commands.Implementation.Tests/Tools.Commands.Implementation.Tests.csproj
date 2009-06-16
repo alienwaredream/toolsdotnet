@@ -31,21 +31,97 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="antlr.runtime, Version=2.7.6.2, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\antlr.runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.5.0.1, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TIBCO.EMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b83db8ff05c64ba, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\TIBCO.EMS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Tools.Commands.Definitions\IF1\xsd\IncreaseBC.cs">
+      <Link>IF1\xsd\IncreaseBC.cs</Link>
+      <DependentUpon>IncreaseBC.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\AllTypes.xsd">
+      <Link>IF1\xsd\AllTypes.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\CreateTerminalDevice.xsd">
+      <Link>IF1\xsd\CreateTerminalDevice.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\IncreaseBC.xsd">
+      <Link>IF1\xsd\IncreaseBC.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\TerminateAddonMP.xsd">
+      <Link>IF1\xsd\TerminateAddonMP.xsd</Link>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\UpdateProcessing.xsd">
+      <Link>IF1\xsd\UpdateProcessing.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Tools.Coordination\Tools.Coordination.csproj">
+      <Project>{F8AE0ABB-8512-4F3F-ADF4-1758C814D788}</Project>
+      <Name>Tools.Coordination</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Core\Tools.Core.csproj">
+      <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
+      <Name>Tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Ioc\Tools.Logging.Ioc.csproj">
+      <Project>{E534EDE7-6F4F-46A4-B697-D066C83A5810}</Project>
+      <Name>Tools.Logging.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging.Staging\Tools.Logging.Staging.csproj">
+      <Project>{8A04369F-242F-47A1-9A34-0D6D63337775}</Project>
+      <Name>Tools.Logging.Staging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Logging\Tools.Logging.csproj">
+      <Project>{B1789295-B42B-493A-9CE0-570AE9425773}</Project>
+      <Name>Tools.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Tools.Processes.Core\Tools.Processes.Core.csproj">
+      <Project>{CB24C2A7-B79B-43F2-8D1F-4558A797C080}</Project>
+      <Name>Tools.Processes.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools.Commands.Implementation\Tools.Commands.Implementation.csproj">
       <Project>{49874FA6-B400-428B-9026-062C6C19A59A}</Project>
       <Name>Tools.Commands.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Commands.Translators\Tools.Commands.Translators.csproj">
+      <Project>{1D7CD593-D93C-4DA7-AF81-7483454249D4}</Project>
+      <Name>Tools.Commands.Translators</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Coordination.Ems\Tools.Coordination.Ems.csproj">
+      <Project>{C84AA4D6-63C6-4082-B70B-C6E8BE21EDFC}</Project>
+      <Name>Tools.Coordination.Ems</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
