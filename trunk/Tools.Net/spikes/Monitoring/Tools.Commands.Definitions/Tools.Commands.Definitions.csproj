@@ -39,11 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IF1\xsd\alltypes_createcustomer.cs" />
     <Compile Include="IF1\xsd\alltypes_createterminaldevice.cs" />
+    <Compile Include="IF1\xsd\Alltypes_TerminateAddonMP.cs" />
+    <Compile Include="IF1\xsd\ChangeBaseMP_AllTypes.cs" />
+    <Compile Include="IF1\xsd\CreateWallet_AllTypes.cs" />
     <Compile Include="IF1\xsd\IncreaseBC.cs">
       <DependentUpon>IncreaseBC.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="IF1\xsd\SimpleReqRep_Alltypes.cs" />
     <Compile Include="IF1\xsd\updateprocessing.cs">
       <DependentUpon>UpdateProcessing.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -51,15 +56,40 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="IF1\xsd\AddAddonMP.xsd" />
     <None Include="IF1\xsd\AllTypes.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IF1\xsd\BlockTerminalDevice.xsd" />
+    <None Include="IF1\xsd\BlockWalletTDs.xsd" />
+    <None Include="IF1\xsd\ChangeAddonMP.xsd" />
+    <None Include="IF1\xsd\ChangeBaseMP.xsd" />
+    <None Include="IF1\xsd\ChangeBaseMPparams.xsd" />
+    <None Include="IF1\xsd\ChangeMPparams.xsd" />
+    <None Include="IF1\xsd\ChangeMSISDN.xsd" />
+    <None Include="IF1\xsd\ChangeSIMCard.xsd" />
+    <None Include="IF1\xsd\CreateCustomer.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="IF1\xsd\CreateTerminalDevice.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="IF1\xsd\CreateWallet.xsd" />
     <None Include="IF1\xsd\IncreaseBC.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="IF1\xsd\ModifyCustomer.xsd" />
+    <None Include="IF1\xsd\ModifyTerminalDevice.xsd" />
+    <None Include="IF1\xsd\ModifyWallet.xsd" />
+    <None Include="IF1\xsd\SimpleReqRep.xsd" />
+    <None Include="IF1\xsd\SkipProvisioning.xsd" />
+    <None Include="IF1\xsd\SPA.xsd" />
+    <None Include="IF1\xsd\TerminateAddonMP.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IF1\xsd\TerminateCustomer.xsd" />
+    <None Include="IF1\xsd\TerminateTerminalDevice.xsd" />
+    <None Include="IF1\xsd\TerminateWallet.xsd" />
     <None Include="IF1\xsd\UpdateProcessing.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

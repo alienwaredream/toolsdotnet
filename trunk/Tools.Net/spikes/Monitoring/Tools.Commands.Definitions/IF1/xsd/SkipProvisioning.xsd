@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/ProvisioningTS/ProvisioningTS/Shared Resources/XSD/SkipProvisioning.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/ProvisioningTS/ProvisioningTS/Shared Resources/XSD/SkipProvisioning.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="SkipProvisioning">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mpiId"/>
+				<xs:element ref="msisdn"/>
+				<xs:element ref="imsi"/>
+				<xs:element ref="iccid"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="msisdn" type="xs:string"/>
+	<xs:element name="imsi" type="xs:string"/>
+	<xs:element name="result">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="code"/>
+				<xs:element ref="desc"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="code" type="xs:string"/>
+	<xs:element name="desc" type="xs:string"/>
+	<xs:element name="iccid" type="xs:string"/>
+	<xs:element name="mpiId" type="xs:string"/>
+</xs:schema>

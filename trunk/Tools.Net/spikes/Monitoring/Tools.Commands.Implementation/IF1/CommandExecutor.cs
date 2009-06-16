@@ -49,7 +49,7 @@ namespace Tools.Commands.Implementation
             {
                 MessageShim shim = translator.TranslateToShim(command);
 
-                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Verbose, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("CorellationId: {0}, message text: \r\n{1}", shim.CorrelationId, shim.Text));
+                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("CorellationId: {0}, message text: \r\n{1}", shim.CorrelationId, shim.Text));
 
                 if (ErrorTrap.HasErrors)
                 {
@@ -61,7 +61,7 @@ namespace Tools.Commands.Implementation
                 queue.WriteTextMessage(shim.Text, shim.CorrelationId, commandName);
 
 
-                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("Command: {0} - delivered to queue {1}:{2}", shim.CorrelationId, queue.ServerConfig.Url, queue));
+                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("Command: {0} - delivered to queue {1}:{2}", shim.CorrelationId, queue.ServerConfig.Url, queue.QueueConfig.Name));
 
                 return true;
 

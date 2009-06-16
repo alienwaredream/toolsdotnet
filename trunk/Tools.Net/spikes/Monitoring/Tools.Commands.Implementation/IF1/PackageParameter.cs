@@ -13,13 +13,13 @@ namespace Tools.Commands.Implementation
         //"MP_INSTANCE_ID" NUMBER NOT NULL ENABLE, 
         [XmlAttribute]
         public decimal MPInstanceId { get; set; }
-        //"PARAM_CODE" VARCHAR2(20) DEFAULT 'N/A' NOT NULL ENABLE, 
+        //"PARAM_CODE" Varchar(20) DEFAULT 'N/A' NOT NULL ENABLE, 
         [XmlAttribute]
         public string ParamCode { get; set; } 
-        //"PRODUCT_CODE" VARCHAR2(20) DEFAULT 'N/A' NOT NULL ENABLE, 
+        //"PRODUCT_CODE" Varchar(20) DEFAULT 'N/A' NOT NULL ENABLE, 
         [XmlAttribute]
         public string ProductCode { get; set; }
-        //"VALUE" VARCHAR2(20), 
+        //"VALUE" Varchar(20), 
         [XmlAttribute]
         public string Value { get; set; }
     }

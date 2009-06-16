@@ -4,7 +4,7 @@ using System.Data;
 
 using System.Data.Common;
 using System.Configuration;
-using Oracle.DataAccess.Client;
+using System.Data.OracleClient;
 
 
 namespace Tools.Monitoring.Implementation
@@ -23,39 +23,39 @@ namespace Tools.Monitoring.Implementation
                 using (OracleCommand cmd = new OracleCommand("prov_monitor.getstatisticsforperiod", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.BindByName = true;
+                    //cmd.BindByName = true;
 
                     // create parameter object for the cursor
-                    using (OracleParameter pRefCursor = new OracleParameter("out_CountersForPeriod", OracleDbType.RefCursor))
+                    OracleParameter pRefCursor = new OracleParameter("out_CountersForPeriod", OracleType.Cursor);
+
+
+                    // this is an output parameter so we must indicate that fact
+                    pRefCursor.Direction = ParameterDirection.Output;
+
+                    // add the parameter to the collection
+                    cmd.Parameters.Add(pRefCursor);
+
+                    OracleParameter pStartDate = new OracleParameter("in_PeriodStart", OracleType.DateTime);
+                    pStartDate.Direction = ParameterDirection.Input;
+
+                    OracleParameter pEndDate = new OracleParameter("in_PeriodEnd", OracleType.DateTime);
+                    pEndDate.Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.Add(pStartDate);
+                    cmd.Parameters.Add(pEndDate);
+
+                    con.Open();
+
+                    using (IDataReader dr = cmd.ExecuteReader())
                     {
 
-                        // this is an output parameter so we must indicate that fact
-                        pRefCursor.Direction = ParameterDirection.Output;
-
-                        // add the parameter to the collection
-                        cmd.Parameters.Add(pRefCursor);
-
-                        OracleParameter pStartDate = new OracleParameter("in_PeriodStart", OracleDbType.Date);
-                        pStartDate.Direction = ParameterDirection.Input;
-
-                        OracleParameter pEndDate = new OracleParameter("in_PeriodEnd", OracleDbType.Date);
-                        pEndDate.Direction = ParameterDirection.Input;
-
-                        cmd.Parameters.Add(pStartDate);
-                        cmd.Parameters.Add(pEndDate);
-
-                        con.Open();
-
-                        using (IDataReader dr = cmd.ExecuteReader())
+                        while (dr.Read())
                         {
-
-                            while (dr.Read())
-                            {
-                                results.Add(dr["Name"].ToString(), ((dr.IsDBNull(dr.GetOrdinal("Value"))) ? 0 : Convert.ToInt32(dr["Value"])));
-                            }
+                            results.Add(dr["Name"].ToString(), ((dr.IsDBNull(dr.GetOrdinal("Value"))) ? 0 : Convert.ToInt32(dr["Value"])));
                         }
-
                     }
+
+
                 }
 
 

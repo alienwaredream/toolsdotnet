@@ -3,11 +3,11 @@
   -- Function and procedure implementations
   procedure UpdateResponseToFtPro (  
   p_REQ_ID foris_commands_prov.req_id%type, 
-	p_PROCESSING_STATUS in VARCHAR2, 
-	p_UPDATE_MECHANISM in VARCHAR2, 
+	p_PROCESSING_STATUS in Varchar, 
+	p_UPDATE_MECHANISM in Varchar, 
 	p_RESPONSE_TIME in DATE, 
 	p_ERROR_DESC in CLOB, 
-	p_PREPAID_CREDIT in VARCHAR2,
+	p_PREPAID_CREDIT in Varchar,
   p_Updated out boolean)
   
   is
