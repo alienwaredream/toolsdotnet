@@ -91,13 +91,13 @@ namespace Tools.Coordination.Ems
 
                     if (workItem != null)
                     {
-                        Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Verbose,
-                            ProducerMessage.MessageRetrieved,
-                            new ContextualLogEntry
-                            {
-                                Message = "Got a new work item" + workItem,
-                                ContextIdentifier = new ContextIdentifier()
-                            });
+                        //Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Verbose,
+                        //    ProducerMessage.MessageRetrieved,
+                        //    new ContextualLogEntry
+                        //    {
+                        //        Message = "Got a new work item" + workItem,
+                        //        ContextIdentifier = new ContextIdentifier()
+                        //    });
 
                         return workItem;
                     }
@@ -165,14 +165,19 @@ namespace Tools.Coordination.Ems
 
                 //dependentTransaction.Complete();
 
-                    if (message == null)
-                    {
-                        // if token is equal to null then commit here, as 
-                        // consumer will not get to the item anyway.
-                        //if (transaction.TransactionInformation.Status == TransactionStatus.Active)
-                        //    transaction.Commit();
-                        Log.TraceData(Log.Source, TraceEventType.Verbose, 10001, "Null message received because of the timeout. Queue: " + queue.ServerConfig.Url + ":" + queue.QueueConfig.Name); 
-                    }
+                if (message == null)
+                {
+                    // if token is equal to null then commit here, as 
+                    // consumer will not get to the item anyway.
+                    //if (transaction.TransactionInformation.Status == TransactionStatus.Active)
+                    //    transaction.Commit();
+                    Log.TraceData(Log.Source, TraceEventType.Verbose, 10001, "Null message received because of the timeout. Queue: " + queue.ServerConfig.Url + ":" + queue.QueueConfig.Name);
+                }
+                else
+                {
+                    Log.TraceData(Log.Source, TraceEventType.Verbose, 10002, String.Format("Message [CID:{0}|MID:{1}] received from queue {2}:{3}", message.MessageID, message.CorrelationID, queue.ServerConfig.Url,queue.QueueConfig.Name));
+                }
+
                 //}
 
                 #endregion

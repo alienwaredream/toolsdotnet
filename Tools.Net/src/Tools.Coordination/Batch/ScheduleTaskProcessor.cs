@@ -68,9 +68,6 @@ namespace Tools.Coordination.Batch
 
                 Log.Source.TraceTransfer(0, Name, _contextIdentifier.ContextGuid);
 
-                Log.Source.TraceEvent(TraceEventType.Start, 0, String.Format(
-                                                                   CultureInfo.InvariantCulture,
-                                                                   "{0}: Health data collection", Name));
                 Log.TraceData(Log.Source,TraceEventType.Information,
                                      ScheduleTaskProcessorMessage.Started,
                                      new ContextualLogEntry
@@ -123,7 +120,7 @@ namespace Tools.Coordination.Batch
 
                     try
                     {
-                        Log.TraceData(Log.Source,TraceEventType.Information,
+                        Log.TraceData(Log.Source,TraceEventType.Verbose,
                              ScheduleTaskProcessorMessage.ScheduledTaskIsAboutToBeExecuted,
                              new ContextualLogEntry
                              {
