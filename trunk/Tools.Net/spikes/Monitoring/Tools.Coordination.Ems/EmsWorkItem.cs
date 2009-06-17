@@ -12,6 +12,7 @@ namespace Tools.Coordination.Ems
         Message message;
 
         public EmsReaderQueue Queue { get { return queue; } }
+        public Message Message { get { return message; } }
 
         #region Constructors
 

@@ -182,6 +182,7 @@ namespace Tools.Coordination.Ems
                 try
                 {
                     session = connection.CreateSession(this.sessionConfig.IsTransactional, sessionConfig.Mode);
+                    
                 }
                 catch (EMSException e)
                 {
