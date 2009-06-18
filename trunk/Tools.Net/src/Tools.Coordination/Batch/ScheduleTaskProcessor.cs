@@ -18,6 +18,7 @@ namespace Tools.Coordination.Batch
 
         private readonly ContextIdentifier _contextIdentifier =
             new ContextIdentifier();
+        private int iterationsCounter;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace Tools.Coordination.Batch
             get;
             set;
         }
+        public int MaxCountOfIterations { get; set; }
 
         #endregion Properties
 
@@ -108,6 +110,14 @@ namespace Tools.Coordination.Batch
                                              });
 
                     #endregion instrumentation
+
+                    if (MaxCountOfIterations != 0 && iterationsCounter++ == MaxCountOfIterations)
+                    {
+                        iterationsCounter = 0;
+                        Log.TraceData(Log.Source, TraceEventType.Stop, ScheduleTaskProcessorMessage.Stopped,
+                            String.Format("Scheduled task is stopped as maximum number of iterations is reached. Max number of iterations is {0} and can be setup as a property of a ScheduleTaskProcessor class", MaxCountOfIterations));
+                        break;
+                    }
 
                     SelfSuspend(waitTime);
 
