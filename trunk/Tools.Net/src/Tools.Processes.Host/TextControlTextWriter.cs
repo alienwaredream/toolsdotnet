@@ -104,7 +104,11 @@ namespace Tools.Processes.Host
         {
             lock (syncObject)
             {
-                viewControl.BeginInvoke(new SetStringDelegate(AddControlText), new object[] { value });
+                try
+                {
+                    viewControl.BeginInvoke(new SetStringDelegate(AddControlText), new object[] { value });
+                }
+                catch { }
                 //viewControl.Invoke(new SetStringDelegate(AddControlText), value);
             }
         }
