@@ -72,9 +72,20 @@ namespace Tools.Coordination.Ems
             Log.TraceData(Log.Source2, TraceEventType.Warning, EmsCoordinationMessages.CommitCalledOnTheClosedSession,
                 ServerConfig.Url + ":" + queueConfig.Name);
         }
+        public void Commit(Message msg)
+        {
+            if (session.IsTransacted)
+            {
+                Commit();
+            }
+            else
+            {
+                msg.Acknowledge();
+            }
+        }
         public void Rollback()
         {
-            if (session != null)
+            if (session != null && session.IsTransacted)
             {
                 session.Rollback();
                 return;
@@ -182,7 +193,7 @@ namespace Tools.Coordination.Ems
                 try
                 {
                     session = connection.CreateSession(this.sessionConfig.IsTransactional, sessionConfig.Mode);
-                    
+
                 }
                 catch (EMSException e)
                 {
