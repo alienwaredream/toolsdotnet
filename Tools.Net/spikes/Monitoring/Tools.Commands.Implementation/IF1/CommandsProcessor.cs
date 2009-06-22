@@ -26,11 +26,25 @@ namespace Tools.Commands.Implementation
         IResponseDataProvider responseDataProvider;
         Dictionary<decimal, ICommandExecutor> executors;
         private Int32 connectionTimeout = 20000;
+
+        /// <summary>
+        /// Interval in milliseconds to attempt to fetch next command when it was found in the
+        /// previous iteration.
+        /// </summary>
+        private Int32 fetchOnDataPresentInterval = 5000;
+
+
+        Guid lookupActivityGuid = Guid.NewGuid();
+
         #endregion
 
         #region Properties
         CommandSelectionOptions Filter { get; set; }
+
         public string InvalidCommandStatus { get { return invalidCommandStatus; } set { invalidCommandStatus = value; } }
+
+        public Int32 FetchOnDataPresentInterval { get { return fetchOnDataPresentInterval; } set { fetchOnDataPresentInterval = value; } }
+
         #endregion
 
         #region Construction
@@ -59,10 +73,6 @@ namespace Tools.Commands.Implementation
 
         protected override void ExecuteSheduleTask()
         {
-            Trace.CorrelationManager.ActivityId = Guid.NewGuid();
-            Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Start, CommandMessages.StartingScheduledExecutionIteration, String.Format("Looking for commands [CommandType={0}, SPName={1}](iteration#{2})",
-                Filter.CommandTypeId, readerSPName, IterationsCounter));
-
             base.ExecuteSheduleTask();
 
             bool thereWasSomethingToProcess = false;
@@ -73,11 +83,13 @@ namespace Tools.Commands.Implementation
 
                 if (thereWasSomethingToProcess)
                 {
-                    //Schedule.SetForImmidiateRun();
+                    Schedule.SetNextRunTime(DateTime.Now.AddMilliseconds(fetchOnDataPresentInterval));
                     return;
                 }
-
-                Log.TraceData(Log.Source, TraceEventType.Information, CommandMessages.NoCommandsFound, "No commands found, next lookup at: " + Schedule.NextRunTime.ToString("dd-MMM-yyyy HH:mm:ss"));
+                // Return ActivityId back to lookup, but don't transfer
+                Trace.CorrelationManager.ActivityId = lookupActivityGuid;
+                Log.TraceData(Log.Source, TraceEventType.Information, CommandMessages.NoCommandsFound,
+                    String.Format("No commands found for  [CommandType={0}, SPName={1}], next lookup at: {2}", Filter.CommandTypeId, readerSPName, Schedule.NextRunTime.ToString("dd-MMM-yyyy HH:mm:ss")));
 
             }
             catch (Exception ex)
@@ -107,8 +119,6 @@ namespace Tools.Commands.Implementation
             {
                 using (OracleConnection connection = new OracleConnection(ConfigurationManager.ConnectionStrings["SourceDB"].ConnectionString))
                 {
-
-                    
 
                     connection.Open();
 

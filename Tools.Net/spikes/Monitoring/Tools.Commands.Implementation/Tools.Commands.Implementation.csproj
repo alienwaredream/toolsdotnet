@@ -72,7 +72,6 @@
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IF1\Processors\ResponseConsumer.cs" />
-    <Compile Include="IF1\Processors\ResponseProcessor.cs" />
     <Compile Include="IF1\Processors\ResProducerStub.cs" />
   </ItemGroup>
   <ItemGroup>

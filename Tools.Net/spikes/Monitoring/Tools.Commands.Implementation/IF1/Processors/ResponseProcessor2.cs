@@ -13,7 +13,7 @@ using Tools.Processes.Core;
 
 namespace Tools.Commands.Implementation.IF1.Processors
 {
-    public class ResponseProcessor2 : ScheduleTaskProcessor
+    public class ResponseProcessor : ScheduleTaskProcessor
     {
         //TODO: (SD) change to interface for testing later on
         private ResponseDataProvider dataCommand;
@@ -32,12 +32,12 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
         #region Constructors
 
-        public ResponseProcessor2(string responseSPName, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
+        public ResponseProcessor(string responseSPName, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
         {
             Init(new ResponseDataProvider(responseSPName), responseTranslator, queue);
         }
 
-        public ResponseProcessor2(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
+        public ResponseProcessor(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
         {
             Init(dataCommand, responseTranslator, queue);
         }
