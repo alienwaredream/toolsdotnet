@@ -62,39 +62,46 @@ namespace Tools.Commands.Implementation
 
                 OracleParameter pProcessingStatus = new OracleParameter("p_PROCESSING_STATUS", OracleType.VarChar);
                 pProcessingStatus.Direction = ParameterDirection.Input;
-                pProcessingStatus.Value = processingStatus;
                 cmd.Parameters.Add(pProcessingStatus);
+                OracleHelper.AssignOracleParameter2String("p_PROCESSING_STATUS", processingStatus, cmd);
+
 
                 OracleParameter pCode = new OracleParameter("p_CODE", OracleType.VarChar);
                 pCode.Direction = ParameterDirection.Input;
-                pCode.Value = code;
                 cmd.Parameters.Add(pCode);
+                OracleHelper.AssignOracleParameter2String("p_CODE", code, cmd);
 
                 OracleParameter pUpdateMechanism = new OracleParameter("p_UPDATE_MECHANISM", OracleType.VarChar);
                 pUpdateMechanism.Direction = ParameterDirection.Input;
-                pUpdateMechanism.Value = updateMechanism;
                 cmd.Parameters.Add(pUpdateMechanism);
+                OracleHelper.AssignOracleParameter2String("p_UPDATE_MECHANISM", updateMechanism, cmd);
 
                 OracleParameter pResponseTime = new OracleParameter("p_RESPONSE_TIME", OracleType.DateTime);
                 pResponseTime.Direction = ParameterDirection.Input;
                 pResponseTime.Value = responseTime;
                 cmd.Parameters.Add(pResponseTime);
 
+                string errorDescription = null;
+                // Truncate to the max column length.
+                if (!String.IsNullOrEmpty(errorDesc))
+                {
+                    errorDescription = (errorDesc.Length <= 1000) ? errorDesc : errorDesc.Substring(0, 1000);
+                }
+
                 OracleParameter pErrorDesc = new OracleParameter("p_ERROR_DESC", OracleType.Clob);
                 pErrorDesc.Direction = ParameterDirection.Input;
-                pErrorDesc.Value = errorDesc;
                 cmd.Parameters.Add(pErrorDesc);
+                OracleHelper.AssignOracleParameter2String("p_ERROR_DESC", errorDescription, cmd);
+
 
                 OracleParameter pPrepaidCredit = new OracleParameter("p_PREPAID_CREDIT", OracleType.VarChar);
                 pPrepaidCredit.Direction = ParameterDirection.Input;
-                pPrepaidCredit.Value = prepaidCredit;
                 cmd.Parameters.Add(pPrepaidCredit);
+                OracleHelper.AssignOracleParameter2String("p_PREPAID_CREDIT", prepaidCredit, cmd);
 
                 OracleParameter pUpdated = new OracleParameter("p_UPDATED", OracleType.Number);
                 pUpdated.Direction = ParameterDirection.Output;
                 cmd.Parameters.Add(pUpdated);
-
-
 
                 cmd.ExecuteNonQuery();
 
@@ -133,7 +140,7 @@ namespace Tools.Commands.Implementation
                     throw;
                 }
 
-                
+
 
             }
         }

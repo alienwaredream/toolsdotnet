@@ -11,14 +11,32 @@ namespace Tools.Commands.Implementation.IF1.Processors
     {
 
         Tools.Commands.Implementation.IF1.req req;
+        bool canResubmit;
+        string errorType;
 
         public void SetResponse(string response)
         {
-            ErrorTrap.AddRaisableAssertion<ArgumentException>(!String.IsNullOrEmpty(response), "response argument can't be empty or null!");
+            this.SetResponse(response, false, null);
+        }
 
-            req = SerializationUtility.DeserializeFromString(response, typeof(Tools.Commands.Implementation.IF1.req)) as Tools.Commands.Implementation.IF1.req;
+        public void SetResponse(string response, bool canResubmit, string errorType)
+        {
+            ErrorTrap.AddAssertion(!String.IsNullOrEmpty(response), "response argument can't be empty or null!");
 
-            ErrorTrap.AddRaisableAssertion<ArgumentException>(req != null, "Invalid response type for this translator! Expected type is " + typeof(Tools.Commands.Implementation.IF1.req).FullName + "\r\nSource:\r\n" + response);
+            this.canResubmit = canResubmit;
+            this.errorType = errorType;
+
+            try
+            {
+                req = SerializationUtility.DeserializeFromString(response, typeof(Tools.Commands.Implementation.IF1.req)) as Tools.Commands.Implementation.IF1.req;
+            }
+            catch (Exception ex)
+            {
+                ErrorTrap.AddAssertion(false, ex.ToString() + "\r\n" + response);
+                return;
+            }
+
+            ErrorTrap.AddAssertion(req != null, "Invalid response type for this translator! Expected type is " + typeof(Tools.Commands.Implementation.IF1.req).FullName + "\r\nSource:\r\n" + response);
         }
 
         #region IResponseStatusTranslator Members
@@ -26,7 +44,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
         /// <summary>
         /// Returns status as should be witten in the command table.
         /// Command table allows to have longer status names that include 
-        /// DONE, FAILED, BAD, etc.
+        /// DONE, FAILED, BAD, INVALID etc.
         /// </summary>
         /// <param name="response">A response as per IncreaseBC schema.</param>
         /// <returns>Status code to written to the commmand table</returns>
@@ -47,6 +65,8 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             get
             {
+                if (canResubmit && req.processingStatus == "E") return "R";
+
                 return req.processingStatus;
             }
         }

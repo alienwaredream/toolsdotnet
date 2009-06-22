@@ -13,7 +13,7 @@ using Tools.Processes.Core;
 
 namespace Tools.Commands.Implementation.IF1.Processors
 {
-    public class ResponseProcessor : ScheduleTaskProcessor
+    public class ResponseProcessor2 : ScheduleTaskProcessor
     {
         //TODO: (SD) change to interface for testing later on
         private ResponseDataProvider dataCommand;
@@ -32,12 +32,12 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
         #region Constructors
 
-        public ResponseProcessor(string responseSPName, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
+        public ResponseProcessor2(string responseSPName, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
         {
             Init(new ResponseDataProvider(responseSPName), responseTranslator, queue);
         }
 
-        public ResponseProcessor(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
+        public ResponseProcessor2(ResponseDataProvider dataCommand, IResponseStatusTranslator responseTranslator, EmsReaderQueue queue)
         {
             Init(dataCommand, responseTranslator, queue);
         }
@@ -117,9 +117,12 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
                 string job = message.Text;
 
-                Log.TraceData(Log.Source, TraceEventType.Verbose, 15020, String.Format("Message: \r\n{0}", job));
+                bool resubmitFlag = message.GetBooleanProperty("doRetry");
+                string errorType = message.GetStringProperty("errorType");
 
-                responseTranslator.SetResponse(job);
+                Log.TraceData(Log.Source, TraceEventType.Verbose, 15020, String.Format("Message: \r\n{0}\r\n Resubmit flag:{1}\r\nErrorType: {2}", job, resubmitFlag, errorType));
+
+                responseTranslator.SetResponse(job, resubmitFlag, errorType);
 
                 if (ErrorTrap.HasErrors)
                 {

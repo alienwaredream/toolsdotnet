@@ -8,7 +8,6 @@ using Tools.Core.Utils;
 using Tools.Failover;
 using Tools.Logging;
 using Tools.Processes.Core;
-using TIBCO.EMS;
 using Tools.Core.Configuration;
 using Tools.Core.Asserts;
 using System.Text;

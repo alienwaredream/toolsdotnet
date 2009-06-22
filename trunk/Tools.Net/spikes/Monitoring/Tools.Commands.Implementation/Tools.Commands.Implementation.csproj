@@ -55,6 +55,7 @@
     <Compile Include="IF1\CommandValidationException.cs" />
     <Compile Include="IF1\CommandValidtionError.cs" />
     <Compile Include="IF1\DataAccess\IResponseDataProvider.cs" />
+    <Compile Include="IF1\DataAccess\OracleHelper.cs" />
     <Compile Include="IF1\DataAccess\ResponseDataProvider.cs" />
     <Compile Include="IF1\GenericCommand.cs" />
     <Compile Include="IF1\ICommand2MessageTranslator.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="IF1\NormalizedResponse.cs" />
     <Compile Include="IF1\PackageParameter.cs" />
     <Compile Include="IF1\Processors\BCResponseStatusTranslator.cs" />
+    <Compile Include="IF1\Processors\ResponseProcessor2.cs" />
     <Compile Include="IF1\Processors\ResponseStatusTranslator.cs" />
     <Compile Include="IF1\Processors\ReqProducerStub.cs" />
     <Compile Include="IF1\Processors\IResponseStatusTranslator.cs" />

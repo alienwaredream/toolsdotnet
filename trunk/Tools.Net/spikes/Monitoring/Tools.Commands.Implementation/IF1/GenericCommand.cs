@@ -42,8 +42,7 @@ namespace Tools.Commands.Implementation
         [XmlAttribute]
         public Decimal TDType { get; set; }
 //    "MONTHLY_LIMIT" NUMBER(22,4),
-        [XmlAttribute]
-        public decimal MonthlyLimit { get; set; }
+        public decimal? MonthlyLimit { get; set; }
 //    "ICCID" Varchar(64), 
         [XmlAttribute]
         public string IccId { get; set; }
@@ -54,8 +53,8 @@ namespace Tools.Commands.Implementation
         [XmlAttribute]
         public string BlockReason { get; set; }
 //    "BLOCK_STATUS" NUMBER, 
-        [XmlAttribute]
-        public Decimal BlockStatus { get; set; }
+
+        public Decimal? BlockStatus { get; set; }
 //    "VPN_PROFILE" NUMBER, 
         [XmlAttribute]
         public Decimal VpnProfile { get; set; }
@@ -69,8 +68,7 @@ namespace Tools.Commands.Implementation
         [XmlAttribute]
         public string NewIccId { get; set; }
 //    "CONTRACT_END_DATE" DATE, 
-        [XmlAttribute]
-        public DateTime ContractEndDate { get; set; }
+        public DateTime? ContractEndDate { get; set; }
 //    "VALID_FROM" DATE, 
         [XmlAttribute]
         public DateTime ValidFrom { get; set; }

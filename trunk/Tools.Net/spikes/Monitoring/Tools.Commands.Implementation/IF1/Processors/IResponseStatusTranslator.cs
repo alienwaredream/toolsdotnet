@@ -9,5 +9,6 @@ namespace Tools.Commands.Implementation.IF1.Processors
         string Description { get; }
 
         void SetResponse(string response);
+        void SetResponse(string response, bool canResubmit, string errorType);
     }
 }
