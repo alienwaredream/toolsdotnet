@@ -48,23 +48,34 @@ namespace Tools.Commands.Translators
             {
                 MarketingPackage mp = command.MarketingPackages[0];
 
-                BaseMP bmp = new BaseMP { id = mp.MPId.ToString() };
-
-                List<@params> parameters = new List<@params>();
-
-                foreach (PackageParameter pp in mp.Parameters)
+                if (mp.MPId.HasValue)
                 {
-                    parameters.Add(new @params
+                    BaseMP bmp = new BaseMP { id = mp.MPId.Value.ToString() };
+
+                    List<@params> parameters = new List<@params>();
+
+                    foreach (PackageParameter pp in mp.Parameters)
                     {
-                        code = (pp.ParamCode == "N/A") ? String.Empty : pp.ParamCode,
-                        productCode = pp.ProductCode,
-                        value = pp.Value
-                    });
+                        // Skip parameters with product code of N/A. That is taken from Milorad's code.
+                        if (pp.ProductCode.ToUpper() == "N/A")
+                            continue;
+
+                        parameters.Add(new @params
+                        {
+                            code = (pp.ParamCode == "N/A") ? String.Empty : pp.ParamCode,
+                            productCode = pp.ProductCode,
+                            value = pp.Value
+                        });
+                    }
+
+                    bmp.@params = parameters.ToArray();
+
+                    req.BaseMP = bmp;
                 }
-
-                bmp.@params = parameters.ToArray();
-
-                req.BaseMP = bmp;
+                else
+                {
+                    ErrorTrap.AddAssertion(false, String.Format("Marketing package ID is missing (MP_ID command field is null! External mp_instance_id is {0}.", mp.MPInstanceId));
+                }
             }
 
 

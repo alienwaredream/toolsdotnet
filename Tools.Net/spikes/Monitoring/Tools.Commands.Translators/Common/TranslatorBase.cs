@@ -37,7 +37,7 @@ namespace Tools.Commands.Translators
             {
                 retVal = SerializationUtility.Serialize2String(req);
 
-
+                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, TranslatorMessages.MessageSerialized, retVal);
                 // if xsd is provided, execute xsd validation
                 //if (!String.IsNullOrEmpty(XsdPath))
                 //{
