@@ -86,7 +86,7 @@ namespace Tools.Coordination.ProducerConsumer
             {
                 #region Log
 
-                Log.TraceData(Log.Source,TraceEventType.Start,
+                Log.TraceData(Log.Source, TraceEventType.Start,
                                      JobConsumerMessage.
                                          QueueWorkItemsConsumerStarted,
                                      new ContextualLogEntry
@@ -118,6 +118,9 @@ namespace Tools.Coordination.ProducerConsumer
 
                     try
                     {
+
+ 
+
                         submissionStatus = SubmissionStatus.Retrieving;
 
                         if (ExecutionState != ProcessExecutionState.Running)
@@ -165,13 +168,13 @@ namespace Tools.Coordination.ProducerConsumer
 
                         OnWorkItemRetrieved(workItem);
 
-                        lock (RetrievedItems.Counters[workItem.SubmissionPriority])
-                        {
-                            if (ExecutionState == ProcessExecutionState.Running)
-                            {
-                                Monitor.Pulse(RetrievedItems.Counters[workItem.SubmissionPriority]);
-                            }
-                        }
+                        //lock (RetrievedItems.Counters[workItem.SubmissionPriority])
+                        //{
+                        //    if (ExecutionState == ProcessExecutionState.Running)
+                        //    {
+                        //        Monitor.Pulse(RetrievedItems.Counters[workItem.SubmissionPriority]);
+                        //    }
+                        //}
 
                         #endregion Obtaining QueueWorkItem
 
@@ -185,7 +188,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             submissionStatus = SubmissionStatus.InvalidItemType;
 
-                            Log.TraceData(Log.Source,TraceEventType.Error,
+                            Log.TraceData(Log.Source, TraceEventType.Error,
                                                  JobConsumerMessage.InvalidMessageType,
                                                  new ContextualLogEntry
                                                      {
@@ -227,7 +230,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                             #region Log
 
-                            Log.TraceData(Log.Source,TraceEventType.Warning,
+                            Log.TraceData(Log.Source, TraceEventType.Warning,
                                                  JobConsumerMessage.
                                                      PreHandleNotSuccessful,
                                                  new ContextualLogEntry
@@ -249,11 +252,6 @@ namespace Tools.Coordination.ProducerConsumer
                                 SubmissionStatus.JobPreHandledAndSendingToFailedQueue;
                             //**SD1 - Instead change the state of workItem to cancelled and persist it.
                             workItem.WorkItemState = WorkItemState.Cancelled;
-                            //**SD1 - handle updateResult!!!
-                            //WorkItemUpdateStateResult updateResult = WorkItemController.UpdateWorkItemState
-                            //    (
-                            //    workItem
-                            //    );
 
                             continue;
                         }
@@ -265,25 +263,6 @@ namespace Tools.Coordination.ProducerConsumer
                         submissionStatus =
                             SubmissionStatus.UpdatingJobProcessingStatus;
 
-                        // Instantiating helper db object.
-                        // If db is not available first sql exception in the chain will be raised here.
-                        // Again, if icontext happened to be pre-cached before this moment sql exception
-                        // will happen to the next statement not this one (SD)
-                        //jobDB =
-                        //    new JobDb
-                        //    (
-                        //         ConfigurationManager.ConnectionStrings["OperationConnectionString"].
-                        //         ConnectionString
-                        //    );
-                        // This is the moment when sql exception will happen in db
-                        // unavailability case either for pre-cached connection string case or not (SD).
-                        // TODO: Check how is this handled after the change with HandleLoopException (SD) !!!
-                        // Update jobTransaction.Status to SubmittedTo.
-                        //jobDB.UpdateBatchStatus
-                        //    (
-                        //    job.OperationContext.ContextIdentifier.InternalId,
-                        //    0
-                        //    );
 
                         if (ExecutionState != ProcessExecutionState.Running)
                         {
@@ -304,13 +283,22 @@ namespace Tools.Coordination.ProducerConsumer
                             ref submissionStatus
                             );
 
+
                         #endregion Processing the message
+
+                        //lock (RetrievedItems.Counters[workItem.SubmissionPriority])
+                        //{
+                        //    if (ExecutionState == ProcessExecutionState.Running)
+                        //    {
+                        //        Monitor.Pulse(RetrievedItems.Counters[workItem.SubmissionPriority]);
+                        //    }
+                        //}
                     }
                     catch (InconsistentStateException)
                     {
                         #region Log and handle gracefull StopInternal
 
-                        Log.TraceData(Log.Source,TraceEventType.Verbose,
+                        Log.TraceData(Log.Source, TraceEventType.Verbose,
                                              JobConsumerMessage.
                                                  UnexpectedSubmissionStatus,
                                              new ContextualLogEntry
@@ -347,7 +335,7 @@ namespace Tools.Coordination.ProducerConsumer
                         {
                             #region Log and handle gracefull StopInternal
 
-                            Log.TraceData(Log.Source,TraceEventType.Stop,
+                            Log.TraceData(Log.Source, TraceEventType.Stop,
                                                  JobConsumerMessage.ThreadInterrupted,
                                                  new ContextualLogEntry
                                                      {
@@ -383,7 +371,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                             #region Log
 
-                            Log.TraceData(Log.Source,TraceEventType.Stop,
+                            Log.TraceData(Log.Source, TraceEventType.Stop,
                                                  JobConsumerMessage.AbortRequested,
                                                  new ContextualLogEntry
                                                      {
@@ -409,7 +397,7 @@ namespace Tools.Coordination.ProducerConsumer
 
                         #region Log and handle gracefull loop exception
 
-                        Log.TraceData(Log.Source,TraceEventType.Error,
+                        Log.TraceData(Log.Source, TraceEventType.Error,
                                              JobConsumerMessage.ErrorOccuredInConsumerLoop,
                                              new ContextualLogEntry
                                                  {
@@ -436,13 +424,33 @@ namespace Tools.Coordination.ProducerConsumer
 
                         #endregion Log and handle gracefull loop exception
                     }
+                    finally
+                    {
+                        if (RetrievedItems != null && RetrievedItems.Counters != null && workItem != null)
+                        {
+                            if (Monitor.TryEnter(RetrievedItems.Counters[workItem.SubmissionPriority], 10000))
+                            {
+                                if (ExecutionState == ProcessExecutionState.Running)
+                                {
+                                    Monitor.Pulse(RetrievedItems.Counters[workItem.SubmissionPriority]);
+                                    Monitor.Exit(RetrievedItems.Counters[workItem.SubmissionPriority]);
+                                }
+                            }
+                            else
+                            {
+                                Log.TraceData(Log.Source, TraceEventType.Error,
+                                                     18051, "Timeout when trying to pulse on RetrievedItems.Counters[workItem.SubmissionPriority]. ");
+                            }
+                        }
+                        
+                    }
 
                     #endregion Submission Loop
                 }
             }
             catch (ThreadInterruptedException)
             {
-                Log.TraceData(Log.Source,TraceEventType.Stop,
+                Log.TraceData(Log.Source, TraceEventType.Stop,
                                      JobConsumerMessage.ThreadInterrupted,
                                      new ContextualLogEntry
                                          {
@@ -459,7 +467,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (ThreadAbortException)
             {
-                Log.TraceData(Log.Source,TraceEventType.Stop,
+                Log.TraceData(Log.Source, TraceEventType.Stop,
                                      JobConsumerMessage.
                                          AbortRequested,
                                      new ContextualLogEntry
@@ -477,7 +485,7 @@ namespace Tools.Coordination.ProducerConsumer
             }
             catch (Exception ex)
             {
-                Log.TraceData(Log.Source,TraceEventType.Error,
+                Log.TraceData(Log.Source, TraceEventType.Error,
                                      JobConsumerMessage.ErrorOccuredInConsumer,
                                      new ContextualLogEntry
                                          {
@@ -492,6 +500,7 @@ namespace Tools.Coordination.ProducerConsumer
                                          });
                 //throw;
             }
+
         }
 
         protected virtual JobType GetWorkItemBody(WorkItem workItem)

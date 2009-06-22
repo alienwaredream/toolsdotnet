@@ -275,7 +275,7 @@ namespace Tools.Coordination.ProducerConsumer
             try
             {
 
-                var voidDelegate = (ar as AsyncResult).AsyncDelegate as VoidDelegate;
+                var voidDelegate = (ar as AsyncResult).AsyncDelegate as VoidAction;
 
                 voidDelegate.EndInvoke(ar);
 

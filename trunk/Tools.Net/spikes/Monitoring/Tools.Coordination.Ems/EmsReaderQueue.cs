@@ -64,12 +64,12 @@ namespace Tools.Coordination.Ems
 
         public void Commit()
         {
-            if (session != null)
+            if (session != null && !session.IsClosed)
             {
                 session.Commit();
                 return;
             }
-            Log.TraceData(Log.Source2, TraceEventType.Warning, EmsCoordinationMessages.CommitCalledOnTheClosedSession,
+            Log.TraceData(Log.Source2, TraceEventType.Information, EmsCoordinationMessages.CommitCalledOnTheClosedSession,
                 ServerConfig.Url + ":" + queueConfig.Name);
         }
         public void Commit(Message msg)
@@ -85,12 +85,12 @@ namespace Tools.Coordination.Ems
         }
         public void Rollback()
         {
-            if (session != null && session.IsTransacted)
+            if (session != null && session.IsTransacted && !session.IsClosed)
             {
                 session.Rollback();
                 return;
             }
-            Log.TraceData(Log.Source2, TraceEventType.Warning, EmsCoordinationMessages.RollbackCalledOnTheClosedSession,
+            Log.TraceData(Log.Source2, TraceEventType.Information, EmsCoordinationMessages.RollbackCalledOnTheClosedSession,
     ServerConfig.Url + ":" + queueConfig.Name);
         }
 

@@ -159,6 +159,7 @@ namespace Tools.Processes.Host
 
             try
             {
+
                 Log.Source.TraceEvent(
                     TraceEventType.Error, 0, (e.ExceptionObject as Exception).ToString());
             }
