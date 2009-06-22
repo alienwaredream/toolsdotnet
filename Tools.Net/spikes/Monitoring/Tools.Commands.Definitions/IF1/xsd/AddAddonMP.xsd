@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AddAddonMP.xsd"
+	 xmlns:ns0="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AddAddonMP.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd" schemaLocation="AllTypes.xsd"/>
+	<xs:element name="AddAddonMP">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cid" minOccurs="0"/>
+				<xs:element ref="TISwalletId"/>
+				<xs:element ref="AddonMP"/>
+				<xs:element ref="phoneNumber" minOccurs="0"/>
+				<xs:element ref="reqId"/>
+				<xs:element ref="reqTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="result" type="ns0:result"/>
+	<xs:element name="AddonMP">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="params" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="reqId" type="xs:string"/>
+	<xs:element name="reqTime" type="xs:dateTime"/>
+	<xs:element name="id" type="xs:positiveInteger"/>
+	<xs:element name="params" type="ns0:params"/>
+	<xs:element name="cid" type="ns0:cid"/>
+	<xs:element name="TISwalletId" type="xs:string"/>
+	<xs:element name="phoneNumber" type="xs:string"/>
+</xs:schema>

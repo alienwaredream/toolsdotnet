@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/SimpleReqRep.xsd"
+	 xmlns:ns0="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/SimpleReqRep.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd" schemaLocation="AllTypes.xsd"/>
+	<xs:element name="SimpleReqRep">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req"/>
+				<xs:element ref="res"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="xmlString"/>
+				<xs:element ref="updateMechanism"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="res">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="result" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="xmlString" type="xs:string"/>
+	<xs:element name="result" type="ns0:result"/>
+	<xs:element name="updateMechanism" type="xs:string"/>
+</xs:schema>
