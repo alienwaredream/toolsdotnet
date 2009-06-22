@@ -17,6 +17,9 @@ namespace Tools.Commands.Implementation
         private EmsWriterQueue queue;
         private ICommand2MessageTranslator translator;
         string commandName;
+
+        private bool skipSendingToQueue;
+
         #endregion
 
 
@@ -49,19 +52,23 @@ namespace Tools.Commands.Implementation
             {
                 MessageShim shim = translator.TranslateToShim(command);
 
-                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("CorellationId: {0}, message text: \r\n{1}", shim.CorrelationId, shim.Text));
-
                 if (ErrorTrap.HasErrors)
                 {
                     return false;
                 }
 
-                queue.Open();
+                if (!skipSendingToQueue)
+                {
+                    queue.Open();
 
-                queue.WriteTextMessage(shim.Text, shim.CorrelationId, commandName);
+                    queue.WriteTextMessage(shim.Text, shim.CorrelationId, commandName);
 
-
-                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandPreparedToBeSentToRequestQueue, String.Format("Command: {0} - delivered to queue {1}:{2}", shim.CorrelationId, queue.ServerConfig.Url, queue.QueueConfig.Name));
+                    Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Information, CommandMessages.CommandDeliveredToRequestQueue, String.Format("Command[Type={0}, Id ={1}] - delivered to queue {2}:{3}", command.CommandType, shim.CorrelationId, queue.ServerConfig.Url, queue.QueueConfig.Name));
+                }
+                else
+                {
+                    Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Warning, CommandMessages.CommandDeliveredToRequestQueue, String.Format("Command[Type={0}, Id ={1}] - would be delivered to queue {2}:{3}. But this is skipped as skipSendingToQueue is set to true.", command.CommandType, shim.CorrelationId, queue.ServerConfig.Url, queue.QueueConfig.Name));
+                }
 
                 return true;
 

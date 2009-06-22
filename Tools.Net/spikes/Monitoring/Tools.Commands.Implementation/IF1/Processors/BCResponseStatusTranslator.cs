@@ -10,10 +10,21 @@ namespace Tools.Commands.Implementation.IF1.Processors
     internal class BCResponseStatusTranslator : IResponseStatusTranslator
     {
         Tools.Commands.Implementation.IF1.Ibc.res res;
+        bool canResubmit;
+        string errorType;
 
         public void SetResponse(string response)
         {
+            this.SetResponse(response, false, null);
+        }
+
+        public void SetResponse(string response, bool canResubmit, string errorType)
+        {
+
             ErrorTrap.AddRaisableAssertion<ArgumentException>(!String.IsNullOrEmpty(response), "response argument can't be empty or null!");
+
+            this.canResubmit = canResubmit;
+            this.errorType = errorType;
 
             res = SerializationUtility.DeserializeFromString(response, typeof(Tools.Commands.Implementation.IF1.Ibc.res)) as Tools.Commands.Implementation.IF1.Ibc.res;
 
@@ -33,7 +44,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             get
             {
-                return (res.code == "ok") ? "DONE" : "FAILED";
+                return (res.code == "ok" && res.desc == "ok" ) ? "DONE" : "FAILED";
             }
         }
         /// <summary>
@@ -46,7 +57,11 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             get
             {
-                return (res.code == "ok") ? "P" : "E";
+                if (res.code == "ok" && res.desc == "ok") return "P";
+
+                if (canResubmit) return "R";
+
+                return "E";
             }
         }
         public string Description

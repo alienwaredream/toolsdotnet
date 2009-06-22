@@ -14,8 +14,8 @@ namespace Tools.Commands.Implementation
         [XmlAttribute]
         public decimal MPInstanceId {get; set;}
         //"MP_ID" NUMBER, 
-        [XmlAttribute]
-        public decimal MPId { get; set; }
+
+        public decimal? MPId { get; set; }
         //"MP_TYPE" Varchar(20), 
         [XmlAttribute]
         public string MPType { get; set; }
