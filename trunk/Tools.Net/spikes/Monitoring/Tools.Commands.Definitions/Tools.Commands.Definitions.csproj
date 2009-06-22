@@ -39,16 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IF1\xsd\AddAddonMP_AllTypes.cs" />
     <Compile Include="IF1\xsd\alltypes_createcustomer.cs" />
     <Compile Include="IF1\xsd\alltypes_createterminaldevice.cs" />
     <Compile Include="IF1\xsd\Alltypes_TerminateAddonMP.cs" />
+    <Compile Include="IF1\xsd\BlockTerminalDevice_AllTypes.cs" />
+    <Compile Include="IF1\xsd\ChangeBaseMPparams_AllTypes.cs" />
     <Compile Include="IF1\xsd\ChangeBaseMP_AllTypes.cs" />
+    <Compile Include="IF1\xsd\ChangeSIMCard_AllTypes.cs" />
     <Compile Include="IF1\xsd\CreateWallet_AllTypes.cs" />
     <Compile Include="IF1\xsd\IncreaseBC.cs">
       <DependentUpon>IncreaseBC.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="IF1\xsd\ModifyCustomer_AllTypes.cs" />
+    <Compile Include="IF1\xsd\ModifyTerminalDevice_AllTypes.cs" />
+    <Compile Include="IF1\xsd\ModifyWallet_AllTypes.cs" />
     <Compile Include="IF1\xsd\SimpleReqRep_Alltypes.cs" />
+    <Compile Include="IF1\xsd\TerminateTerminalDevice_AllTypes.cs" />
     <Compile Include="IF1\xsd\updateprocessing.cs">
       <DependentUpon>UpdateProcessing.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
