@@ -22,7 +22,7 @@ namespace Tools.Coordination.ProducerConsumer
 
         public ConsumerConfiguration()
         {
-            MaxTotalSubmittedItemsCount = 5;
+            MaxTotalSubmittedItemsCount = 1;
             SubmissionQueuingProcessTimeout = 20000;
         }
     }

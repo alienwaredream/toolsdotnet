@@ -74,6 +74,10 @@ namespace Tools.Coordination.ProducerConsumer
 
                 while (true)
                 {
+                    if (_retrievedItems == null)
+                    {
+                        break;
+                    }
                     lock (_retrievedItems)
                     {
                         qwi = _retrievedItems.GetTopWorkItem();

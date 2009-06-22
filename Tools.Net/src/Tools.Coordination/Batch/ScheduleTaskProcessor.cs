@@ -36,6 +36,8 @@ namespace Tools.Coordination.Batch
         }
         public int MaxCountOfIterations { get; set; }
 
+        public int IterationsCounter { get { return iterationsCounter; } }
+
         #endregion Properties
 
         protected override void OnStopped()
@@ -70,7 +72,7 @@ namespace Tools.Coordination.Batch
 
                 Log.Source.TraceTransfer(0, Name, _contextIdentifier.ContextGuid);
 
-                Log.TraceData(Log.Source,TraceEventType.Information,
+                Log.TraceData(Log.Source,TraceEventType.Start,
                                      ScheduleTaskProcessorMessage.Started,
                                      new ContextualLogEntry
                                          {
@@ -115,7 +117,7 @@ namespace Tools.Coordination.Batch
                     {
                         iterationsCounter = 0;
                         Log.TraceData(Log.Source, TraceEventType.Stop, ScheduleTaskProcessorMessage.Stopped,
-                            String.Format("Scheduled task is stopped as maximum number of iterations is reached. Max number of iterations is {0} and can be setup as a property of a ScheduleTaskProcessor class", MaxCountOfIterations));
+                            String.Format("Scheduled task is stopped as maximum number of iterations is reached. Max number of iterations is {0} and can be setup as a property of a {1}:{2} class in configuration", MaxCountOfIterations, this.GetType().FullName, this.Name));
                         break;
                     }
 
@@ -135,7 +137,7 @@ namespace Tools.Coordination.Batch
                              new ContextualLogEntry
                              {
                                  Message =
-                                     "Starting " + Name + " scheduled task execution.",
+                                     String.Format("{0}: starting scheduled task execution (iteration #{1})", Name, iterationsCounter),
                                  ContextIdentifier = _contextIdentifier
                              });
                         ExecuteSheduleTask();

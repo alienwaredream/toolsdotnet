@@ -128,11 +128,11 @@ namespace Tools.Coordination.ProducerConsumer
                                                       "Undelying type of IAsyncResult should be of type AsyncResult");
                 ErrorTrap.AddRaisableAssertion<ArgumentNullException>(
                     // ReSharper disable PossibleNullReferenceException - ErrorTrap is used above
-                    (ar as AsyncResult).AsyncDelegate as VoidDelegate != null,
+                    (ar as AsyncResult).AsyncDelegate as VoidAction != null,
                     // ReSharper restore PossibleNullReferenceException
                     "Undelying type of IAsyncResult should be of type AsyncResult");
 // ReSharper disable PossibleNullReferenceException - ErrorTrap is used above
-                var voidDelegate = (ar as AsyncResult).AsyncDelegate as VoidDelegate;
+                var voidDelegate = (ar as AsyncResult).AsyncDelegate as VoidAction;
 // ReSharper restore PossibleNullReferenceException
 
 // ReSharper disable PossibleNullReferenceException - ErrorTrap is used above
