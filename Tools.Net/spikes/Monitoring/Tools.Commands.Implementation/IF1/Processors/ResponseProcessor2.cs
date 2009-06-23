@@ -79,8 +79,6 @@ namespace Tools.Commands.Implementation.IF1.Processors
                 Log.TraceData(Log.Source, TraceEventType.Verbose, 10000, String.Format("Listening [{0}:{1}]",
                     queue.ServerConfig.Url, queue.QueueConfig.Name));
 
-                base.ExecuteSheduleTask();
-
                 try
                 {
                     queue.Open();
@@ -143,7 +141,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
                     return;
                 }
 
-                if (!dataCommand.UpdateResponseToFtPro(id, responseTranslator.LogStatus, responseTranslator.CommandStatus, "JMS", DateTime.Now, responseTranslator.Description, String.Empty) && LogErrorForMissingCommands)
+                if (!dataCommand.UpdateResponseToFtPro(id, responseTranslator.LogStatus, responseTranslator.CommandStatus, "JMS", DateTime.Now, responseTranslator.Description, responseTranslator.ReturnValue) && LogErrorForMissingCommands)
                 {
                     Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, 15051, String.Format("No command with id {0} was present in the commands table. Response was still logged and message will be removed from the queue. {1}", message.CorrelationID, job));
 

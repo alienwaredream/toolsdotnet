@@ -26,6 +26,25 @@ namespace Tools.Commands.Implementation
         IResponseDataProvider responseDataProvider;
         Dictionary<decimal, ICommandExecutor> executors;
         private Int32 connectionTimeout = 20000;
+        private bool failureAtPreviousRun;
+        private bool firstStart = true;
+        /// <summary>
+        /// Logs stats on xth iteration
+        /// </summary>
+        private Int32 logStatsIterationNumber = 30;
+
+        private Int64 logStatsIterationCounter;
+
+        private DateTime logStatsTimestamp = DateTime.Now;
+
+        /// <summary>
+        /// Total number of commands processed since start
+        /// </summary>
+        private Int64 commandsTotalCounter;
+        /// <summary>
+        /// Number of commands processed between two statistics
+        /// </summary>
+        private Int64 commandsStatsCounter;
 
         /// <summary>
         /// Interval in milliseconds to attempt to fetch next command when it was found in the
@@ -35,6 +54,7 @@ namespace Tools.Commands.Implementation
 
 
         Guid lookupActivityGuid = Guid.NewGuid();
+        Guid statsActivityId = Guid.NewGuid();
 
         #endregion
 
@@ -71,9 +91,13 @@ namespace Tools.Commands.Implementation
 
         #region Scheduling
 
+        protected override string GetStartupInfo()
+        {
+            return String.Format("[CommandType={0}, SPName={1}]", Filter.CommandTypeId, readerSPName);
+        }
+
         protected override void ExecuteSheduleTask()
         {
-            base.ExecuteSheduleTask();
 
             bool thereWasSomethingToProcess = false;
 
@@ -81,19 +105,36 @@ namespace Tools.Commands.Implementation
             {
                 thereWasSomethingToProcess = ExecuteNextCommand();
 
+
+
                 if (thereWasSomethingToProcess)
                 {
+                    commandsTotalCounter++;
+                    commandsStatsCounter++;
+
                     Schedule.SetNextRunTime(DateTime.Now.AddMilliseconds(fetchOnDataPresentInterval));
                     return;
                 }
+
+                if (firstStart || failureAtPreviousRun || logStatsIterationCounter++ == logStatsIterationNumber)
+                {
+                    Trace.CorrelationManager.ActivityId = statsActivityId;
+                    Log.TraceData(Log.Source, TraceEventType.Information, CommandMessages.NoCommandsFound,
+                        String.Format("[CommandType={0}, SPName={1}];Total cmds:{2}; Stats cmds:{3} between {4} and {5}", Filter.CommandTypeId, readerSPName, commandsTotalCounter, commandsStatsCounter, logStatsTimestamp, DateTime.Now));
+                    // Reset stats counters and timestamp
+                    logStatsTimestamp = DateTime.Now;
+                    logStatsIterationCounter = 0;
+                    commandsStatsCounter = 0;
+
+                }
+                failureAtPreviousRun = false;
+                firstStart = false;
                 // Return ActivityId back to lookup, but don't transfer
                 Trace.CorrelationManager.ActivityId = lookupActivityGuid;
-                Log.TraceData(Log.Source, TraceEventType.Information, CommandMessages.NoCommandsFound,
-                    String.Format("No commands found for  [CommandType={0}, SPName={1}], next lookup at: {2}", Filter.CommandTypeId, readerSPName, Schedule.NextRunTime.ToString("dd-MMM-yyyy HH:mm:ss")));
-
             }
             catch (Exception ex)
             {
+                failureAtPreviousRun = true;
                 Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, CommandMessages.ScheduledIterationFailed, ex.ToString());
                 throw;
             }
@@ -267,155 +308,155 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
         {
 
 
-            Dictionary<decimal, GenericCommand> commands = new Dictionary<decimal, GenericCommand>();
-
-            Dictionary<decimal, MarketingPackage> mps = new Dictionary<decimal, MarketingPackage>();
+                #region Get next command
 
 
-            // create the command object and set attributes
-            using (OracleCommand cmd = new OracleCommand(readerSPName, con, tx))
-            {
-                //cmd.
-                cmd.CommandType = CommandType.StoredProcedure;
+                Dictionary<decimal, GenericCommand> commands = new Dictionary<decimal, GenericCommand>();
 
-                #region test parameters
-
-                OracleCommandBuilder.DeriveParameters(cmd);
-
-                //foreach (OracleParameter p in cmd.Parameters)
-                //{
-                //    Console.WriteLine(String.Format("Name: {0}, OracleType: {1}", p.ParameterName, p.OracleType));
-                //}
-
-                //return null;
-
-                #endregion
+                Dictionary<decimal, MarketingPackage> mps = new Dictionary<decimal, MarketingPackage>();
 
 
-                //OracleParameter pRefCursor = cmd.Parameters["P_COMMANDS"]; //new OracleParameter("P_COMMANDS", OracleType.Cursor);
-
-
-                OracleHelper.AssignOracleParameter2String("P_PARTITIONNAME", options.PartitionName, cmd);
-                OracleHelper.AssignOracleParameter2String("P_BATCHID", options.BatchId, cmd);
-
-                cmd.Parameters["P_COMMANDTYPE"].Value = options.CommandTypeId;
-
-                OracleHelper.AssignOracleParameter2String("P_MACHINENAME", options.MachineName, cmd);
-                OracleHelper.AssignOracleParameter2String("P_USERNAME", Environment.UserName, cmd);
-                OracleHelper.AssignOracleParameter2String("P_ACTIVITYID", options.ActivityId, cmd);
-
-                try
+                // create the command object and set attributes
+                using (OracleCommand cmd = new OracleCommand(readerSPName, con, tx))
                 {
+                    //cmd.
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    #region test parameters
 
-                    using (IDataReader dr = cmd.ExecuteReader())
+                    OracleCommandBuilder.DeriveParameters(cmd);
+
+                    //foreach (OracleParameter p in cmd.Parameters)
+                    //{
+                    //    Console.WriteLine(String.Format("Name: {0}, OracleType: {1}", p.ParameterName, p.OracleType));
+                    //}
+
+                    //return null;
+
+                    #endregion
+
+
+                    //OracleParameter pRefCursor = cmd.Parameters["P_COMMANDS"]; //new OracleParameter("P_COMMANDS", OracleType.Cursor);
+
+
+                    OracleHelper.AssignOracleParameter2String("P_PARTITIONNAME", options.PartitionName, cmd);
+                    OracleHelper.AssignOracleParameter2String("P_BATCHID", options.BatchId, cmd);
+
+                    cmd.Parameters["P_COMMANDTYPE"].Value = options.CommandTypeId;
+
+                    OracleHelper.AssignOracleParameter2String("P_MACHINENAME", options.MachineName, cmd);
+                    OracleHelper.AssignOracleParameter2String("P_USERNAME", Environment.UserName, cmd);
+                    OracleHelper.AssignOracleParameter2String("P_ACTIVITYID", options.ActivityId, cmd);
+
+                    try
                     {
 
-                        while (dr.Read())
+                        using (IDataReader dr = cmd.ExecuteReader())
                         {
-                            //Console.WriteLine(Convert.ToDecimal(dr["REQ_ID"]) + ":" + dr["Status"]);
 
-                            GenericCommand gCmd = new GenericCommand();
-
-                            gCmd.ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0);
-
-                            Trace.CorrelationManager.ActivityId = Guid.NewGuid();
-                            Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Start, CommandMessages.CommandDispatchedFromTheDatabase, "Command[ " + options.CommandTypeId + ":" + gCmd.ReqId + "]");
-
-                            gCmd.CommandType = GetDefaultDecimal(dr, "COMMAND_TYPE", true, 0);
-                            gCmd.ReqTime = GetDefaultDate(dr, "REQ_TIME", true, DateTime.Now);
-                            gCmd.TisCustomerId = GetDefaultString(dr, "TIS_CUSTOMER_ID", false, String.Empty);
-
-                            gCmd.TisWalletId = GetDefaultString(dr, "TIS_WALLET_ID", false, String.Empty);
-                            gCmd.TisTDId = GetDefaultDecimal(dr, "TIS_TD_ID", false, 0);
-                            gCmd.CustomerType = GetDefaultString(dr, "CUSTOMER_TYPE", false, String.Empty);
-                            gCmd.Name = GetDefaultString(dr, "NAME", false, String.Empty);
-                            gCmd.BillingCycle = GetNullableDecimal(dr, "BILLING_CYCLE", false, null);
-
-                            gCmd.TaxGroup = GetDefaultString(dr, "TAX_GROUP", false, String.Empty);
-                            gCmd.TDType = GetDefaultDecimal(dr, "TD_TYPE", false, 0);
-
-                            gCmd.MonthlyLimit = GetNullableDecimal(dr, "MONTHLY_LIMIT", false, null);
-
-                            gCmd.IccId = GetDefaultString(dr, "ICCID", false, String.Empty);
-                            gCmd.PhoneNumber = GetDefaultString(dr, "PHONE_NUMBER", false, String.Empty);
-                            gCmd.BlockReason = GetDefaultString(dr, "BLOCK_REASON", false, null);
-                            gCmd.BlockStatus = GetNullableDecimal(dr, "BLOCK_STATUS", false, null);
-
-                            gCmd.VpnProfile = GetDefaultDecimal(dr, "VPN_PROFILE", false, 0);
-                            gCmd.ShortNumber = GetDefaultString(dr, "SHORT_NUMBER", false, String.Empty);
-                            gCmd.NewPhoneNumber = GetDefaultString(dr, "NEW_PHONE_NUMBER", false, String.Empty);
-                            gCmd.NewIccId = GetDefaultString(dr, "NEW_ICCID", false, String.Empty);
-                            gCmd.ContractEndDate = GetNullableDate(dr, "CONTRACT_END_DATE", false, null);
-                            gCmd.ValidFrom = GetDefaultDate(dr, "VALID_FROM", false, DateTime.MinValue);
-                            gCmd.P2P = GetDefaultString(dr, "P2P", false, String.Empty);
-                            gCmd.OnetimeLimitAmount = GetDefaultDecimal(dr, "ONETIME_LIMIT_AMOUNT", false, 0);
-                            gCmd.Status = GetDefaultString(dr, "STATUS", false, String.Empty);
-                            gCmd.TisPosAOId = GetDefaultString(dr, "TIS_POSAO_ID", false, String.Empty);
-                            gCmd.Priority = GetDefaultDecimal(dr, "PRIORITY", false, 0);
-
-                            gCmd.ActivityId = options.ActivityId;
-
-                            commands.Add(gCmd.ReqId, gCmd);
-
-                        }
-                        // Next result is marketing package instances
-                        if (dr.NextResult())
-                        {
                             while (dr.Read())
                             {
-                                //Console.WriteLine(Convert.ToDecimal(dr["REQ_ID"]) + ":mpid:" + Convert.ToDecimal(dr["MP_INSTANCE_ID"]));
+                                //Console.WriteLine(Convert.ToDecimal(dr["REQ_ID"]) + ":" + dr["Status"]);
 
-                                MarketingPackage mp = new MarketingPackage
-                                {
-                                    ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0),
-                                    MPInstanceId = GetDefaultDecimal(dr, "MP_INSTANCE_ID", true, 0),
-                                    MPId = GetNullableDecimal(dr, "MP_ID", false, null),
-                                    MPType = GetDefaultString(dr, "MP_TYPE", true, String.Empty)
-                                };
+                                GenericCommand gCmd = new GenericCommand();
 
-                                commands[mp.ReqId].MarketingPackages.Add(mp);
-                                mps.Add(mp.MPInstanceId, mp);
+                                gCmd.ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0);
+
+                                Trace.CorrelationManager.ActivityId = Guid.NewGuid();
+                                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Start, CommandMessages.CommandDispatchedFromTheDatabase, "Command[ " + options.CommandTypeId + ":" + gCmd.ReqId + "]");
+
+                                gCmd.CommandType = GetDefaultDecimal(dr, "COMMAND_TYPE", true, 0);
+                                gCmd.ReqTime = GetDefaultDate(dr, "REQ_TIME", true, DateTime.Now);
+                                gCmd.TisCustomerId = GetDefaultString(dr, "TIS_CUSTOMER_ID", false, String.Empty);
+
+                                gCmd.TisWalletId = GetDefaultString(dr, "TIS_WALLET_ID", false, String.Empty);
+                                gCmd.TisTDId = GetDefaultDecimal(dr, "TIS_TD_ID", false, 0);
+                                gCmd.CustomerType = GetDefaultString(dr, "CUSTOMER_TYPE", false, String.Empty);
+                                gCmd.Name = GetDefaultString(dr, "NAME", false, String.Empty);
+                                gCmd.BillingCycle = GetNullableDecimal(dr, "BILLING_CYCLE", false, null);
+
+                                gCmd.TaxGroup = GetDefaultString(dr, "TAX_GROUP", false, String.Empty);
+                                gCmd.TDType = GetDefaultDecimal(dr, "TD_TYPE", false, 0);
+
+                                gCmd.MonthlyLimit = GetNullableDecimal(dr, "MONTHLY_LIMIT", false, null);
+
+                                gCmd.IccId = GetDefaultString(dr, "ICCID", false, String.Empty);
+                                gCmd.PhoneNumber = GetDefaultString(dr, "PHONE_NUMBER", false, String.Empty);
+                                gCmd.BlockReason = GetDefaultString(dr, "BLOCK_REASON", false, null);
+                                gCmd.BlockStatus = GetNullableDecimal(dr, "BLOCK_STATUS", false, null);
+
+                                gCmd.VpnProfile = GetDefaultDecimal(dr, "VPN_PROFILE", false, 0);
+                                gCmd.ShortNumber = GetDefaultString(dr, "SHORT_NUMBER", false, String.Empty);
+                                gCmd.NewPhoneNumber = GetDefaultString(dr, "NEW_PHONE_NUMBER", false, String.Empty);
+                                gCmd.NewIccId = GetDefaultString(dr, "NEW_ICCID", false, String.Empty);
+                                gCmd.ContractEndDate = GetNullableDate(dr, "CONTRACT_END_DATE", false, null);
+                                gCmd.ValidFrom = GetDefaultDate(dr, "VALID_FROM", false, DateTime.MinValue);
+                                gCmd.P2P = GetDefaultString(dr, "P2P", false, String.Empty);
+                                gCmd.OnetimeLimitAmount = GetDefaultDecimal(dr, "ONETIME_LIMIT_AMOUNT", false, 0);
+                                gCmd.Status = GetDefaultString(dr, "STATUS", false, String.Empty);
+                                gCmd.TisPosAOId = GetDefaultString(dr, "TIS_POSAO_ID", false, String.Empty);
+                                gCmd.Priority = GetDefaultDecimal(dr, "PRIORITY", false, 0);
+
+                                gCmd.ActivityId = options.ActivityId;
+
+                                commands.Add(gCmd.ReqId, gCmd);
+
                             }
-                            //}
-
-                            // Next result is marketing package parameters
+                            // Next result is marketing package instances
                             if (dr.NextResult())
                             {
                                 while (dr.Read())
                                 {
-                                    //Console.WriteLine("mpid: " + Convert.ToDecimal(dr["MP_INSTANCE_ID"]) + ":" + dr["PARAM_CODE"]);
+                                    //Console.WriteLine(Convert.ToDecimal(dr["REQ_ID"]) + ":mpid:" + Convert.ToDecimal(dr["MP_INSTANCE_ID"]));
 
-                                    PackageParameter p = new PackageParameter
+                                    MarketingPackage mp = new MarketingPackage
                                     {
                                         ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0),
                                         MPInstanceId = GetDefaultDecimal(dr, "MP_INSTANCE_ID", true, 0),
-                                        ParamCode = GetDefaultString(dr, "PARAM_CODE", true, String.Empty),
-                                        ProductCode = GetDefaultString(dr, "PRODUCT_CODE", true, String.Empty),
-                                        Value = GetDefaultString(dr, "VALUE", false, String.Empty)
+                                        MPId = GetNullableDecimal(dr, "MP_ID", false, null),
+                                        MPType = GetDefaultString(dr, "MP_TYPE", true, String.Empty)
                                     };
 
-                                    mps[p.MPInstanceId].Parameters.Add(p);
+                                    commands[mp.ReqId].MarketingPackages.Add(mp);
+                                    mps.Add(mp.MPInstanceId, mp);
+                                }
+                                //}
 
+                                // Next result is marketing package parameters
+                                if (dr.NextResult())
+                                {
+                                    while (dr.Read())
+                                    {
+                                        //Console.WriteLine("mpid: " + Convert.ToDecimal(dr["MP_INSTANCE_ID"]) + ":" + dr["PARAM_CODE"]);
+
+                                        PackageParameter p = new PackageParameter
+                                        {
+                                            ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0),
+                                            MPInstanceId = GetDefaultDecimal(dr, "MP_INSTANCE_ID", true, 0),
+                                            ParamCode = GetDefaultString(dr, "PARAM_CODE", true, String.Empty),
+                                            ProductCode = GetDefaultString(dr, "PRODUCT_CODE", true, String.Empty),
+                                            Value = GetDefaultString(dr, "VALUE", false, String.Empty)
+                                        };
+
+                                        mps[p.MPInstanceId].Parameters.Add(p);
+
+                                    }
                                 }
                             }
+
+
+                            return commands;
                         }
-
-
-                        return commands;
+                    }
+                    finally
+                    {
+                        //if (pMpsCursor != null) pMpsCursor.Dispose();
+                        //if (pParamsCursor != null) pParamsCursor.Dispose();
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-                finally
-                {
-                    //if (pMpsCursor != null) pMpsCursor.Dispose();
-                    //if (pParamsCursor != null) pParamsCursor.Dispose();
-                }
-            }
 
-            return commands;
+                return commands;
+                #endregion
         }
         #endregion
 

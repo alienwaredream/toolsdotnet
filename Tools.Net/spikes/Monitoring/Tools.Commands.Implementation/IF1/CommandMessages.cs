@@ -8,6 +8,7 @@ namespace Tools.Commands.Implementation
         WorkOnCommandCommitted = 16003,
         StartingScheduledExecutionIteration = 16004,
         NoCommandsFound = 16005,
+        CleaningConnectionsPool = 16006,
 
         ErrorDispatchingCommandFromTheDatabase = 16051,
         ErrorWhileExecutingTheCommand = 16052,

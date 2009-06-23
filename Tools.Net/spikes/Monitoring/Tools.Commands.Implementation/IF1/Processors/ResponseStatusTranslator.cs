@@ -78,6 +78,13 @@ namespace Tools.Commands.Implementation.IF1.Processors
                 return req.errorDesc;
             }
         }
+        public string ReturnValue
+        {
+            get
+            {
+                return req.returnValue;
+            }
+        }
 
         #endregion
     }

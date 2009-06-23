@@ -10,5 +10,7 @@ namespace Tools.Commands.Implementation.IF1.Processors
 
         void SetResponse(string response);
         void SetResponse(string response, bool canResubmit, string errorType);
+
+        string ReturnValue { get;}
     }
 }

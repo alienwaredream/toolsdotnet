@@ -44,7 +44,12 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             get
             {
-                return (res.code == "ok" && res.desc == "ok" ) ? "DONE" : "FAILED";
+                if (!String.IsNullOrEmpty(res.code) && !String.IsNullOrEmpty(res.desc))
+                {
+                    if (res.code.ToLower() == "ok" && res.desc.ToLower() == "ok")
+                        return "DONE";
+                }
+                return "FAILED";
             }
         }
         /// <summary>
@@ -57,7 +62,10 @@ namespace Tools.Commands.Implementation.IF1.Processors
         {
             get
             {
-                if (res.code == "ok" && res.desc == "ok") return "P";
+                if (!String.IsNullOrEmpty(res.code) && !String.IsNullOrEmpty(res.desc))
+                {
+                    if (res.code.ToLower() == "ok" && res.desc.ToLower() == "ok") return "P";
+                }
 
                 if (canResubmit) return "R";
 
@@ -69,6 +77,13 @@ namespace Tools.Commands.Implementation.IF1.Processors
             get
             {
                 return res.desc;
+            }
+        }
+        public string ReturnValue
+        {
+            get
+            {
+                return null;
             }
         }
         #endregion
