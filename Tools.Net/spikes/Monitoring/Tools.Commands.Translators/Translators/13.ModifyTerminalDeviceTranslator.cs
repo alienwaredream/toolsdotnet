@@ -50,7 +50,13 @@ namespace Tools.Commands.Translators
 
             req.reqId = command.ReqId.ToString(CultureInfo.InvariantCulture);
             req.phoneNumber = command.PhoneNumber;
-            req.TISwalletId = command.TisWalletId;
+
+            if (!String.IsNullOrEmpty(command.TisWalletId))
+            {
+                req.TISwalletId = command.TisWalletId.Trim();
+            }
+
+
             req.TISTDid = command.TisTDId.ToString();
 
             if (command.ContractEndDate.HasValue)

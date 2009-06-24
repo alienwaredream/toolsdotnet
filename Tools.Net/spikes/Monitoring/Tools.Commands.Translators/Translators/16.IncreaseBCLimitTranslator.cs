@@ -60,7 +60,7 @@ namespace Tools.Commands.Translators
             return new MessageShim
             {
                 CorrelationId = command.ReqId.ToString(),
-                Text = PrepareAndWrapMessageText(req)
+                Text = PrepareXmlMessage(req)
             };
         }
 
