@@ -28,6 +28,7 @@ namespace Tools.Commands.Implementation
         private Int32 connectionTimeout = 20000;
         private bool failureAtPreviousRun;
         private bool firstStart = true;
+        bool thereWasSomethingToProcess;
         /// <summary>
         /// Logs stats on xth iteration
         /// </summary>
@@ -99,8 +100,6 @@ namespace Tools.Commands.Implementation
         protected override void ExecuteSheduleTask()
         {
 
-            bool thereWasSomethingToProcess = false;
-
             try
             {
                 thereWasSomethingToProcess = ExecuteNextCommand();
@@ -112,7 +111,8 @@ namespace Tools.Commands.Implementation
                     commandsTotalCounter++;
                     commandsStatsCounter++;
 
-                    Schedule.SetNextRunTime(DateTime.Now.AddMilliseconds(fetchOnDataPresentInterval));
+                    SetNextRunTime();
+
                     return;
                 }
 
@@ -140,6 +140,17 @@ namespace Tools.Commands.Implementation
             }
 
 
+        }
+        protected override void SetNextRunTime()
+        {
+            if (thereWasSomethingToProcess)
+            {
+                Schedule.SetNextRunTime(DateTime.UtcNow.AddMilliseconds(fetchOnDataPresentInterval));
+            }
+            else
+            {
+                Schedule.SetNextRunTime();
+            }
         }
         /// <summary>
         /// 

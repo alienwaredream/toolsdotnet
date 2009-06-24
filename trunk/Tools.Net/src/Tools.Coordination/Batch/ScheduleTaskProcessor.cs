@@ -12,7 +12,7 @@ namespace Tools.Coordination.Batch
     /// <summary>
     /// Summary description for QueueWorkItemsProducer.
     /// </summary>
-    public class ScheduleTaskProcessor : ThreadedProcess
+    public abstract class ScheduleTaskProcessor : ThreadedProcess
     {
         #region Fields
 
@@ -64,6 +64,14 @@ namespace Tools.Coordination.Batch
 
         #region Methods
 
+        /// <summary>
+        /// This method is for child classes to provide more startup info if required
+        /// </summary>
+        protected virtual string GetStartupInfo()
+        {
+            return String.Empty;
+        }
+
         protected override void StartInternal()
         {
             try
@@ -79,8 +87,8 @@ namespace Tools.Coordination.Batch
                                              Message =
                                                  string.Format
                                                  (
-                                                 "'{0}': Started",
-                                                 Name
+                                                 "'{0}': Started. {1}",
+                                                 Name, GetStartupInfo()
                                                  ),
                                              ContextIdentifier = _contextIdentifier
                                          });
@@ -158,7 +166,7 @@ namespace Tools.Coordination.Batch
                     // (SD) In any case setup the next iteration, it is 
                     // subject for consideration how/if to implement an extension for 
                     // for failure resilience.
-                    Schedule.SetNextRunTime();
+                    SetNextRunTime();
                 }
             }
             catch (ThreadInterruptedException)
@@ -223,10 +231,13 @@ namespace Tools.Coordination.Batch
                                      });
         }
 
-
-        protected virtual void ExecuteSheduleTask()
+        protected virtual void SetNextRunTime()
         {
+            Schedule.SetNextRunTime();
         }
+
+
+        protected abstract void ExecuteSheduleTask();
 
         #endregion
     }
