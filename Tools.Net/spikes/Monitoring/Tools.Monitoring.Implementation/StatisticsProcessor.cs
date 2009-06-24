@@ -20,7 +20,6 @@ namespace Tools.Monitoring.Implementation
 
         protected override void ExecuteSheduleTask()
         {
-            base.ExecuteSheduleTask();
 
             ErrorTrap.AddRaisableAssertion<ConfigurationErrorsException>(
                 statisticsData != null, "statisticsData != null.");

@@ -11,6 +11,7 @@ namespace Tools.Coordination.Scheduling
     {
         private DateTime _nextRunTime = DateTime.MinValue;
         private bool setForImmediateRun = false;
+        private bool overrideFlag = false;
 
         public ScheduleDefinition Definition { get; set; }
 
@@ -39,10 +40,11 @@ namespace Tools.Coordination.Scheduling
 
         public abstract DateTime SetNextRunTime();
 
-        protected virtual DateTime SetNextRunTime(DateTime nextRunTime)
+        public virtual DateTime SetNextRunTime(DateTime nextRunTime)
         {
             return _nextRunTime = nextRunTime;
         }
+
 
         public virtual DateTime SetForImmidiateRun()
         {
@@ -50,6 +52,5 @@ namespace Tools.Coordination.Scheduling
 
             return SetNextRunTime(DateTime.UtcNow);
         }
-
     }
 }
