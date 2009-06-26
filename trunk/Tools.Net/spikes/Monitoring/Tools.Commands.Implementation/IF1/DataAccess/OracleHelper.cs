@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.OracleClient;
+using System.Collections.Generic;
 
 namespace Tools.Commands.Implementation
 {
@@ -17,6 +18,5 @@ namespace Tools.Commands.Implementation
                 cmd.Parameters[paramName].Value = valueToAssign;
             }
         }
-
     }
 }

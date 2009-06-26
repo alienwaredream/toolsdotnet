@@ -10,10 +10,16 @@ namespace Tools.Commands.Implementation
     {
         private static readonly TraceSource traceSource =
             new TraceSource((typeof(Log).Assembly.GetName().Name));
+        private static readonly TraceSource dbTraceSource =
+    new TraceSource((typeof(Log).Assembly.GetName().Name + ".DB"));
 
         internal static TraceSource Source
         {
             get { return traceSource; }
+        }
+        internal static TraceSource DBSource
+        {
+            get { return dbTraceSource; }
         }
 
         internal static void TraceData(TraceSource source, TraceEventType eventType,

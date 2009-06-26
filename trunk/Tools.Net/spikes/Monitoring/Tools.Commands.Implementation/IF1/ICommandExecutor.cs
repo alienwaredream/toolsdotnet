@@ -6,5 +6,6 @@ namespace Tools.Commands.Implementation
     {
         bool Execute(GenericCommand command);
         void Commit();
+        Int32 PostExecutionDelay { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace Tools.Commands.Implementation
         ErrorDispatchingCommandFromTheDatabase = 16051,
         ErrorWhileExecutingTheCommand = 16052,
         ScheduledIterationFailed = 16053,
+        DbSessionExpired = 16054,
     }
 }

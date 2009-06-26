@@ -32,11 +32,12 @@ namespace Tools.Commands.Implementation
         /// <summary>
         /// Logs stats on xth iteration
         /// </summary>
-        private Int32 logStatsIterationNumber = 30;
+        private Int32 logStatsIterationNumber = 1;
 
         private Int64 logStatsIterationCounter;
 
         private DateTime logStatsTimestamp = DateTime.Now;
+        private StringBuilder stats = new StringBuilder();
 
         /// <summary>
         /// Total number of commands processed since start
@@ -52,6 +53,7 @@ namespace Tools.Commands.Implementation
         /// previous iteration.
         /// </summary>
         private Int32 fetchOnDataPresentInterval = 5000;
+        private Int32 postExecuteDelay;
 
 
         Guid lookupActivityGuid = Guid.NewGuid();
@@ -120,8 +122,9 @@ namespace Tools.Commands.Implementation
                 {
                     Trace.CorrelationManager.ActivityId = statsActivityId;
                     Log.TraceData(Log.Source, TraceEventType.Information, CommandMessages.NoCommandsFound,
-                        String.Format("[CommandType={0}, SPName={1}];Total cmds:{2}; Stats cmds:{3} between {4} and {5}", Filter.CommandTypeId, readerSPName, commandsTotalCounter, commandsStatsCounter, logStatsTimestamp, DateTime.Now));
+                        String.Format("[CommandType={0}, SPName={1}];Total cmds:{2}; Stats cmds:{3} between {4} and {5}. \r\n{6}", Filter.CommandTypeId, readerSPName, commandsTotalCounter, commandsStatsCounter, logStatsTimestamp, DateTime.Now, stats.ToString()));
                     // Reset stats counters and timestamp
+                    stats = new StringBuilder();
                     logStatsTimestamp = DateTime.Now;
                     logStatsIterationCounter = 0;
                     commandsStatsCounter = 0;
@@ -145,7 +148,7 @@ namespace Tools.Commands.Implementation
         {
             if (thereWasSomethingToProcess)
             {
-                Schedule.SetNextRunTime(DateTime.UtcNow.AddMilliseconds(fetchOnDataPresentInterval));
+                Schedule.SetNextRunTime(DateTime.UtcNow.AddMilliseconds(postExecuteDelay));
             }
             else
             {
@@ -213,6 +216,7 @@ namespace Tools.Commands.Implementation
                             command = commands[reqId];
                             executor = executors[command.CommandType];
                             thereWasSomethingToProcess = true;
+                            postExecuteDelay = executor.PostExecutionDelay;
 
                             if (executor.Execute(command))
                             {
@@ -243,6 +247,21 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
 
                             if (transaction != null) transaction.Rollback();
 
+                            OracleException oEx = ex as OracleException;
+
+                            if (oEx != null)
+                            {
+                                if (oEx.Code == 2399 || oEx.Code == 604)
+                                {
+                                    Log.DBSource.TraceData(TraceEventType.Verbose, (int)CommandMessages.DbSessionExpired, String.Format("Database session has expired. Application will use a new session. {0}", ex.ToString()));
+                                    return false;
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
                             Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Error, CommandMessages.ErrorWhileExecutingTheCommand,
                                 String.Format("Exception happened while trying to execute the command with id{0} Changes are rollbacked. Exception text is: \r\n{1} and command is: \r\n{2}", command.ReqId, ex.ToString(), SerializationUtility.Serialize2String(command)));
 
@@ -272,6 +291,8 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
             }
             catch (Exception ex)
             {
+                OracleException oEx = ex as OracleException;
+
                 try
                 {
                     //unfortunately there is no status on the oracle transaction
@@ -280,6 +301,18 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
                 catch (Exception ex2)
                 {
 
+                }
+                if (oEx != null)
+                {
+                    if (oEx.Code == 2399 || oEx.Code ==604)
+                    {
+                        Log.DBSource.TraceData(TraceEventType.Verbose, (int)CommandMessages.DbSessionExpired, String.Format("Database session has expired. Application will use a new session. {0}", ex.ToString()));
+                        return false;
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
 
                 throw;
@@ -320,7 +353,6 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
 
 
                 #region Get next command
-
 
                 Dictionary<decimal, GenericCommand> commands = new Dictionary<decimal, GenericCommand>();
 
@@ -374,9 +406,11 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
                                 gCmd.ReqId = GetDefaultDecimal(dr, "REQ_ID", true, 0);
 
                                 Trace.CorrelationManager.ActivityId = Guid.NewGuid();
-                                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Start, CommandMessages.CommandDispatchedFromTheDatabase, "Command[ " + options.CommandTypeId + ":" + gCmd.ReqId + "]");
 
                                 gCmd.CommandType = GetDefaultDecimal(dr, "COMMAND_TYPE", true, 0);
+                                gCmd.Priority = GetDefaultDecimal(dr, "PRIORITY", false, 0);
+
+                                Log.TraceData(Log.Source, System.Diagnostics.TraceEventType.Start, CommandMessages.CommandDispatchedFromTheDatabase, String.Format("Command [{0}:{1}](p{2})", gCmd.CommandType, gCmd.ReqId, gCmd.Priority));
                                 gCmd.ReqTime = GetDefaultDate(dr, "REQ_TIME", true, DateTime.Now);
                                 gCmd.TisCustomerId = GetDefaultString(dr, "TIS_CUSTOMER_ID", false, String.Empty);
 
@@ -406,7 +440,6 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
                                 gCmd.OnetimeLimitAmount = GetDefaultDecimal(dr, "ONETIME_LIMIT_AMOUNT", false, 0);
                                 gCmd.Status = GetDefaultString(dr, "STATUS", false, String.Empty);
                                 gCmd.TisPosAOId = GetDefaultString(dr, "TIS_POSAO_ID", false, String.Empty);
-                                gCmd.Priority = GetDefaultDecimal(dr, "PRIORITY", false, 0);
 
                                 gCmd.ActivityId = options.ActivityId;
 
@@ -455,6 +488,7 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
                                 }
                             }
 
+                            stats.Append(String.Format("[{0}/P. {1}/HPP]", GetCommandParameterDecimalValue(cmd, "p_countOfProcessing", 0), GetCommandParameterDecimalValue(cmd, "p_countOfProcessingHP", 0)));
 
                             return commands;
                         }
@@ -472,6 +506,15 @@ CommandMessages.WorkOnCommandCommitted, "Command " + command.ReqId + " is identi
         #endregion
 
         #region Helper methods
+
+        private static decimal GetCommandParameterDecimalValue(OracleCommand cmd, string paramName, decimal defaultValue)
+        {
+            if (cmd.Parameters.Contains(paramName) && cmd.Parameters[paramName].Value != DBNull.Value)
+            {
+                return Convert.ToDecimal(cmd.Parameters[paramName].Value);
+            }
+            return defaultValue;
+        }
         private static void LogCommands(Dictionary<decimal, GenericCommand> commands)
         {
             if (commands.Count > 0)
