@@ -45,6 +45,7 @@ namespace Tools.Processes.Host
             this.traceShutdownToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.traceShutdownDurationScToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.autoScrollToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.outputSplitContainer = new System.Windows.Forms.SplitContainer();
             this.outputListView = new System.Windows.Forms.ListView();
             this.descriptionColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -53,7 +54,6 @@ namespace Tools.Processes.Host
             this.startProcessButton = new System.Windows.Forms.Button();
             this.stopProcessButton = new System.Windows.Forms.Button();
             this.connectTracesCheckBox = new System.Windows.Forms.CheckBox();
-            this.autoScrollToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainTabControl.SuspendLayout();
             this.logTabPage.SuspendLayout();
             this.outputToolStrip.SuspendLayout();
@@ -207,6 +207,19 @@ namespace Tools.Processes.Host
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
+            // autoScrollToolStripButton
+            // 
+            this.autoScrollToolStripButton.Checked = true;
+            this.autoScrollToolStripButton.CheckOnClick = true;
+            this.autoScrollToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoScrollToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.autoScrollToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("autoScrollToolStripButton.Image")));
+            this.autoScrollToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoScrollToolStripButton.Name = "autoScrollToolStripButton";
+            this.autoScrollToolStripButton.Size = new System.Drawing.Size(59, 22);
+            this.autoScrollToolStripButton.Text = "AutoScroll";
+            this.autoScrollToolStripButton.Click += new System.EventHandler(this.autoScrollToolStripButtonT_Click);
+            // 
             // outputSplitContainer
             // 
             this.outputSplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -246,7 +259,7 @@ namespace Tools.Processes.Host
             // descriptionColumnHeader
             // 
             this.descriptionColumnHeader.Text = "Description";
-            this.descriptionColumnHeader.Width = 485;
+            this.descriptionColumnHeader.Width = 782;
             // 
             // logRichTextBox
             // 
@@ -305,19 +318,6 @@ namespace Tools.Processes.Host
             this.connectTracesCheckBox.Text = "Connect Traces";
             this.connectTracesCheckBox.UseVisualStyleBackColor = true;
             this.connectTracesCheckBox.CheckedChanged += new System.EventHandler(this.connectTracesCheckBox_CheckedChanged);
-            // 
-            // autoScrollToolStripButton
-            // 
-            this.autoScrollToolStripButton.Checked = true;
-            this.autoScrollToolStripButton.CheckOnClick = true;
-            this.autoScrollToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoScrollToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.autoScrollToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("autoScrollToolStripButton.Image")));
-            this.autoScrollToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.autoScrollToolStripButton.Name = "autoScrollToolStripButton";
-            this.autoScrollToolStripButton.Size = new System.Drawing.Size(59, 22);
-            this.autoScrollToolStripButton.Text = "AutoScroll";
-            this.autoScrollToolStripButton.Click += new System.EventHandler(this.autoScrollToolStripButtonT_Click);
             // 
             // ProcessForm
             // 

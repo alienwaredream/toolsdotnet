@@ -17,8 +17,14 @@ namespace Tools.Commands.Implementation
         private EmsWriterQueue queue;
         private ICommand2MessageTranslator translator;
         string commandName;
-
+        Int32 postExecutionDelay = 4000;
         private bool skipSendingToQueue;
+
+        #endregion
+
+        #region Properties
+
+        public Int32 PostExecutionDelay { get { return postExecutionDelay; } set { postExecutionDelay = value; } }
 
         #endregion
 
