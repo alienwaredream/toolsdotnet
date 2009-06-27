@@ -16,7 +16,7 @@ namespace Tools.Commands.Translators
     {
         public IncreaseBCLimitTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/UsageBlocking/SharedResources/XSD/Schema.xsd", @"IF1\xsd\IncreaseBC.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/UsageBlocking/SharedResources/XSD/Schema.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\IncreaseBC.xsd");
         }
         #region ICommand2MessageTranslator Members
 

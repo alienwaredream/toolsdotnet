@@ -16,8 +16,8 @@ namespace Tools.Commands.Translators
     {
         public ChangeBaseMPparamsTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ChangeBaseMPparams.xsd", @"IF1\xsd\ChangeBaseMPparams.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ChangeBaseMPparams.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\ChangeBaseMPparams.xsd");
         }
         #region ICommand2MessageTranslator Members
 

@@ -15,8 +15,8 @@ namespace Tools.Commands.Translators
     {
         public TerminateAddonTDLevelMPTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/TerminateAddonMP.xsd", @"IF1\xsd\TerminateAddonMP.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/TerminateAddonMP.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\TerminateAddonMP.xsd");
         }
 
         #region ICommand2MessageTranslator Members

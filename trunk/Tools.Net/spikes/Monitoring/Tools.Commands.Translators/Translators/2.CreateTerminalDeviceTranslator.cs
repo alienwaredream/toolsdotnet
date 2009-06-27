@@ -20,8 +20,8 @@ namespace Tools.Commands.Translators
 
         public CreateTerminalDeviceTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd", @"IF1\xsd\CreateTerminalDevice.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/CreateTerminalDevice.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\CreateTerminalDevice.xsd");
         }
         #region ICommand2MessageTranslator Members
 
@@ -129,7 +129,7 @@ namespace Tools.Commands.Translators
 
             ctd.req.reqTIme = command.ReqTime;
 
-            if (!discardP2P)
+            if (!String.IsNullOrEmpty(command.P2P))
             {
                 ctd.req.p2p = command.P2P;
             }

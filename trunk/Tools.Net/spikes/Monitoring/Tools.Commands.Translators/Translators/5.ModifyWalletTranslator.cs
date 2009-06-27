@@ -16,8 +16,8 @@ namespace Tools.Commands.Translators
     {
         public ModifyWalletTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ModifyWallet.xsd", @"IF1\xsd\ModifyWallet.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ModifyWallet.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\ModifyWallet.xsd");
         }
 
         #region ICommand2MessageTranslator Members
