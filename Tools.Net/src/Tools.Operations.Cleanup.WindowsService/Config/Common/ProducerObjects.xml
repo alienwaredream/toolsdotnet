@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- Commands processor import -->
+  <!--<import resource="" />-->
+  <object name="FilesZipExecutionSchedule" singleton="false" type="Tools.Coordination.Scheduling.SlidingSchedule, Tools.Coordination">
+    <property name="Name" value="FilesZipSchedule"/>
+    <property name="Description" value="Schedule to run the files zipping process."/>
+    <property name="Definition">
+      <object type="Tools.Coordination.Scheduling.ScheduleDefinition, Tools.Coordination">
+        <property name="Recurrence">
+          <object type="Tools.Coordination.Scheduling.RecurrencePattern, Tools.Coordination">
+            <property name="MillisecondRecurrence" value="20000"/>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+  <object name="LogFilesZipper" singleton="true" type="Tools.Operations.Cleanup.Implementation.FilesZipper, Tools.Operations.Cleanup.Implementation">
+    <property name="Name" value="LogFilesZipper"/>
+    <property name="Description" value="Zips the aged log files."/>
+    <property name="Schedule" ref="FilesZipExecutionSchedule"/>
+  </object>
+  <!-- End of batch processors -->
+  <object name="Coordinator" singleton="true" type="Tools.Processes.Core.ProcessCoordinator, Tools.Processes.Core">
+    <property name="Name" value="Coordinator"/>
+    <property name="Description" value="Coordinates the creation and start, stop of processes"/>
+    <property name="Processes">
+      <list element-type="Tools.Processes.Core.IProcess, Tools.Processes.Core">
+        <ref object="LogFilesZipper" />
+      </list>
+    </property>
+  </object>
+</objects>

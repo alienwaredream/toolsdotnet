@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- Logging -->
+  <object name="JobEventIdTraceFilter"
+    type="Tools.Logging.EventIdTraceFilter, Tools.Logging">
+    <constructor-arg name="eventIds">
+      <list element-type="int">
+        <value>2270</value>
+      </list>
+    </constructor-arg>
+  </object>
+  <object name="FallbackListener" type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging">
+    <constructor-arg type="int" name="maxFileSizeBytes" value="2000000" />
+    <constructor-arg name="logRootLocation" value="C:\logs\cmdexec\" />
+    <constructor-arg name="fileDatetimePattern" value="dd-MMM-yyTHH-mm-ss" />
+    <constructor-arg name="fileStaticPattern" value="dblogfallback" />
+    <constructor-arg name="name" value="XmlFallbackLogger" />
+  </object>
+  <object name="XmlLogger"
+type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging"
+singleton="false">
+    <constructor-arg type="int" name="maxFileSizeBytes" value="2000000" />
+    <constructor-arg name="logRootLocation" value="C:\logs\cmdexec\" />
+    <constructor-arg name="fileDatetimePattern" value="dd-MMM-yyTHH-mm-ss" />
+    <constructor-arg name="fileStaticPattern" value="log_" />
+    <constructor-arg name="name" value="XmlLogger" />
+  </object>
+  <object name="EventLogTraceListener"
+type="System.Diagnostics.EventLogTraceListener, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="true">
+    <constructor-arg name="eventLog" ref="EventLog" />
+    <property name="Filter" ref="WarningTraceFilter" />
+  </object>  
+  <object name="EventLog"
+type="System.Diagnostics.EventLog, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="false">
+    <constructor-arg type="string" name="logName" value="Tls.Cleanup" />
+    <constructor-arg type="string" name="machineName" value="." />
+    <constructor-arg type="string" name="source" value="Tls.Cleanup" />
+  </object>
+  <object name="WarningTraceFilter"
+type="System.Diagnostics.EventTypeFilter, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="false">
+    <constructor-arg name="level" value="Warning" />
+  </object>
+  <!-- End of Logging -->
+</objects>
