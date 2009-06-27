@@ -32,7 +32,7 @@ namespace Tools.Commands.Implementation
         /// <summary>
         /// Logs stats on xth iteration
         /// </summary>
-        private Int32 logStatsIterationNumber = 1;
+        private Int32 logStatsIterationNumber = 30;
 
         private Int64 logStatsIterationCounter;
 
