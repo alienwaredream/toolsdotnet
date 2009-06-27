@@ -16,8 +16,8 @@ namespace Tools.Commands.Translators
 
         public TerminateTerminalDeviceTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/TerminateTerminalDevice.xsd", @"IF1\xsd\TerminateTerminalDevice.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/TerminateTerminalDevice.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\TerminateTerminalDevice.xsd");
         }
 
         #region ICommand2MessageTranslator Members

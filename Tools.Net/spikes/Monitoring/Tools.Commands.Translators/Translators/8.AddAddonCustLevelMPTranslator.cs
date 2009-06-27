@@ -16,8 +16,8 @@ namespace Tools.Commands.Translators
     {
         public AddAddonCustLevelMPTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AddAddonMP.xsd", @"IF1\xsd\AddAddonMP.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AddAddonMP.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AddAddonMP.xsd");
         }
         #region ICommand2MessageTranslator Members
 

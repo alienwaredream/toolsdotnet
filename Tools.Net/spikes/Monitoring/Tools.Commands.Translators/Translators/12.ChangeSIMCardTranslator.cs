@@ -16,8 +16,8 @@ namespace Tools.Commands.Translators
 
         public ChangeSIMCardTranslator()
         {
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", @"IF1\xsd\AllTypes.xsd");
-            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ChangeSIMCard.xsd", @"IF1\xsd\ChangeSIMCard.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/AllTypes.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\AllTypes.xsd");
+            Schemas.Add("http://www.tibco.com/schemas/SDPRO_Observer/Observer/SharedResources/XSD/IF1/ChangeSIMCard.xsd", AppDomain.CurrentDomain.BaseDirectory + @"\IF1\xsd\ChangeSIMCard.xsd");
         }
 
         #region ICommand2MessageTranslator Members
