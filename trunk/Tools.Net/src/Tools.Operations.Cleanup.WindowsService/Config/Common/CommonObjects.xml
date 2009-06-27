@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="DelayedFailureExceptionHandler" singleton="false" type="Tools.Failover.DelayedFailureExceptionHandler, Tools.Failover">
+    <constructor-arg name="defaultDelay" value="5000"/>
+    <constructor-arg name="delayFactor" value="2"/>
+    <constructor-arg name="maxDelay" value="30000"/>
+  </object>
+</objects>
