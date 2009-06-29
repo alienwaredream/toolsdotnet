@@ -104,7 +104,10 @@ namespace Tools.Zip
         public void Close()
         {
             if (baseStream != null)
+            {
+                baseStream.Flush();
                 baseStream.Close();
+            }
         }
 
         /// <summary>

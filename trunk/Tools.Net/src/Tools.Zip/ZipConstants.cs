@@ -5,7 +5,7 @@ namespace Tools.Zip
 	/// <summary>
 	/// This class contains ZipConstants used for gzip.
 	/// </summary>
-	sealed class ZipConstants
+	public sealed class ZipConstants
 	{
 		private ZipConstants(){
 		}
