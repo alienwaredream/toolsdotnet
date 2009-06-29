@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompressionUtilityTest.cs" />
     <Compile Include="CultureInfoTest.cs" />
     <Compile Include="InitializationStringParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +68,11 @@
       <Project>{866674A9-91C9-421F-84E5-6F9B36E51854}</Project>
       <Name>Tools.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CompressionTestData\CompressionTest.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Test References\" />
