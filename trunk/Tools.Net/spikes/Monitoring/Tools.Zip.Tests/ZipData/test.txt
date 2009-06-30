@@ -146,10 +146,7 @@ namespace Tools.Zip.Tests
         public void AddTest()
         {
             string name = "ZipData\\test.txt";
-            string outName = "ZipData\\test.zip";
-            if (File.Exists(outName)) File.Delete(outName);
-
-            ZipFile target = new ZipFile(outName, ZipConstants.GZIP, FileMode.CreateNew);
+            ZipFile target = new ZipFile("ZipData\\test.zip");
             string fileName = "ZipData\\test.txt";
 
             target.Add(fileName);
