@@ -8,6 +8,7 @@ namespace Tools.Operations.Cleanup.Implementation
 {
 
     using SharpZip = ICSharpCode.SharpZipLib;
+    using System.Text;
 
     internal class FilesZipper : ScheduleTaskProcessor
     {
@@ -32,22 +33,31 @@ namespace Tools.Operations.Cleanup.Implementation
             }
 
             string[] files = Directory.GetFiles(directoryToArchive);
+            StringBuilder sb = new StringBuilder("Archivation results: \r\n");
 
             foreach (string file in files)
             {
-                FileInfo fi = new FileInfo(file);
-
-                if (fi.LastWriteTime < DateTime.Now.AddDays(-daysToArchive))
+                try
                 {
-                    using (SharpZip.Zip.ZipFile target = SharpZip.Zip.ZipFile.Create(file + ".zip"))
+                    FileInfo fi = new FileInfo(file);
+
+                    if (fi.LastWriteTime < DateTime.Now.AddDays(-daysToArchive))
                     {
+                        using (SharpZip.Zip.ZipFile target = SharpZip.Zip.ZipFile.Create(zipDirectory + @"\" + file + ".zip"))
+                        {
 
-                        target.BeginUpdate();
+                            target.BeginUpdate();
 
-                        target.Add(file);
+                            target.Add(file);
 
-                        target.CommitUpdate();
+                            target.CommitUpdate();
+                        }
+
                     }
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
         }
