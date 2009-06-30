@@ -21,10 +21,10 @@ namespace Tools.Commands.Response.WindowsService
             var eventLogInstaller = new EventLogInstaller();
 
             // Set the source name of the event log.
-            eventLogInstaller.Source = "Mts-Commands";
+            eventLogInstaller.Source = "CmdResp";
 
             // Set the event log that the source writes entries to.
-            eventLogInstaller.Log = "Mts-Commands";
+            eventLogInstaller.Log = "CmdResp";
 
             // Add eventLogInstaller to the Installer collection.
             Installers.Add(eventLogInstaller);

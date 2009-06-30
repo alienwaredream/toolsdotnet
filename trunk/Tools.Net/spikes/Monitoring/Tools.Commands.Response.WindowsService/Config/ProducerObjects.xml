@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- Commands processor import -->
+  <import resource="Commands\1.CreateCustomer.xml" />
+  <import resource="Commands\2.CreateTerminalDevice.xml" /><!-- Tested -->
+  <import resource="Commands\3.CreateWallet.xml" />
+  <import resource="Commands\4.ModifyCustomer.xml" />  
+  <import resource="Commands\5.ModifyWallet.xml" />    
+  <import resource="Commands\6.TerminateTerminalDevice.xml" />      
+  <import resource="Commands\7.AddTDLevelAddonMP.xml" /><!-- Tested -->
+  <import resource="Commands\8.AddAddonCustLevelMP.xml" />
+  <import resource="Commands\9.TerminateAddonTDLevelMP.xml" />
+  <import resource="Commands\10.TerminateAddonCustLevelMP.xml" />  
+  <import resource="Commands\11.ChangeBaseMP.xml" />
+  <import resource="Commands\13.ModifyTerminalDevice.xml" />  
+  <import resource="Commands\16.IncreaseBCLimit.xml" />
+  <!-- End of Commands processor import -->
+  <object name="ExecutionSchedule" singleton="false" type="Tools.Coordination.Scheduling.SlidingSchedule, Tools.Coordination">
+    <property name="Name" value="MonitoringSchedule"/>
+    <property name="Description" value="Schedule to run the monitoring process"/>
+    <property name="Definition">
+      <object type="Tools.Coordination.Scheduling.ScheduleDefinition, Tools.Coordination">
+        <property name="Recurrence">
+          <object type="Tools.Coordination.Scheduling.RecurrencePattern, Tools.Coordination">
+            <property name="MillisecondRecurrence" value="5000"/>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+  <!-- End of batch processors -->
+  <object name="Coordinator" singleton="true" type="Tools.Processes.Core.ProcessCoordinator, Tools.Processes.Core">
+    <property name="Name" value="Coordinator"/>
+    <property name="Description" value="Coordinates the creation and start, stop of processes"/>
+    <property name="Processes">
+      <list element-type="Tools.Processes.Core.IProcess, Tools.Processes.Core">
+        <!--<ref object="CreateTerminalDeviceCommandsProcessor" />-->
+        <!--<ref object="TerminateAddonTDLevelMPCommandsProcessor" />-->
+        <!--<ref object="TerminateAddonCustLevelMPCommandsProcessor" />-->        
+        <!--<ref object="CreateCustomerCommandsProcessor" />-->
+        <!--<ref object="CreateWalletCommandsProcessor" />-->
+        <!--<ref object="ChangeBaseMPCommandsProcessor" />-->
+        <!--<ref object="AddTDLevelAddonMPCommandsProcessor" />-->
+        <!--<ref object="AddAddonCustLevelMPCommandsProcessor" />-->
+        <!--<ref object="IncreaseBCLimitCommandsProcessor" />-->
+        <!--<ref object="ModifyCustomerCommandsProcessor" />-->        
+        <!--<ref object="ModifyWalletCommandsProcessor" />-->    
+        <!--<ref object="ModifyTerminalDeviceCommandsProcessor" />-->   
+        <ref object="TerminateTerminalDeviceCommandsProcessor" />           
+      </list>
+    </property>
+  </object>
+</objects>
