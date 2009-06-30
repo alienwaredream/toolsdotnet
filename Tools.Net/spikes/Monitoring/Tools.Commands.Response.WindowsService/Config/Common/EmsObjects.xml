@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- EMS configuration -->
+  <object name="EmsServerConfiguration_11" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${OnlineEmsServerUrl}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="EmsServerConfiguration_21" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${OfflineEmsServerUrl}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="EmsServerConfiguration_18" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${EmsServerUrl_18}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="EmsSessionConfiguration" singleton="false" type="Tools.Coordination.Ems.SessionConfiguration, Tools.Coordination.Ems">
+    <property name="IsTransactional" value="true"/>
+    <property name="Mode" value="AutoAcknowledge"/>
+  </object>
+  <!-- queues config -->
+  <object name="RegularResponseEmsQueue_11" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_11"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="RegularResponseEmsReaderQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+    <property name="ReadTimeout" value="0"/>
+    <property name="ForceReconnectAfterMs" value="0"/>
+  </object>
+  <object name="BudgetControlResponseQueue_11" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_11"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="BudgetControlEmsReaderQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+    <property name="ReadTimeout" value="0"/>
+    <property name="ForceReconnectAfterMs" value="0"/>
+  </object>
+  <object name="BudgetControlResponseQueue_18" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_18"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="BudgetControlEmsReaderQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+    <property name="ReadTimeout" value="0"/>
+    <property name="ForceReconnectAfterMs" value="0"/>
+  </object>
+  <object name="OfflineEmsResponseQueue" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_21"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="RegularResponseEmsReaderQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+    <property name="ReadTimeout" value="0"/>
+    <property name="ForceReconnectAfterMs" value="0"/>
+  </object>
+  <object name="RegularResponseEmsResponseQueue_18" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_18"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="RegularResponseEmsReaderQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+    <property name="ReadTimeout" value="0"/>
+    <property name="ForceReconnectAfterMs" value="0"/>
+  </object>
+
+  <!-- queue names-->
+  <object name="BudgetControlEmsReaderQueueConfiguration" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueueConfiguration, Tools.Coordination.Ems">
+    <property name="Name" value="${BudgetControlResponseEmsQueueName}"/>
+    <property name="Type" value="Queue"/>
+    <property name="MessageSelector" value=""/>
+    <property name="NoLocal" value="false"/>
+  </object>
+  <object name="RegularResponseEmsReaderQueueConfiguration" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueueConfiguration, Tools.Coordination.Ems">
+    <!--<property name="Name" value="TS.POSTPAID.DISPACHER.FINISHER.ROUTER"/>-->
+    <property name="Name" value="${RegularResponseEmsQueueName}"/>
+    <property name="Type" value="Queue"/>
+    <property name="MessageSelector" value=""/>
+    <property name="NoLocal" value="false"/>
+  </object>
+  <!-- End of EMS configuration -->
+</objects>

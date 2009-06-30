@@ -39,10 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=2.102.3.2, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Oracle.DataAccess.dll</HintPath>
-    </Reference>
     <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Spring.Core.dll</HintPath>
@@ -73,6 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Config\Local\env.props">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\prod\env.props" />
+    <Content Include="Config\Common\EmsObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\ProducerObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InstallGenericService.cmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
