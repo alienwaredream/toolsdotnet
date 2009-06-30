@@ -15,7 +15,7 @@ namespace Tools.Commands.Response.WindowsService
         {
             try
             {
-
+                //Debugger.Launch();
                 Log.Source.TraceEvent(TraceEventType.Start, 0, GetType() + " start method called.");
                 process = ContextRegistry.GetContext().GetObject("Coordinator") as IProcess;
                 //Debugger.Launch();
