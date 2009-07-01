@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="ModifyWalletCommandsProcessor" singleton="true" type="Tools.Commands.Implementation.CommandsProcessor, Tools.Commands.Implementation">
+    <constructor-arg index="0" value="${GetCommandsSPName}"/>
+    <constructor-arg index="1">
+      <dictionary key-type="decimal" value-type="ICommandExecutor">
+        <entry key="3" value-ref="ModifyWalletCommandExecutor" />
+      </dictionary>
+    </constructor-arg>
+    <constructor-arg index="2" ref="ResponseDataProvider"/>
+    <property name="Name" value="ModifyWalletCommandsProcessor"/>
+    <property name="Description" value="Orchestrates commands execution"/>
+    <property name="Schedule" ref="ExecutionSchedule"/>
+    <property name="Filter" ref="ModifyWalletCommandFilter"/>
+    <property name="MaxCountOfIterations" value="1"/>
+  </object>
+  <object name="ModifyWalletCommandFilter" singleton="false" type="Tools.Commands.Implementation.CommandSelectionOptions, Tools.Commands.Implementation">
+    <property name="CommandTypeId" value="3"/>
+  </object>
+  <object name="ModifyWalletCommandExecutor" singleton="false" type="Tools.Commands.Implementation.CommandExecutor, Tools.Commands.Implementation">
+    <constructor-arg name="queue" ref="OnlineEmsRequestQueue"/>
+    <constructor-arg name="translator" ref="ModifyWalletTranslator"/>
+    <constructor-arg name="commandName" value="ModifyWallet"/>
+  </object>
+  <object name="ModifyWalletTranslator" singleton="false" type="Tools.Commands.Translators.ModifyWalletTranslator, Tools.Commands.Translators"/>
+</objects>

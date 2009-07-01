@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- Request queues where commands requests are sent -->
+  <object name="OnlineEmsRequestQueue" singleton="false" type="Tools.Coordination.Ems.EmsWriterQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="OnlineEmsServerConfiguration"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="ReqularEmsRequestQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+  </object>
+  <object name="OfflineEmsRequestQueue" singleton="false" type="Tools.Coordination.Ems.EmsWriterQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="OfflineEmsServerConfiguration"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="ReqularEmsRequestQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+  </object>  
+  <object name="BudgetControlEmsRequestQueue" singleton="false" type="Tools.Coordination.Ems.EmsWriterQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="BudgetControlEmsServerConfiguration"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="BudgetControlEmsRequestQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+  </object>
+  <object name="EmsRequestQueue_18" singleton="false" type="Tools.Coordination.Ems.EmsWriterQueue, Tools.Coordination.Ems">
+    <constructor-arg name="serverConfig" ref="EmsServerConfiguration_18"/>
+    <constructor-arg name="sessionConfig" ref="EmsSessionConfiguration"/>
+    <constructor-arg name="queueConfig" ref="ReqularEmsRequestQueueConfiguration"/>
+    <constructor-arg name="connectionFailureExceptionHandler" ref="DelayedFailureExceptionHandler"/>
+  </object>
+  <!-- Ems servers location and connection configuration -->
+  <object name="OnlineEmsServerConfiguration" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${OnlineEmsServerUrl}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="EmsServerConfiguration_18" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${EmsServerUrl_18}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="OfflineEmsServerConfiguration" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${OfflineEmsServerUrl}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>  
+  <object name="BudgetControlEmsServerConfiguration" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="${BudgetControlEmsServerUrl}"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>    
+  <!-- Queues configuration details -->
+  <object name="ReqularEmsRequestQueueConfiguration" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueueConfiguration, Tools.Coordination.Ems">
+    <property name="Name" value="${RegularRequestEmsQueueName}"/>
+    <property name="Type" value="Queue"/>
+    <property name="MessageSelector" value=""/>
+    <property name="NoLocal" value="false"/>
+  </object>
+  <object name="BudgetControlEmsRequestQueueConfiguration" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueueConfiguration, Tools.Coordination.Ems">
+    <property name="Name" value="${BudgetControlRequestEmsQueueName}"/>
+    <property name="Type" value="Queue"/>
+    <property name="MessageSelector" value=""/>
+    <property name="NoLocal" value="false"/>
+  </object>  
+  <!-- Session is configured to have the same parameters for all queues and cases -->
+  <object name="EmsSessionConfiguration" singleton="false" type="Tools.Coordination.Ems.SessionConfiguration, Tools.Coordination.Ems">
+    <property name="IsTransactional" value="true"/>
+    <property name="Mode" value="AutoAcknowledge"/>
+  </object>
+</objects>

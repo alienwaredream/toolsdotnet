@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="AddTDLevelAddonMPCommandsProcessor" singleton="true" type="Tools.Commands.Implementation.CommandsProcessor, Tools.Commands.Implementation">
+    <constructor-arg index="0" value="${GetCommandsSPName}"/>
+    <constructor-arg index="1">
+      <dictionary key-type="decimal" value-type="ICommandExecutor">
+        <entry key="7" value-ref="AddTDLevelAddonMPCommandExecutor" />
+      </dictionary>
+    </constructor-arg>
+    <constructor-arg index="2" ref="ResponseDataProvider"/>
+    <property name="Name" value="AddTDLevelAddonMPCommandsProcessor"/>
+    <property name="Description" value="Orchestrates commands execution"/>
+    <property name="Schedule" ref="ExecutionSchedule"/>
+    <property name="Filter" ref="AddTDLevelAddonMPCommandFilter"/>
+    <property name="MaxCountOfIterations" value="0"/>
+  </object>
+  <object name="AddTDLevelAddonMPCommandFilter" singleton="false" type="Tools.Commands.Implementation.CommandSelectionOptions, Tools.Commands.Implementation">
+    <property name="CommandTypeId" value="7"/>
+  </object>
+  <object name="AddTDLevelAddonMPCommandExecutor" singleton="false" type="Tools.Commands.Implementation.CommandExecutor, Tools.Commands.Implementation">
+    <constructor-arg name="queue" ref="OnlineEmsRequestQueue"/>
+    <constructor-arg name="translator" ref="AddTDLevelAddonMPTranslator"/>
+    <constructor-arg name="commandName" value="AddAddonTDlevelMP"/>
+  </object>
+  <object name="AddTDLevelAddonMPTranslator" singleton="false" type="Tools.Commands.Translators.AddTDLevelAddonMPTranslator, Tools.Commands.Translators"/>
+</objects>

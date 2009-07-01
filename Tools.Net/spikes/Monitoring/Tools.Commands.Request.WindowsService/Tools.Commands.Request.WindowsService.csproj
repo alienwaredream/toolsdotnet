@@ -39,10 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=2.102.3.2, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Oracle.DataAccess.dll</HintPath>
-    </Reference>
     <Reference Include="Spring.Core, Version=1.1.1.20097, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Spring.Core.dll</HintPath>
@@ -58,6 +54,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\tools.commands.definitions\if1\xsd\IncreaseBC.cs">
+      <Link>IF1\xsd\IncreaseBC.cs</Link>
+      <DependentUpon>IncreaseBC.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Installer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,13 +113,189 @@
       <Project>{49874FA6-B400-428B-9026-062C6C19A59A}</Project>
       <Name>Tools.Commands.Implementation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Commands.Translators\Tools.Commands.Translators.csproj">
+      <Project>{1D7CD593-D93C-4DA7-AF81-7483454249D4}</Project>
+      <Name>Tools.Commands.Translators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools.Coordination.Ems\Tools.Coordination.Ems.csproj">
       <Project>{C84AA4D6-63C6-4082-B70B-C6E8BE21EDFC}</Project>
       <Name>Tools.Coordination.Ems</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\AddAddonMP.xsd">
+      <Link>IF1\xsd\AddAddonMP.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tools.commands.definitions\if1\xsd\AllTypes.xsd">
+      <Link>IF1\xsd\AllTypes.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\BlockTerminalDevice.xsd">
+      <Link>IF1\xsd\BlockTerminalDevice.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\BlockWalletTDs.xsd">
+      <Link>IF1\xsd\BlockWalletTDs.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeAddonMP.xsd">
+      <Link>IF1\xsd\ChangeAddonMP.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeBaseMP.xsd">
+      <Link>IF1\xsd\ChangeBaseMP.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeBaseMPparams.xsd">
+      <Link>IF1\xsd\ChangeBaseMPparams.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeMPparams.xsd">
+      <Link>IF1\xsd\ChangeMPparams.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeMSISDN.xsd">
+      <Link>IF1\xsd\ChangeMSISDN.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ChangeSIMCard.xsd">
+      <Link>IF1\xsd\ChangeSIMCard.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\CreateCustomer.xsd">
+      <Link>IF1\xsd\CreateCustomer.xsd</Link>
+    </None>
+    <None Include="..\tools.commands.definitions\if1\xsd\CreateTerminalDevice.xsd">
+      <Link>IF1\xsd\CreateTerminalDevice.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\CreateWallet.xsd">
+      <Link>IF1\xsd\CreateWallet.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tools.commands.definitions\if1\xsd\IncreaseBC.xsd">
+      <Link>IF1\xsd\IncreaseBC.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ModifyCustomer.xsd">
+      <Link>IF1\xsd\ModifyCustomer.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ModifyTerminalDevice.xsd">
+      <Link>IF1\xsd\ModifyTerminalDevice.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\ModifyWallet.xsd">
+      <Link>IF1\xsd\ModifyWallet.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\SkipProvisioning.xsd">
+      <Link>IF1\xsd\SkipProvisioning.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\SPA.xsd">
+      <Link>IF1\xsd\SPA.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\TerminateAddonMP.xsd">
+      <Link>IF1\xsd\TerminateAddonMP.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\TerminateCustomer.xsd">
+      <Link>IF1\xsd\TerminateCustomer.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\TerminateTerminalDevice.xsd">
+      <Link>IF1\xsd\TerminateTerminalDevice.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tools.Commands.Definitions\IF1\xsd\TerminateWallet.xsd">
+      <Link>IF1\xsd\TerminateWallet.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tools.commands.definitions\if1\xsd\UpdateProcessing.xsd">
+      <Link>IF1\xsd\UpdateProcessing.xsd</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
+    <None Include="Config\Local\env.props">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Prod\env.props">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Config\Common\Commands\9.TerminateAddonTDLevelMP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\2.CreateTerminalDevice.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\1.CreateCustomer.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\3.CreateWallet.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\11.ChangeBaseMP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\7.AddTDLevelAddonMP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\8.AddAddonCustLevelMP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\16.IncreaseBCLimit.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\4.ModifyCustomer.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\5.ModifyWallet.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\13.ModifyTerminalDevice.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\10.TerminateAddonCustLevelMP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\6.TerminateTerminalDevice.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\14.BlockTerminalDevice.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\12.ChangeSIMCard.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\15.ChangeBaseMPparams.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\123.CreateCustomerWalletTD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\Commands\X.ExecuteAllCommands.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\CommonObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\EmsObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\LoggingObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\DataProviders.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Common\ProducerObjects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Test\EmsObjects.xml" />
+    <Content Include="Config\Test\ProducerObjects.xml" />
     <Content Include="InstallGenericService.cmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

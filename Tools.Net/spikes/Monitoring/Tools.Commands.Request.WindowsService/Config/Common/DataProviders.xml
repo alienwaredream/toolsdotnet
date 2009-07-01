@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="ResponseDataProvider" singleton="false" type="Tools.Commands.Implementation.ResponseDataProvider, Tools.Commands.Implementation">
+    <constructor-arg name="updateResponseSPName" value="${UpdateCommandResponseSPName}"/>
+  </object>
+</objects>

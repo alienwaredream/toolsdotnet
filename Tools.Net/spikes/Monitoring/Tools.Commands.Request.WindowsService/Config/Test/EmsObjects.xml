@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="EmsServerConfiguration" singleton="false" type="Tools.Coordination.Ems.ServerConfiguration, Tools.Coordination.Ems">
+    <property name="Url" value="tcp://localhost:7222"/>
+    <property name="ClientId" value=""/>
+    <property name="ReconnectAttempts" value="5"/>
+    <property name="AuthenticationSectionName" value="emsUser"/>
+  </object>
+  <object name="EmsWriterQueueConfiguration" singleton="false" type="Tools.Coordination.Ems.EmsReaderQueueConfiguration, Tools.Coordination.Ems">
+    <property name="Name" value="queue\commands\response"/>
+    <property name="Type" value="Queue"/>
+    <property name="MessageSelector" value=""/>
+    <property name="NoLocal" value="false"/>
+  </object>
+</objects>

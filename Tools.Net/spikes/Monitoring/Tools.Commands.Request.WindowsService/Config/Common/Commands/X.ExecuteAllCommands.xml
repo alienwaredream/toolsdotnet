@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="ExecuteAllCommandsCommandsProcessor" singleton="true" type="Tools.Commands.Implementation.CommandsProcessor, Tools.Commands.Implementation">
+    <constructor-arg index="0" value="${GetAllCommandsSPName}"/>
+    <constructor-arg index="1">
+      <dictionary key-type="decimal" value-type="ICommandExecutor">
+        <entry key="1" value-ref="CreateCustomerCommandExecutor" />
+        <entry key="2" value-ref="CreateTerminalDeviceCommandExecutor" />   
+        <entry key="3" value-ref="CreateWalletCommandExecutor" />
+        <entry key="4" value-ref="ModifyCustomerCommandExecutor" /> 
+        <entry key="5" value-ref="ModifyWalletCommandExecutor" />
+        <entry key="6" value-ref="TerminateTerminalDeviceCommandExecutor" />  
+        <entry key="7" value-ref="AddTDLevelAddonMPCommandExecutor" />  
+        <entry key="8" value-ref="AddAddonCustLevelMPCommandExecutor" />  
+        <entry key="9" value-ref="TerminateAddonTDLevelMPCommandExecutor" /> 
+        <entry key="10" value-ref="TerminateAddonCustLevelMPCommandExecutor" />   
+        <entry key="11" value-ref="ChangeBaseMPCommandExecutor" />    
+        <entry key="12" value-ref="ChangeSIMCardCommandExecutor" />
+        <entry key="13" value-ref="ModifyTerminalDeviceCommandExecutor" /> 
+        <entry key="14" value-ref="BlockTerminalDeviceCommandExecutor" />  
+        <entry key="15" value-ref="ChangeBaseMPparamsCommandExecutor" />    
+        <entry key="16" value-ref="IncreaseBCLimitCommandExecutor" />          
+      </dictionary>
+    </constructor-arg>
+    <constructor-arg index="2" ref="ResponseDataProvider"/>
+    <property name="Name" value="ExecuteAllCommandsProcessor"/>
+    <property name="Description" value="Processes all commands in the priority and req_id order."/>
+    <property name="Schedule" ref="ExecutionSchedule"/>
+    <property name="Filter" ref="CompositeAllCommandsFilter"/>
+    <property name="MaxCountOfIterations" value="0"/>
+  </object>
+  <object name="CompositeAllCommandsFilter" singleton="false" type="Tools.Commands.Implementation.CommandSelectionOptions, Tools.Commands.Implementation">
+    <property name="CommandTypeId" value="0"/>
+  </object>
+</objects>
