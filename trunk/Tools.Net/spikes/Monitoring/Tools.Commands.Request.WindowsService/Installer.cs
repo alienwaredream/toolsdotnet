@@ -18,13 +18,14 @@ namespace Tools.Commands.Request.WindowsService
         protected void SetupEventLog()
         {
             // Create an instance of an EventLogInstaller.
+
             var eventLogInstaller = new EventLogInstaller();
 
             // Set the source name of the event log.
-            eventLogInstaller.Source = "Mts-Commands";
+            eventLogInstaller.Source = "CmdExec";
 
             // Set the event log that the source writes entries to.
-            eventLogInstaller.Log = "Mts-Commands";
+            eventLogInstaller.Log = "CmdExec";
 
             // Add eventLogInstaller to the Installer collection.
             Installers.Add(eventLogInstaller);

@@ -23,8 +23,15 @@ namespace Tools.Commands.Request.WindowsService
             }
             catch (Exception ex)
             {
-                 
+                if (!EventLog.SourceExists("CmdExec"))
+                {
+                    EventLog.CreateEventSource("CmdExec", "CmdExec");
+                }
+
+                new EventLog("CmdExec", ".", "CmdExec").WriteEntry("Exception during start." + ex.ToString(), EventLogEntryType.Error, 16066);
+
                 Log.Source.TraceEvent(TraceEventType.Error, 0, ex.ToString());
+
                 throw ex;
             }
         }
@@ -35,8 +42,7 @@ namespace Tools.Commands.Request.WindowsService
         {
             process.Stop();
 
-            base.Stop(); // base stop should 
-            Log.Source.TraceEvent(TraceEventType.Start, 0, GetType() + " Stop method called.");
+            base.Stop();
         }
     }
 }

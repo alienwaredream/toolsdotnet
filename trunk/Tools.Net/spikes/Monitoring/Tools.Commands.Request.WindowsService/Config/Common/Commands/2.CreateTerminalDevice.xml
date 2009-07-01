@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- Batch processors -->
+  <object name="CreateTerminalDeviceCommandsProcessor" singleton="true" type="Tools.Commands.Implementation.CommandsProcessor, Tools.Commands.Implementation">
+    <constructor-arg index="0" value="${GetCommandsSPName}"/>
+    <constructor-arg index="1">
+      <dictionary key-type="decimal" value-type="ICommandExecutor">
+        <entry key="2" value-ref="CreateTerminalDeviceCommandExecutor" />
+      </dictionary>
+    </constructor-arg>
+    <constructor-arg index="2" ref="ResponseDataProvider"/>
+    <!-- CommandTypeId -->
+    <property name="Name" value="CreateTerminalDeviceCommandsProcessor"/>
+    <property name="Description" value="Orchestrates commands execution"/>
+    <property name="Schedule" ref="ExecutionSchedule"/>
+    <property name="Filter" ref="CreateTerminalDeviceCommandFilter"/>
+    <property name="MaxCountOfIterations" value="0"/>
+  </object>
+  <object name="CreateTerminalDeviceCommandFilter" singleton="false" type="Tools.Commands.Implementation.CommandSelectionOptions, Tools.Commands.Implementation">
+    <property name="CommandTypeId" value="2"/>
+  </object>
+  <object name="CreateTerminalDeviceCommandExecutor" singleton="false" type="Tools.Commands.Implementation.CommandExecutor, Tools.Commands.Implementation">
+    <constructor-arg name="queue" ref="OnlineEmsRequestQueue"/>
+    <constructor-arg name="translator" ref="CreateTerminalDeviceTranslator"/>
+    <constructor-arg name="commandName" value="CreateTerminalDevice"/>
+    <property name="skipSendingToQueue" value="false"/>
+    <property name="PostExecutionDelay" value="8000"/>
+  </object>
+  <object name="CreateTerminalDeviceTranslator" singleton="false" type="Tools.Commands.Translators.CreateTerminalDeviceTranslator, Tools.Commands.Translators"/>
+</objects>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="CreateCustomerWalletTDCommandsProcessor" singleton="true" type="Tools.Commands.Implementation.CommandsProcessor, Tools.Commands.Implementation">
+    <constructor-arg index="0" value="${Get123CommandsSPName}"/>
+    <constructor-arg index="1">
+      <dictionary key-type="decimal" value-type="ICommandExecutor">
+        <entry key="1" value-ref="CreateCustomerCommandExecutor" />
+        <entry key="2" value-ref="CreateTerminalDeviceCommandExecutor" />   
+        <entry key="3" value-ref="CreateWalletCommandExecutor" />           
+      </dictionary>
+    </constructor-arg>
+    <constructor-arg index="2" ref="ResponseDataProvider"/>
+    <property name="Name" value="CreateCustomerWalletTDCommandsProcessor"/>
+    <property name="Description" value="Works on composite commands. First takes CreateCustomer, then CreateWallet and CreateTerminalDevice after that."/>
+    <property name="Schedule" ref="ExecutionSchedule"/>
+    <property name="Filter" ref="CompositeCommandFilter"/>
+    <property name="MaxCountOfIterations" value="0"/>
+  </object>
+  <object name="CompositeCommandFilter" singleton="false" type="Tools.Commands.Implementation.CommandSelectionOptions, Tools.Commands.Implementation">
+    <property name="CommandTypeId" value="0"/>
+  </object>
+  <object name="CreateCustomerTranslator" singleton="false" type="Tools.Commands.Translators.CreateCustomerTranslator, Tools.Commands.Translators"/>
+</objects>
