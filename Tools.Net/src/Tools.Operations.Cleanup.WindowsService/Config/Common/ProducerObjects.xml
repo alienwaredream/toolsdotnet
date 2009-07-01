@@ -18,7 +18,11 @@
   <object name="LogFilesZipper" singleton="true" type="Tools.Operations.Cleanup.Implementation.FilesZipper, Tools.Operations.Cleanup.Implementation">
     <property name="Name" value="LogFilesZipper"/>
     <property name="Description" value="Zips the aged log files."/>
-    <property name="Schedule" ref="FilesZipExecutionSchedule"/>
+
+    <property name="Schedule" ref="FilesZipExecutionSchedule"/>  
+    <property name="daysToArchive" value="2"/> 
+    <property name="directoryToArchive" value="c:\logs\cmdexec\"/>  
+    <property name="zipDirectory" value="c:\logs\cmdexec\archive\"/>
   </object>
   <!-- End of batch processors -->
   <object name="Coordinator" singleton="true" type="Tools.Processes.Core.ProcessCoordinator, Tools.Processes.Core">
