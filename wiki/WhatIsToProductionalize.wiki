@@ -3,6 +3,7 @@
 = Items =
 
 == Exceptional flows handling ==
+=== Transaction and its boundaries tested ===
 
 == Stoppable/Restartable ==
 
@@ -13,4 +14,3 @@
 == Test scenarios ==
 
 == Operations/Usability ==
-
