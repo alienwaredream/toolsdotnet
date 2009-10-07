@@ -1,0 +1,16 @@
+#summary Steps in prototype to production evolution.
+
+= Items =
+
+== Exceptional flows handling ==
+
+== Stoppable/Restartable ==
+
+== Logging levels ==
+
+== Configurable to be configurable ==
+
+== Test scenarios ==
+
+== Operations/Usability ==
+
