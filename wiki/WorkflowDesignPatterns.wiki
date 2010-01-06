@@ -1,0 +1,6 @@
+#summary Log of design idioms and patterns while working with workflows.
+
+== Branching vs. fall through ==
+
+When facing conditional behaviors one can either branch the workflow or just fall through the step.
+
