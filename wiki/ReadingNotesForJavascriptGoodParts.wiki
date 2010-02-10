@@ -217,10 +217,10 @@ function listProperties(description, source)
 	{
 		if(source.hasOwnProperty(prop))
 		{
-			document.writeln("\town:" + prop);
+			document.writeln("\town:" + prop + "=" + source[prop]);
 			continue;
 		}
-		document.writeln("\tinherited:" + prop);
+		document.writeln("\tinherited:" + prop + "=" + source[prop]);
 	}
 }
 // playing with inheritance via prototype
@@ -261,25 +261,25 @@ Output:
 
 1: spring.title:.NET
 2: spring:
-	inherited:title
-	inherited:author
+	inherited:title=.NET
+	inherited:author=Microsoft
 3: spring:
-	own:description
-	inherited:title
-	inherited:author
+	own:description=DI, AOP and utility framework
+	inherited:title=.NET
+	inherited:author=Microsoft
 4: framework
-	own:title
-	own:author
+	own:title=.NET
+	own:author=Microsoft
 5: spring.title:.NET 2.0
 6: spring.title:Spring
 7: spring:
-	own:description
-	own:title
-	inherited:author
-	inherited:age
+	own:description=DI, AOP and utility framework
+	own:title=Spring
+	inherited:author=Microsoft
+	inherited:age=10
 8: framework
-	own:title
-	own:author
-	own:age
+	own:title=.NET 2.0
+	own:author=Microsoft
+	own:age=10
 
 }}}
