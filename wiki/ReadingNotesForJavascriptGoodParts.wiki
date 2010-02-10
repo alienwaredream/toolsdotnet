@@ -96,6 +96,7 @@ function objectLiterals()
 		}
 	}
 }
+}}}
 
 and the output:
 
