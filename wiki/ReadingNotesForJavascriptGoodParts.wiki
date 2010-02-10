@@ -520,7 +520,7 @@ Output:
 
 {{{
 
-// cascade example
+// curry example
 function curry()
 {
 
@@ -535,7 +535,13 @@ function curry()
 				value += inc;
 				return this; // returning "this", so we can use cascade expression
 				},
-			value: function () { return value;}
+			value: function () { return value;},
+			merge: function (inc, inc2, desc)
+			{
+				document.writeln(desc,value, ",", inc, ",", inc2);
+				value += inc2 + inc;
+				return value;
+			}
 		}
 	}( );
 	// having just a regular function
@@ -551,11 +557,11 @@ function curry()
 			}
 	};
 	// lets create a curry
-	var appendA = concat.append.curry('A');
+	var appendA = concat.merge.curry('A');
 	var add1 = add.curry(1);
 	
-	document.writeln("1:appendA('123'):", appendA('123')); // Looks like not working on closure
-	document.writeln("2:add1(5):", add1(5)); // Works on the regular functions
+	document.writeln("2:appendA('123'):", appendA('123', "1:")); // currying on the closure
+	document.writeln("3:add1(5):", add1(5)); // Works on the regular functions
 }
 
 }}}
@@ -564,7 +570,8 @@ Output:
 
 {{{
 
-1:appendA('123'):[object DOMWindow]
-2:add1(5):6
+1:10,A,123
+2:appendA('123'):10123A
+3:add1(5):6
 
 }}}
