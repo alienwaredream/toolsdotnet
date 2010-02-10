@@ -433,3 +433,43 @@ Output:
 1:test,4
 
 }}}
+
+=== Closures ===
+
+{{{
+
+// uses of closure
+function closure()
+{
+
+	var state = 10;
+	// value becomes a private variable
+	var counter = function ( ) 
+	{
+		var value = state;
+
+		return {
+			increment: function (inc) { 
+				value += inc;},
+			getValue: function () { return value;}
+		}
+	}( );	
+		
+	counter.increment(10);
+	document.writeln("1:Counter.value:", counter.getValue());	
+	// Change the state of an outer variable to see if closure holds right.
+	state = 30;
+	counter.increment(10);
+	document.writeln("2:Counter.value:", counter.getValue()); // If it is closure, then value should be 30, otherwise 50.
+}
+
+}}}
+
+Output:
+
+{{{
+
+1:Counter.value:20
+2:Counter.value:30
+
+}}}
