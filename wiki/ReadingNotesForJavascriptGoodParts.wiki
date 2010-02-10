@@ -1,5 +1,12 @@
 #summary Reading notes for "Javascript - The Good parts."
 #labels javascript
+= The Book =
+
+http://oreilly.com/catalog/9780596517748
+
+= Book review =
+
+
 
 =Notes=
 == Chapter 1 ==
