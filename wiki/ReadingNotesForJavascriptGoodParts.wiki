@@ -30,3 +30,14 @@ Infinity represents all values greater than 1.79769313486231570e+308.
 
 False values: false, null, undefined, the empty string '', the number 0, the number NaN
 
+== Chapter 3. Objects ==
+
+Everything is object except for numbers, strings, booleans (true and false), null, and undefined.
+Objects are mutable keyed collections of properties. Objects are class free. 
+
+Prototype linkage feature - so one object can inherit properties from another. 
+
+Objects Literal - a notation for creating new object values from literals.
+
+
+
