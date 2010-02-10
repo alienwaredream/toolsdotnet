@@ -10,6 +10,7 @@ http://oreilly.com/catalog/9780596517748
 
 =Notes=
 == Chapter 1 ==
+
 A simple testing ground didn't work for me in all browsers, here is ther version that worked in all major (IE, Chrome, FF)
 
 {{{
@@ -45,7 +46,8 @@ Objects are mutable keyed collections of properties. Objects are class free.
 
 Prototype linkage feature - so one object can inherit properties from another. 
 
-Objects Literal - a notation for creating new object values from literals.
+=== Objects Literal ===
+A notation for creating new object values from literals.
 
 Example:
 
@@ -116,7 +118,7 @@ endDate
 
 }}}
 
-Retrieving object values:
+===Retrieving object values===
 
 ["name"] or using . notation (preferred).
 
@@ -161,7 +163,7 @@ solution.endDate:06-Oct-2010
 
 }}}
 
-Automatic augmentation of object in case of assignment to non-existing property:
+===Automatic augmentation of object in case of assignment to non-existing property ===
 
 {{{
 
@@ -199,7 +201,7 @@ Output:
 
 }}}
 
-Prototype "inheritance":
+===Prototype "inheritance"===
 
 Key concepts:
 Custom helper function *"beget"* is helping to create a prototypical inheritance.
