@@ -109,4 +109,47 @@ endDate
 
 }}}
 
+Retrieving object values:
+
+["name"] or using . notation (preferred).
+
+{{{
+
+// retrieving object properties
+function objectOperations()
+{
+	var dotnetframework = {"title": ".NET", author: "Microsoft"};
+	var solution = {
+		framework: dotnetframework,
+		resources: {
+			developerCount: 3,
+			hours: 1020,
+			},
+		startDate: '01-Jun-2010',
+		"endDate": "06-Oct-2010"
+		};
+		
+	document.writeln("solution:", solution);	
+	document.writeln("solution.framework:", solution.framework);
+	document.writeln("solution.framework.title:", solution.framework.title);	
+	document.writeln("solution.duration:", solution.duration);		
+	document.writeln("solution.duration && solution.duration.hours:", solution.duration && solution.duration.hours);	
+	document.writeln("solution.duration || 3:", solution.duration || 3);	
+	document.writeln("solution.endDate:", solution.endDate);
+}
+
+}}}
+
+Output:
+
+{{{
+
+solution:[object Object]
+solution.framework:[object Object]
+solution.framework.title:.NET
+solution.duration:undefined
+solution.duration && solution.duration.hours:undefined
+solution.duration || 3:3
+solution.endDate:06-Oct-2010
+
 }}}
