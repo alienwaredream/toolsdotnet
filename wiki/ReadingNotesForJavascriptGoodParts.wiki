@@ -411,3 +411,25 @@ Output:
 }}}
 
 function always returns value, if there is no explicit return value then it is undefined.
+
+=== Augmenting type with functions ==
+
+{{{
+
+// augmenting types
+function augmentingTypes()
+{
+	String.prototype.trim = function(){return this.replace(/^\s+|\s+$/g, '');};
+	
+	document.writeln("1:", '    test      '.trim(), ',', '    test      '.trim().length);
+}
+
+}}}
+
+Output:
+
+{{{
+
+1:test,4
+
+}}}
