@@ -317,6 +317,8 @@ Tools.Js.namespacedFunction();
 }}}
 == Chapter 4. Functions ==
 
+function has it prototype pointing to Function.prototype that in turn points to Object.prototype.
+
 === Invocation patterns ===
 
 Method, function, constructor, apply invocation patterns.
@@ -407,3 +409,5 @@ Output:
 12:counter.value:9
 
 }}}
+
+function always returns value, if there is no explicit return value then it is undefined.
