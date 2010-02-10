@@ -315,3 +315,7 @@ Tools.Js.namespacedFunction();
 </script>
 
 }}}
+
+=== Invocation patterns ===
+
+Method, function, constructor, apply invocation patterns.
