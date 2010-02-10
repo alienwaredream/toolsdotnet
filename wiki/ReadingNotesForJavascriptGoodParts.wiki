@@ -198,3 +198,88 @@ Output:
 6: dotnetframework.title:undefined
 
 }}}
+
+Prototype "inheritance":
+
+Key concepts:
+Custom helper function *"beget"* is helping to create a prototypical inheritance.
+*Delegation* - probing for the property via the chain of self -> self.prototype ->self.prototype.prototype (see 5:)
+*Dynamic relationship* prototype -> children. Property added to the prototype will be immediately visible in all the objects based on that prototype.
+
+{{{
+
+// properties helper
+function listProperties(description, source)
+{
+	document.writeln(description);
+	
+	for (prop in source)
+	{
+		if(source.hasOwnProperty(prop))
+		{
+			document.writeln("\town:" + prop);
+			continue;
+		}
+		document.writeln("\tinherited:" + prop);
+	}
+}
+// playing with inheritance via prototype
+function objectPrototype()
+{
+	var framework = {"title": ".NET", author: "Microsoft"};
+	// The bellow is only made to provide a link to the "o" object to make it a prototype for the new object
+	if (typeof Object.beget !== 'function')
+	{
+		Object.beget = function(o) {
+			var F = function(){};
+			F.prototype = o;
+			return new F();
+			};
+	}
+	// Now lets prototype from our framework
+	var spring = Object.beget(framework);
+	
+	document.writeln("1: spring.title:", spring.title);
+	listProperties("2: spring:", spring);
+	spring.description = "DI, AOP and utility framework";
+	listProperties("3: spring:", spring);
+	listProperties("4: framework", framework); // To see that auto-augmenting spring had no effect on framework
+	framework.title = ".NET 2.0"; // Changing the prop value in the base object, WATCH OUT for delegation!!!!
+	document.writeln("5: spring.title:", spring.title); // Showing the nasty delegation at work
+	spring.title = "Spring";
+	document.writeln("6: spring.title:", spring.title); // Now we should be ok, as property is evaluated from our current object, no delegation
+	framework.age = 10; // New property in prototype is visible to objects that are based on this prototype
+	listProperties("7: spring:", spring);
+	listProperties("8: framework", framework);
+}
+
+}}}
+
+Output:
+
+{{{
+
+1: spring.title:.NET
+2: spring:
+	inherited:title
+	inherited:author
+3: spring:
+	own:description
+	inherited:title
+	inherited:author
+4: framework
+	own:title
+	own:author
+5: spring.title:.NET 2.0
+6: spring.title:Spring
+7: spring:
+	own:description
+	own:title
+	inherited:author
+	inherited:age
+8: framework
+	own:title
+	own:author
+	own:age
+
+}}}
