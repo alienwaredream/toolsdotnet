@@ -133,8 +133,8 @@ function objectOperations()
 	document.writeln("solution.framework:", solution.framework);
 	document.writeln("solution.framework.title:", solution.framework.title);	
 	document.writeln("solution.duration:", solution.duration);		
-	document.writeln("solution.duration && solution.duration.hours:", solution.duration && solution.duration.hours);	
-	document.writeln("solution.duration || 3:", solution.duration || 3);	
+	document.writeln("solution.duration && solution.duration.hours:", solution.duration && solution.duration.hours);	// guarding against TypeError exception
+	document.writeln("solution.duration || 3:", solution.duration || 3); // providing default value	
 	document.writeln("solution.endDate:", solution.endDate);
 }
 
