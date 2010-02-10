@@ -26,3 +26,7 @@ function hello()
 
 == Chapter 2. Grammer ==
 
+Infinity represents all values greater than 1.79769313486231570e+308.
+
+False values: false, null, undefined, the empty string '', the number 0, the number NaN
+
