@@ -1,4 +1,5 @@
 #summary Reading notes for "Javascript - The Good parts."
+#labels javascript
 
 =Notes=
 == Chapter 1 ==
@@ -39,5 +40,31 @@ Prototype linkage feature - so one object can inherit properties from another.
 
 Objects Literal - a notation for creating new object values from literals.
 
+Example:
 
+{{{
 
+// playing with object literals
+function objectLiterals()
+{
+	var framework = {"title": ".NET", author: "Microsoft"}
+	
+	for (prop in framework)
+	{
+		if(framework.hasOwnProperty(prop))
+		{
+			document.writeln(prop);
+		}
+	}
+}
+
+}}}
+
+Output:
+
+{{{
+
+title
+author
+
+}}}
