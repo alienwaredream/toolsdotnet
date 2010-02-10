@@ -160,3 +160,41 @@ solution.duration || 3:3
 solution.endDate:06-Oct-2010
 
 }}}
+
+Automatic augmentation of object in case of assignment to non-existing property:
+
+{{{
+
+// retrieving object properties
+function objectAutomaticAugmentation()
+{
+	var dotnetframework = {"title": ".NET", author: "Microsoft"};
+	
+	dotnetframework.title = ".NET 2.0";		
+	document.writeln("1: dotnetframework.title:", dotnetframework.title);
+	dotnetframework.Title = ".NET 3.0";	// Watch out!
+	document.writeln("2: dotnetframework.title:", dotnetframework.title);	
+	document.writeln("3: dotnetframework.Title:", dotnetframework.Title);	
+	// Lets change the object behind the property
+	dotnetframework.title = {name:".NET", description: "CLR based framework"};
+	document.writeln("4: dotnetframework.title:", dotnetframework.title);
+	document.writeln("5: dotnetframework.title.description:", dotnetframework.title.description);	
+	// Can we remove the property?
+	dotnetframework.title = undefined;
+	document.writeln("6: dotnetframework.title:", dotnetframework.title);
+}
+
+}}}
+
+Output:
+
+{{{
+
+1: dotnetframework.title:.NET 2.0
+2: dotnetframework.title:.NET 2.0
+3: dotnetframework.Title:.NET 3.0
+4: dotnetframework.title:[object Object]
+5: dotnetframework.title.description:CLR based framework
+6: dotnetframework.title:undefined
+
+}}}
