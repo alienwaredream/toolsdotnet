@@ -515,3 +515,56 @@ Output:
 1:concat.value:106030
 
 }}}
+
+=== Curry ===
+
+{{{
+
+// cascade example
+function curry()
+{
+
+	var state = '10';
+	// having a closure here to try out a curry over a closure
+	var concat = function ( ) 
+	{
+		var value = state;
+
+		return {
+			append: function (inc) { 
+				value += inc;
+				return this; // returning "this", so we can use cascade expression
+				},
+			value: function () { return value;}
+		}
+	}( );
+	// having just a regular function
+	var add = function add(a, b) { return a+b;};
+	// Introducing the curry extension
+	Function.prototype.curry = function (  ) 
+	{
+		var slice = Array.prototype.slice,
+			args = slice.apply(arguments), // this is how we just extracted the function from array
+			that = this;
+			return function (  ) {
+				return that.apply(null, args.concat(slice.apply(arguments)));
+			}
+	};
+	// lets create a curry
+	var appendA = concat.append.curry('A');
+	var add1 = add.curry(1);
+	
+	document.writeln("1:appendA('123'):", appendA('123')); // Looks like not working on closure
+	document.writeln("2:add1(5):", add1(5)); // Works on the regular functions
+}
+
+}}}
+
+Output:
+
+{{{
+
+1:appendA('123'):[object DOMWindow]
+2:add1(5):6
+
+}}}
