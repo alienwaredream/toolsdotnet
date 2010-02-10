@@ -319,3 +319,90 @@ Tools.Js.namespacedFunction();
 === Invocation patterns ===
 
 Method, function, constructor, apply invocation patterns.
+
+{{{
+
+// playing with different types of invocation
+function InvocationPatterns()
+{
+	// method invocation
+	var counter = { 
+		value: 0, 
+		increment: function(desc, inc){
+			document.writeln(desc + "this.value:" + this.value);
+			this.value += typeof inc === 'number' ? inc : 1;}};
+			
+	counter.increment("1:"); // method invocation
+	counter.increment("2:", 2); // method invocation
+	document.writeln("3:counter.value:", counter.value); 
+	
+	// function invocation - Example that doesn't work properly
+	
+	counter.square = function(desc)
+	{
+		var helper = function() 
+			{
+				document.writeln(desc + "this.value:" + this.value);			
+				this.value *= this.value;
+			}
+		helper(); // function invocation
+	};
+	counter.square("4:");	
+	document.writeln("5:counter.value:", counter.value);
+	
+	// function invocation - Example with "that" trick - that works
+	
+	counter.square = function(desc)
+	{
+		var that = this; // Getting reference to this
+		var helper = function() 
+			{
+				// inside the function, using an outer scope variable that
+				document.writeln(desc + "that.value:" + that.value);			
+				that.value *= that.value;
+			}
+		helper(); // function invocation, that and this are the same reference.
+	};
+	counter.square("6:");
+	document.writeln("7:counter.value:", counter.value);
+	
+	// constructor invocation
+	
+	var Quo = function(status){this.status = status;};
+	quo = new Quo("start");
+	
+	document.writeln("8:quo.status:", quo.status);
+	
+	Quo.prototype.setStatus = function(status){this.status = status;};
+	Quo.prototype.getStatus = function(){return this.status};
+	
+	quo.setStatus("inProgress");
+	document.writeln("9:quo.status:", quo.status);
+	document.writeln("10:quo.getStatus():", quo.getStatus());
+	
+	// apply invocation pattern
+	var args = ["11:"];
+	counter.square.apply({value:20}, args); // first parameter is used as "this" inside the function
+	document.writeln("12:counter.value:", counter.value); // inside the function "that" is assigned to "this", sp real "this" counter stays the same.
+}
+
+}}}
+
+Output:
+
+{{{
+
+1:this.value:0
+2:this.value:1
+3:counter.value:3
+4:this.value:undefined
+5:counter.value:3
+6:that.value:3
+7:counter.value:9
+8:quo.status:start
+9:quo.status:inProgress
+10:quo.getStatus():inProgress
+11:that.value:20
+12:counter.value:9
+
+}}}
