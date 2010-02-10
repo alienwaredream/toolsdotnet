@@ -245,14 +245,16 @@ function objectPrototype()
 	listProperties("2: spring:", spring);
 	spring.description = "DI, AOP and utility framework";
 	listProperties("3: spring:", spring);
-	listProperties("4: framework", framework); // To see that auto-augmenting spring had no effect on framework
+	listProperties("4: framework", framework); // To see that auto-augmenting spring had no effect on framework.
 	framework.title = ".NET 2.0"; // Changing the prop value in the base object, WATCH OUT for delegation!!!!
-	document.writeln("5: spring.title:", spring.title); // Showing the nasty delegation at work
+	document.writeln("5: spring.title:", spring.title); // Showing the nasty delegation at work.
 	spring.title = "Spring";
-	document.writeln("6: spring.title:", spring.title); // Now we should be ok, as property is evaluated from our current object, no delegation
-	framework.age = 10; // New property in prototype is visible to objects that are based on this prototype
+	document.writeln("6: spring.title:", spring.title); // Now we should be ok, as property is evaluated from our current object, no delegation.
+	framework.age = 10; // New property in prototype is visible to objects that are based on this prototype.
 	listProperties("7: spring:", spring);
 	listProperties("8: framework", framework);
+	delete spring.title // Removig property title from the prototype.
+	listProperties("9: spring:", spring); // we can see the effect of delegation again. Value is taken from the prototype.
 }
 
 }}}
@@ -283,5 +285,11 @@ Output:
 	own:title=.NET 2.0
 	own:author=Microsoft
 	own:age=10
+9: spring:
+	own:description=DI, AOP and utility framework
+	inherited:title=.NET 2.0
+	inherited:author=Microsoft
+	inherited:age=10
+
 
 }}}
