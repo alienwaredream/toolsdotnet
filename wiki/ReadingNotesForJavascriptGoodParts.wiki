@@ -290,6 +290,28 @@ Output:
 	inherited:title=.NET 2.0
 	inherited:author=Microsoft
 	inherited:age=10
+}}}
+=== A-la namespaces ===
+Mimicked via global variables.
+{{{
 
+var Tools = {}; // "namespace"
+Tools.Js = {}; // "nested namespace"
+
+// defining function within the namespace
+Tools.Js.namespacedFunction = function()
+{
+	document.writeln("Printed out from the namespaced function: Tools.Js.namespacedFunction()");
+}
+
+}}}
+
+Usage:
+
+{{{
+
+<script>
+Tools.Js.namespacedFunction();
+</script>
 
 }}}
