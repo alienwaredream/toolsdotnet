@@ -477,3 +477,41 @@ Output:
 
 === Module ===
 by the usage of closure for eliminating access to the closure variables we can find place where to store otherwise "global" variables and hide/secure the implementation.
+
+=== Cascade aka Fluent Interfaces ===
+returning some object instead of void/undefined to allow fluent interfaces.
+
+{{{
+
+// cascade example
+function cascade()
+{
+
+	var state = '10';
+	// value becomes a private variable
+	var concat = function ( ) 
+	{
+		var value = state;
+
+		return {
+			append: function (inc) { 
+				value += inc;
+				return this; // returning "this", so we can use cascade expression
+				},
+			value: function () { return value;}
+		}
+	}( );	
+		
+	concat.append(60).append(30);
+	document.writeln("1:concat.value:", concat.value());	
+}
+
+}}}
+
+Output:
+
+{{{
+
+1:concat.value:106030
+
+}}}
