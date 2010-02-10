@@ -315,7 +315,7 @@ Tools.Js.namespacedFunction();
 </script>
 
 }}}
-== Chapter 4. ==
+== Chapter 4. Functions ==
 
 === Invocation patterns ===
 
