@@ -1,0 +1,28 @@
+#summary Reading notes for "Javascript - The Good parts."
+
+=Notes=
+== Chapter 1 ==
+A simple testing ground didn't work for me in all browsers, here is ther version that worked in all major (IE, Chrome, FF)
+
+{{{
+<html>
+<head><script src="test.js"></script></head>
+<body><pre><script>hello();</script></pre>
+</body>
+</html>
+}}}
+
+and java script:
+
+{{{
+
+// add hello to the document
+function hello()
+{
+	document.writeln('Hello, world!');
+}
+
+}}}
+
+== Chapter 2. Grammer ==
+
