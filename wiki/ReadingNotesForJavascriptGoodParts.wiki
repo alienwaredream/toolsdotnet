@@ -68,3 +68,44 @@ title
 author
 
 }}}
+
+More complex example, showing the mix of literal property definitions:
+
+{{{
+
+// playing with object literals
+function objectLiterals()
+{
+	var dotnetframework = {"title": ".NET", author: "Microsoft"};
+	var solution = {
+		framework: dotnetframework,
+		resources: {
+			developerCount: 3,
+			hours: 1020,
+			},
+		startDate: '01-Jun-2010',
+		"endDate": "06-Oct-2010"
+		};
+	
+	
+	for (prop in solution)
+	{
+		if(solution.hasOwnProperty(prop))
+		{
+			document.writeln(prop);
+		}
+	}
+}
+
+and the output:
+
+{{{
+
+framework
+resources
+startDate
+endDate
+
+}}}
+
+}}}
