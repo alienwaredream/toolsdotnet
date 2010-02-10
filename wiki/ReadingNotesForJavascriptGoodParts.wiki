@@ -437,30 +437,31 @@ Output:
 === Closures ===
 
 {{{
-
 // uses of closure
 function closure()
 {
 
-	var state = 10;
+	var state = '10';
 	// value becomes a private variable
-	var counter = function ( ) 
+	var concat = function ( ) 
 	{
 		var value = state;
 
 		return {
-			increment: function (inc) { 
+			add: function (inc) { 
 				value += inc;},
-			getValue: function () { return value;}
+			value: function () { return value;}
 		}
 	}( );	
 		
-	counter.increment(10);
-	document.writeln("1:Counter.value:", counter.getValue());	
+	concat.add(10);
+	document.writeln("1:concat.value:", concat.value());	
 	// Change the state of an outer variable to see if closure holds right.
 	state = 30;
-	counter.increment(10);
-	document.writeln("2:Counter.value:", counter.getValue()); // If it is closure, then value should be 30, otherwise 50.
+	concat.add(10);
+	document.writeln("2:concat.value:", concat.value());
+	
+	
 }
 
 }}}
@@ -469,7 +470,10 @@ Output:
 
 {{{
 
-1:Counter.value:20
-2:Counter.value:30
+1:concat.value:1010
+2:concat.value:101010
 
 }}}
+
+=== Module ===
+by the usage of closure for eliminating access to the closure variables we can find place where to store otherwise "global" variables and hide/secure the implementation.
