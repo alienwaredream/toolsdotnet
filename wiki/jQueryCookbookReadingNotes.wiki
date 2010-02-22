@@ -1,0 +1,14 @@
+#summary Reading notes for jQuery cookbook.
+#labels jQuery,javascript
+
+== Direct children or descendants ==
+
+direct descendant combinator (>)
+
+{{{
+
+$('div#a > p') // find p(s) that are directly children of div with id a
+
+$('div#a p') // find p(s) that are directly or indirectly under the div with id a
+
+}}}
