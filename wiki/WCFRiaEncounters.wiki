@@ -9,4 +9,4 @@ One or more associated objects were passed for collection property  on type , bu
         public IList<Goal> Goals { get { return goals; } set { goals = value; } }
 }}}
 
-Good example on composition here: http://systemmetaphor.blogspot.com/2010/02/wcf-ria-services-advanced-topics-fully.html
+Good example on composition here: http://systemmetaphor.blogspot.com/2010/02/wcf-ria-services-advanced-topics-fully.html or here http://blogs.msdn.com/digital_ruminations/archive/2009/11/18/composition-support-in-ria-services.aspx
