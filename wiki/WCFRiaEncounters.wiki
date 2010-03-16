@@ -1,0 +1,10 @@
+#labels wcf,ria
+One or more associated objects were passed for collection property  on type , but the target collection is null.
+
+{{{
+        private IList<Goal> goals = new List<Goal>();
+
+        [Composition]
+        [Include, Association("ActionPlan_Goal", "Id", "ActionPlanId")]
+        public IList<Goal> Goals { get { return goals; } set { goals = value; } }
+}}}
