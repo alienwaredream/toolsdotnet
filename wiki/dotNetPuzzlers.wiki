@@ -68,3 +68,26 @@ What one should be aware of when changing non-virtual method to be virtual?
   *  What is 1st chance exception
   *  What is the difference between throw ex and throw;
   *  
+
+= Different tests =
+
+== Casting between different nullable enums ==
+{{{
+
+        [Test, Description("")]
+        public void CastingBetweenDifferentEnums_Should_Cast()
+        {
+            MilestoneIntervalType? bcType = MilestoneIntervalType.Annually;
+            Dto.MilestoneIntervalType? dtoType = (bcType.HasValue) ?
+                            (Dto.MilestoneIntervalType?)bcType.Value : null;
+            Console.WriteLine(String.Format("dto type: {0}", dtoType));
+            Assert.AreEqual(Dto.MilestoneIntervalType.Annually, dtoType);
+
+            bcType = null;
+            dtoType = (bcType.HasValue) ?
+                            (Dto.MilestoneIntervalType?)bcType.Value : null;
+            Console.WriteLine(String.Format("dto type: {0}", dtoType.HasValue ? dtoType.ToString() : "null"));
+            Assert.IsNull(dtoType);
+        }
+
+}}}
