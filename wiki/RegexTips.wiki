@@ -29,3 +29,12 @@
 :61:0903310331D6179
 
 }}}
+
+= Match the whole word only =
+
+{{{
+
+element.className.match(/\bdateFormat\b/)
+
+}}}
+http://answers.oreilly.com/topic/217-how-to-match-whole-words-with-a-regular-expression/
