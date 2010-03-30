@@ -34,7 +34,7 @@
 
 {{{
 
-element.className.match(/\bdateFormat\b/)
+javascript:element.className.match(/\bdateFormat\b/)
 
 }}}
 http://answers.oreilly.com/topic/217-how-to-match-whole-words-with-a-regular-expression/
