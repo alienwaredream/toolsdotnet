@@ -1,4 +1,5 @@
 #summary Regex samples.
+#labels regex
 
 
 = Replace with negative look ahead =
@@ -38,3 +39,16 @@ javascript:element.className.match(/\bdateFormat\b/)
 
 }}}
 http://answers.oreilly.com/topic/217-how-to-match-whole-words-with-a-regular-expression/
+
+= date formats validation regexes =
+
+{{{
+
+dateTimeFormats = [
+    {formatName: "mm/dd/yy", msgFormat: "mm/dd/yyyy", regex: /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$/},
+    {formatName: "mm/dd/y", msgFormat: "mm/dd/yy", regex: /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]\d\d$/},
+    {formatName: "dd/mm/yy", msgFormat: "dd/mm/yyyy", regex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/},
+	{formatName: "dd/mm/y", msgFormat: "dd/mm/yy", regex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]\d\d$/}
+    ];
+
+}}}
