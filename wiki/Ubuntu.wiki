@@ -4,9 +4,10 @@
 ifconfig
 
 = configuring samba =
-
+{{{
 stan@ubs:~$ sudo chown nobody.nogroup /media/raid
 stan@ubs:~$ sudo /etc/init.d/samba restart
  * Stopping Samba daemons                                                [ OK ] 
  * Starting Samba daemons                                                [ OK ] 
 stan@ubs:~$ sudo gedit /etc/samba/smb.conf
+}}}
