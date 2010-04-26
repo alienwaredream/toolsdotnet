@@ -1,5 +1,4 @@
 #labels iis,security
-
 Location of urlscan:
 
 c:\windows\system32\inetsrv\urlscan\
@@ -61,3 +60,10 @@ Link to the technet page: http://technet.microsoft.com/en-us/library/cc751373.as
 
 credit: http://www.faqshop.com/sus/default.htm?http://faqshop.com/sus/server/rejected%20by%20urlscan.htm
 
+Line in the ini file to remove or comment out:
+
+{{{
+
+./  ; Don't allow trailing dot on a directory name
+
+}}}
