@@ -67,3 +67,4 @@ AllowDotInPath=0
 By default, this option is set to 0. If this option is set to 0, URLScan rejects any request that contains multiple periods (.). This prevents attempts to disguise requests for dangerous file name extensions by putting a safe file name extension in the path information or query string portion of the URL. For example, if this option is set to 1, URLScan might permit a request for http://servername/BadFile.exe/SafeFile.htm because it interprets it as a request for an HTML page, when it is actually a request for an executable (.exe) file with the name of an HTML page in the PATH_INFO area. When this option is set to 0, URLScan may also deny requests for directories that contain periods. 
 }}}
 
+Don't forget about iisreset after making your changes.
