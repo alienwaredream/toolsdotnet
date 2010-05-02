@@ -11,3 +11,7 @@ stan@ubs:~$ sudo /etc/init.d/samba restart
  * Starting Samba daemons                                                [ OK ] 
 stan@ubs:~$ sudo gedit /etc/samba/smb.conf
 }}}
+
+= Apache  =
+
+restart: sudo /etc/init.d/apache2 restart
