@@ -205,3 +205,18 @@ There is a space after every parameter, e.g. binPath=[space]xyz!!
 
 == Troubleshooting msi installer issues ==
 msiexec /i product.msi /L*v c:\log.txt
+
+== Changing IIS virtual directory ==
+
+=== IIS 5/6 ===
+{{{
+cscript.exe adsutil.vbs SET W3SVC/1/root/MyVirtualDir/path path
+
+Sample: cscript.exe adsutil.vbs SET W3SVC/1/root/MyWeb/path E:\web\myweb\
+}}}
+=== IIS 7 ===
+{{{
+c:\Windows\System32\inetsrv\appcmd.exe set app /app.name "Default Web Site/MyVirtualDir"  /[path='/'].physicalPath:path
+
+Sample: c:\Windows\System32\inetsrv\appcmd.exe set app /app.name "Default Web Site/MyWeb"  /[path='/'].physicalPath:E:\web\myweb\
+}}}
