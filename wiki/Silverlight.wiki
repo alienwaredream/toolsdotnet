@@ -2,3 +2,7 @@
 = Resources =
 Better resource file generator. Support for public properties and resource name constants:
 http://www.codeproject.com/KB/dotnet/ResXFileCodeGeneratorEx.aspx
+
+= Localizing xaml elements =
+
+http://esmithy.net/2009/07/08/silverlight-localization/
