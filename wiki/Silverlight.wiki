@@ -6,3 +6,7 @@ http://www.codeproject.com/KB/dotnet/ResXFileCodeGeneratorEx.aspx
 = Localizing xaml elements =
 
 http://esmithy.net/2009/07/08/silverlight-localization/
+
+= Synchronous calls =
+
+http://www.codeproject.com/KB/silverlight/SynchronousSilverlight.aspx
