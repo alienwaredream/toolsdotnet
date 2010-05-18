@@ -10,3 +10,29 @@ http://esmithy.net/2009/07/08/silverlight-localization/
 = Synchronous calls =
 
 http://www.codeproject.com/KB/silverlight/SynchronousSilverlight.aspx
+
+= Using System.Reactive =
+
+{{{
+
+            customizationContext.Load(loadResult1 =>
+            {
+                if (loadResult1.Error != null)
+                {
+                    MessageBox.Show(String.Format(loadResult1.Error.ToString()));
+                    return;
+                }
+                siteContext.Load(loadResult2 => dispatcher.Dispatch(() =>
+                {
+                    if (loadResult2.Error != null)
+                    {
+                        MessageBox.Show(String.Format(loadResult2.Error.ToString()));
+                        return;
+                    }
+
+                    LoadResources();
+                    RegisterRegions();
+                }));
+            });
+
+}}}
