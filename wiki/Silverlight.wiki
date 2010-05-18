@@ -41,13 +41,14 @@ I still had to cope with Dispatcher in the odd way as the tip of ObserveOnDispat
 
 A good starting point among few filtered out was: http://themechanicalbride.blogspot.com/2009/07/developing-with-rx-part-1-extension.html
 
+I wanted then to move async wcf service call to be asynchronuous, but ran into silverlight proxy as it generates not having events actually for the call completion.
+
 {{{
 
             _client.BeginGetTerminologyList(ar =>
             {
                 _terminology = new List<Terminology>(from t in _client.EndGetTerminologyList(ar) select new Terminology { ReplacementKey = t.ReplacementKeyField, Value = t.ValueField });
 
-                // Still to see if callback or event is more stylish/usable
                 OnLoadCompleted(new LoadCompletedEventArgs { });
 
             }, null);
