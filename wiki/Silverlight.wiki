@@ -39,6 +39,26 @@ http://www.codeproject.com/KB/silverlight/SynchronousSilverlight.aspx
 
 I still had to cope with Dispatcher in the odd way as the tip of ObserveOnDispatcher provided here http://stackoverflow.com/questions/1951823/using-observable-fromevent-when-calling-a-wcf-service-in-silverlight is not available in System.Reactive version I have.
 
+{{{
+
+            var dispatcher = _ioc.Resolve<IDispatcherService>();
+
+            var customizationLoad =
+                Observable.FromEvent<LoadCompletedEventArgs>(h => customizationContext.LoadCompleted += h, h => customizationContext.LoadCompleted -= h).Take(1);
+            var siteContextLoad =
+                Observable.FromEvent<LoadCompletedEventArgs>(h => siteContext.LoadCompleted += h, h => siteContext.LoadCompleted -= h).Take(1);
+
+            customizationLoad.Subscribe(siteContext.Load,
+                (ex) => MessageBox.Show(String.Format(ex.ToString())));
+
+            siteContextLoad.Subscribe(
+                () => dispatcher.Dispatch(()=>{LoadResources();RegisterRegions();}),
+                (ex) => MessageBox.Show(String.Format(ex.ToString())));
+
+            customizationContext.Load();
+
+}}}
+
 A good starting point among few filtered out was: http://themechanicalbride.blogspot.com/2009/07/developing-with-rx-part-1-extension.html
 
 I wanted then to move async wcf service call to be asynchronuous, but ran into silverlight proxy as it generates not having events actually for the call completion.
