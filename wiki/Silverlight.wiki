@@ -116,3 +116,9 @@ I'm able to get to to events:
 }}}
 
 So what about exception handling paths?
+
+= Debugging =
+
+Different experience in different browsers. Regardless the page title you should attach to iexplorer process running Silverlight.
+Debugging of data binding didn't work for me in FF, but worked ok in IE.
+Overall, debugging is quite fragile.
