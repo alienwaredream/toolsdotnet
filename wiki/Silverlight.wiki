@@ -126,3 +126,4 @@ Overall, debugging is quite fragile.
 = Working with VS2008 and Silverlight 4 = 
 
 This is a lame story of MS pushing forward vs2010, but you can still debug SL4 from VS2008 with this: http://forums.silverlight.net/forums/t/178873.aspx
+Link to SL4 Developer Runtime: http://go.microsoft.com/fwlink/?LinkID=188039
