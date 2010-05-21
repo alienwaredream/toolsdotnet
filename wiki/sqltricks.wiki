@@ -1,0 +1,3 @@
+= Parameter sniffing = 
+
+http://www.sqlpointers.com/2006/11/parameter-sniffing-stored-procedures.html
