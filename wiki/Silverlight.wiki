@@ -143,6 +143,7 @@ http://www.microsoft.com/downloads/details.aspx?familyid=55B44DA3-E5DE-4D2A-8EAF
 redirect project imports to C:\Program Files\MSBuild\Microsoft\Silverlight\v4.0\ instead of C:\Program Files\MSBuild\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets
 
 
+= Troubleshooting data binding errors =
 
-
-
+As this page suggests, look into output window of vs while debugging:
+http://stackoverflow.com/questions/2724932/checkbox-command-behaviors-for-silverlight-mvvm-pattern
