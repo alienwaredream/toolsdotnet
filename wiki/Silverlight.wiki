@@ -147,3 +147,21 @@ redirect project imports to C:\Program Files\MSBuild\Microsoft\Silverlight\v4.0\
 
 As this page suggests, look into output window of vs while debugging:
 http://stackoverflow.com/questions/2724932/checkbox-command-behaviors-for-silverlight-mvvm-pattern
+
+== Order of bindings ==
+
+Order of binding is given by order of bindings in your markup:
+{{{
+                    <sr:ComboBox IsEnabled="{Binding IsMilestoneSelected}" ItemsSource="{Binding MilestoneIntervalTypes}" SelectedIndex="{Binding Path=SelectedMilestoneIntervalTypeIndex, Mode=TwoWay}" DisplayMemberPath="Value" />
+
+}}}
+
+As opposed to:
+
+{{{
+
+                    <sr:ComboBox IsEnabled="{Binding IsMilestoneSelected}"  SelectedIndex="{Binding Path=SelectedMilestoneIntervalTypeIndex, Mode=TwoWay}" ItemsSource="{Binding MilestoneIntervalTypes}" DisplayMemberPath="Value" />
+
+}}}
+
+For former, MilestoneIntervalTypes property on view model will be called first and for latter, it is SelectedMilestoneIntervalTypeIndex view model property.
