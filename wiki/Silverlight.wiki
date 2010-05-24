@@ -138,6 +138,11 @@ Link to SL4 Developer Runtime: http://go.microsoft.com/fwlink/?LinkID=188039
 
 http://www.microsoft.com/downloads/details.aspx?familyid=55B44DA3-E5DE-4D2A-8EAF-1155CA6B3207&displaylang=en
 
-=== ===
+=== Redirect project imports ===
 
-redirect project imports to C:\Program Files\MSBuild\Microsoft\Silverlight\v4.0\
+redirect project imports to C:\Program Files\MSBuild\Microsoft\Silverlight\v4.0\ instead of C:\Program Files\MSBuild\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets
+
+
+
+
+
