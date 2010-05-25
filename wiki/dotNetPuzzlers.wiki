@@ -91,3 +91,23 @@ What one should be aware of when changing non-virtual method to be virtual?
         }
 
 }}}
+
+= Linq to objects =
+
+== sample 1 ==
+
+{{{
+
+           var sortedResources = from res in resources
+                                  from cat in categories
+                                  from scat in subCategories
+                                  where res.ResourceSubCategoryId == scat.Id &&
+                                        cat.Id == scat.ResourceCategoryId
+                                  orderby cat.DisplaySeq , scat.DisplaySeq
+                                  select res;
+
+
+            sortedResources.ToList().ForEach(resourceSlot =>
+            {
+
+}}}
