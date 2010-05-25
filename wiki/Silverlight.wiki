@@ -165,3 +165,8 @@ As opposed to:
 }}}
 
 For former, MilestoneIntervalTypes property on view model will be called first and for latter, it is SelectedMilestoneIntervalTypeIndex view model property.
+
+= Misc = 
+== Silverlight 4 MessageBox high CPU ==
+https://connect.microsoft.com/VisualStudio/feedback/details/552718/system-windows-messagebox-takes-100-cpu-usage?wa=wsignin1.0
+For me it is only 50%, probably only one core is really 100% busy
