@@ -170,3 +170,36 @@ For former, MilestoneIntervalTypes property on view model will be called first a
 == Silverlight 4 MessageBox high CPU ==
 https://connect.microsoft.com/VisualStudio/feedback/details/552718/system-windows-messagebox-takes-100-cpu-usage?wa=wsignin1.0
 For me it is only 50%, probably only one core is really 100% busy
+
+= Unit testing =
+
+Sample unit test, showing as well how to write to output:
+
+{{{
+    [TestClass]
+    public class CommonServiceSessionAdapterTest : SilverlightTest
+    {
+        [TestMethod]
+        public void Should_HaveProxyStrategyWhenSet()
+        {
+            // Arrange
+            const SessionCase testCase = SessionCase.StandardCase;
+            var testStrategy = new TestClientProxyStrategy(testCase);
+            var client = new CommonServiceClient(testStrategy);
+            // Assert
+            Assert.AreEqual(testStrategy, client.ProxyStrategy);
+
+            UnitTestHarness.LogWriter.DebugWriteLine(String.Format("Not null instance of [{0}] is setup as a client proxy strategy", client.ProxyStrategy.GetType()));
+
+        }
+        [TestMethod]
+        public void Should_HaveNullStrategyWhenNotSet()
+        {
+            // Arrange
+            var client = new CommonServiceClient();
+            // Assert
+            Assert.IsNull(client.ProxyStrategy);
+        }
+    }
+
+}}}
