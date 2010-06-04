@@ -1,5 +1,11 @@
-
+= Categorization =
+In House, Software House, Product House
 
 == Security ==
 
 === IH is more prone to introduce security backdoors ===
+
+== API design ==
+
+=== IH may develop more usable APIs over years ===
+But not necessarily at all.
