@@ -1,0 +1,5 @@
+#summary Dedicated to API design.
+
+= Interesting samples encountered =
+
+== EventArgs.Result in .NET throwing exception when there is an error during service invocation ==
