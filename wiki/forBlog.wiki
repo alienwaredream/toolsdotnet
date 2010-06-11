@@ -1,0 +1,8 @@
+== On extending Silverlight Unit Test harness ==
+
+{{{
+public virtual void EnqueueCallback(Action testCallbackDelegate)
+{
+    this.EnqueueWorkItem(new CallbackWorkItem(testCallbackDelegate));
+}
+}}}
