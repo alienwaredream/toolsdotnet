@@ -26,3 +26,10 @@ public virtual void EnqueueCallback(Action testCallbackDelegate)
             });
 
 }}}
+
+{{{
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            RootVisual = UnitTestSystem.CreateTestPage(HarnessProvider.CreateDefaultSettings(this.GetType().Assembly));
+        }
+}}}
