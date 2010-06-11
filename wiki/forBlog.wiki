@@ -8,7 +8,10 @@ public virtual void EnqueueCallback(Action testCallbackDelegate)
 }}}
 
 {{{
-
+        [TestMethod]
+        [Asynchronous]
+        public void Should_RestoreDatabasesOnDirty()
+        {
             // First callback work item is going to mark db as dirty
             EnqueueCallback(() =>
             {
@@ -24,7 +27,7 @@ public virtual void EnqueueCallback(Action testCallbackDelegate)
                 Assert.IsFalse(((CustomTestHarness) UnitTestHarness).DBCleanupRequired);
                 EnqueueTestComplete();
             });
-
+        }
 }}}
 
 {{{
