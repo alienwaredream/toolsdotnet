@@ -6,3 +6,23 @@ public virtual void EnqueueCallback(Action testCallbackDelegate)
     this.EnqueueWorkItem(new CallbackWorkItem(testCallbackDelegate));
 }
 }}}
+
+{{{
+
+            // First callback work item is going to mark db as dirty
+            EnqueueCallback(() =>
+            {
+                MarkDatabaseAsDirty();
+
+            });
+            // Prior to the second call back work item we should have called the service
+            // to restore to the original snaphots and we expect that DBCleanupRequired
+            // is set to false on service async callback. As a bit of a manual check we 
+            // can verify that service really was called between those two work items.
+            EnqueueCallback(() =>
+            {
+                Assert.IsFalse(((CustomTestHarness) UnitTestHarness).DBCleanupRequired);
+                EnqueueTestComplete();
+            });
+
+}}}
