@@ -94,9 +94,9 @@ http://msdn.microsoft.com/en-us/library/ms228973.aspx
 
 }}}
 
-= Linq to objects =
+= Linq=
 
-== sample 1 ==
+== Joins and orderby ==
 
 {{{
 
@@ -111,5 +111,14 @@ http://msdn.microsoft.com/en-us/library/ms228973.aspx
 
             sortedResources.ToList().ForEach(resourceSlot =>
             {
+
+}}}
+
+== Aggregate ==
+
+{{{
+
+                string dump = terminologies.Aggregate(String.Empty,
+                    ( acc, t ) => acc += String.Format("<{0}:{1}>\r\n", t.ReplacementKey, t.Value));
 
 }}}
