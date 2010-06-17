@@ -220,3 +220,12 @@ c:\Windows\System32\inetsrv\appcmd.exe set app /app.name "Default Web Site/MyVir
 
 Sample: c:\Windows\System32\inetsrv\appcmd.exe set app /app.name "Default Web Site/MyWeb"  /[path='/'].physicalPath:E:\web\myweb\
 }}}
+
+== Stop/Start MSDTC ==
+
+{{{
+
+net stop msdtc
+net start msdtc
+
+}}}
