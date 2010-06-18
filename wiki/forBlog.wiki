@@ -1,5 +1,41 @@
 
-
 == On extending Silverlight Unit Test harness ==
 
 published: http://plainoldstan.blogspot.com/2010/06/extending-silverlight-unit-testing.html
+
+== On using partial class to isolate silverlight wcf client to its interface ==
+{{{
+        public SiteSettingsContext(CommonServiceClient client) : this()
+        {
+            if ( client == null ) throw new ArgumentNullException("client");
+            _client = client;
+        }
+
+    public interface ITerminologyService
+    {
+        event System.EventHandler<GetTerminologyListCompletedEventArgs> GetTerminologyListCompleted;
+        void GetTerminologyListAsync();
+    }
+
+public partial class CommonServiceClient : ITerminologyService
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CommonService.ICommonService")]
+    public interface ICommonService {
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminologyProvider/GetTerminologyList", ReplyAction="http://tempuri.org/ITerminologyProvider/GetTerminologyListResponse")]
+        System.IAsyncResult BeginGetTerminologyList(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<Valtera.WcfServices.Client.CommonService.Terminology> EndGetTerminologyList(System.IAsyncResult result);
+
+
+private ITerminologyService _client = new CommonServiceClient();
+
+        public SiteSettingsContext(ITerminologyService client)
+            : this()
+        {
+            if ( client == null ) throw new ArgumentNullException("client");
+            _client = client;
+        }
+
+}}}
