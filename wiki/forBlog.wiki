@@ -1,4 +1,3 @@
-
 == On extending Silverlight Unit Test harness ==
 
 published: http://plainoldstan.blogspot.com/2010/06/extending-silverlight-unit-testing.html
@@ -36,6 +35,76 @@ private ITerminologyService _client = new CommonServiceClient();
         {
             if ( client == null ) throw new ArgumentNullException("client");
             _client = client;
+        }
+
+}}}
+
+== On using Moq with/for events ==
+{{{
+
+protected override void TestInitialize()
+        {
+            base.TestInitialize();
+            _terminologyService = AutoMockRegistrator.CreateDynaMockFor<ITerminologyService>();
+
+            _context = IoC.Resolve<SiteSettingsContext>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Should_ThrowWhenUsedAndNotLoadedYet()
+        {
+            var context = new SiteSettingsContext(_terminologyService.Object);
+            var terminologies = context.GetTerminologies();
+        }
+        [TestMethod]
+        [Asynchronous]
+        [Timeout(500)]
+        public void Should_HaveTerminologiesAfterLoad()
+        {
+            var context = new SiteSettingsContext(new TerminologyServiceStub());
+
+            context.LoadCompleted += ( s, e ) =>
+            {
+                AssertForFixedTerminologies(context.GetTerminologies());
+                EnqueueTestComplete();
+            };
+            context.Load();
+        }
+        [TestMethod]
+        [Asynchronous]
+        [Timeout(500)]
+        public void Should_HaveTerminologiesAfterLoadMoq()
+        {
+            _terminologyService.Setup(t => t.GetTerminologyListAsync()).Callback(()=>
+            {
+                _terminologyService.Raise(ts => ts.GetTerminologyListCompleted += null, new GetTerminologyListCompletedEventArgs(TerminologyFake.GetFixedActionPlanTerminology(), null,
+false, null));
+            });
+
+            var context = new SiteSettingsContext(_terminologyService.Object);
+
+            context.LoadCompleted += (s, e) =>
+            {
+                AssertForFixedTerminologies(context.GetTerminologies());
+                EnqueueTestComplete();
+            };
+            context.Load();
+        }
+
+
+        internal class TerminologyServiceStub : ITerminologyService
+        {
+            public event EventHandler<GetTerminologyListCompletedEventArgs> GetTerminologyListCompleted;
+            public void GetTerminologyListAsync()
+            {
+                // Verify that event has been subscribed to
+                Assert.IsNotNull(GetTerminologyListCompleted);
+                // Raise the event
+                GetTerminologyListCompleted(this,
+                    new GetTerminologyListCompletedEventArgs(TerminologyFake.GetFixedActionPlanTerminology(), null,
+                        false, null));
+            }
         }
 
 }}}
