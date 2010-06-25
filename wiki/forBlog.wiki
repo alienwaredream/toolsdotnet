@@ -193,3 +193,5 @@ namespace Valtera.SilverlightShared.CommonInfrastructure.Logging
 }
 
 }}}
+
+== On TlbImp : error TI0000: Encountered multiple versions of the assembly with GUID ==
