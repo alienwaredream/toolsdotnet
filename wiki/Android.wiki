@@ -4,3 +4,4 @@ http://proguard.sourceforge.net/
 http://groups.google.com/group/android-developers/browse_thread/thread/dcc5808b002a47fc/b8c3850cc5f5e5dd?pli=1
 
 == Dependency Injection ==
+http://stackoverflow.com/questions/2135378/android-and-dependency-injection
