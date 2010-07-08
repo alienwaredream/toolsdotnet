@@ -115,3 +115,6 @@ published: http://plainoldstan.blogspot.com/2010/06/silverlight-browser-console-
 
 == On TlbImp : error TI0000: Encountered multiple versions of the assembly with GUID ==
 https://connect.microsoft.com/VisualStudio/feedback/details/565978/tlbimp-encountered-multiple-versions-of-the-assembly-with-guid-000204ef-0000-0000-c000-000000000046?wa=wsignin1.0#tabs
+
+== On Attempt to access the method failed - ArrayList ==
+http://forums.silverlight.net/forums/p/1456/4118.aspx
