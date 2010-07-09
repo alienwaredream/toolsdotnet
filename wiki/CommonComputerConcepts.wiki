@@ -1,0 +1,11 @@
+= Bootstrap = 
+{{{
+The term boot is short for bootstrap, and the metaphor
+is to imagine a person wearing boots who reaches down, pulls on their bootstraps,
+and lifts themselves into the air. Of course, this only is possible in cartoons,
+but it is a vivid image. With the power off, a computer is a dead hunk of silicon,
+steel, and wires. During the boot process, it has to wake up, find all of its
+peripherals, and configure itself to run software. It takes some doing to make
+all of this happen.
+}}}
+http://www.ahuka.com/?page_id=7
