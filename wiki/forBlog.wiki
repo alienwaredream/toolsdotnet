@@ -1,3 +1,65 @@
+== On locking techniques in Silverlight - CLog case study ==
+
+{{{
+
+        void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            for (int i = 0; i < 2; i++)
+            {
+
+                ThreadPool.QueueUserWorkItem((state) => log.Info("This is a call with i="+state), i);
+                LogViewer.OfflineMode = false;
+                if (log.InfoEnabled)
+                {
+                    log.Info("UI" +Thread.CurrentThread.ManagedThreadId.ToString());
+                }
+            }
+        }
+}}}
+
+{{{
+
+lock (loggingConfigLock)
+                {
+....
+
+clogService.BeginGetConfiguration(clientInfo,
+                            asyncResult =>
+                            {
+                                ClientConfigurationData result;
+                                try
+{ .....
+}}}
+
+{{{
+public interface IClogService {
+        System.IAsyncResult BeginGetConfiguration(object clientInfo, System.AsyncCallback callback, object asyncState);
+        
+        DanielVaughan.Logging.ClientLogging.ClientConfigurationData EndGetConfiguration(System.IAsyncResult result);
+}
+}}}
+
+{{{
+    public partial class ClogServiceClient : System.ServiceModel.ClientBase<DanielVaughan.Logging.ClientLogging.IClogService>, DanielVaughan.Logging.ClientLogging.IClogService {
+        public void GetConfigurationAsync(object clientInfo, object userState) {
+            if ((this.onBeginGetConfigurationDelegate == null)) {
+                this.onBeginGetConfigurationDelegate = new BeginOperationDelegate(this.OnBeginGetConfiguration);
+            }
+            if ((this.onEndGetConfigurationDelegate == null)) {
+                this.onEndGetConfigurationDelegate = new EndOperationDelegate(this.OnEndGetConfiguration);
+            }
+            if ((this.onGetConfigurationCompletedDelegate == null)) {
+                this.onGetConfigurationCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetConfigurationCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetConfigurationDelegate, new object[] {
+                        clientInfo}, this.onEndGetConfigurationDelegate, this.onGetConfigurationCompletedDelegate, userState);
+        }
+...
+}
+}}}
+
+
 == On extending Silverlight Unit Test harness ==
 
 published: http://plainoldstan.blogspot.com/2010/06/extending-silverlight-unit-testing.html
