@@ -1,3 +1,29 @@
+== On EnqueueConditional in Silverlight Unit Testing Framework ==
+In UnitTestHarness:
+{{{
+protected virtual bool RunNextStep()
+{
+    this.ProcessLogMessages();
+    if (this.RootCompositeWorkItem == null)
+    {
+        return false;
+    }
+    return this.RootCompositeWorkItem.Invoke();
+}
+}}}
+And Invoke implementation of ConditionalWorkItem:
+{{{
+public override bool Invoke()
+{
+    if (this._delegate())
+    {
+        this.WorkItemComplete();
+    }
+    return base.Invoke();
+}
+}}}
+So if you want to have some work done in [TestCleanup] method and you want to wait for its completion until running the next method you should not call EnqueueTestComplete() but let EnqueueConditional to complete the test or any of your eventual callbacks then to call EnqueueTestComplete.
+
 == On locking techniques in Silverlight - CLog case study ==
 
 {{{
