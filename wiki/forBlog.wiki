@@ -1,5 +1,11 @@
 == On Silverlight plugin load/hang timeout in FF ==
+
+
 http://kb.mozillazine.org/index.php?title=Plugin-container_and_out-of-process_plugins&printable=yes
+
+about:config
+
+dom.ipc.plugins.enabled.npctrl.dll
 
 == On Extending Silverlight Unit test framework II ==
 Invoke method of the CompositeWorkItem:
