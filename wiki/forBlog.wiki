@@ -1,3 +1,6 @@
+== On Silverlight plugin load/hang timeout in FF ==
+http://kb.mozillazine.org/index.php?title=Plugin-container_and_out-of-process_plugins&printable=yes
+
 == On Extending Silverlight Unit test framework II ==
 Invoke method of the CompositeWorkItem:
 {{{
