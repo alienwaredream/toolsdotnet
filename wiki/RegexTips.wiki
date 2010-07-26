@@ -52,3 +52,26 @@ dateTimeFormats = [
     ];
 
 }}}
+
+= Add custom tool to VS project items where not added yet =
+
+{{{
+
+    <None Include="DataAccess\ActionPlanning\ActionPlanningDAC.sp">
+      <Generator>StoreProcAdapterGenerator</Generator>
+      <LastGenOutput>ActionPlanningDAC.sp.cs</LastGenOutput>
+    </None>
+    <None Include="DataAccess\Administration\ActionPlanning\EngagementSiteSettingsDAC.sp" />
+    <None Include="DataAccess\Administration\ActionPlanning\EscalationGroupDAC.sp" />
+
+}}}
+Match regex:
+{{{
+
+<None\sInclude="(.*)?\\(.*)?\.sp"\s?(/)>
+
+}}}
+Replace formula:
+{{{
+<None Include="$1\\$2.sp" ><Generator>StoreProcAdapterGenerator</Generator><LastGenOutput>ActionPlanningDAC.sp.cs</LastGenOutput></None>
+}}}
