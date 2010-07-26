@@ -75,3 +75,26 @@ Replace formula:
 {{{
 <None Include="$1\\$2.sp" ><Generator>StoreProcAdapterGenerator</Generator><LastGenOutput>ActionPlanningDAC.sp.cs</LastGenOutput></None>
 }}}
+
+And now we need to add DependentUpon for our generated files:
+
+{{{
+
+    <Compile Include="DataAccess\Presentation\DisplayOptionsDAC.sp.cs">
+      <DependentUpon>DisplayOptionsDAC.sp</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataAccess\ReportingManager\ReportDAC.sp.cs" />
+    <Compile Include="DataAccess\ReportingManager\ReportGroupDAC.sp.cs" />
+
+}}}
+
+regex to match:
+{{{
+<Compile\sInclude="(.*)?\\(.*)?\.sp.cs"\s?(/)>
+}}}
+Replacement text:
+{{{
+<Compile Include="$1$2.sp.cs"><DependentUpon>$2.sp</DependentUpon><AutoGen>True</AutoGen><DesignTime>True</DesignTime></Compile>
+}}}
