@@ -98,3 +98,15 @@ Replacement text:
 {{{
 <Compile Include="$1\\$2.sp.cs"><DependentUpon>$2.sp</DependentUpon><AutoGen>True</AutoGen><DesignTime>True</DesignTime></Compile>
 }}}
+
+= Regex to match uri path up to the last slash =
+{{{
+^(.*)(?=/)/
+}}}
+to match with first capture 
+
+http://localhost/Portal30Web/
+
+in 
+
+http://localhost/Portal30Web/Portal30.aspx
