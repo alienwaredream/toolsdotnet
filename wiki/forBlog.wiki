@@ -7,34 +7,6 @@ about:config
 
 dom.ipc.plugins.enabled.npctrl.dll
 
-== On Extending Silverlight Unit test framework II ==
-Invoke method of the CompositeWorkItem:
-{{{
-public override bool Invoke()
-{
-    bool flag;
-    bool canExecuteImmediately = false;
-    do
-    {
-        WorkItem item;
-        flag = this.Invoke(out item);
-        if (item != null)
-        {
-            canExecuteImmediately = item.CanExecuteImmediately;
-        }
-    }
-    while (flag && canExecuteImmediately);
-    return flag;
-}
-}}}
-CanExecuteImmediately property of WorkItem, Invoke of a WorkItem is:
-{{{
-public virtual bool Invoke()
-{
-    return !this.IsComplete;
-}
-}}}
-
 == On locking techniques in Silverlight - CLog case study ==
 
 {{{
