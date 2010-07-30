@@ -27,5 +27,7 @@ Need to build to see the result
 == Versioning and backward support ==
 The story of SL3 to SL4. Moving System.Action from System to System.Core
 
+== Complexity of asynchronous programmming ==
+Provide examples of bugs in well-known framework like CLog for example
 
 = What is strong =
