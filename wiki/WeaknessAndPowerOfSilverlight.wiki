@@ -24,4 +24,8 @@ Need to build to see the result
 
 == Design decisions ==
 
+== Versioning and backward support ==
+The story of SL3 to SL4. Moving System.Action from System to System.Core
+
+
 = What is strong =
