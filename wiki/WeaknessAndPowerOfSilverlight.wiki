@@ -1,0 +1,27 @@
+= What is weak =
+== Testing ==
+IsolatedStorageFile - IDisposable, no other interface
+No own, first class citizen testing framework
+No own CI (point to Statlight)
+
+== Blend programming model ==
+-- Association with TIBCO programming model, point on testability/verification again
+Often we can't see design view as of "errors" that are not really errors
+
+== Cooperation between designer and coder ==
+
+== Scalability ==
+
+== Binding hurdles ==
+Very hard to verify, troubleshoot when binding is not working properly
+
+== Exception handling ==
+Swallowing exceptions
+== Environment readiness for MVVM ==
+
+== Speed of verification ==
+Need to build to see the result
+
+== Design decisions ==
+
+= What is strong =
