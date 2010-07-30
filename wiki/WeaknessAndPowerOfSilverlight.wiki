@@ -29,5 +29,10 @@ The story of SL3 to SL4. Moving System.Action from System to System.Core
 
 == Complexity of asynchronous programmming ==
 Provide examples of bugs in well-known framework like CLog for example
+Mix of async and sync API (like old one Isolated storage api).
+== Overlooked bugs caused by async programming non-readiness ==
+Sometimes it is just very complex to synchronize all async stuff
+
+
 
 = What is strong =
