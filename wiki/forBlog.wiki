@@ -255,3 +255,12 @@ and sample of usage would be:
             if (platform == Platform.X64)
                 wowPrefix = WOW_NODE_PATTERN;
 }}}
+
+== On robustness in regard to Isolated storage usage ==
+
+{{{
+            if (!IsolatedStorageFile.IsEnabled)
+                return;
+}}}
+
+Unhandled Error in Silverlight Application Initialization failed. at System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStore(String group, String id) at System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication() at System.IO.IsolatedStorage.IsolatedStorageSettings.get_ApplicationSettings() at Microsoft.Silverlight.Testing.Client.TagEditor..ctor() at Microsoft.Silverlight.Testing.Client.TagEditor..ctor(String initialTagExpression, IList`1 sampleTags) at Microsoft.Silverlight.Testing.Client.TestPage.StartupMonitor(Object sender, EventArgs e) at MS.Internal.CoreInvokeHandler.InvokeEventHandler(Int32 typeIndex, Delegate handlerDelegate, Object sender, Object args) at MS.Internal.JoltHelper.FireEvent(IntPtr unmanagedObj, IntPtr unmanagedObjArgs, Int32 argsTypeIndex, String eventName)
