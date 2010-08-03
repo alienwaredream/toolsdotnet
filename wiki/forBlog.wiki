@@ -1,11 +1,6 @@
 == On Silverlight plugin load/hang timeout in FF ==
 
-
-http://kb.mozillazine.org/index.php?title=Plugin-container_and_out-of-process_plugins&printable=yes
-
-about:config
-
-dom.ipc.plugins.enabled.npctrl.dll
+blogged at: http://plainoldstan.blogspot.com/2010/08/silverlight-plugin-timeout-in-firefox.html
 
 == On locking techniques in Silverlight - CLog case study ==
 
