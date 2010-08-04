@@ -21,7 +21,7 @@ Swallowing exceptions
 == Readiness and support for MVVM ==
 
 == Speed of verification ==
-Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh.
+Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh. You might say, Blend shows it instantly - but once you use MVVM you will not see actually that layout changes for pages with regions as they are not "inflated".
 
 == Design decisions ==
 
