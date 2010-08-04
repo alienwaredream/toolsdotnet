@@ -21,7 +21,7 @@ Swallowing exceptions
 == Readiness and support for MVVM ==
 
 == Speed of verification ==
-Need to build to see the result
+Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh.
 
 == Design decisions ==
 
