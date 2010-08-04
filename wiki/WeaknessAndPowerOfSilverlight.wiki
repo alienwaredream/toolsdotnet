@@ -17,7 +17,8 @@ Very hard to verify, troubleshoot when binding is not working properly
 
 == Exception handling ==
 Swallowing exceptions
-== Environment readiness for MVVM ==
+
+== Readiness and support for MVVM ==
 
 == Speed of verification ==
 Need to build to see the result
