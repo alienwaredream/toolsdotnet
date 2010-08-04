@@ -41,6 +41,8 @@ This kind of a tough thing. Quite often your customers are giving you those chun
 See: http://blogs.msdn.com/b/delay/archive/2007/09/10/bringing-a-bit-of-html-to-silverlight-htmltextblock-makes-rich-text-display-easy.aspx for at least some remediation.
 Looks like there is an ability to integrate webbrowser control into your application in Windows Phone 7 though.
 
+== No MVVM support for javascript integration ==
 
+It would be good we we had Javascript Command binding javascript events with ViewModel commands.
 
 = What is strong =
