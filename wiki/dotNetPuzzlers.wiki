@@ -136,3 +136,12 @@ http://msdn.microsoft.com/en-us/library/ms228973.aspx
                         context));
 
 }}}
+
+{{{
+
+         <ItemsControl VerticalAlignment="Stretch"  
+                                      rgn:RegionManager.RegionName="{Binding Path=ActionPlanModule.HelpRegion, Source={StaticResource RegionNames}}" 
+									  rgn:RegionManager.RegionContext="{Binding Source={StaticResource ApplicationName}}"
+                                      Margin="0" d:DesignWidth="200" />
+
+}}}
