@@ -122,3 +122,17 @@ http://msdn.microsoft.com/en-us/library/ms228973.aspx
                     ( acc, t ) => acc += String.Format("<{0}:{1}>\r\n", t.ReplacementKey, t.Value));
 
 }}}
+
+== Usage of System.Ling.Observable with delegate conversion ==
+
+{{{
+
+                ObservableObject<object> context = RegionContext.GetObservableContext(view);
+
+                Observable.FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                    (h) => (s, e) => h(s, e),
+                    h => context.PropertyChanged += h,
+                    h => context.PropertyChanged -= h).Where(e => e.EventArgs.PropertyName == CodeHelper.GetMemberName(() => context.Value)).Take(1).Subscribe(eh => contextReaderModel.AssignContext(
+                        context));
+
+}}}
