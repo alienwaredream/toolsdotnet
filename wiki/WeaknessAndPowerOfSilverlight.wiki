@@ -46,4 +46,8 @@ Looks like there is an ability to integrate webbrowser control into your applica
 
 It would be good we we had Javascript Command binding javascript events with ViewModel commands.
 
+== Loose ends of many frameworks ==
+Take Prism for example and how it copes with disposing events in event aggregator.
+Though it has ability to work with Weak references, in silverlight you can't have a weak reference to anonymous delegate. This is definitely a loose end. How do you unsubscribe the anonymous delegate without the need to keep a reference to it?
+
 = What is strong =
