@@ -50,4 +50,11 @@ It would be good we we had Javascript Command binding javascript events with Vie
 Take Prism for example and how it copes with disposing events in event aggregator.
 Though it has ability to work with Weak references, in silverlight you can't have a weak reference to anonymous delegate. This is definitely a loose end. How do you unsubscribe the anonymous delegate without the need to keep a reference to it?
 
+== Very hard to find a designer or place a designer into the team ==
+Either there is no work for a full time designer, but very hard to get any decent design from regular devs.
+
+== Telerik specific ==
+
+Tooltip as sub menu item.
+
 = What is strong =
