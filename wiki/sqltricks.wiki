@@ -1,3 +1,59 @@
 = Parameter sniffing = 
 
 http://www.sqlpointers.com/2006/11/parameter-sniffing-stored-procedures.html
+
+= CTEs =
+
+More: http://www.setfocus.com/TechnicalArticles/Articles/sql-server-2005-tsql-3.aspx
+
+== Recursive CTE plus CSV from select samples ==
+{{{
+CREATE FUNCTION eng_GetNodeParents (@NodeId int)
+-- Created by: Stanislav Dvoychenko @ 12-Aug-2010
+-- Synopsis: Returns a table of NodeId, Title of parent nodes to the passed in NodeId
+RETURNS TABLE
+AS RETURN
+(
+WITH NodeCte (NodeId, Title, ParentNodeId) AS 
+            -- Anchor query
+            (SELECT hn1.NodeId, nl1.Title, hn1.ParentNodeId 
+                    FROM HierarchyNode hn1 
+						INNER JOIN NodeLocal nl1 ON hn1.NodeId = nl1.NodeId
+						where hn1.NodeId = @NodeId --92161
+                UNION ALL
+                    -- Recursive query
+                    SELECT hn2.NodeId, nl2.Title, hn2.ParentNodeId 
+						FROM HierarchyNode hn2
+							INNER JOIN NodeLocal nl2 ON hn2.NodeId = nl2.NodeId
+                            INNER JOIN NodeCte ON NodeCte.ParentNodeId = hn2.NodeId)         
+
+SELECT * FROM NodeCte
+)
+
+GO
+
+-- =============================================
+-- Author:		Stanislav Dvoychenko
+-- Create date: 12-Aug-2010
+-- Description:	Returns pipe separated list of Parent node titles
+-- for a provided . Currently specific, subject to refactor to be generic
+-- =============================================
+CREATE FUNCTION eng_GetPipedParentNodeTitles
+(
+@NodeId int
+)
+RETURNS nvarchar(2000)
+AS
+BEGIN
+
+	DECLARE @csv nvarchar(max)
+	SET @csv = N'';
+	SELECT @csv = @csv + Title + N'|' from eng_GetNodeParents(@NodeId)
+	if (Len(@csv) > 0) SET @csv = Left(@csv,Len(@csv)-1)
+
+	-- Return the result of the function
+	RETURN @csv
+
+END
+
+}}}
