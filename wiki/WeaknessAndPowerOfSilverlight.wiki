@@ -57,5 +57,6 @@ Take Silverlight Toolkit or Telerik UI components for SL. Over months you can se
 == Very hard to find a designer or place a designer into the team ==
 Either there is no work for a full time designer, but very hard to get any decent design from regular devs.
 You'll have to buy Blend if you mean the design anyhow seriously.
+Designer should prepare to be a bit of a data modeler, as they will need to do some binding of sample data to really see what design is going to be like.
 
 = What is strong =
