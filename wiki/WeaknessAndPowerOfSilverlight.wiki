@@ -50,6 +50,10 @@ It would be good we we had Javascript Command binding javascript events with Vie
 Take Prism for example and how it copes with disposing events in event aggregator.
 Though it has ability to work with Weak references, in silverlight you can't have a weak reference to anonymous delegate. This is definitely a loose end. How do you unsubscribe the anonymous delegate without the need to keep a reference to it?
 
+== Quickly changing API and implementations of 3rd party frameworks and components ==
+As silverlight itself is developing with a quite fast pace, so do 3rd party frameworks and component for it. 
+Take Silverlight Toolkit or Telerik UI components for SL. Over months you can see API and internals to be quite changed. And quite often again you had to delve into their guts relying on some internal details.
+
 == Very hard to find a designer or place a designer into the team ==
 Either there is no work for a full time designer, but very hard to get any decent design from regular devs.
 You'll have to buy Blend if you mean the design anyhow seriously.
