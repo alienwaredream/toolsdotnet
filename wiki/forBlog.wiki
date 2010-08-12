@@ -285,3 +285,17 @@ Unhandled Error in Silverlight Application Initialization failed. at System.IO.I
 						</ToolTipService.ToolTip>
 				</telerik1:RadMenuItem>
 }}}
+{{{
+	public partial class MainPage : UserControl
+	{
+		public List<string> Nodes = new List<string>{"Node1", "Node2", "Node3 gggg", "Hierarchy node X"};
+		
+		public MainPage()
+		{
+			// Required to initialize variables
+			InitializeComponent();
+			this.DataContext = Nodes;	
+		}
+		
+	}
+}}}
