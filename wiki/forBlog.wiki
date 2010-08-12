@@ -259,3 +259,29 @@ and sample of usage would be:
 }}}
 
 Unhandled Error in Silverlight Application Initialization failed. at System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStore(String group, String id) at System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication() at System.IO.IsolatedStorage.IsolatedStorageSettings.get_ApplicationSettings() at Microsoft.Silverlight.Testing.Client.TagEditor..ctor() at Microsoft.Silverlight.Testing.Client.TagEditor..ctor(String initialTagExpression, IList`1 sampleTags) at Microsoft.Silverlight.Testing.Client.TestPage.StartupMonitor(Object sender, EventArgs e) at MS.Internal.CoreInvokeHandler.InvokeEventHandler(Int32 typeIndex, Delegate handlerDelegate, Object sender, Object args) at MS.Internal.JoltHelper.FireEvent(IntPtr unmanagedObj, IntPtr unmanagedObjArgs, Int32 argsTypeIndex, String eventName)
+
+== On Telerik's RadMenuItem Tooltip ==
+
+{{{
+					<telerik1:RadMenuItem Header="Hierarchy node X fgdfgsdmfgklmfglhmdklfhmkldfmghklmdfghkmdfghkmdfk..." >
+						<ToolTipService.ToolTip>
+		                    <ListBox x:Name="Applications" 
+		                             Background="Transparent" BorderThickness="0" ItemsSource="{Binding Path=.}" 
+		                             Margin="10,0,0,0" >
+		                        <ListBox.ItemTemplate>
+		                            <DataTemplate>
+		                            	<StackPanel Orientation="Horizontal">
+											<TextBlock Text="{Binding Path=.}" TextWrapping="Wrap" MaxWidth="200"/>
+											<Image  Source="arrow_state_blue_right.png" Stretch="Fill" />
+										</StackPanel>
+		                            </DataTemplate>
+		                        </ListBox.ItemTemplate>
+								<ListBox.ItemsPanel>
+					                <ItemsPanelTemplate>
+					                    <StackPanel Orientation="Horizontal"/>                                           
+					                </ItemsPanelTemplate>
+					            </ListBox.ItemsPanel>
+		                    </ListBox>
+						</ToolTipService.ToolTip>
+				</telerik1:RadMenuItem>
+}}}
