@@ -27,3 +27,13 @@
 </ItemsControl.ItemTemplate>
 </ItemsControl>
 }}}
+
+http://compilewith.net/2008/03/wpf-listbox-itemspaneltemplate-and.html
+
+== Binding to the parent element data context ==
+
+{{{
+
+Command="{Binding ElementName=HelpViewControl, Path=DataContext.DownloadResourceCommand}" CommandParameter="{Binding DownloadQuery}"
+
+}}}
