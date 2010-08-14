@@ -31,7 +31,7 @@
 http://compilewith.net/2008/03/wpf-listbox-itemspaneltemplate-and.html
 
 == Binding to the parent (or any) element data context ==
-
+Happens when for example binding items in the list but command should be executed in the view viewmodel. In the sample bellow HelpViewControl corresponds to x:Name="HelpViewControl" of the user control itself.
 {{{
 
 Command="{Binding ElementName=HelpViewControl, Path=DataContext.DownloadResourceCommand}" CommandParameter="{Binding DownloadQuery}"
