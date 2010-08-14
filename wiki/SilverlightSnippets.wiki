@@ -1,0 +1,29 @@
+== On ItemsControl ==
+
+{{{
+		<ItemsControl ItemsSource="{Binding Path=CurrentPath}" >
+	<ItemsControl.Template>
+	<ControlTemplate>
+		
+	</ControlTemplate>
+	</ItemsControl.Template>
+
+	<ItemsControl.ItemsPanel>
+		<ItemsPanelTemplate>
+			<StackPanel Orientation="Horizontal"/>                                           
+		</ItemsPanelTemplate>  
+	</ItemsControl.ItemsPanel>
+<ItemsControl.ItemTemplate>
+<DataTemplate>
+			                            	<StackPanel Orientation="Horizontal">
+			                            		<Button Background="White" BorderBrush="{x:Null}">
+			                            			<Button.Content>
+			                            				 <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="200"/>                 			
+													</Button.Content>                   		
+												</Button>
+											<Image Width="8" Height="8" VerticalAlignment="Center"  Source="../Images/arrow_state_blue_right.png" />
+										</StackPanel>
+</DataTemplate>
+</ItemsControl.ItemTemplate>
+</ItemsControl>
+}}}
