@@ -20,6 +20,8 @@ Swallowing exceptions
 
 == Readiness and support for MVVM ==
 
+** Visual state manager for MVVM as attached property: http://blogs.infosupport.com/blogs/alexb/archive/2010/04/02/silverlight-4-using-the-visualstatemanager-for-state-animations-with-mvvm.aspx
+
 == Speed of verification ==
 Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh. You might say, Blend shows it instantly - but once you use MVVM you will not see actually that layout changes for pages with regions as they are not "inflated".
 
