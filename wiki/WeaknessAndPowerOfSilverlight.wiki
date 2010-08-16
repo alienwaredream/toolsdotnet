@@ -36,7 +36,7 @@ Provide examples of bugs in well-known framework like CLog for example
 Mix of async and sync API (like old one Isolated storage api).
 == Overlooked bugs caused by async programming non-readiness ==
 Sometimes it is just very complex to synchronize all async stuff
-
+Sometimes it works but you see buginness by the fact that things begin to happen twice/multiple times. 
 == You can't show/convert html==
 This kind of a tough thing. Quite often your customers are giving you those chunks of html they crafted and want to you for the LOB app customization. You/they become pretty limited here.
 See: http://blogs.msdn.com/b/delay/archive/2007/09/10/bringing-a-bit-of-html-to-silverlight-htmltextblock-makes-rich-text-display-easy.aspx for at least some remediation. BUT THIS IS NOT A SOLUTION!
