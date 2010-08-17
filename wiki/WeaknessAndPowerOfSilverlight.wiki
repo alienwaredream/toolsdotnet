@@ -47,8 +47,12 @@ Observable collection bindings can "buffer"/hide some of the async issues in the
 == You can't show/convert html==
 This kind of a tough thing. Quite often your customers are giving you those chunks of html they crafted and want to you for the LOB app customization. You/they become pretty limited here.
 See: http://blogs.msdn.com/b/delay/archive/2007/09/10/bringing-a-bit-of-html-to-silverlight-htmltextblock-makes-rich-text-display-easy.aspx for at least some remediation. BUT THIS IS NOT A SOLUTION!
-Looks like there is an ability to integrate webbrowser control into your application in Windows Phone 7 though.
+Looks like there is an ability to integrate webbrowser control into your application in Windows Phone 7 though. Webbrowser control is available in Silverlight 4, but only functions in out-of-browser applications.
+
 http://forums.silverlight.net/forums/p/9179/29021.aspx
+
+Another take on the MS sample (http://msdn.microsoft.com/en-us/library/aa972129.aspx) for Html to Xaml (WPF) conversion, this time adapted to Silverlight:
+http://jacob4u2.blogspot.com/2009/09/bind-html-to-textblock-with-html-to.html
 
 == No MVVM support for javascript integration ==
 
