@@ -48,6 +48,7 @@ Observable collection bindings can "buffer"/hide some of the async issues in the
 This kind of a tough thing. Quite often your customers are giving you those chunks of html they crafted and want to you for the LOB app customization. You/they become pretty limited here.
 See: http://blogs.msdn.com/b/delay/archive/2007/09/10/bringing-a-bit-of-html-to-silverlight-htmltextblock-makes-rich-text-display-easy.aspx for at least some remediation. BUT THIS IS NOT A SOLUTION!
 Looks like there is an ability to integrate webbrowser control into your application in Windows Phone 7 though.
+http://forums.silverlight.net/forums/p/9179/29021.aspx
 
 == No MVVM support for javascript integration ==
 
