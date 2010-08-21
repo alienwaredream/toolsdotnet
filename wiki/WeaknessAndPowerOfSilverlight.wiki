@@ -48,6 +48,27 @@ VS 2010 is quite flaky on Silverlight. And more debugging and builds you more un
 == Complexity of asynchronous programmming ==
 Provide examples of bugs in well-known framework like CLog for example
 Mix of async and sync API (like old one Isolated storage api).
+
+** Sample for using System.Reactive for RegionContext:
+{{{
+        public void AssignViewModel( Control view, IViewModel model )
+        {
+            view.DataContext = null;
+
+            var contextReaderModel = model as IRegionOnceoffContextReader;
+
+            if (contextReaderModel != null)
+            {
+                ObservableObject<object> context = RegionContext.GetObservableContext(view);
+
+                Observable.FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                    (h) => (s, e) => h(s, e),
+                    h => context.PropertyChanged += h,
+                    h => context.PropertyChanged -= h).Where(e => e.EventArgs.PropertyName == CodeHelper.GetMemberName(() => context.Value)).Take(1).Subscribe(eh => contextReaderModel.AssignContext(
+                        context));
+            }
+...
+}}}
 == Overlooked bugs caused by async programming non-readiness ==
 Sometimes it is just very complex to synchronize all async stuff
 
