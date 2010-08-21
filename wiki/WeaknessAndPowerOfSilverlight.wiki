@@ -22,6 +22,18 @@ Swallowing exceptions
 
 ** Visual state manager for MVVM as attached property: http://tdanemar.wordpress.com/2009/11/15/using-the-visualstatemanager-with-the-model-view-viewmodel-pattern-in-wpf-or-silverlight/
 
+** Usage pf EventTrigger for conversion between events and commands:
+
+{{{
+        <telerikRibbonBar:RadRibbonBar HelpButtonVisibility="Visible"  Grid.Row="0"  HorizontalAlignment="Stretch" x:Name="MenuRibbon" Title="Action Plan" ApplicationName="Valtera" ApplicationButtonImageSource ="../../Images/Logo.png" >
+        	    <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="HelpRequested">
+                        <Events:ExecuteTriggerAction Command="HelpCommand" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+...
+}}}
+
 == Speed of verification ==
 Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh. You might say, Blend shows it instantly - but once you use MVVM you will not see actually that layout changes for pages with regions as they are not "inflated".
 
