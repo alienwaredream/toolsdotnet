@@ -108,6 +108,6 @@ You'll have to buy Blend if you mean the design anyhow seriously.
 Designer should prepare to be a bit of a data modeler, as they will need to do some binding of sample data to really see what design is going to be like.
 
 == Current Prism's event aggregator design makes it easy to subscribe, harder to unsubscribe ==
-
+Some ideas how to simplify that task with use of System.Reactive can be found here: http://richarddingwall.name/2010/03/30/reactive-extensions-and-prism-linq-to-your-event-aggregator/
 
 = What is strong =
