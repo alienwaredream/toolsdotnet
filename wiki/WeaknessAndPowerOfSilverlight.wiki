@@ -51,27 +51,13 @@ VS 2010 is quite flaky on Silverlight. And more debugging and builds you more un
 == Complexity of asynchronous programmming ==
 Provide examples of bugs in well-known framework like CLog for example
 Mix of async and sync API (like old one Isolated storage api).
+Chaining multiple events:
+http://mtaulty.com/CommunityServer/blogs/mike_taultys_blog/archive/2008/09/08/10730.aspx
+And critics of eventing in SL:
+http://www.atrevido.net/blog/2008/08/28/Tsk+Tsk+Silverlight+Events+Are+Not+Asyncs+Friend.aspx
 
-** Sample for using System.Reactive for RegionContext:
-{{{
-        public void AssignViewModel( Control view, IViewModel model )
-        {
-            view.DataContext = null;
 
-            var contextReaderModel = model as IRegionOnceoffContextReader;
 
-            if (contextReaderModel != null)
-            {
-                ObservableObject<object> context = RegionContext.GetObservableContext(view);
-
-                Observable.FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
-                    (h) => (s, e) => h(s, e),
-                    h => context.PropertyChanged += h,
-                    h => context.PropertyChanged -= h).Where(e => e.EventArgs.PropertyName == CodeHelper.GetMemberName(() => context.Value)).Take(1).Subscribe(eh => contextReaderModel.AssignContext(
-                        context));
-            }
-...
-}}}
 == Overlooked bugs caused by async programming non-readiness ==
 Sometimes it is just very complex to synchronize all async stuff
 
@@ -80,6 +66,7 @@ Sometimes it works but you see buginness by the fact that things begin to happen
 Unregistering for events is another biggy. E.g. it is not straightforward to unregister from anonymous delegate/lamda expression
 
 Observable collection bindings can "buffer"/hide some of the async issues in the code, but they declare themselves more clearly when you need to compose more async actions. 
+
 == You can't show/convert html==
 This kind of a tough thing. Quite often your customers are giving you those chunks of html they crafted and want to you for the LOB app customization. You/they become pretty limited here.
 See: http://blogs.msdn.com/b/delay/archive/2007/09/10/bringing-a-bit-of-html-to-silverlight-htmltextblock-makes-rich-text-display-easy.aspx for at least some remediation. BUT THIS IS NOT A SOLUTION!
