@@ -37,6 +37,8 @@ Swallowing exceptions
 === Telerik support for MVVM ===
 As an example we can take the need for your viewmodel to be "injected" as a static resource only when you want to use Command on a Button inside Telerik's RadGridView (and pointing to your parent ElementName DataContext for a command) http://www.telerik.com/community/forums/silverlight/gridview/button-command-not-working-in-gridviewcolumn.aspx. This skews your MVVM design a "bit" if you use a different viewmodel injection techinique.
 
+http://blogs.telerik.com/vladimirenchev/posts/10-05-31/how_to_synchronize_your_ui_selected_items_with_your_data_context_using_mvvm_and_blend_behaviors_for_silverlight_and_wpf.aspx
+
 == Speed of verification ==
 Need to build to see the result. Tiniest change in your xaml and you have to rebuid before refresh. You might say, Blend shows it instantly - but once you use MVVM you will not see actually that layout changes for pages with regions as they are not "inflated".
 
