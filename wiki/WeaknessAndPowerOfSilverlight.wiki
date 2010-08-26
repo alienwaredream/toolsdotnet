@@ -1,4 +1,10 @@
 = What is weak =
+
+== Paradigm shift requirement ==
+
+Educate yourself:
+http://10rem.net/blog/2010/08/26/10-things-beginning-silverlight-and-wpf-developers-need-to-know?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+PeteBrown+%28Pete+Brown%27s+Blog%29&utm_content=Google+Reader
+
 == Testing ==
 IsolatedStorageFile - IDisposable, no other interface
 No own, first class citizen testing framework
