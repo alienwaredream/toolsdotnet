@@ -39,7 +39,15 @@ Swallowing exceptions
                 </i:Interaction.Triggers>
 ...
 }}}
+=== Blend no support for MVVM ===
 
+{{{
+\                        	<StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                                <ItemsControl
+                                    rgn:RegionManager.RegionName="{Binding Path=ReportWarehouseModule.ReportsListRegion, Source={StaticResource Regions}}" 
+                                    Margin="1" d:DesignWidth="200" />
+									</StackPanel>
+}}}
 
 === Telerik support for MVVM ===
 As an example we can take the need for your viewmodel to be "injected" as a static resource only when you want to use Command on a Button inside Telerik's RadGridView (and pointing to your parent ElementName DataContext for a command) http://www.telerik.com/community/forums/silverlight/gridview/button-command-not-working-in-gridviewcolumn.aspx. This skews your MVVM design a "bit" if you use a different viewmodel injection techinique.
