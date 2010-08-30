@@ -350,6 +350,25 @@ Unhandled Error in Silverlight Application Initialization failed. at System.IO.I
 
 Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter}"
 
-
-
-
+{{{
+        <telerik:RadGridView IsReadOnly="True" 
+			x:Name="reportsGridView"
+		   	ItemsSource="{Binding Reports}"
+		  	ScrollMode="RealTime"
+			ScrollViewer.VerticalScrollBarVisibility="Auto"
+			ScrollViewer.HorizontalScrollBarVisibility="Auto"
+		    DataLoadMode="Asynchronous"
+            DragElementAction="None"
+		  	EnableColumnVirtualization="True"  
+            SelectionMode="Extended"
+			EnableRowVirtualization="True"
+			CanUserFreezeColumns="False" 
+			CanUserSortColumns="True"
+			AutoGenerateColumns="False" AutoExpandGroups="False" ShowGroupPanel="False"
+			telerik:RadDragAndDropManager.AllowDrop="True"
+			RowStyle="{StaticResource ReportItemStyle}"
+			IsFilteringAllowed="{Binding CanApplyDataFilter, Mode=TwoWay}"
+			RowIndicatorVisibility="Collapsed"
+			Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter}"
+			>
+}}}
