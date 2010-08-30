@@ -425,3 +425,29 @@ Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter
             }
         }
 }}}
+
+{{{
+    <script type="text/javascript">
+
+        function InitiateDownload(url) {
+            $('#downloadFrame').attr('src', url);}
+    </script>
+}}}
+{{{
+        <iframe id="downloadFrame" style="visibility: hidden; height: 0px; width: 0px;
+            border: 0px"></iframe>
+}}}
+{{{
+            DownloadResourceCommand = new DelegateCommand<string>(g => JavascriptHelper.StartDownload(UriHelper.CombineVirtualPathUri(HtmlPage.Document.DocumentUri, _reportDownloadPage, g)));
+}}}
+{{{
+    public static class JavascriptHelper
+    {
+        public const string DownloadFunctionName = "InitiateDownload";
+
+        public static void StartDownload(Uri targetUri)
+        {
+            HtmlPage.Window.Invoke(DownloadFunctionName, new object[] {targetUri.ToString()});
+        }
+    }
+}}}
