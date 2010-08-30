@@ -314,3 +314,42 @@ Unhandled Error in Silverlight Application Initialization failed. at System.IO.I
 		
 	}
 }}}
+
+== Cleaning Telerik's RadGridView Filter programmatically in MVVM way ==
+
+{{{
+    public class GridViewFilterBehaviour
+    {
+        public static DependencyProperty IsFilteringAllowedProperty = DependencyProperty.RegisterAttached(
+    "IsFilteringAllowed", typeof(bool), typeof(RadGridView),
+    new PropertyMetadata(false, IsFilteringAllowedChanged));
+
+        private static void IsFilteringAllowedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var gridView = d as RadGridView;
+
+            if (gridView != null && !(bool)gridView.GetValue(IsFilteringAllowedProperty))
+            {
+                if (gridView.FilterDescriptors != null)
+                {
+                    gridView.FilterDescriptors.Clear();
+                }
+            }
+        }
+        public static void SetIsFilteringAllowed(DependencyObject o, object propertyValue)
+        {
+            o.SetValue(IsFilteringAllowedProperty, propertyValue);
+        }
+        public static object GetIsFilteringAllowed(DependencyObject o)
+        {
+            return o.GetValue(IsFilteringAllowedProperty);
+        }
+    }
+}}}
+	xmlns:Behavior="clr-namespace:YouNamespace;assembly=YourDllNameWithoutDllExtension" 
+
+Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter}"
+
+
+
+
