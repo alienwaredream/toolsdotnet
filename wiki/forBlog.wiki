@@ -429,14 +429,17 @@ Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter
 {{{
     <script type="text/javascript">
 
+        $(document).ready(function () {
+            $('#form1').append('<iframe id="downloadFrame" style="visibility: hidden; height: 0px; width: 0px; border: 0px"/>');
+        });
+
         function InitiateDownload(url) {
-            $('#downloadFrame').attr('src', url);}
+            $('#downloadFrame').attr('src', url);
+        }
+
     </script>
 }}}
-{{{
-        <iframe id="downloadFrame" style="visibility: hidden; height: 0px; width: 0px;
-            border: 0px"></iframe>
-}}}
+
 {{{
             DownloadResourceCommand = new DelegateCommand<string>(g => JavascriptHelper.StartDownload(UriHelper.CombineVirtualPathUri(HtmlPage.Document.DocumentUri, _reportDownloadPage, g)));
 }}}
