@@ -1,4 +1,7 @@
 == On migration from TFS 2008 to 2010 ==
+{{{
+ResGen : error RG0000: Could not load referenced assembly "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Workflow.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Workflow.Activities.dll".  Caught a BadImageFormatException saying "Could not load file or assembly 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Workflow.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Workflow.Activities.dll' or one of its dependencies. This assembly is built by a runtime newer than the currently loaded runtime and cannot be loaded.". 
+}}}
 
 On workflow dlls ambiguity:
 http://social.msdn.microsoft.com/Forums/en/tfsbuild/thread/d7ef885d-49d3-4160-ae73-ee52b5c1dbbb
