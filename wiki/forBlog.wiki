@@ -20,6 +20,21 @@ to
     <Reference Include="System.Workflow.Runtime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
 }}}
 
+Another series of errors are explained in my case by the msbuild command line that is used by team build 2010:
+Run TfsBuild for Configuration Folder
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe /nologo /noconsolelogger "C:\xyz\BuildType\TFSBuild.proj" /m:1 "@C:\xyz\BuildType\TfsBuild.rsp" 
+
+That is, if I have a project that is targeting specifically x86 platform I would have a problem during sgenning it:
+
+
+{{{
+C:\yuy\x64\sgen.exe /assembly:"zzz.exe" /proxytypes ....
+.....
+Could not load file or assembly 'file:///C:\XYZ\zzz.exe' or one of its dependencies. An attempt was made to load a program with an incorrect format.
+}}}
+
+Why on earth would you have you code compiled specifically as x86, here is the point:
+because of nasty x86 specific dependencies like Infragistics or Oracle.DataAccess.dll of certain versions.
 
 == On Silverlight plugin load/hang timeout in FF ==
 
