@@ -1,3 +1,9 @@
+== On Virtual scroll for RadGridView ==
+
+in works for Q3 2010:
+
+http://www.telerik.com/community/forums/silverlight/gridview/virtual-scrolling-in-silverlight-radgridview.aspx
+
 == On ItemsControl ==
 
 {{{
