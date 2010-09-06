@@ -1,40 +1,7 @@
+== Value cannot be null. Parameter name: validationErrors at System.Windows.Controls.DomainDataSource.RaiseLoadedData ==
+Unhandled Error in Silverlight Application An error occurred while loading data through the 'GetOrdersAndOrderDetails' query on DomainContext of type 'NorthwindDomainContext' and the error was not handled. If this error is expected, then you must handle the LoadedData event on the DomainDataSource and call LoadedDataEventArgs.MarkErrorAsHandled() to avoid this exception. Load operation failed for query 'GetOrdersAndOrderDetails'. Value cannot be null. Parameter name: validationErrors at System.Windows.Controls.DomainDataSource.RaiseLoadedData(LoadedDataEventArgs e) at System.Windows.Controls.DomainDataSource.DomainContext_Loaded(LoadedDataEventArgs e, LoadContext loadContext) at System.Windows.Controls.DomainDataSource.LoadData_Callback(LoadOperation loadOperation) at System.ServiceModel.DomainServices.Client.LoadOperation.<>c__DisplayClass4`1.<Create>b__0(LoadOperation`1 arg) at System.ServiceModel.DomainServices.Client.LoadOperation`1.InvokeCompleteAction() at System.ServiceModel.DomainServices.Client.OperationBase.Complete(Exception error) at System.ServiceModel.DomainServices.Client.LoadOperation.Complete(Exception error) at System.ServiceModel.DomainServices.Client.DomainContext.CompleteLoad(IAsyncResult asyncResult) at System.ServiceModel.DomainServices.Client.DomainContext.<>c__DisplayClass1b.<Load>b__17(Object )
 == On migration from TFS 2008 to 2010 ==
-{{{
-ResGen : error RG0000: Could not load referenced assembly "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Workflow.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Workflow.Activities.dll".  Caught a BadImageFormatException saying "Could not load file or assembly 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Workflow.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Workflow.Activities.dll' or one of its dependencies. This assembly is built by a runtime newer than the currently loaded runtime and cannot be loaded.". 
-}}}
-
-On workflow dlls ambiguity:
-http://social.msdn.microsoft.com/Forums/en/tfsbuild/thread/d7ef885d-49d3-4160-ae73-ee52b5c1dbbb
-
-from:
-{{{
-    <Reference Include="System.Workflow.Activities" />
-    <Reference Include="System.Workflow.ComponentModel" />
-    <Reference Include="System.Workflow.Runtime" />
-
-}}}
-to
-{{{
-    <Reference Include="System.Workflow.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Workflow.ComponentModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Workflow.Runtime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-}}}
-
-Another series of errors are explained in my case by the msbuild command line that is used by team build 2010:
-Run TfsBuild for Configuration Folder
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe /nologo /noconsolelogger "C:\xyz\BuildType\TFSBuild.proj" /m:1 "@C:\xyz\BuildType\TfsBuild.rsp" 
-
-That is, if I have a project that is targeting specifically x86 platform I would have a problem during sgenning it:
-
-
-{{{
-C:\yuy\x64\sgen.exe /assembly:"zzz.exe" /proxytypes ....
-.....
-Could not load file or assembly 'file:///C:\XYZ\zzz.exe' or one of its dependencies. An attempt was made to load a program with an incorrect format.
-}}}
-
-Why on earth would you have you code compiled specifically as x86, here is the point:
-because of nasty x86 specific dependencies like Infragistics or Oracle.DataAccess.dll of certain versions.
+published
 
 == On Silverlight plugin load/hang timeout in FF ==
 
