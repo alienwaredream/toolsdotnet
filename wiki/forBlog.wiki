@@ -1,3 +1,23 @@
+== On migration from TFS 2008 to 2010 ==
+
+On workflow dlls ambiguity:
+http://social.msdn.microsoft.com/Forums/en/tfsbuild/thread/d7ef885d-49d3-4160-ae73-ee52b5c1dbbb
+
+from:
+{{{
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+
+}}}
+to
+{{{
+    <Reference Include="System.Workflow.Activities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Workflow.ComponentModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Workflow.Runtime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+}}}
+
+
 == On Silverlight plugin load/hang timeout in FF ==
 
 blogged at: http://plainoldstan.blogspot.com/2010/08/silverlight-plugin-timeout-in-firefox.html
