@@ -1,3 +1,17 @@
+== Testing ==
+
+Starting from scratch here and thus:
+
+=== Understanding the concept of tests, test suites ===
+
+http://developer.android.com/reference/junit/framework/TestCase.html
+
+=== Testing android specific stuff ===
+
+http://developer.android.com/guide/topics/testing/testing_android.html
+
+
+
 == Obfuscation ==
 
 http://proguard.sourceforge.net/
