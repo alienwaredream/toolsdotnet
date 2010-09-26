@@ -74,3 +74,5 @@ Understanding java date: http://www.odi.ch/prog/design/datetime.php
 Regex in java: http://www.programmersheaven.com/2/RegexJAVA
 
 The java equivalent of const: http://www.javamex.com/java_equivalents/const_java.shtml
+
+Comparing strings in java: http://www.devdaily.com/java/edu/qanda/pjqa00001.shtml
