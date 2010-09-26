@@ -12,6 +12,43 @@ http://marakana.com/tutorials/android/junit-test-example.html
 
 http://developer.android.com/guide/topics/testing/testing_android.html
 
+=== Sample of a test. Important, your test methods should start with "test"!===
+
+{{{
+package com.advaton.calendar.common.Parser.test;
+
+import com.advaton.calendar.common.Parser.CalendarParser;
+import com.advaton.calendar.common.Parser.CalendarTokenType;
+import junit.framework.TestCase;
+
+
+public class CalendarParserTest extends TestCase {
+	
+	CalendarParser _parser;
+	String _testRawString = "3pm meeting with John 2h -15";
+	
+	public CalendarParserTest(String test)
+	{
+		super(test);
+	}
+	
+	protected void setUp() {
+		_parser = new CalendarParser(_testRawString);
+    }
+	
+	public void testWhenConstructed_Should_HaveRawValue()
+	{
+		assertEquals(_testRawString, _parser.get_RawValue());
+		
+	}
+	public void testWhenConstructed_Should_HaveRawType()
+	{
+		assertEquals(CalendarTokenType.RAW, _parser.get_Type());
+	}
+
+}
+
+}}}
 
 
 == Obfuscation ==
