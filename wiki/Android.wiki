@@ -1,4 +1,6 @@
 #labels android
+<wiki:toc max_depth="6" />
+
 == Mercurial source control ==
 
 http://www.vogella.de/articles/Mercurial/article.html
