@@ -6,6 +6,8 @@ Starting from scratch here and thus:
 
 http://developer.android.com/reference/junit/framework/TestCase.html
 
+http://marakana.com/tutorials/android/junit-test-example.html
+
 === Testing android specific stuff ===
 
 http://developer.android.com/guide/topics/testing/testing_android.html
