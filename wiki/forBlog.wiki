@@ -398,3 +398,14 @@ Behavior:GridViewFilterBehaviour.IsFilteringAllowed="{Binding CanApplyDataFilter
 
 == On file download via silverlight and iframe ==
 Published at: http://plainoldstan.blogspot.com/2010/08/iframe-based-file-download-silverlight.html
+
+== Classic causes of problems with invoices/billing in telcos ==
+
+=== Problems with delivery of all records to network usage db ===
+
+=== Problems with correctness of rating ===
+
+==== Quite often synchronization e.g. VPN platform and CM/Rating rules ====
+==== Speed and reliability of provisioning ====
+
+=== Correlation between ordering and provisioning ===
