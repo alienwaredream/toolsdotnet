@@ -409,3 +409,45 @@ Published at: http://plainoldstan.blogspot.com/2010/08/iframe-based-file-downloa
 ==== Speed and reliability of provisioning ====
 
 === Correlation between ordering and provisioning ===
+
+== On SOAP Action in WCF router ==
+
+The SOAP action specified on the message, '"/xyz"', does not match the action specified on the HttpRequestMessageProperty, '/xyz'.
+
+ 	{{{System.ServiceModel.dll!System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.PrepareHttpSend(System.ServiceModel.Channels.Message message)
+}}}
+{{{
+    string action = message.Headers.Action;
+    if (action != null)
+    {
+        action = string.Format(CultureInfo.InvariantCulture, "\"{0}\"", new object[] { UrlUtility.UrlPathEncode(action) });
+    }
+...
+    if (message.Properties.TryGetValue(HttpRequestMessageProperty.Name, out obj2))
+    {
+        HttpRequestMessageProperty property = (HttpRequestMessageProperty) obj2;
+        this.httpWebRequest.Method = property.Method;
+        WebHeaderCollection headers = property.Headers;
+        flag2 = flag2 || property.SuppressEntityBody;
+        for (int i = 0; i < headers.Count; i++)
+        {
+            string strA = headers.Keys[i];
+            string str3 = headers[i];
+...
+ else if (string.Compare(strA, "SOAPAction", StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                if (action != null)
+                {
+                    if ((str3.Length > 0) && (string.Compare(str3, action, StringComparison.Ordinal) != 0))
+                    {
+                        throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new ProtocolException(SR.GetString("HttpSoapActionMismatch", new object[] { action, str3 })));
+                    }
+                }
+}}}
+
+Not sure what is the smart factor of surrounding the action with quotes and making it NEVER match the properties->header value, but at least it obvious that we can just fix it in the router by setting:
+
+{{{
+requestMessage.Headers.Action = null;
+}}}
+In this case it will re-assigned from the message properties->header per the code above.
