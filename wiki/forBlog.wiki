@@ -441,3 +441,15 @@ What worked at the end was client side as:
 {{{
 var fault = MessageFault.CreateFault(msg, 100000);
 }}}
+
+Providing some extra code from the unit test to show how to work with the fault reason:
+
+{{{
+            Assert.IsTrue(msg.IsFault);
+            var fault = MessageFault.CreateFault(msg, 100000);
+
+            Assert.IsNotNull(fault);
+            Assert.IsNotNull(fault.Reason.Translations);
+            Assert.IsTrue(fault.Reason.Translations.Count > 0);
+            Assert.AreEqual(FaultMessages.NoRouteFoundMessage, fault.Reason.Translations[0].Text);
+}}}
