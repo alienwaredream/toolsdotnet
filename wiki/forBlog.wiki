@@ -412,6 +412,32 @@ Published at: http://plainoldstan.blogspot.com/2010/08/iframe-based-file-downloa
 
 published: http://plainoldstan.blogspot.com/2010/11/on-soap-action-in-wcf-router-3x.html
 
-== On whitespaces etc in WCF extension element ==
+== WCF: On whitespaces etc in WCF extension element ==
 
 published: http://plainoldstan.blogspot.com/2010/11/wcf-extension-element-cannot-be-added.html
+
+== WCF: On parsing Soap Fault from the raw message ==
+{{{
+failed: System.Runtime.Serialization.SerializationException : Expecting element 'MessageFault' from namespace 'http://schemas.datacontract.org/2004/07/System.ServiceModel.Channels'.. Encountered 'Element'  with name 'Fault', namespace 'http://www.w3.org/2003/05/soap-envelope'. 
+}}}
+server side:
+{{{
+
+            var fault = MessageFault.CreateFault(new FaultCode("RoutingError"), FaultMessages.NoRouteFoundMessage);
+            //TODO: There are no fault contracts defined now between our tibco and SC, find out what is used as actions and
+            // what is the generic contract then.
+            return Message.CreateMessage(requestMessage.Version, fault, "*");
+}}}
+
+client side:
+{{{
+            MessageFault fault = msg.GetBody<MessageFault>();
+}}}
+Where msg is a message we are processing.
+It was the same when trying to work around it with FaultException or SoapFault or whatever I tried.
+
+What worked at the end was client side as:
+
+{{{
+var fault = MessageFault.CreateFault(msg, 100000);
+}}}
