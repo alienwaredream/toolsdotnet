@@ -494,3 +494,15 @@ MSI (s) (10!3C) [13:25:18:546]: PROPERTY CHANGE: Modifying INSTALLLOCATION prope
 MSI (s) (10!3C) [13:25:18:546]: PROPERTY CHANGE: Adding TESTURL property. Its value is 'http://test.com/'.
 Action ended 13:25:18: Tools.Wix.Actions. Return value 1.
 }}}
+
+== On passing variables to WiX - overwrite WiX variable ==
+{{{
+String.Format("/p:SkipInvalidConfigurations=true /p:DefineConstants=""BinPathForSetup={0}"" {1}", BinariesDirectory, MSBuildArguments)
+}}}
+and then in wxs file
+{{{
+    <?ifndef BinPathForSetup ?>
+    <?define BinPathForSetup=..\XYZ\bin\Debug\ ?>
+    <?endif ?>
+}}}
+image in gmail.
