@@ -470,7 +470,30 @@ and then in wxs file
 }}}
 image in gmail.
 
+How to get rid of:
+{{{
 c:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.CSharp.targets (160): The parameter to the compiler is invalid, '/define:BinPathForSetup=c:\B1\NG2\SelfCareIntegration.2010.ReleaseBuild\Binaries' will be ignored.
+}}}
+Here what Run MSBuild for Project activity translates into:
+{{{
+Initial Property Values
+AdditionalVCOverrides = 
+CommandLineArguments = /p:SkipInvalidConfigurations=true 
+Configuration = 
+GenerateVSPropsFile = True
+LogFile = 
+LogFileDropLocation = 
+MaxProcesses = 1
+OutDir = c:\B1\NG2\SelfCareIntegration.2010.ReleaseBuild\Binaries
+Platform = 
+Project = c:\B1\NG2\SelfCareIntegration.2010.ReleaseBuild\Sources\trunk\SelfCareIntegration.2010.sln
+
+}}}
+{{{
+If(localProject.EndsWith(".wixproj"),
+   String.Format("/p:SkipInvalidConfigurations=true /p:DefineConstants=""BinPathForSetup={0}"" {1}", BinariesDirectory, MSBuildArguments),
+   String.Format("/p:SkipInvalidConfigurations=true {0}", MSBuildArguments))
+}}}
 
 == WiX do's a and don'ts ==
 Do setup project dependencies for wix project, so it depends projects producing binaries that it requires (primary output plus custom tools).
