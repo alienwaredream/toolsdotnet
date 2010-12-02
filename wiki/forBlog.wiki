@@ -471,3 +471,10 @@ and then in wxs file
 image in gmail.
 
 c:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.CSharp.targets (160): The parameter to the compiler is invalid, '/define:BinPathForSetup=c:\B1\NG2\SelfCareIntegration.2010.ReleaseBuild\Binaries' will be ignored.
+
+== WiX do's a and don'ts ==
+Do setup project dependencies for wix project, so it depends projects producing binaries that it requires (primary output plus custom tools).
+
+Do use variables
+
+Use some mass tool to produce initial wix fragment (parafin or heat)
