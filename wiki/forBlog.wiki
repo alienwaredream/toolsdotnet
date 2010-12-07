@@ -437,3 +437,81 @@ Use some mass tool to produce initial wix fragment (parafin or heat)
 == On wow for team build 2010 ==
 Metadata for custom parameters/arguments.
 http://www.ewaldhofman.nl/post/2010/05/17/Customize-Team-Build-2010-e28093-Part-6-Use-custom-type-for-an-argument.aspx
+
+== On wcf message contract serialization ==
+
+internal static DataContractFormatAttribute DefaultDataContractFormatAttribute;
+----------
+public static TypedMessageConverter Create(Type messageContract, string action)
+{
+    return Create(messageContract, action, null, TypeLoader.DefaultDataContractFormatAttribute);
+}
+-----------
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sitronics.com/V2/SCAdapter")]
+public partial class GetServiceStatusResponse : ResponseType
+{
+    
+    private ServiceStatusType[] serviceStatusListField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("ServiceStatus", IsNullable=false)]
+    public ServiceStatusType[] ServiceStatusList
+    {
+        get
+        {
+            return this.serviceStatusListField;
+        }
+        set
+        {
+            this.serviceStatusListField = value;
+        }
+    }
+}
+------------------
+            TypedMessageConverter converter = TypedMessageConverter.Create(typeof(getServiceStatusResponse1), "*", "http://www.sitronics.com/V2/SCAdapter", new XmlSerializerFormatAttribute() );
+            
+            Message reply = converter.ToMessage(new getServiceStatusResponse1
+            {
+                GetServiceStatusResponse = result,
+                OutboundServiceData = new OutboundServiceData { MsgCorrelations = new OutboundServiceDataMsgCorrelations { CorrelationID = "3333" } }
+            }, OperationContext.Current.IncomingMessageVersion);
+
+
+            if (message != null)
+            {
+                if (message.Properties != null &&
+                    message.Properties.Count > 0)
+                {
+                    reply.Properties.CopyProperties(message.Properties);
+                }
+            }
+
+            return reply;
+
+------------------
+[System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+public partial class getServiceStatusResponse1
+{
+    
+    [System.ServiceModel.MessageHeaderAttribute(Namespace="http://www.sitronics.com/V2/SCAdapter")]
+    public OutboundServiceData OutboundServiceData;
+    
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.sitronics.com/V2/SCAdapter", Order=0)]
+    public GetServiceStatusResponse GetServiceStatusResponse;
+    
+    public getServiceStatusResponse1()
+    {
+    }
+    
+    public getServiceStatusResponse1(OutboundServiceData OutboundServiceData, GetServiceStatusResponse GetServiceStatusResponse)
+    {
+        this.OutboundServiceData = OutboundServiceData;
+        this.GetServiceStatusResponse = GetServiceStatusResponse;
+    }
+}
+
+ 
