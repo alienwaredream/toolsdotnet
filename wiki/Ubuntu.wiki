@@ -24,3 +24,5 @@ stan@ubs:/etc/apache2/mods-available$ sudo htpasswd -cm /etc/subversion/passwd u
 }}}
 
 http://www.howtogeek.com/howto/ubuntu/install-subversion-with-web-access-on-ubuntu/
+
+http://www.sodeso.nl/?p=599
