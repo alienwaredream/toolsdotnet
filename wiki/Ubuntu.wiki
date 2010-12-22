@@ -17,3 +17,10 @@ stan@ubs:~$ sudo gedit /etc/samba/smb.conf
 restart: sudo /etc/init.d/apache2 restart
 
 = dhcp: dhclient ==
+
+= svn =
+{{{
+stan@ubs:/etc/apache2/mods-available$ sudo htpasswd -cm /etc/subversion/passwd geek
+}}}
+
+http://www.howtogeek.com/howto/ubuntu/install-subversion-with-web-access-on-ubuntu/
