@@ -1,0 +1,13 @@
+#summary iPhone dev experience.
+
+= Idioms =
+
+== Calling methods on self ==
+
+{{{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField { 
+	[textField resignFirstResponder]; 
+	[self sayHello: textField];
+	return YES;
+}
+}}}
