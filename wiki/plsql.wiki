@@ -1,0 +1,20 @@
+= Associative arrays =
+
+== Sample for how to fill ==
+{{{
+declare
+  -- Non-scalar parameters require additional processing 
+  p_msisdn_list sca_opt.t_varchar;
+begin
+  p_msisdn_list(1) := '420776006951';
+  -- Call the procedure
+  sca_opt.get_data_roaming_tariff(p_msisdn_list => p_msisdn_list,
+                                  p_cur_msisdn_vdp_attrs => :p_cur_msisdn_vdp_attrs,
+                                  p_cur_act_raom_tariffs => :p_cur_act_raom_tariffs);
+end;
+}}}
+
+where 
+{{{
+  type t_varchar    is table of VARCHAR2(255) index by binary_integer;
+}}}
