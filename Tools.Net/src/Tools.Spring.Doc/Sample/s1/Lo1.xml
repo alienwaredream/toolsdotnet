@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- LoggingObjects - Provides definition of objects for logging container -->
+<objects xmlns="http://www.springframework.net">
+  <!-- Example of a filter definition, 
+  only for the case if required, not used. -->
+  <object name="JobEventIdTraceFilter"
+    type="Tools.Logging.EventIdTraceFilter, Tools.Logging">
+    <!-- List of event ids to log -->
+    <constructor-arg name="eventIds">
+      <list element-type="int">
+        <value>2270</value>
+      </list>
+    </constructor-arg>
+  </object>
+  <!--Logs when a main logger it is attached to fails to log. -->
+  <object name="FallbackListener" type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging">
+    <constructor-arg type="int" name="maxFileSizeBytes" value="2000000" />
+    <constructor-arg name="logRootLocation" value="C:\logs\cmdrouter" />
+    <constructor-arg name="fileDatetimePattern" value="dd-MMM-yyTHH-mm-ss" />
+    <constructor-arg name="fileStaticPattern" value="dblogfallback" />
+    <constructor-arg name="name" value="XmlFallbackLogger" />
+  </object>
+  <object name="XmlLogger"
+type="Tools.Logging.XmlWriterRollingTraceListener, Tools.Logging"
+singleton="false">
+    <constructor-arg type="int" name="maxFileSizeBytes" value="2000000" />
+    <constructor-arg name="logRootLocation" value="C:\logs\cmdrouter" />
+    <constructor-arg name="fileDatetimePattern" value="dd-MMM-yyTHH-mm-ss" />
+    <constructor-arg name="fileStaticPattern" value="log_" />
+    <constructor-arg name="name" value="XmlLogger" />
+  </object>
+  <object name="EventLogTraceListener"
+type="System.Diagnostics.EventLogTraceListener, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="true">
+    <constructor-arg name="eventLog" type="System.Diagnostics.EventLog, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ref="CmdExecEventLog" />
+    <property name="Filter" ref="WarningTraceFilter" />
+  </object>
+  <object name="CmdExecEventLog"
+type="System.Diagnostics.EventLog, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="false">
+    <constructor-arg type="string" name="logName" value="CmdRouter" />
+    <constructor-arg type="string" name="machineName" value="." />
+    <constructor-arg type="string" name="source" value="CmdRouter" />
+  </object>
+  <object name="WarningTraceFilter"
+type="System.Diagnostics.EventTypeFilter, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+singleton="false">
+    <constructor-arg name="level" value="Warning" />
+  </object>
+  <!-- End of Logging -->
+</objects>
