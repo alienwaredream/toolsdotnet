@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 1.CreateCustomer.xml - Creates customer in FORIS -->
+<objects xmlns="http://www.springframework.net">
+  <!-- Executes steps required to create a customer  -->
+  <object name="CreateCustomerCommandExecutor" singleton="false" type="Tools.Commands.Sos.Implementation.SosCommandExecutor, Tools.Commands.Sos.Implementation">
+    <!-- Steps required to create a customer -->
+    <constructor-arg name="steps">
+      <list element-type="Tools.Commands.Sos.Implementation.IStepExecutor, Tools.Commands.Sos.Implementation">
+        <!-- Set effective time from VALID_FROM command field. [link:../CommonSteps#PreResolveEffectiveTimeAsValidFromStep] -->
+        <ref object="PreResolveEffectiveTimeAsValidFromStep" />
+        <!-- Call command validator and populate the context. [sp:ftpro.SOS_CMD_EXEC1.populateContext] -->
+        <ref object="PopulateCreateCustomerContextStep" />
+        <!-- Calls CM to create a customer. [cm:cmxyz]-->
+        <ref object="CustomerManagementCreateCustomerStep" />
+        <!-- Completes the flow of execution -->
+        <ref object="FlowCompletionStep" />
+      </list>
+    </constructor-arg>
+    <!-- The delay to wait for after successful command execution. Zero means no delay. -->
+    <property name="PostExecutionDelay" value="0"/>
+    <!-- The helper object to execute the array of steps defined in the command executor -->
+    <property name="StepsExecutor" ref="StepsExecutorTs"/>
+  </object>
+  <!-- Call command validator and populate the context. [sp:spxyz] -->
+  <object name="PopulateCreateCustomerContextStep" singleton="false" type="Tools.Commands.Sos.Implementation.Steps.PopulateCreateCustomerContextStep, Tools.Commands.Sos.Implementation">
+  </object>
+  <!-- Calls CM to create a customer. [cm:cmxyz]-->
+  <object name="CustomerManagementCreateCustomerStep" singleton="false" type="Tools.Commands.CM.Wrapper.CreateCustomerCmWrapper, Tools.Commands.CM.Wrapper">
+    <!-- The url where objects are published by CM remoting provider -->
+    <constructor-arg name="cmUrl" value="${CMUri}"/>
+  </object>
+</objects>
