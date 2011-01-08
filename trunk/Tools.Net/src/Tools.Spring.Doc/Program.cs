@@ -3,12 +3,18 @@ using System.IO;
 using System.Xml.Xsl;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 namespace Tools.Spring.Doc
 {
     class Program
     {
         static string indexPath;
+        static IList<string> storedProcs = new List<string>();
+        static Regex spRegex = new Regex("^.*?\\[sp:(.*?)\\].*$", RegexOptions.Multiline);
+
         static void Main(string[] args)
         {
             string configPath = args[0];
@@ -20,6 +26,15 @@ namespace Tools.Spring.Doc
                 File.Delete(indexPath);
                 File.AppendAllText(indexPath, "<html><head><title>Index</title></head><body>");
                 TraverseDirectory(configPath, outPath, "");
+
+                File.AppendAllText(indexPath, String.Format("<h2>{0}</h2>", "Stored Procedures"));
+
+                var sps = (from sp in storedProcs orderby sp select sp);
+
+                foreach (var sp in sps)
+                {
+                    File.AppendAllText(indexPath, String.Format("<p>{0}</p>", sp));
+                }
             }
             catch (Exception ex)
             {
@@ -63,6 +78,16 @@ namespace Tools.Spring.Doc
                 string targetFilePath = String.Format(@"{0}\{1}.htm", targetDir, Path.GetFileNameWithoutExtension(file));
 
                 File.AppendAllText(indexPath, String.Format("<a href=\"{0}/{1}.htm\" style=\"margin-left:40\">{1}</a><br/>", relativePart, Path.GetFileNameWithoutExtension(file)));
+
+                string fileContent = File.ReadAllText(file);
+
+                foreach (Match m in spRegex.Matches(fileContent))
+                {
+                    if (!storedProcs.Contains(m.Groups[1].Value))
+                    {
+                        storedProcs.Add(m.Groups[1].Value);
+                    }
+                }
 
                 if (!Directory.Exists(Path.GetDirectoryName(targetFilePath)))
                 {
