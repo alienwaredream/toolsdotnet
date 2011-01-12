@@ -61,3 +61,7 @@ WHILE @@FETCH_STATUS = 0
 CLOSE CursorOverDatabases
 DEALLOCATE CursorOverDatabases 
 }}}
+
+== On assemblies versioning in  TFS 2010 ==
+
+http://blogs.msdn.com/b/jimlamb/archive/2010/02/12/how-to-create-a-custom-workflow-activity-for-tfs-build-2010.aspx
