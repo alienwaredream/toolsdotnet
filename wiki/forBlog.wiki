@@ -514,4 +514,5 @@ public partial class getServiceStatusResponse1
     }
 }
 
- 
+== On updating file attributes in wix and beyond ==
+http://www.microsoft.com/downloads/en/details.aspx?FamilyId=9BA6FAC6-520B-4A0A-878A-53EC8300C4C2&displaylang=en
