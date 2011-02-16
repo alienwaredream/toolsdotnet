@@ -520,3 +520,78 @@ http://www.microsoft.com/downloads/en/details.aspx?FamilyId=9BA6FAC6-520B-4A0A-8
 On RegFree COM usage
 
 http://neilsleightholm.blogspot.com/2009/08/registration-free-com.html
+
+
+== On maxMessageSize for WCF logging ==
+
+{{{
+
+internal MessageLogTraceRecord(Stream stream, MessageLoggingSource source) : this(source)
+{
+    this.type = null;
+    StringBuilder builder = new StringBuilder();
+    StreamReader reader = new StreamReader(stream);
+    int size = 0x1000;
+    char[] buffer = DiagnosticUtility.Utility.AllocateCharArray(size);
+    int maxMessageSize = MessageLogger.MaxMessageSize;
+    if (-1 == maxMessageSize)
+    {
+        maxMessageSize = 0x1000;
+    }
+    while (maxMessageSize > 0)
+    {
+        int num3 = reader.Read(buffer, 0, size);
+        if (num3 == 0)
+        {
+            break;
+        }
+        int charCount = (maxMessageSize < num3) ? maxMessageSize : num3;
+        builder.Append(buffer, 0, charCount);
+        maxMessageSize -= num3;
+    }
+    reader.Close();
+    this.messageString = builder.ToString();
+}
+}}}
+
+{{{
+  <system.serviceModel>
+    <diagnostics wmiProviderEnabled="true">
+      <messageLogging logEntireMessage="true" logMalformedMessages="true"
+         logMessagesAtTransportLevel="true" maxSizeOfMessageToLog="10000000" />
+    </diagnostics>
+}}}
+http://msdn.microsoft.com/en-us/library/system.servicemodel.configuration.messageloggingelement.maxsizeofmessagetolog.aspx
+
+"The maximum size, in bytes, of a message to log. Messages larger than the limit are not logged. This setting affects all trace levels. The default is Int32.MaxValue."
+
+"Message not logged because its size exceeds configured quota"
+
+Where the exception is thrown/message is logged:
+
+TraceXPathNavigator which is used by PlainXmlWriter, all in System.ServiceModel.Diagnostics namespace:
+
+{{{
+
+private void VerifySize(int nodeSize)
+{
+    if ((this.maxSize != -1) && ((this.currentSize + nodeSize) > this.maxSize))
+    {
+        throw new PlainXmlWriter.MaxSizeExceededException();
+    }
+    this.currentSize += nodeSize;
+}
+
+}}}
+
+Exception is then caught in System.ServiceModel.Diagnostics.DiagnosticTrace TraceEvent method and logged as :
+{{{
+ catch (PlainXmlWriter.MaxSizeExceededException)
+            {
+                StringTraceRecord record = new StringTraceRecord("TruncatedTraceId", GenerateTraceCode(code));
+                this.TraceEvent(type, TraceCode.TraceTruncatedQuotaExceeded, TraceSR.GetString("TraceCodeTraceTruncatedQuotaExceeded"), record);
+            }
+
+}}}
+
+This is it.
