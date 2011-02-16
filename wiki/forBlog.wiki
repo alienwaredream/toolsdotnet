@@ -584,14 +584,18 @@ private void VerifySize(int nodeSize)
 
 }}}
 
-Exception is then caught in System.ServiceModel.Diagnostics.DiagnosticTrace TraceEvent method and logged as :
+Exception is then caught in System.ServiceModel.Diagnostics.MessageLogger LogInternal method and logged as :
 {{{
- catch (PlainXmlWriter.MaxSizeExceededException)
-            {
-                StringTraceRecord record = new StringTraceRecord("TruncatedTraceId", GenerateTraceCode(code));
-                this.TraceEvent(type, TraceCode.TraceTruncatedQuotaExceeded, TraceSR.GetString("TraceCodeTraceTruncatedQuotaExceeded"), record);
-            }
-
+    catch (PlainXmlWriter.MaxSizeExceededException)
+    {
+        if (DiagnosticUtility.ShouldTraceWarning)
+        {
+            TraceUtility.TraceEvent(TraceEventType.Warning, TraceCode.MessageNotLoggedQuotaExceeded, record.Message);
+        }
+    }
 }}}
 
-This is it.
+It is a bit of an issue for me, as I don't really want this to be a warning. This is resulting from something I consciously configured, so I don't see a problem with the above being probably Information or Verbose.
+Given I'm used to write Warnings and Errors to EventLog for admin to be alerted, I can't see what admin would do about this regular and correct action of message log skipping.
+
+I hope wcf team may reconsider this in the future releases.
