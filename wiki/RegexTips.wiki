@@ -110,3 +110,8 @@ http://localhost/Portal30Web/
 in 
 
 http://localhost/Portal30Web/Portal30.aspx
+
+== regex for sca perf parsing ==
+{{{
+^\[(.*?)\]\..*?\[(.*?)\]
+}}}
