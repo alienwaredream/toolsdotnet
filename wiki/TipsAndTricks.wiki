@@ -234,3 +234,16 @@ net stop msdtc
 net start msdtc
 
 }}}
+
+== finding and deleting embedded objects in Excel ==
+
+
+ALT-F11 - Open macro editor
+
+Ctrl-G - Open immediate window
+
+Then in immediate window:
+
+ ?Activesheet.Shapes(1).delete
+
+step with this through all sheets until all Shapes are deleted.
