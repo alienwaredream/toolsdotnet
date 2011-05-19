@@ -83,3 +83,9 @@ where l.object_id = o.object_id
   and t.xidusn=r.usn
 order by osuser, ss, obj
 }}}
+
+== PL-SQL like for ascii character ==
+
+{{{
+select * from cm.element e where e.name like '%' || chr(9) || '%'
+}}}
