@@ -115,3 +115,8 @@ http://localhost/Portal30Web/Portal30.aspx
 {{{
 ^\[(.*?)\]\..*?\[(.*?)\]
 }}}
+
+== Check 8 fields zeparated by tab with digit as a last field ==
+{{{
+(.*?\t){8}\d
+}}}
