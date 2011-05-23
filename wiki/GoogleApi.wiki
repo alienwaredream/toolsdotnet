@@ -1,3 +1,5 @@
+Playground page: http://code.google.com/apis/ajax/playground/
+
 == Local search ==
 Sample request:
 http://ajax.googleapis.com/ajax/services/search/local?v=1.0&q=taxi%20Moscow%20Russia
