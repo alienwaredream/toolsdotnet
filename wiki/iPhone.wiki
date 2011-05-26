@@ -13,3 +13,5 @@ http://stackoverflow.com/questions/4804398/iphone-detect-airplane-mode
 
 
 You can add the SBUsesNetwork boolean flag set to true in your Info.plist to display the popup used in Mail when in Airplane Mode.
+
+*UIRequiresPersistentWifi, SBUsesNetwork should not be used*
