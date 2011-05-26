@@ -9,6 +9,8 @@ http://stackoverflow.com/questions/3135679/android-httpclient-hostname-in-certif
 
 https://developer.foursquare.com/docs/samples.html
 
-== iOS library ==
+== iOS libraries ==
 
 https://github.com/Constantine-Fry/Foursquare-API-v2/tree/master/Foursquare2-iOS/Classes
+
+https://github.com/anka/bw_examples/tree/master/FoursquareIntegration
