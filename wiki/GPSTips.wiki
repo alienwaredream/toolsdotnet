@@ -10,3 +10,7 @@ On the contrary it's easy to run down your phone's battery much more quickly tha
 === out of order location updates ===
 
 Very, very infrequently you may get updates out of order (i.e. you get a more accurate location followed by a slightly less accurate one dated earlier)
+
+=== Evaluating accuracy ===
+
+http://stackoverflow.com/questions/2086649/whats-the-best-way-to-evaluate-the-accuracy-of-gps-sensor-data-for-a-users-loca
