@@ -3,6 +3,8 @@ https://developer.foursquare.com/docs/oauth.html
 
 == Workaround for android https certificate * ==
 
+http://stackoverflow.com/questions/3135679/android-httpclient-hostname-in-certificate-didnt-match-example-com-exa
+
 == Samples ==
 
 https://developer.foursquare.com/docs/samples.html
@@ -10,4 +12,3 @@ https://developer.foursquare.com/docs/samples.html
 == iOS library ==
 
 https://github.com/Constantine-Fry/Foursquare-API-v2/tree/master/Foursquare2-iOS/Classes
-
