@@ -138,3 +138,11 @@ UIDeviceHardware.m
 @end
 
 }}}
+
+=== GPS ===
+
+http://stackoverflow.com/questions/5897204/show-gps-availabilty-and-accuracy-in-iphone-sdk
+
+{{{
+[CLLocationManager locationServicesEnabled]
+}}}
