@@ -1,0 +1,13 @@
+== API documentation ==
+https://developer.foursquare.com/docs/oauth.html
+
+== Workaround for android https certificate * ==
+
+== Samples ==
+
+https://developer.foursquare.com/docs/samples.html
+
+== iOS library ==
+
+https://github.com/Constantine-Fry/Foursquare-API-v2/tree/master/Foursquare2-iOS/Classes
+
