@@ -4,4 +4,12 @@
 
 = User messages =
 
+== Unavailability of network or location services ==
+=== location services ===
 You have currently disabled location services for this app. By doing this you're missing out on some great features that come with this app! If you change your mind, you can enable it by going to settings > general > location services. Thanks!
+
+=== airplane mode ===
+http://stackoverflow.com/questions/4804398/iphone-detect-airplane-mode
+
+
+You can add the SBUsesNetwork boolean flag set to true in your Info.plist to display the popup used in Mail when in Airplane Mode.
