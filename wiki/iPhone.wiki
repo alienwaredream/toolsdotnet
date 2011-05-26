@@ -2,12 +2,6 @@
 
 = Idioms =
 
-== Calling methods on self ==
+= User messages =
 
-{{{
-- (BOOL)textFieldShouldReturn:(UITextField *)textField { 
-	[textField resignFirstResponder]; 
-	[self sayHello: textField];
-	return YES;
-}
-}}}
+You have currently disabled location services for this app. By doing this you're missing out on some great features that come with this app! If you change your mind, you can enable it by going to settings > general > location services. Thanks!
