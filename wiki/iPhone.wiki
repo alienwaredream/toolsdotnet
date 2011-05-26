@@ -49,3 +49,5 @@ else {
 }
 
 }}}
+
+http://developer.apple.com/library/ios/#samplecode/MessageComposer/Listings/Classes_MessageComposerViewController_m.html
