@@ -1,6 +1,8 @@
 == API documentation ==
 https://developer.foursquare.com/docs/oauth.html
 
+venue search: https://developer.foursquare.com/docs/venues/search.html
+
 == Workaround for android https certificate * ==
 
 http://stackoverflow.com/questions/3135679/android-httpclient-hostname-in-certificate-didnt-match-example-com-exa
