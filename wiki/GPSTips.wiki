@@ -1,0 +1,3 @@
+== Improve GPS usability ==
+
+http://stackoverflow.com/questions/488088/iphone-gps-development-tips-tricks
