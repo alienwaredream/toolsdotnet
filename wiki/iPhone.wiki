@@ -4,7 +4,7 @@
 
 = User messages =
 
-== Unavailability of network or location services ==
+== Unavailabiliies ==
 === location services ===
 You have currently disabled location services for this app. By doing this you're missing out on some great features that come with this app! If you change your mind, you can enable it by going to settings > general > location services. Thanks!
 
@@ -15,3 +15,37 @@ http://stackoverflow.com/questions/4804398/iphone-detect-airplane-mode
 You can add the SBUsesNetwork boolean flag set to true in your Info.plist to display the popup used in Mail when in Airplane Mode.
 
 *UIRequiresPersistentWifi, SBUsesNetwork should not be used*
+
+=== SMS ===
+
+http://stackoverflow.com/questions/3622744/check-if-iphone-can-send-texts-w-mfmessagecomposeviewcontroller
+
+{{{
+
+Example from the MessageComposer sample:
+
+-(IBAction)showSMSPicker:(id)sender {
+//  The MFMessageComposeViewController class is only available in iPhone OS 4.0 or later. 
+//  So, we must verify the existence of the above class and log an error message for devices
+//      running earlier versions of the iPhone OS. Set feedbackMsg if device doesn't support 
+//      MFMessageComposeViewController API.
+Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
+
+if (messageClass != nil) {          
+    // Check whether the current device is configured for sending SMS messages
+    if ([messageClass canSendText]) {
+        [self displaySMSComposerSheet];
+    }
+    else {  
+        feedbackMsg.hidden = NO;
+        feedbackMsg.text = @"Device not configured to send SMS.";
+
+    }
+}
+else {
+    feedbackMsg.hidden = NO;
+    feedbackMsg.text = @"Device not configured to send SMS.";
+}
+}
+
+}}}
