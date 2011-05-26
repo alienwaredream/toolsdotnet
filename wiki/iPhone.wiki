@@ -154,3 +154,7 @@ http://stackoverflow.com/questions/2004689/detect-gps-hardware-in-iphone
 use of verticalAccuracy, when -1 - there is no fix (on iphone)
 
 CLLocation.verticalAccuracy
+
+== Rounded corners for anything ==
+
+http://stackoverflow.com/questions/5138996/how-can-i-draw-rounded-rectangles-around-my-textfields-and-buttons-like-foursquar
