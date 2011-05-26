@@ -15,3 +15,6 @@ What people write:
 http://jasarien.com/?p=412
 
 http://www.totagogo.com/2011/02/08/google-local-search-ios-code/
+
+== Local search is deprecated ==
+New is a websearch api: http://code.google.com/apis/websearch/docs/#fonje
