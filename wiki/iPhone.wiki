@@ -51,3 +51,16 @@ else {
 }}}
 
 http://developer.apple.com/library/ios/#samplecode/MessageComposer/Listings/Classes_MessageComposerViewController_m.html
+
+=== Check if a call can be placed from a device ===
+
+{{{
+NSURL *phoneNumberURL = [NSURL URLWithString:@"tel://004412345"];
+if([[UIApplication sharedApplication] openURL:phoneNumberURL] == YES) {
+  ...
+}
+
+}}}
+
+http://stackoverflow.com/questions/6034504/how-to-check-device-is-not-able-to-send-sms
+
