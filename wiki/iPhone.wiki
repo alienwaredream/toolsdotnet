@@ -152,3 +152,5 @@ http://stackoverflow.com/questions/5897204/show-gps-availabilty-and-accuracy-in-
 http://stackoverflow.com/questions/2004689/detect-gps-hardware-in-iphone
 
 use of verticalAccuracy, when -1 - there is no fix (on iphone)
+
+CLLocation.verticalAccuracy
