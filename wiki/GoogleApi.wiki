@@ -18,3 +18,7 @@ http://www.totagogo.com/2011/02/08/google-local-search-ios-code/
 
 == Local search is deprecated ==
 New is a websearch api: http://code.google.com/apis/websearch/docs/#fonje
+
+== Maps search ==
+
+http://maps.google.com/maps?f=q&sll=LATANDLONG&radius=500&q=SEARCHWORD&output=kml
