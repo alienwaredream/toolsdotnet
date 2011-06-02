@@ -133,3 +133,20 @@ Pick the first until the tab:
 {{{ ^([^\t].*?),\s?(.*?)\t }}}
 With replace pattern:
 {{{$1,$2}}}
+
+Then from the list like:
+{{{
+TOKYO,Japan
+New York (NY),United States
+MANILA,Philippines
+}}}
+
+With pattern: {{{^(.*)?\r\n}}}
+Getting the bash for list with replace pattern of:
+{{{"$1" }}}
+
+For the output to look like:
+
+{{{
+"TOKYO,Japan" "New York (NY),United States" "MANILA,Philippines" 
+}}}
