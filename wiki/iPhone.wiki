@@ -158,3 +158,21 @@ CLLocation.verticalAccuracy
 == Rounded corners for anything ==
 
 http://stackoverflow.com/questions/5138996/how-can-i-draw-rounded-rectangles-around-my-textfields-and-buttons-like-foursquar
+
+== Debugging with NSZombie ==
+
+http://www.cocoadev.com/index.pl?DebuggingAutorelease
+
+To add and set to YES in environment arguments:
+
+  --NSDebugEnabled
+  NSZombieEnabled
+  MallocStackLogging
+  MallocStackLoggingNoCompact
+
+When you face EXC_BAD_ACCESS:
+
+2011-06-19 22:27:07.363 Taxican[15971:207] *** -[CALayer retain]: message sent to deallocated instance 0x60d7af0
+
+shell malloc_history 15971 0x60d7af0
+
