@@ -1,0 +1,9 @@
+= Meta =
+
+=.schema=
+
+{{{
+sqlite> .schema providerCREATE TABLE provider (key string primary key, name string , country string, city string, cityCode string, data string, version real, source integer default 0);
+sqlite> 
+
+}}}
