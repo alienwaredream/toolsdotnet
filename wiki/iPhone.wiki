@@ -175,3 +175,26 @@ When you face EXC_BAD_ACCESS:
 {{{2011-06-19 22:27:07.363 Taxican[15971:207] *** -[CALayer retain]: message sent to deallocated instance 0x60d7af0}}}
 
 shell malloc_history 15971 0x60d7af0
+
+== Sample of an address dictionary in a placemark ==
+
+{{{
+
+{
+    City = "Prague 8";
+    Country = "Czech Republic";
+    CountryCode = CZ;
+    FormattedAddressLines =     (
+        "\U0160im\U016fnkova 1183/16",
+        "182 00 Prague 8-Kobylisy",
+        "Czech Republic"
+    );
+    State = Prague;
+    Street = "\U0160im\U016fnkova 16";
+    SubAdministrativeArea = Prague;
+    SubLocality = Kobylisy;
+    SubThoroughfare = 16;
+    Thoroughfare = "\U0160im\U016fnkova";
+    ZIP = "182 00";
+}
+}}}
