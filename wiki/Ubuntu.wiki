@@ -12,6 +12,10 @@ stan@ubs:~$ sudo /etc/init.d/samba restart
 stan@ubs:~$ sudo gedit /etc/samba/smb.conf
 }}}
 
+== restarting samba ==
+
+{{{sudo restart smbd }}
+
 = Apache  =
 
 restart: sudo /etc/init.d/apache2 restart
