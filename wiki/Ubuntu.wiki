@@ -14,7 +14,7 @@ stan@ubs:~$ sudo gedit /etc/samba/smb.conf
 
 == restarting samba ==
 
-{{{sudo restart smbd }}
+{{{sudo restart smbd }}}
 
 = Apache  =
 
