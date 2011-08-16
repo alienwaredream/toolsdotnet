@@ -36,3 +36,16 @@ You can adjust which files are considered static files and which are considered 
 
 == local admin page ==
 http://localhost:8888/_ah/admin
+
+== Profiling java app locally and in the cloud ==
+http://googleappengine.blogspot.com/2010/03/easy-performance-profiling-with.html
+
+The bellow only works in the cloud and shows you what you can already see from the log as cpu time per request (can be a bit more granular though):
+{{{
+		QuotaService qs = QuotaServiceFactory.getQuotaService();
+        long start = qs.getCpuTimeInMegaCycles();
+
+        double cpuSeconds = qs.convertMegacyclesToCpuSeconds(end - start);
+		
+		resp.setHeader("gaecost", String.valueOf(cpuSeconds));
+}}}
