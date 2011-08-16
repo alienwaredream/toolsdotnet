@@ -33,3 +33,6 @@ Files that are accessible by the application code using the filesystem are calle
 By default, all files in the WAR are treated as both static files and resource files, except for JSP files, which are compiled into servlet classes and mapped to URL paths, and files in the WEB-INF/ directory, which are never served as static files and always available to the app as resource files.
 
 You can adjust which files are considered static files and which are considered resource files using elements in the appengine-web.xml file. The <static-files> element specifies patterns that match file paths to include and exclude from the list of static files, overriding or amending the default behavior. Similarly, the <resource-files> element specifies which files are considered resource files.
+
+== local admin page ==
+http://localhost:8888/_ah/admin
