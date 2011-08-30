@@ -10,3 +10,11 @@ CREATE TABLE provider (key string primary key, name string , country string, cit
 sqlite> 
 
 }}}
+
+= ALTER =
+
+== Add a column ==
+
+{{{
+alter table city add column source int default(0);
+}}}
