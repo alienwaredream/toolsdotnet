@@ -522,6 +522,21 @@ On RegFree COM usage
 http://neilsleightholm.blogspot.com/2009/08/registration-free-com.html
 
 
-== On maxMessageSize for WCF logging ==
+== On mixing multiple types of UIAlertView with single delegate ==
 
-published: http://plainoldstan.blogspot.com/2011/02/wcfmaxsizeofmessagetolog-and-not-logged.html
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    if (alertView.alertViewStyle == UIAlertViewStyleDefault) {
+        return YES;
+    }
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if ([textField.text length] == 0)
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+
+textFieldIndex (0) is outside of the bounds of the array of text fields
+
