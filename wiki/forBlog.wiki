@@ -571,3 +571,7 @@ http://stackoverflow.com/questions/9439495/when-using-gpx-in-xcode-to-simulate-l
     ...
 </gpx>
 }}}
+
+== Emoji icons ==
+
+http://barrow.io/posts/iphone-emoji/
