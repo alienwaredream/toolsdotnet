@@ -540,3 +540,34 @@ http://neilsleightholm.blogspot.com/2009/08/registration-free-com.html
 
 textFieldIndex (0) is outside of the bounds of the array of text fields
 
+
+== On multiple waypoints in gpx files - xcode ==
+http://stackoverflow.com/questions/9439495/when-using-gpx-in-xcode-to-simulate-location-changes-is-there-a-way-to-control
+{{{
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Xcode"> 
+    <wpt lat="37.331705" lon="-122.030237"></wpt>
+    <wpt lat="37.331705" lon="-122.030337"></wpt>
+    <wpt lat="37.331705" lon="-122.030437"></wpt>
+    <wpt lat="37.331705" lon="-122.030537"></wpt>
+</gpx>
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Xcode"> 
+    <wpt lat="35.641043" lon="139.609592">
+        <name>63.265614</name>
+    </wpt>
+    <wpt lat="35.641043" lon="139.609592">
+        <name>63.265614</name>
+    </wpt>
+    <wpt lat="35.640779" lon="139.609641">
+        <name>45.113590</name>
+    </wpt>
+    <wpt lat="35.640771" lon="139.609642">
+        <name>45.052517</name>
+    </wpt>
+    <wpt lat="35.640770" lon="139.609680">
+        <name>45.798065</name>
+    </wpt>
+    ...
+</gpx>
+}}}
