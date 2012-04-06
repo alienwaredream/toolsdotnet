@@ -217,4 +217,5 @@ withObject:nil];
 NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 ...
 [pool drain];
+}
 }}}
