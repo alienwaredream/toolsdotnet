@@ -205,3 +205,16 @@ shell malloc_history 15971 0x60d7af0
     ZIP = "182 00";
 }
 }}}
+
+= Memory management =
+== detach new thread and autorelease pool ==
+
+{{{
+[NSThread detachNewThreadSelector:@selector(displayMap) toTarget:self
+withObject:nil];
+
+- (void)displayMap {
+NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+...
+[pool drain];
+}}}
