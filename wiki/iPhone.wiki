@@ -8,6 +8,13 @@
 === location services ===
 You have currently disabled location services for this app. By doing this you're missing out on some great features that come with this app! If you change your mind, you can enable it by going to settings > general > location services. Thanks!
 
+=== altitude ===
+{{{
+If (signbit(newLocation.verticalAccuracy)) {
+// get the altitude
+}
+}}}
+
 === airplane mode ===
 http://stackoverflow.com/questions/4804398/iphone-detect-airplane-mode
 
