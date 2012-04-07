@@ -575,3 +575,7 @@ http://stackoverflow.com/questions/9439495/when-using-gpx-in-xcode-to-simulate-l
 == Emoji icons ==
 
 http://barrow.io/posts/iphone-emoji/
+
+== Xcode shortcuts ==
+
+Alt click on the file in navigator opens the file in the assistant panel, even if panel was not open before!
