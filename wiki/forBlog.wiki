@@ -576,6 +576,8 @@ http://stackoverflow.com/questions/9439495/when-using-gpx-in-xcode-to-simulate-l
 
 http://barrow.io/posts/iphone-emoji/
 
-== Xcode shortcuts ==
+== Xcode shortcuts  & my tricks ==
 
 Alt click on the file in navigator opens the file in the assistant panel, even if panel was not open before!
+
+Use Alt-Run and then Analyze instead of Product->Analyze. As first will only analyze my target and latter will go though all of the libs included. Which is getting really stuck on GData with its 200+ files in my case.
