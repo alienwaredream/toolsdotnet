@@ -1,4 +1,3 @@
-
 == On identifying the x64 or xOS ==
 All praise to http://www.koders.com/csharp/fid495E7D0ED07BA35F5F0CE0EEFE87D7375BF1CF55.aspx
 
@@ -153,55 +152,3 @@ Alt click on the file in navigator opens the file in the assistant panel, even i
 Use Alt-Run and then Analyze instead of Product->Analyze. As first will only analyze my target and latter will go though all of the libs included. Which is getting really stuck on GData with its 200+ files in my case.
 
 = iphone sqlite helpers =
-=== check if table exists ===
-{{{
-+(bool) tableExistsWithName: (NSString *) name dbPath: (NSString *) dbPath error: (NSError **) error
-{
-    sqlite3 *db;
-    sqlite3_stmt *checkStmt;
-    
-    int dbrc;
-    const char* dbFilePathUTF8 = [dbPath UTF8String]; 
-    dbrc = sqlite3_open_v2(dbFilePathUTF8, &db, SQLITE_OPEN_READONLY, nil); 
-    
-    const char *sql = "select count(*) from sqlite_master where type='table' AND name=?";
-    
-    if(sqlite3_prepare_v2(db, sql, -1, &checkStmt, NULL) == SQLITE_OK)
-    {
-        const char *cname = [name UTF8String];
-        
-        sqlite3_bind_text(checkStmt, 1, cname, -1, SQLITE_TRANSIENT);
-        
-        int retCode = sqlite3_step(checkStmt);
-        
-        if(SQLITE_ROW == retCode)
-        {
-            int count = sqlite3_column_int(checkStmt, 0);
-            sqlite3_finalize(checkStmt);
-            sqlite3_close(db);
-            
-            return count == 1;
-        }
-        else 
-        {
-            
-            [DbHelper convertSqlError:db error:error];
-            
-            sqlite3_finalize(checkStmt);
-            sqlite3_close(db);
-            return false;
-        }
-    }
-    else {
-        [DbHelper convertSqlError:db error:error];
-        
-        sqlite3_finalize(checkStmt);
-        sqlite3_close(db);
-        
-        return false;
-    }
-    
-    return true;
-}
-
-}}}
