@@ -152,3 +152,7 @@ Alt click on the file in navigator opens the file in the assistant panel, even i
 Use Alt-Run and then Analyze instead of Product->Analyze. As first will only analyze my target and latter will go though all of the libs included. Which is getting really stuck on GData with its 200+ files in my case.
 
 = iphone sqlite helpers =
+
+= oracle =
+== 		Message	"Unable to load DLL 'OraOps11w.dll': The specified module could not be found. (Exception from HRESULT: 0x8007007E)"	string
+==
