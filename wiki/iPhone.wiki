@@ -219,3 +219,19 @@ NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 [pool drain];
 }
 }}}
+
+= Selectors =
+== _cmd ==
+{{{
+-(void) tenMinutesElapsed:(ccTime)delta
+{
+// unschedule the current method by using the _cmd keyword
+[self unschedule:_cmd];
+}
+}}}
+The hidden variable _cmd is available in all Objective-C methods. It is the selector of the
+current method. In the previous example, _cmd is equivalent to writing
+@selector(tenMinutesElapsed:). Unscheduling _cmd effectively stops the
+tenMinutesElapsed method from ever being called again. You can also use _cmd for
+scheduling the selector in the first place, if you want the current method to be
+scheduled.
