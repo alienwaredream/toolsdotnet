@@ -235,3 +235,21 @@ current method. In the previous example, _cmd is equivalent to writing
 tenMinutesElapsed method from ever being called again. You can also use _cmd for
 scheduling the selector in the first place, if you want the current method to be
 scheduled.
+
+= Logging =
+== NSLog in debug and release ==
+{{{
+#ifndef NS_BLOCK_ASSERTIONS
+    #define _DEBUG
+#endif
+
+#ifdef _DEBUG
+// for debug mode 
+#define DLog(fmt,...) NSLog(@"%s " fmt, __FUNCTION, ##__VA_ARGS__) 
+... /// something extra
+#else
+// for release mode
+#define DLog(fmt,...) /* noop */
+... /// something extra
+#endif
+}}}
