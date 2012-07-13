@@ -254,3 +254,7 @@ scheduled.
 #endif
 }}}
 source: http://stackoverflow.com/questions/2025471/do-i-need-to-disable-nslog-before-release-application
+== Logging in cocos ==
+{{{
+CCLOG(@"%@: %@", NSStringFromSelector(_cmd), self);
+}}}
