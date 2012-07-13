@@ -253,3 +253,4 @@ scheduled.
 ... /// something extra
 #endif
 }}}
+source: http://stackoverflow.com/questions/2025471/do-i-need-to-disable-nslog-before-release-application
