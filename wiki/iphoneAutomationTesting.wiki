@@ -1,19 +1,18 @@
 = Speedo =
 {{{
 
+
 var target = UIATarget.localTarget();
 
 // speed is in meters/sec
 var points = [
-			  {location:{latitude:48.8899,longitude:14.2}, options:{speed:8, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:14.9}, options:{speed:11, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:14.6}, options:{speed:12, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:14.7}, options:{speed:13, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:49.2,longitude:14.10}, options:{speed:15, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:49.4,longitude:14.8}, options:{speed:15, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:14.9}, options:{speed:9, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:15.1}, options:{speed:8, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
-			  {location:{latitude:48.8899,longitude:16.1}, options:{speed:3, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.095254,longitude:14.503297}, options:{speed:1, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.187675,longitude:14.603288}, options:{speed:11, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.2855445,longitude:14.703265}, options:{speed:12, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.3922321,longitude:14.803632}, options:{speed:13, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.429941,longitude:14.906231}, options:{speed:15, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.595423,longitude:15.008765}, options:{speed:15, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}},
+			  {location:{latitude:50.596423,longitude:15.008765}, options:{speed:2, altitude:200, horizontalAccuracy:10, verticalAccuracy:15}}
 			  ];
 
 for (var i = 0; i < points.length; i++)
