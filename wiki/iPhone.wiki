@@ -258,3 +258,55 @@ source: http://stackoverflow.com/questions/2025471/do-i-need-to-disable-nslog-be
 {{{
 CCLOG(@"%@: %@", NSStringFromSelector(_cmd), self);
 }}}
+
+== Body for the support email ==
+{{{
+    NSString *emailBody = [NSString stringWithFormat:@"%@%@\r\niOS Version:%@\r\nDevice:%@\r\nOS language:%@\r\nReginal settings:%@\r\nApp: %@", NSLocalizedString(@"Description of the problem:",nil), @"\r\n\r\n\r\n",
+                           [[UIDevice currentDevice] systemVersion],
+                           [[UIDevice currentDevice] platform],
+                           [[NSLocale preferredLanguages] objectAtIndex:0],
+                           [[NSLocale currentLocale] localeIdentifier],
+                           [[NSProcessInfo processInfo] processName]
+                           ];
+    
+    [picker setMessageBody:emailBody isHTML:NO];
+}}}
+
+With UIDevice extension as:
+.h
+{{{
+#import <UIKit/UIKit.h>
+
+@interface UIDevice (Hardware)
+- (NSString *) platform;
+@end
+
+}}}
+
+.m
+{{{
+/* Thanks to Emanuele Vulcano, Kevin Ballard/Eridius, Ryandjohnson */
+
+/*
+ - Bluetooth? Screen pixels? Dot pitch? Accelerometer? GPS disabled in Egypt (and others?). - @halm
+*/
+
+#import "UIDevice-hardware.h"
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
+@implementation UIDevice (Hardware)
+
+- (NSString *) platform
+{
+	size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+	sysctlbyname("hw.machine", machine, &size, NULL, 0);
+	NSString *platform = [NSString stringWithCString:machine encoding: NSUTF8StringEncoding];
+	free(machine);
+	return platform;
+}
+
+@end
+}}}
