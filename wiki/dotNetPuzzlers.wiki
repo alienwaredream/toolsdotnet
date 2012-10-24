@@ -151,3 +151,16 @@ http://msdn.microsoft.com/en-us/library/ms228973.aspx
 public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
 
 }}}
+
+== Get a property name with no reflection ==
+{{{
+        public List<string> fieldsWhiteListOnRenewal = new List<string>
+        {
+            GetNakedPropName((BidVariant v) => {return v.AcquisitionCosts;})
+        };
+
+        public static string GetNakedPropName<TType, TValue>(Expression<Func<TType, TValue>> prop)
+        {
+            return ((MemberExpression)((Expression<Func<TType, TValue>>)(prop)).Body).Member.Name;
+        }
+}}}
