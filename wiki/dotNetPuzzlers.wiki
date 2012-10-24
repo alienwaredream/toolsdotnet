@@ -152,6 +152,8 @@ public delegate void PropertyChangedEventHandler(object sender, PropertyChangedE
 
 }}}
 
+= System.Expression vs. System.Reflection
+
 == Get a property name with no reflection ==
 {{{
         public List<string> fieldsWhiteListOnRenewal = new List<string>
