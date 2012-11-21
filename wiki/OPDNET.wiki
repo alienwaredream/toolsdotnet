@@ -36,3 +36,23 @@
             cmd.Parameters.Add(pRefCursorParams);
         }
 }}}
+
+== Output params should have a size !==
+
+{{{
+
+                        OracleParameter p_error_code = new OracleParameter("p_error_code", OracleDbType.Varchar2, 4000);
+                        p_error_code.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(p_error_code);
+
+                        OracleParameter p_error_message = new OracleParameter("p_error_message", OracleDbType.Varchar2, 4000);
+                        p_error_message.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(p_error_message);
+
+}}}
+
+== Use CommandBuilder to figure out params peculiarities ==
+
+{{{
+OracleCommandBuilder.DeriveParameters(cmd);
+}}}
