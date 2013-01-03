@@ -312,7 +312,7 @@ With UIDevice extension as:
 }}}
 
 == Using DS-Digital font in the app ==
-
+{{{
 1) Copy the font file into the resources of your project. (Just drag it into the 'supporting files or whatever directory you use').
 
 2) In your info.plist file enter the filename of the font file for key "Fonts Provided by the Application" - like in the picture below (I use two versions of the font, you must enter your font file name (DS-DIGI.TTF))
@@ -344,3 +344,4 @@ someuilabel.font = [UIFont fontWithName:@"Digital-7" size: yoursize];
   }
   [familyNames release];
 And find the exact name of the font you want.
+}}}
