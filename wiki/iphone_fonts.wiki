@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 
 = Introduction =
-
+{{{
 2013-01-26 22:44:37.801 speedometer[25778:c07] Family name: Thonburi
 2013-01-26 22:44:37.802 speedometer[25778:c07]     Font name: Thonburi-Bold
 2013-01-26 22:44:37.803 speedometer[25778:c07]     Font name: Thonburi
@@ -453,3 +453,4 @@
 2013-01-26 22:44:38.186 speedometer[25778:c07]     Font name: Didot-Bold
 2013-01-26 22:44:38.187 speedometer[25778:c07] Family name: Bodoni 72 Smallcaps
 2013-01-26 22:44:38.187 speedometer[25778:c07]     Font name: BodoniSvtyTwoSCITCTT-Book
+}}}
