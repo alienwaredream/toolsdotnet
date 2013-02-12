@@ -18,3 +18,20 @@ sqlite>
 {{{
 alter table city add column source int default(0);
 }}}
+
+= Optimizations =
+
+== sqlite3_prepare with string compared to params binding ==
+
+{{{
+    NSString *updateStatementNS = [NSString stringWithFormat: @"UPDATE Trip SET distance=%f, maxspeed = %f, avgspeed = %f, maxalt = CASE WHEN %f > maxalt OR %d = 1 OR (%d = 0 AND reset = 1) THEN %f ELSE maxalt END, minalt = CASE WHEN %f < minalt OR %d = 1 OR (%d = 0 AND reset = 1) THEN %f ELSE minalt END, updated = CASE WHEN %d = 1 THEN 0 ELSE %f END, samplesCount=%d, reset=%d where id=%d", distance, maxspeed, avgspeed, maxalt, reset, reset, maxalt, minalt, reset, reset, minalt, reset, [[NSDate date] timeIntervalSince1970], samplesCount, reset, tid];
+    
+    
+    
+    if ([DbHelper prepareDBStatement:updateStatementNS statementPointer:&dbps db:db] == 0) {
+        
+        [DbHelper executeDBStep: dbps];
+        
+        sqlite3_finalize (dbps);
+    }
+}}}
