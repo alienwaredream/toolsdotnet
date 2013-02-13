@@ -36,6 +36,8 @@ alter table city add column source int default(0);
     }
 }}}
 
+2013-02-13 01:58:51.093 speedometer[207:907] timings, delta1: 0.001131, delta2: 0.002861, total delta: 0.003992
+
 {{{
     NSString *updateStatementNS = @"UPDATE Trip SET distance=@Distance, maxspeed = @MaxSpeed, avgspeed = @AvgSpeed, maxalt = CASE WHEN @MaxAlt > maxalt OR @Reset = 1 OR (@Reset = 0 AND reset = 1) THEN @MaxAlt ELSE maxalt END, minalt = CASE WHEN @MinAlt < minalt OR @Reset = 1 OR (@Reset = 0 AND reset = 1) THEN @MinAlt ELSE minalt END, updated = CASE WHEN @Reset = 1 THEN 0 ELSE @TimeInterval END, samplesCount=@SamplesCount, reset=@Reset where id=@tid";
     
