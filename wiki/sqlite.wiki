@@ -63,3 +63,9 @@ alter table city add column source int default(0);
  }}}
 
 2013-02-13 01:53:36.387 speedometer[171:907] timings, delta1: 0.001781, delta2: 0.003518, total delta: 0.005299
+
+== Queries for speedo ==
+
+{{{
+SELECT datetime(p.time, 'unixepoch') as "time", p.lat, p.lng, p.hacc, p.vacc, t.id, datetime(t.start, 'unixepoch') as "track start"  FROM point p left join track t on p.trackId = t.id
+}}}
