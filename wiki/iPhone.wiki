@@ -345,3 +345,13 @@ someuilabel.font = [UIFont fontWithName:@"Digital-7" size: yoursize];
   [familyNames release];
 And find the exact name of the font you want.
 }}}
+
+== Map view ==
+=== Avoid calibration ===
+ I believe I know what is causing this. If you use a MKMapView, and that uses the tracking mode with heading, then the mapview has its own location manager and that location manager is auto-set to ask for heading calibration. What a nightmare, as the location manager is a hidden variable with no access to it.
+
+ The solution for MKMapView is to call this:
+_mapView.userTrackingMode = MKUserTrackingModeNone;
+just before you release _mapView.
+This will make the calibration message disappear when you navigate to different pages.
+ _I guess this answer suggests the dialog might be shown even after the mapView is released, but this never happened to me_
