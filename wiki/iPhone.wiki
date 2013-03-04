@@ -357,9 +357,51 @@ just before you release _mapView.
 This will make the calibration message disappear when you navigate to different pages.
  _I guess this answer suggests the dialog might be shown even after the mapView is released, but this never happened to me_
 
-== About the need to set the mapview delegate to nil ==
+=== About the need to set the mapview delegate to nil ===
 http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan
  You probably already thought about this, but I have seen numerous distinct-looking crashers from MapKit all stemming from not nil-ing out the delegate. Just make sure you set the map view's delegate to nil before you release it.
 
  Additionally, I've seen a number of developers inclined to use performSelector:afterDelay: on their map view. That's fine so long as you put a cancelperform call in the right places too.
-== Check how often - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay is called!!!! ==
+=== Check how often - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay is called!!!! ===
+
+=== Following the route with annotation ===
+http://stackoverflow.com/questions/12918453/trying-to-simulate-a-route-in-mapview
+http://stackoverflow.com/questions/11420482/ios-mapkit-following-a-path/11458574#11458574
+
+*Suggestion is to change coordinates and UIanimation to move the annotation*
+https://github.com/100grams/Moving-MKAnnotationView
+
+
+=== Animating the MKAnnotationView - blinking ===
+http://stackoverflow.com/questions/14916974/ios-custom-mkannotation-object-resembling-mkuserlocation-animation
+
+=== Animating the annotation view coordinate? ===
+
+{{{
+Making the pins expand from the cluster center is actually pretty easy. When you make the new single-pin annotations, set their coordinates to the cluster center:
+
+id <MKAnnotation> pin;
+CLLocationCoordinate2D clusterCenter;
+// ...
+pin.coordinate = clusterCenter;
+In viewForAnnotation:, don't animate the new pins:
+
+MKPinAnnotationView *pinView;
+// ...
+pinView.animatesDrop = NO;
+Then, after you've added the pins to the map view, you'll animate moving them to their real positions:
+
+MKMapView *mapView;
+id <MKAnnotation> pin;
+// ...
+// probably loop over annotations
+[mapView addAnnotation:pin];
+NSTimeInterval interval = 1.0; // or whatever
+[UIView animateWithDuration:interval animations:^{
+    // probably loop over annotations here again
+    CLLocationCoordinate2D realCoord;
+    // ...
+    pin.coordinate = realCoord;
+}];
+As for the problem of non-clustered pins, that's harder to answer without knowing the implementation in detail, but I think there are lots of possibilities. You could just have a simple flag that skips the animation. Or you could just treat them exactly the same, and still "cluster" them even when they're solo, and still animate them ... not maximally efficient, but it would work and your code would be cleaner.
+}}}
