@@ -348,6 +348,7 @@ And find the exact name of the font you want.
 
 == Map view ==
 === Avoid calibration ===
+http://stackoverflow.com/questions/9751970/iphone-locationmanagershoulddisplayheadingcalibration-ignored-does-nothing/9852402#9852402
  I believe I know what is causing this. If you use a MKMapView, and that uses the tracking mode with heading, then the mapview has its own location manager and that location manager is auto-set to ask for heading calibration. What a nightmare, as the location manager is a hidden variable with no access to it.
 
  The solution for MKMapView is to call this:
@@ -355,3 +356,10 @@ _mapView.userTrackingMode = MKUserTrackingModeNone;
 just before you release _mapView.
 This will make the calibration message disappear when you navigate to different pages.
  _I guess this answer suggests the dialog might be shown even after the mapView is released, but this never happened to me_
+
+== About the need to set the mapview delegate to nil ==
+http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan
+ You probably already thought about this, but I have seen numerous distinct-looking crashers from MapKit all stemming from not nil-ing out the delegate. Just make sure you set the map view's delegate to nil before you release it.
+
+ Additionally, I've seen a number of developers inclined to use performSelector:afterDelay: on their map view. That's fine so long as you put a cancelperform call in the right places too.
+== Check how often - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay is called!!!! ==
