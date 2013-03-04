@@ -69,3 +69,8 @@ alter table city add column source int default(0);
 {{{
 SELECT datetime(p.time, 'unixepoch') as "time", p.lat, p.lng, p.hacc, p.vacc, t.id, datetime(t.start, 'unixepoch') as "track start"  FROM point p left join track t on p.trackId = t.id
 }}}
+
+== Annoying sqlite3_open creating a new db that has no tables then ==
+http://www.dmertl.com/blog/?p=9
+ I recently ran into an annoying problem getting data from an SQLite database in my iPhone application. I had bundled the database with the application and duplicated code from Apple’s example code. No matter what I did every time I tried to select from my table I would get “no such table: table_name”. I tried checking what tables existed in the database using “SELECT name FROM sqlite_master WHERE type = ‘table’”, and found there were none.
+ What happened is sqlite3_open() will create a new database if it can’t find the one you requested. It will also cache this empty database and use it in the simulator. So even though I had fixed the issue with my code, that empty database was still being used. The solution to this is to delete the app from the simulator (click and hold the app icon, then click the x) and re-build. This will clear the cached database and use the copy bundled with your app.
