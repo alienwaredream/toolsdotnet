@@ -405,3 +405,11 @@ NSTimeInterval interval = 1.0; // or whatever
 }];
 As for the problem of non-clustered pins, that's harder to answer without knowing the implementation in detail, but I think there are lots of possibilities. You could just have a simple flag that skips the animation. Or you could just treat them exactly the same, and still "cluster" them even when they're solo, and still animate them ... not maximally efficient, but it would work and your code would be cleaner.
 }}}
+
+== SMTP clients ==
+https://github.com/tcurdt/edmessage
+http://stackoverflow.com/questions/740939/open-source-cocoa-cocoa-touch-pop3-smtp-library
+not that good but for ios:
+https://github.com/kailoa/iphone-smtp
+*looking interesting:*
+http://libmailcore.com
