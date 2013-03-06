@@ -466,3 +466,6 @@ protocol
 
 @end
 }}}
+
+== Rest libs for iOS and Mac ==
+http://projects.lukeredpath.co.uk/resty/
