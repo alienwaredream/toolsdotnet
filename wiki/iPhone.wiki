@@ -469,3 +469,23 @@ protocol
 
 == Rest libs for iOS and Mac ==
 http://projects.lukeredpath.co.uk/resty/
+
+== Vacuuming the sqlite db ==
+{{{
+ - (void) shrinkDB
+    {
+        sqlite3 * database;
+        NSString * string = [shareStoreURL path];
+        const char * filename = [string cStringUsingEncoding:[NSString defaultCStringEncoding]];
+        char *errMsg;
+        if (sqlite3_open(filename, &database) == SQLITE_OK)
+        {
+            NSLog(@"Shrinking...");
+            if (sqlite3_exec(database, "VACUUM;", NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed execute VACUUM");
+            }
+            sqlite3_close(database);
+         }
+        }
+}}}
