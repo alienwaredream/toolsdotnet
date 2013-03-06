@@ -413,3 +413,56 @@ not that good but for ios:
 https://github.com/kailoa/iphone-smtp
 *looking interesting:*
 http://libmailcore.com
+
+== Json iOS5+ ==
+protocol
+{{{
+#import <Foundation/Foundation.h>
+
+@protocol ObjectSerializer <NSObject>
+
+- (id)deserializeStringToObject:(NSString *)string;
+- (NSString *)serializeObjectToString:(id)object;
+
+@end
+}}}
+.h
+{{{
+#import <Foundation/Foundation.h>
+#import "ObjectSerializer.h"
+
+@interface NativeJsonSerializer : NSObject<ObjectSerializer>
+
+@end
+}}}
+.m
+{{{
+#import "NativeJsonSerializer.h"
+
+@implementation NativeJsonSerializer
+
+- (id)deserializeStringToObject:(NSString *)string
+{
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    if (!result) {
+        NSLog(@"%@", error.description);
+    }
+
+    return result;
+}
+
+- (NSString *)serializeObjectToString:(id)data
+{
+    NSError *error;
+    NSData *result = [NSJSONSerialization dataWithJSONObject:data options:NSJSONReadingAllowFragments|NSJSONWritingPrettyPrinted error:&error];
+    if (!result) {
+        NSLog(@"%@", error.description);
+    }
+
+    return [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+}
+
+@end
+}}}
