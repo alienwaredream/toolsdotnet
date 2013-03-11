@@ -347,6 +347,10 @@ And find the exact name of the font you want.
 }}}
 
 == Map view ==
+
+== route-me ==
+embedding: https://code.google.com/p/route-me/wiki/EmbeddingGuide
+
 === Avoid calibration ===
 http://stackoverflow.com/questions/9751970/iphone-locationmanagershoulddisplayheadingcalibration-ignored-does-nothing/9852402#9852402
  I believe I know what is causing this. If you use a MKMapView, and that uses the tracking mode with heading, then the mapview has its own location manager and that location manager is auto-set to ask for heading calibration. What a nightmare, as the location manager is a hidden variable with no access to it.
