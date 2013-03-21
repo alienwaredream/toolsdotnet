@@ -496,3 +496,19 @@ http://projects.lukeredpath.co.uk/resty/
 
 == Quick forms ==
 https://github.com/escoz/QuickDialog
+
+== Google maps sdk for iOS ==
+Example of deallocing in the viewcontroller with the map:
+
+{{{
+- (void)viewWillDisappear:(BOOL)animated
+{
+  [super viewWillDisappear:animated] ;
+
+  [m_mapView clear] ;
+  [m_mapView stopRendering] ;
+  [m_mapView removeFromSuperview] ;
+  m_mapView.delegate = nil;
+  m_mapView = nil;
+}
+}}}
