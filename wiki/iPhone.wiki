@@ -512,3 +512,13 @@ Example of deallocing in the viewcontroller with the map:
   m_mapView = nil;
 }
 }}}
+
+== Tracking retains with no ARC ==
+
+{{{
+-(id)retain
+    {
+    NSLog(@"%@", [NSThread callStackSymbols]);
+    return ([super retain]);
+    }
+}}}
