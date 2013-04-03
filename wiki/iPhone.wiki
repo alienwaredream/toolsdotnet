@@ -522,3 +522,7 @@ Example of deallocing in the viewcontroller with the map:
     return ([super retain]);
     }
 }}}
+
+== KML ==
+
+https://github.com/FLCLjp/KML-Logger/blob/master/GPSLogger/MapViewController.m
