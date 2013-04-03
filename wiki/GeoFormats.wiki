@@ -4,3 +4,6 @@
 
 == KML ==
 
+=== Touring with KML ===
+
+https://developers.google.com/kml/documentation/touring
