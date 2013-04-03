@@ -41,3 +41,7 @@ https://developers.google.com/kml/documentation/touring
 
 </kml>
 }}}
+
+=== Time in KML ===
+
+http://earth.google.com/outreach/tutorial_time.html
