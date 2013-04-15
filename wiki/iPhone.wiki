@@ -722,3 +722,6 @@ https://github.com/tomislav/ShapeReducer-objc
 
 @end
 }}}
+
+== Good one on location services enabled/disabled ==
+http://www.peachpit.com/articles/article.aspx?p=1830485
