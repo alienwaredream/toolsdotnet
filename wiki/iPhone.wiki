@@ -751,3 +751,14 @@ UIGraphicsEndImageContext();
 
 UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
 }}}
+
+== Or go via all sharing options ? ==
+{{{
+NSString *text = @"Cat";
+UIImage *image = [UIImage imageNamed:@"cat"];
+NSArray *activityItems = [NSArray arrayWithObjects:text,image , nil];
+UIActivityViewController *avc = [[UIActivityViewController alloc]
+     initWithActivityItems: activityItems applicationActivities:nil];
+[self presentViewController:avc animated:YES completion:nil];
+
+}}}
