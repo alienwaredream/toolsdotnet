@@ -725,3 +725,27 @@ https://github.com/tomislav/ShapeReducer-objc
 
 == Good one on location services enabled/disabled ==
 http://www.peachpit.com/articles/article.aspx?p=1830485
+
+== send image and text via facebook ios6 ==
+{{{
+if([SLComposeViewController isAvaliableForServiceType:SLServiceTypeFacebook]) {     
+       SLComposeViewController*fvc = [SLComposeViewController
+         composeViewControllerForServiceType:SLServiceTypeFacebook];
+      [fvc setInitialText:@"Lhasa"];
+      [fvc addImage:[UIImage imageNamed:@"lhasa"]];
+      [self presentViewController:fvc animated:YES completion:nil];
+}
+
+}}}
+== save view as an image ==
+{{{
+UIGraphicsBeginImageContext(pictureView.bounds.size);                  
+
+[pictureView.layer renderInContext:UIGraphicsGetCurrentContext()]; 
+
+UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+
+UIGraphicsEndImageContext();
+
+UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
+}}}
