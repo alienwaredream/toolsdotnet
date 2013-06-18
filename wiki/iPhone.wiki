@@ -762,3 +762,30 @@ UIActivityViewController *avc = [[UIActivityViewController alloc]
 [self presentViewController:avc animated:YES completion:nil];
 
 }}}
+
+== Just another view to file ==
+{{{
+//Get the size of the screen
+CGRect screenRect = [[UIScreen mainScreen] bounds];
+ 
+//Create a bitmap-based graphics context and make
+//it the current context passing in the screen size
+UIGraphicsBeginImageContext(screenRect.size);
+ 
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+[[UIColor blackColor] set];
+CGContextFillRect(ctx, screenRect);
+ 
+//render the receiver and its sublayers into the specified context
+//choose a view or use the window to get a screenshot of the
+//entire device
+[yourView.layer renderInContext:ctx];
+ 
+UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+ 
+//End the bitmap-based graphics context
+UIGraphicsEndImageContext();
+ 
+//Save UIImage to camera roll
+UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
+}}}
