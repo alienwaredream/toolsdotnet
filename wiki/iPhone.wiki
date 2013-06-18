@@ -739,6 +739,8 @@ if([SLComposeViewController isAvaliableForServiceType:SLServiceTypeFacebook]) {
 }}}
 == save view as an image ==
 {{{
+#import <QuartzCore/QuartzCore.h>
+
 UIGraphicsBeginImageContext(pictureView.bounds.size);                  
 
 [pictureView.layer renderInContext:UIGraphicsGetCurrentContext()]; 
