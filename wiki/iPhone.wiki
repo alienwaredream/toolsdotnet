@@ -789,3 +789,9 @@ UIGraphicsEndImageContext();
 //Save UIImage to camera roll
 UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
 }}}
+
+== Vibrate ==
+{{{
+AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+}}}
+And don't use the Alert one as it bips on no-vibration devices
