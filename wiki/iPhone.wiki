@@ -795,3 +795,11 @@ UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }}}
 And don't use the Alert one as it bips on no-vibration devices
+
+== Twitter ==
+https://dev.twitter.com/docs/ios/making-api-requests-slrequest
+
+== Weather apis ==
+
+http://openweathermap.org/
+http://developer.worldweatheronline.com/
