@@ -803,3 +803,7 @@ https://dev.twitter.com/docs/ios/making-api-requests-slrequest
 
 http://openweathermap.org/
 http://developer.worldweatheronline.com/
+
+== charting ==
+
+https://code.google.com/p/core-plot/
