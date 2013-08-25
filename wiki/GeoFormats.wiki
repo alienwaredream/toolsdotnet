@@ -63,3 +63,8 @@ In any case, it is extremely unwise to overly depend on the altitude readout of 
 
 Joe Mehaffey 
 }}}
+
+== Spatial things ==
+Super one for calculating the bounding coordinates, distance and retreiving from sql hopefully based on index
+
+http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
