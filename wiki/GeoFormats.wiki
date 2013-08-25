@@ -68,3 +68,6 @@ Joe Mehaffey
 Super one for calculating the bounding coordinates, distance and retreiving from sql hopefully based on index
 
 http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
+
+Spatial lite for iOS:
+http://stackoverflow.com/questions/4793970/how-to-compile-spatialite-for-ios
