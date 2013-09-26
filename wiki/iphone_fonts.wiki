@@ -454,3 +454,14 @@
 2013-01-26 22:44:38.187 speedometer[25778:c07] Family name: Bodoni 72 Smallcaps
 2013-01-26 22:44:38.187 speedometer[25778:c07]     Font name: BodoniSvtyTwoSCITCTT-Book
 }}}
+
+{{{
+    NSArray *fontFamilies = [UIFont familyNames];
+    
+    for (int i = 0; i < [fontFamilies count]; i++)
+    {
+        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+        NSLog (@"%@: %@", fontFamily, fontNames);
+    }
+}}}
