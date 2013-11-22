@@ -1,2 +1,9 @@
+Weather:
 
 http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang=ru
+
+Stock:
+
+http://www.blogbyben.com/2009/01/truly-simple-stock-api.html
+http://www.gummy-stuff.org/Yahoo-data.htm
+
