@@ -5,3 +5,5 @@ http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically
 http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript
 
 http://en.wikipedia.org/wiki/Halton_sequence
+
+http://blog.adamcole.ca/2011/11/simple-javascript-rainbow-color.html
