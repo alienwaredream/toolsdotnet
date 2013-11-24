@@ -1,0 +1,5 @@
+== Generate even but "random" colors ==
+
+http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+
+http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript
