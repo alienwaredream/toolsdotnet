@@ -19,3 +19,7 @@ https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/
 https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_trans_layers/dq_trans_layers.html
 
 *Think about applying more gragient stops on a single path!*
+
+== Put an image, arrow, into the path ==
+
+UIColor *arrowPattern = [UIColor colorWithPatternImage:[UIImage imageNamed:@"arrow.png"]]; CGContextSetStrokeColorWithColor(context, arrowPattern.CGColor);
