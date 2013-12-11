@@ -21,3 +21,99 @@ https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest
 https://dev.twitter.com/docs/ios
 
 https://dev.twitter.com/docs/ios/making-api-requests-slrequest
+
+
+{{{
+//include twitter.framework 
+#import <Twitter/Twitter.h>
+
++ (void)getTweetsFortwitterID:(NSString *)twitterID
+
+{
+    if(twitterID.length >0)
+    {
+    NSString * finalURL = [NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=%@&count=10", twitterID];
+
+    TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:finalURL] parameters:nil requestMethod:TWRequestMethodGET];
+
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init] ;
+
+    ACAccountType *accountType =  [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+
+        // Request access from the user to use their Twitter accounts.
+        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error)
+         {
+             if(granted)
+             {
+                 NSArray *twitterAccounts = [accountStore accountsWithAccountType:accountType];
+
+                 if([twitterAccounts count] >0
+                    )
+                 {
+                 ACAccount *twitterAccount = [twitterAccounts objectAtIndex:0];
+                 [postRequest setAccount:twitterAccount];
+
+                 NSLog(@"request.account:%@",postRequest.account);
+
+                 // Perform the request created above and create a handler block to handle the response.
+                 NSMutableArray *tweetsArray=[[NSMutableArray alloc]init];
+
+                 [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+
+                     // Parse the responseData, which we asked to be in JSON format for this request, into an NSDictionary using NSJSONSerialization.
+                     NSArray *publicTimeline = nil;
+                     NSError *jsonParsingError = nil;
+                     if (responseData)
+                     {
+                         publicTimeline = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
+                         NSLog(@"publicTimeline : %@", publicTimeline);
+                     }
+
+                     if ([publicTimeline isKindOfClass:[NSArray class]])
+                     {
+
+                         for (int i =0; i<[publicTimeline count]; i++)
+                         {
+                             NSMutableDictionary *twitterDict=[[NSMutableDictionary alloc]init];
+
+                             if ([[publicTimeline objectAtIndex:i] objectForKey:@"text"])
+                             {
+                                 NSLog(@"ID: %@", [[publicTimeline objectAtIndex:i] objectForKey:@"text"]);
+                                 [twitterDict setObject:[[publicTimeline objectAtIndex:i] objectForKey:@"text"] forKey:@"text"];
+                             }
+                             if ([[publicTimeline objectAtIndex:i] objectForKey:@"created_at"])
+                             {
+                                 NSLog(@"ID: %@", [[publicTimeline objectAtIndex:i] objectForKey:@"created_at"]);
+                                 [twitterDict setObject:[[publicTimeline objectAtIndex:i] objectForKey:@"created_at"]
+                                                 forKey:@"created_at"];
+                             }
+
+                             if ([[publicTimeline objectAtIndex:i] objectForKey:@"user"])
+                             {
+                                 NSLog(@"ID: %@", [[publicTimeline objectAtIndex:i] objectForKey:@"created_at"]);
+                                 [twitterDict setObject:[[[publicTimeline objectAtIndex:i] objectForKey:@"user"]objectForKey:@"profile_image_url"]
+                                                 forKey:@"profile_image_url"];
+                             }
+
+
+                             [tweetsArray addObject:twitterDict];
+                             NSLog(@"tweets:%@", tweetsArray);
+
+                         }
+                     }
+
+                     if([tweetsArray count]>0)
+                         [[NSNotificationCenter defaultCenter] postNotificationName:@"tweetsLoaded" object:tweetsArray];
+
+
+                 }];
+                 }
+
+             }
+
+         }];
+    }
+
+
+}
+}}}
