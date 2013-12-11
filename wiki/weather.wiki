@@ -17,3 +17,5 @@ http://stackoverflow.com/questions/10040954/alternative-to-google-finance-api
 = Twitter =
 
 https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234
+
+https://dev.twitter.com/docs/ios
