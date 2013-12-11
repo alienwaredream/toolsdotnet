@@ -13,3 +13,7 @@ http://finance.google.com/finance/info?client=ig&q=NASDAQ%3aGOOG
 http://stackoverflow.com/questions/10040954/alternative-to-google-finance-api
 
 =Exchange rates=
+
+= Twitter =
+
+https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234
