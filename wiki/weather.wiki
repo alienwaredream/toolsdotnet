@@ -117,3 +117,9 @@ https://dev.twitter.com/docs/ios/making-api-requests-slrequest
 
 }
 }}}
+
+
+== Russian news on twitter ==
+
+https://twitter.com/russkie_novosti
+
