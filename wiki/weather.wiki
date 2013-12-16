@@ -2,6 +2,8 @@
 
 http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang=ru
 
+http://metwit.com/weather-api/
+
 =Stock=
 
 http://www.blogbyben.com/2009/01/truly-simple-stock-api.html
@@ -126,4 +128,3 @@ https://twitter.com/russkie_novosti
 == French news on twitter ==
 
 https://twitter.com/LNEcanal
-
