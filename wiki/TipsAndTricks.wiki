@@ -249,3 +249,5 @@ Then in immediate window:
 step with this through all sheets until all Shapes are deleted.
 
 == Windows 7 wifi hotspot ==
+
+http://www.techradar.com/news/computing/pc/how-to-turn-your-windows-7-laptop-into-a-wireless-hotspot-657138
