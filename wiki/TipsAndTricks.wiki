@@ -247,3 +247,5 @@ Then in immediate window:
  ?Activesheet.Shapes(1).delete
 
 step with this through all sheets until all Shapes are deleted.
+
+== Windows 7 wifi hotspot ==
