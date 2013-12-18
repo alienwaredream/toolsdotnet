@@ -15,3 +15,9 @@ localNotification.repeatInterval = NSHourCalendarUnit;
 NSDictionary *infoDict=[NSDictionary dictionaryWithObject:@"1234" forKey:@"IDkey"];
 localNotification.userInfo = infoDict
 }}}
+
+== schedule or not ==
+
+nce you have created an instance of UILocalNotification, you schedule it using one of two methods of the UIApplication class: scheduleLocalNotification: or presentLocalNotificationNow:.
+
+_I need to use *presentLocalNotificationNow* to avoid user mingling with the app before notification is shown_
