@@ -47,3 +47,15 @@ Discussion
 The string is a filename of an image file in the application bundle. This image is a launching image specified for a given notification; when the user taps the action button (for example, “View”) or moves the action slider, the image is used in place of the default launching image. If the value of this property is nil (the default), the system either uses the previous snapshot, uses the image identified by the UILaunchImageFile key in the application’s Info.plist file, or falls back to Default.png.
 
 The value of this key has the exact same semantics as UILaunchImageFile. For more about this key, see the Information Property List Key Reference.
+
+== Sound name - I want it ==
+
+soundName
+The name of the file containing the sound to play when an alert is displayed.
+{{{
+@property(nonatomic, copy) NSString *soundName
+}}}
+Discussion
+For this property, specify the filename (including extension) of a sound resource in the application’s main bundle or UILocalNotificationDefaultSoundName to request the default system sound. When the system displays an alert for a local notification or badges an application icon, it plays this sound. The default value is nil (no sound). Sounds that last longer than 30 seconds are not supported. If you specify a file with a sound that plays over 30 seconds, the default sound is played instead.
+
+For information on valid sound resources, see “Scheduling, Registering, and Handling Notifications” in Local and Push Notification Programming Guide.
