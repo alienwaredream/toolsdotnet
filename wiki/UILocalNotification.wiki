@@ -20,4 +20,4 @@ localNotification.userInfo = infoDict
 
 nce you have created an instance of UILocalNotification, you schedule it using one of two methods of the UIApplication class: scheduleLocalNotification: or presentLocalNotificationNow:.
 
-_I need to use *presentLocalNotificationNow* to avoid user mingling with the app before notification is shown_
+_I need to use *presentLocalNotificationNow* to avoid user mingling with the app before notification is shown. No need to set fireDate and timeZone then_
