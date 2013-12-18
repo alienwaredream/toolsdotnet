@@ -25,3 +25,13 @@ _I need to use *presentLocalNotificationNow* to avoid user mingling with the app
 == handling states ==
 
 If the notification is an *alert* and the user taps the action button (or, if the device is locked, drags open the action slider), the application is launched. _When it is an alert and when it is not??_
+
+== Alert or not - Action thingy - Experiment with that ==
+
+hasAction
+A Boolean value that controls whether the notification shows or hides the alert action.
+{{{
+@property(nonatomic) BOOL hasAction
+}}}
+Discussion
+Assign NO to this property to hide the alert button or slider. (This effect requires alertBody to be non-nil.) The default value is YES.
