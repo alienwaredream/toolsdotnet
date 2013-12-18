@@ -59,3 +59,22 @@ Discussion
 For this property, specify the filename (including extension) of a sound resource in the application’s main bundle or UILocalNotificationDefaultSoundName to request the default system sound. When the system displays an alert for a local notification or badges an application icon, it plays this sound. The default value is nil (no sound). Sounds that last longer than 30 seconds are not supported. If you specify a file with a sound that plays over 30 seconds, the default sound is played instead.
 
 For information on valid sound resources, see “Scheduling, Registering, and Handling Notifications” in Local and Push Notification Programming Guide.
+
+== Take this into account, looks like presentLocalNotificationNow is flawed on iOS7 ==
+
+Found a workaround for the problem.
+It appears only on devices with iOS > 7.x (Bugreport: 15129773)
+ 
+The issue don't occour when you schedule the UILocalNotification. Just do it with some miliseconds delay:
+{{{
+UILocalNotification *notif = [[UILocalNotification alloc] init];
+notif.alertBody = @"Message-Text";
+notif.soundName = @"Custom-Sound-Name.mp3";
+notif.fireDate = [[NSDate date] dateByAddingTimeInterval:0.1];
+
+notif.applicationIconBadgeNumber += 1;
+notif.userInfo = @{some-key: some-data};
+[[UIApplication sharedApplication] scheduleLocalNotification:notif];
+}}}
+ 
+Greez Chris
