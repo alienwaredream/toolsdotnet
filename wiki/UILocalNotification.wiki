@@ -2,3 +2,9 @@
 {{{
 localNotification.soundName = UILocalNotificationDefaultSoundName;
 }}}
+
+== repeating notification ==
+
+{{{
+localNotification.repeatInterval = NSHourCalendarUnit;
+}}}
