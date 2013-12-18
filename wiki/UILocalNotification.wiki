@@ -77,4 +77,3 @@ notif.userInfo = @{some-key: some-data};
 [[UIApplication sharedApplication] scheduleLocalNotification:notif];
 }}}
  
-Greez Chris
