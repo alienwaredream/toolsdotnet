@@ -8,3 +8,10 @@ localNotification.soundName = UILocalNotificationDefaultSoundName;
 {{{
 localNotification.repeatInterval = NSHourCalendarUnit;
 }}}
+
+== custom data in local notification ==
+
+{{{
+NSDictionary *infoDict=[NSDictionary dictionaryWithObject:@"1234" forKey:@"IDkey"];
+localNotification.userInfo = infoDict
+}}}
