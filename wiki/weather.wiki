@@ -10,6 +10,8 @@ weather.io: https://developer.forecast.io/
 
 diy: http://sietse.net/iwdl-info/
 
+Norwegian, looks good: http://api.yr.no/weatherapi/documentation
+
 === Icons ===
 
 http://line25.com/tutorials/how-to-create-a-set-of-vector-weather-line-icons
