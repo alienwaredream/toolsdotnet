@@ -4,6 +4,9 @@ http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang
 
 http://metwit.com/weather-api/
 
+NOAA: http://graphical.weather.gov/xml/rest.php
+
+
 === Icons ===
 
 http://line25.com/tutorials/how-to-create-a-set-of-vector-weather-line-icons
