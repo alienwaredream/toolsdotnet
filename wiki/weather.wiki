@@ -8,6 +8,7 @@ NOAA: http://graphical.weather.gov/xml/rest.php
 
 weather.io: https://developer.forecast.io/
 
+diy: http://sietse.net/iwdl-info/
 
 === Icons ===
 
