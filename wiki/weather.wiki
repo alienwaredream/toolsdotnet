@@ -6,6 +6,8 @@ http://metwit.com/weather-api/
 
 NOAA: http://graphical.weather.gov/xml/rest.php
 
+weather.io: https://developer.forecast.io/
+
 
 === Icons ===
 
