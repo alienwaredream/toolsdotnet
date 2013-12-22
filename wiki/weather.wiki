@@ -4,7 +4,11 @@ http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang
 
 http://metwit.com/weather-api/
 
-NOAA: http://graphical.weather.gov/xml/rest.php
+== NOAA ==
+
+http://graphical.weather.gov/xml/rest.php
+
+_geo code for US? if US, use NOAA, else use openweathermap_
 
 weather.io: https://developer.forecast.io/
 
