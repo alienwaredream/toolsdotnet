@@ -21,9 +21,9 @@ BOOL supportsSomeKey = YES;
 }}}
 
 === For complex paths ===
-{{{
+
 Similarly, valueForKeyPath: returns the value for the specified key path, relative to the receiver. Any object in the key path sequence that is not key-value coding compliant for the appropriate key receives a valueForUndefinedKey: message.
-}}}
+
 
 == NOAA ==
 
