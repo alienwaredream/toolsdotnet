@@ -4,6 +4,22 @@ http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang
 
 http://metwit.com/weather-api/
 
+=== Checking if key for value exists ===
+{{{
+BOOL supportsSomeKey = YES;
+@try
+{
+    [object valueForKey:somekey];
+}
+@catch (NSException *e)
+{
+    if ([[e name] isEqualTo:NSUndefinedKeyException])
+    {
+        supportsSomeKey = NO;
+    }
+}
+}}}
+
 == NOAA ==
 
 http://graphical.weather.gov/xml/rest.php
