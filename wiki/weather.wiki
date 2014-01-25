@@ -29,6 +29,8 @@ Similarly, valueForKeyPath: returns the value for the specified key path, relati
 
 http://graphical.weather.gov/xml/rest.php
 
+http://umcs.maine.edu/~wlamond/pdf/w-lamond-ios-report.pdf
+
 _geo code for US? if US, use NOAA, else use openweathermap_
 
 weather.io: https://developer.forecast.io/
