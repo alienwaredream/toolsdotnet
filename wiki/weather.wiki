@@ -37,6 +37,10 @@ diy: http://sietse.net/iwdl-info/
 
 Norwegian, looks good: http://api.yr.no/weatherapi/documentation
 
+== SO - a good one ==
+
+http://stackoverflow.com/questions/5775488/to-display-weather-forecast-for-currentday-next-day-and-day-after-next-day-in-ip
+
 === Icons ===
 
 http://line25.com/tutorials/how-to-create-a-set-of-vector-weather-line-icons
