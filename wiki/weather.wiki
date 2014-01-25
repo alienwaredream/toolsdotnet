@@ -37,6 +37,8 @@ diy: http://sietse.net/iwdl-info/
 
 Norwegian, looks good: http://api.yr.no/weatherapi/documentation
 
+http://api.yr.no/weatherapi/locationforecast/1.8/documentation
+
 == SO - a good one ==
 
 http://stackoverflow.com/questions/5775488/to-display-weather-forecast-for-currentday-next-day-and-day-after-next-day-in-ip
