@@ -811,3 +811,7 @@ https://code.google.com/p/core-plot/
 == Audio ==
 
 http://www.subfurther.com/blog/2009/04/28/an-iphone-core-audio-brain-dump/
+
+== Master detail in iPad mail ==
+
+http://useyourloaf.com/blog/2011/11/16/mail-app-style-split-view-controller-with-a-sliding-master-v.html
