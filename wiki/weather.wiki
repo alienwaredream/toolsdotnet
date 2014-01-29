@@ -54,6 +54,12 @@ http://api.yr.no/weatherapi/locationforecast/1.8/documentation
 
 http://ios.biomsoft.com/2011/09/11/simple-xml-to-nsdictionary-converter/
 
+=== Metar & Metaf parser ===
+
+They mention NOAA as well in the demo. Looks like specific to pilots weather information. This is sourceforge, so look for a code as well!
+
+http://metaf2xml.sourceforge.net/gui.html?lang=en
+
 
 == SO - a good one ==
 
