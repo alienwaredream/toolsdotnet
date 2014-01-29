@@ -409,7 +409,11 @@ http://graphical.weather.gov/xml/docs/elementInputNames.php
 *What looks really cool with NOAA is that I can combine a single request with params that will return me daily and hourly forecasts with all the data I need*
 _But actually, probably not. The problem might be then to deduce a single icon for a whole day and calculate properly min/max temperatures. There is no way how to include any params in daily client, thus will go with two calls still - one for hourly and one for daily_
 
+=== Most probably what I need for hourly forecast ===
 
+http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=38.99&lon=-77.01&product=time-series&Unit=m&begin=2014-01-29T00:00:00&end=2014-2-6T00:00:00&maxt=maxt&mint=mint&wspd=wspd&wdir=wdir&temp=temp&icons=icons
+
+24 hours ahead of now will be enough for me
 
 === Example for forecast, limited to mint and maxt  ===
 
