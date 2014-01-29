@@ -50,6 +50,11 @@ Norwegian, looks good: http://api.yr.no/weatherapi/documentation
 
 http://api.yr.no/weatherapi/locationforecast/1.8/documentation
 
+== XML to NSDictionary ==
+
+http://ios.biomsoft.com/2011/09/11/simple-xml-to-nsdictionary-converter/
+
+
 == SO - a good one ==
 
 http://stackoverflow.com/questions/5775488/to-display-weather-forecast-for-currentday-next-day-and-day-after-next-day-in-ip
