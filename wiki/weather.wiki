@@ -33,6 +33,165 @@ http://umcs.maine.edu/~wlamond/pdf/w-lamond-ios-report.pdf
 
 _geo code for US? if US, use NOAA, else use openweathermap_
 
+=== Example for daily forecast 24 hours ===
+
+http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?lat=38.99&lon=-77.01&format=24+hourly&numDays=7
+
+Response: 
+{{{
+<dwml xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:noNamespaceSchemaLocation="http://www.nws.noaa.gov/forecasts/xml/DWMLgen/schema/DWML.xsd">
+<head>
+<product srsName="WGS 1984" concise-name="dwmlByDay" operational-mode="official">
+<title>
+NOAA's National Weather Service Forecast by 24 Hour Period
+</title>
+<field>meteorological</field>
+<category>forecast</category>
+<creation-date refresh-frequency="PT1H">2014-01-29T13:41:38Z</creation-date>
+</product>
+<source>
+<more-information>http://www.nws.noaa.gov/forecasts/xml/</more-information>
+<production-center>
+Meteorological Development Laboratory
+<sub-center>Product Generation Branch</sub-center>
+</production-center>
+<disclaimer>http://www.nws.noaa.gov/disclaimer.html</disclaimer>
+<credit>http://www.weather.gov/</credit>
+<credit-logo>http://www.weather.gov/images/xml_logo.gif</credit-logo>
+<feedback>http://www.weather.gov/feedback.php</feedback>
+</source>
+</head>
+<data>
+<location>
+<location-key>point1</location-key>
+<point latitude="38.99" longitude="-77.01"/>
+</location>
+<moreWeatherInformation applicable-location="point1">
+http://forecast.weather.gov/MapClick.php?textField1=38.99&textField2=-77.01
+</moreWeatherInformation>
+<time-layout time-coordinate="local" summarization="24hourly">
+<layout-key>k-p24h-n7-1</layout-key>
+<start-valid-time>2014-01-29T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-30T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-30T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-31T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-31T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-01T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-01T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-02T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-02T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-03T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-03T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-04T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-04T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-05T06:00:00-05:00</end-valid-time>
+</time-layout>
+<time-layout time-coordinate="local" summarization="12hourly">
+<layout-key>k-p12h-n14-2</layout-key>
+<start-valid-time>2014-01-29T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-29T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-29T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-30T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-30T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-30T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-30T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-31T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-31T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-31T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-31T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-01T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-01T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-01T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-01T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-02T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-02T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-02T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-02T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-03T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-03T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-03T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-03T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-04T06:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-04T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-04T18:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-04T18:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-05T06:00:00-05:00</end-valid-time>
+</time-layout>
+<time-layout time-coordinate="local" summarization="24hourly">
+<layout-key>k-p7d-n1-3</layout-key>
+<start-valid-time>2014-01-29T06:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-05T06:00:00-05:00</end-valid-time>
+</time-layout>
+<parameters applicable-location="point1">
+<temperature type="maximum" units="Fahrenheit" time-layout="k-p24h-n7-1">
+<name>Daily Maximum Temperature</name>
+<value>22</value>
+<value>30</value>
+<value>43</value>
+<value>49</value>
+<value>42</value>
+<value>39</value>
+<value>39</value>
+</temperature>
+<temperature type="minimum" units="Fahrenheit" time-layout="k-p24h-n7-1">
+<name>Daily Minimum Temperature</name>
+<value>13</value>
+<value>22</value>
+<value>30</value>
+<value>34</value>
+<value>28</value>
+<value>28</value>
+<value xsi:nil="true"/>
+</temperature>
+<probability-of-precipitation type="12 hour" units="percent" time-layout="k-p12h-n14-2">
+<name>12 Hourly Probability of Precipitation</name>
+<value>12</value>
+<value>0</value>
+<value>0</value>
+<value>5</value>
+<value>11</value>
+<value>9</value>
+<value>5</value>
+<value>13</value>
+<value>14</value>
+<value>8</value>
+<value>26</value>
+<value>14</value>
+<value>40</value>
+<value xsi:nil="true"/>
+</probability-of-precipitation>
+<weather time-layout="k-p24h-n7-1">
+<name>Weather Type, Coverage, and Intensity</name>
+<weather-conditions weather-summary="Becoming Sunny"/>
+<weather-conditions weather-summary="Partly Sunny"/>
+<weather-conditions weather-summary="Mostly Cloudy"/>
+<weather-conditions weather-summary="Mostly Cloudy"/>
+<weather-conditions weather-summary="Mostly Cloudy"/>
+<weather-conditions weather-summary="Chance Rain/Snow">
+<value coverage="chance" intensity="light" weather-type="rain" qualifier="none"/>
+<value coverage="chance" intensity="light" additive="and" weather-type="snow" qualifier="none"/>
+</weather-conditions>
+<weather-conditions weather-summary="Chance Rain/Snow">
+<value coverage="chance" intensity="light" weather-type="rain" qualifier="none"/>
+<value coverage="chance" intensity="light" additive="and" weather-type="snow" qualifier="none"/>
+</weather-conditions>
+</weather>
+<conditions-icon type="forecast-NWS" time-layout="k-p24h-n7-1">...</conditions-icon>
+<hazards time-layout="k-p7d-n1-3">
+<name>Watches, Warnings, and Advisories</name>
+<hazard-conditions xsi:nil="true"/>
+</hazards>
+</parameters>
+</data>
+</dwml>
+}}}
+
+*Has no wind information!*
+
+=== Example for forecast, limited to mint and maxt  ===
+
+http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=38.99&lon=-77.01&product=time-series&begin=2014-01-29T00:00:00&end=2014-2-6T00:00:00&maxt=maxt&mint=mint
+
 === US geo bounds ===
 
 Coordinates for North America:
