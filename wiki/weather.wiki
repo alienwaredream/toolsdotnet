@@ -188,6 +188,220 @@ http://forecast.weather.gov/MapClick.php?textField1=38.99&textField2=-77.01
 
 *Has no wind information!*
 
+So it looks like that not daily, but detailed client should be used:
+
+http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=38.99&lon=-77.01&product=time-series&Unit=m&begin=2014-01-29T00:00:00&end=2014-2-6T00:00:00&maxt=maxt&mint=mint&wspd=wspd&wdir=wdir
+
+With this one you can add parameters (like above for a wind speed and direction. Here is example of a response:
+
+{{{
+<dwml xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:noNamespaceSchemaLocation="http://www.nws.noaa.gov/forecasts/xml/DWMLgen/schema/DWML.xsd">
+<head>
+<product srsName="WGS 1984" concise-name="time-series" operational-mode="official">
+<title>NOAA's National Weather Service Forecast Data</title>
+<field>meteorological</field>
+<category>forecast</category>
+<creation-date refresh-frequency="PT1H">2014-01-29T14:02:25Z</creation-date>
+</product>
+<source>
+<more-information>http://www.nws.noaa.gov/forecasts/xml/</more-information>
+<production-center>
+Meteorological Development Laboratory
+<sub-center>Product Generation Branch</sub-center>
+</production-center>
+<disclaimer>http://www.nws.noaa.gov/disclaimer.html</disclaimer>
+<credit>http://www.weather.gov/</credit>
+<credit-logo>http://www.weather.gov/images/xml_logo.gif</credit-logo>
+<feedback>http://www.weather.gov/feedback.php</feedback>
+</source>
+</head>
+<data>
+<location>
+<location-key>point1</location-key>
+<point latitude="38.99" longitude="-77.01"/>
+</location>
+<moreWeatherInformation applicable-location="point1">
+http://forecast.weather.gov/MapClick.php?textField1=38.99&textField2=-77.01
+</moreWeatherInformation>
+<time-layout time-coordinate="local" summarization="none">
+<layout-key>k-p24h-n7-1</layout-key>
+<start-valid-time>2014-01-29T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-29T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-30T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-30T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-31T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-31T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-01T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-01T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-02T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-02T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-03T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-03T19:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-04T07:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-04T19:00:00-05:00</end-valid-time>
+</time-layout>
+<time-layout time-coordinate="local" summarization="none">
+<layout-key>k-p24h-n6-2</layout-key>
+<start-valid-time>2014-01-29T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-30T08:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-30T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-01-31T08:00:00-05:00</end-valid-time>
+<start-valid-time>2014-01-31T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-01T08:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-01T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-02T08:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-02T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-03T08:00:00-05:00</end-valid-time>
+<start-valid-time>2014-02-03T19:00:00-05:00</start-valid-time>
+<end-valid-time>2014-02-04T08:00:00-05:00</end-valid-time>
+</time-layout>
+<time-layout time-coordinate="local" summarization="none">
+<layout-key>k-p3h-n36-3</layout-key>
+<start-valid-time>2014-01-29T10:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-29T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-29T16:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-29T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-29T22:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T04:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T10:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T16:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-30T22:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T04:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T10:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T16:00:00-05:00</start-valid-time>
+<start-valid-time>2014-01-31T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-01T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-01T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-01T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-01T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-02T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-02T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-02T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-02T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-03T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-03T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-03T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-03T19:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-04T01:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-04T07:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-04T13:00:00-05:00</start-valid-time>
+<start-valid-time>2014-02-04T19:00:00-05:00</start-valid-time>
+</time-layout>
+<parameters applicable-location="point1">
+<temperature type="maximum" units="Celsius" time-layout="k-p24h-n7-1">
+<name>Daily Maximum Temperature</name>
+<value>-6</value>
+<value>-1</value>
+<value>6</value>
+<value>9</value>
+<value>6</value>
+<value>4</value>
+<value>4</value>
+</temperature>
+<temperature type="minimum" units="Celsius" time-layout="k-p24h-n6-2">
+<name>Daily Minimum Temperature</name>
+<value>-11</value>
+<value>-6</value>
+<value>-1</value>
+<value>1</value>
+<value>-2</value>
+<value>-2</value>
+</temperature>
+<wind-speed type="sustained" units="meters/second" time-layout="k-p3h-n36-3">
+<name>Wind Speed</name>
+<value>5</value>
+<value>6</value>
+<value>5</value>
+<value>4</value>
+<value>3</value>
+<value>3</value>
+<value>1</value>
+<value>0</value>
+<value>1</value>
+<value>3</value>
+<value>3</value>
+<value>3</value>
+<value>3</value>
+<value>4</value>
+<value>3</value>
+<value>2</value>
+<value>3</value>
+<value>3</value>
+<value>1</value>
+<value>1</value>
+<value>1</value>
+<value>2</value>
+<value>4</value>
+<value>4</value>
+<value>3</value>
+<value>3</value>
+<value>5</value>
+<value>2</value>
+<value>2</value>
+<value>3</value>
+<value>1</value>
+<value>1</value>
+<value>0</value>
+<value>1</value>
+<value>2</value>
+<value>2</value>
+</wind-speed>
+<direction type="wind" units="degrees true" time-layout="k-p3h-n36-3">
+<name>Wind Direction</name>
+<value>310</value>
+<value>290</value>
+<value>290</value>
+<value>290</value>
+<value>290</value>
+<value>300</value>
+<value>290</value>
+<value>280</value>
+<value>180</value>
+<value>180</value>
+<value>160</value>
+<value>140</value>
+<value>180</value>
+<value>190</value>
+<value>200</value>
+<value>210</value>
+<value>220</value>
+<value>220</value>
+<value>220</value>
+<value>150</value>
+<value>120</value>
+<value>110</value>
+<value>190</value>
+<value>200</value>
+<value>220</value>
+<value>300</value>
+<value>330</value>
+<value>340</value>
+<value>340</value>
+<value>350</value>
+<value>340</value>
+<value>0</value>
+<value>50</value>
+<value>50</value>
+<value>80</value>
+<value>80</value>
+</direction>
+</parameters>
+</data>
+</dwml>
+}}}
+
+Here is a list of all possible params for a detailed client:
+
+http://graphical.weather.gov/xml/docs/elementInputNames.php
+
+
 === Example for forecast, limited to mint and maxt  ===
 
 http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=38.99&lon=-77.01&product=time-series&begin=2014-01-29T00:00:00&end=2014-2-6T00:00:00&maxt=maxt&mint=mint
