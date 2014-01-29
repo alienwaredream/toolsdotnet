@@ -1,5 +1,10 @@
 =Weather=
 
+=== Common notes ===
+
+*  Looks like it is better to show wind only for hourly forecast a day ahead, but avoid doing it for a daily forecast a week ahead.
+
+
 http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&units=metric&lang=ru
 
 http://metwit.com/weather-api/
