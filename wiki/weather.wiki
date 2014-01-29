@@ -401,6 +401,9 @@ Here is a list of all possible params for a detailed client:
 
 http://graphical.weather.gov/xml/docs/elementInputNames.php
 
+*What looks really cool with NOAA is that I can combine a single request with params that will return me daily and hourly forecasts with all the data I need*
+
+
 
 === Example for forecast, limited to mint and maxt  ===
 
