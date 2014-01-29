@@ -33,6 +33,15 @@ http://umcs.maine.edu/~wlamond/pdf/w-lamond-ios-report.pdf
 
 _geo code for US? if US, use NOAA, else use openweathermap_
 
+=== US geo bounds ===
+
+Coordinates for North America:
+{{{
+var strictBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(28.70, -127.50), 
+    new google.maps.LatLng(48.85, -55.90)
+);
+}}}
 weather.io: https://developer.forecast.io/
 
 diy: http://sietse.net/iwdl-info/
