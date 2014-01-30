@@ -432,9 +432,114 @@ weather.io: https://developer.forecast.io/
 
 diy: http://sietse.net/iwdl-info/
 
-Norwegian, looks good: http://api.yr.no/weatherapi/documentation
+=== Norwegian, looks good ===
+
+http://api.yr.no/weatherapi/documentation
 
 http://api.yr.no/weatherapi/locationforecast/1.8/documentation
+
+==== Sample ====
+http://api.yr.no/weatherapi/locationforecast/1.8/?lat=50.051;lon=14.45
+
+Looks really good, only following issues:
+1. Looks like record for the current time is never present. So forecast starts from now + nearest 3 hours point. Like at 1:14pm, it will start from 3pm. I'd need to get the current conditions from somewhere else.
+2. As it gives everything in hourly intervals, I'd have to calculate myself accumulated values as mint and maxt and probably avg for wind.
+
+
+_Otherwise gives wind and many more for 10 days ahead with hourly interval_
+
+_Values for percipitation are given in some irregular intervals. I'd have to study more to see how that can be used to be shown. Though it can be quite interesting as they look to provide those intervals in period for t1-t2 "SNOW" t3-t4 "RAIN" - can be otherwise quite precise and interesting, but I need to calculate myself the accumulated weather condition_ 
+
+Response sample:
+
+{{{
+<weatherdata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://api.met.no/weatherapi/locationforecast/1.8/schema" created="2014-01-30T12:05:52Z">
+<meta>
+<model name="EC.GEO.0.25" termin="2014-01-30T00:00:00Z" runended="2014-01-30T07:03:32Z" nextrun="2014-01-30T20:00:00Z" from="2014-01-30T15:00:00Z" to="2014-02-09T00:00:00Z"/>
+</meta>
+<product class="pointData">
+<time datatype="forecast" from="2014-01-30T15:00:00Z" to="2014-01-30T15:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<temperature id="TTT" unit="celcius" value="-0.2"/>
+<windDirection id="dd" deg="108.8" name="E"/>
+<windSpeed id="ff" mps="3.4" beaufort="2" name="Svak vind"/>
+<humidity value="69.0" unit="percent"/>
+<pressure id="pr" unit="hPa" value="1013.2"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="24.2"/>
+<highClouds id="HIGH" percent="100.0"/>
+<dewpointTemperature id="TD" unit="celcius" value="-5.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T12:00:00Z" to="2014-01-30T15:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T09:00:00Z" to="2014-01-30T15:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T18:00:00Z" to="2014-01-30T18:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<temperature id="TTT" unit="celcius" value="-1.1"/>
+<windDirection id="dd" deg="104.8" name="E"/>
+<windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+<humidity value="76.9" unit="percent"/>
+<pressure id="pr" unit="hPa" value="1012.9"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="44.5"/>
+<mediumClouds id="MEDIUM" percent="26.6"/>
+<highClouds id="HIGH" percent="100.0"/>
+<dewpointTemperature id="TD" unit="celcius" value="-4.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T15:00:00Z" to="2014-01-30T18:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T12:00:00Z" to="2014-01-30T18:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T21:00:00Z" to="2014-01-30T21:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<temperature id="TTT" unit="celcius" value="-0.0"/>
+<windDirection id="dd" deg="116.4" name="SE"/>
+<windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+<humidity value="76.1" unit="percent"/>
+<pressure id="pr" unit="hPa" value="1011.5"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="1.6"/>
+<mediumClouds id="MEDIUM" percent="86.7"/>
+<highClouds id="HIGH" percent="99.2"/>
+<dewpointTemperature id="TD" unit="celcius" value="-4.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T18:00:00Z" to="2014-01-30T21:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+<time datatype="forecast" from="2014-01-30T15:00:00Z" to="2014-01-30T21:00:00Z">
+<location altitude="315" latitude="50.0510" longitude="14.4500">
+<precipitation unit="mm" value="0.0"/>
+<symbol id="CLOUD" number="4"/>
+</location>
+</time>
+}}}
 
 == XML to NSDictionary ==
 
