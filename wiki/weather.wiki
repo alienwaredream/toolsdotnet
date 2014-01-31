@@ -38,6 +38,9 @@ http://umcs.maine.edu/~wlamond/pdf/w-lamond-ios-report.pdf
 
 _geo code for US? if US, use NOAA, else use openweathermap_
 
+Aviation: http://www.aviationweather.gov/adds/
+
+
 === Example for daily forecast 24 hours ===
 
 http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?lat=38.99&lon=-77.01&format=24+hourly&numDays=7
