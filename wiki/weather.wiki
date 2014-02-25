@@ -576,6 +576,7 @@ http://stackoverflow.com/questions/10040954/alternative-to-google-finance-api
 
 stock news and much more: https://developers.tradeking.com/documentation/market-news-search-get-post
 
+http://www.financialcontent.com/
 
 
 =Exchange rates=
