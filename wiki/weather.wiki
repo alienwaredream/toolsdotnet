@@ -581,6 +581,9 @@ http://www.financialcontent.com/
 
 =Exchange rates=
 
+http://openexchangerates.org/api/latest.json?app_id=
+
+
 = Twitter =
 
 https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234
