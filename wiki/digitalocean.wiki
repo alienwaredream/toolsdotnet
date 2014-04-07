@@ -1,0 +1,260 @@
+#summary One-sentence summary of this page.
+
+== http_load ==
+
+login as: demo
+demo@107.170.115.82's password:
+
+demo@apps1:~$ sudo reboot now
+[sudo] password for demo:
+demo@apps1:~$
+Broadcast message from demo@apps1
+        (/dev/pts/2) at 6:44 ...
+
+The system is going down for reboot NOW!
+login as: demo
+demo@107.170.115.82's password:
+Welcome to Ubuntu 12.04.4 LTS (GNU/Linux 3.8.0-29-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Mon Apr  7 06:44:45 EDT 2014
+
+  System load:  0.0               Processes:           79
+  Usage of /:   8.4% of 19.56GB   Users logged in:     0
+  Memory usage: 13%               IP address for eth0: 107.170.115.82
+  Swap usage:   0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+Last login: Mon Apr  7 06:42:14 2014 from gprs30.vodafone.cz
+demo@apps1:~$ curl 'http://apps.blocoware.com'                                  <html>
+<head>
+<title>Welcome to nginx!</title>
+</head>
+<body bgcolor="white" text="black">
+<center><h1>Welcome to nginx!</h1></center>
+</body>
+</html>
+demo@apps1:~$ cd work/
+demo@apps1:~/work$ cd conf/
+demo@apps1:~/work/conf$ ls
+demo@apps1:~/work/conf$ vim nginx.conf
+demo@apps1:~/work/conf$ vim nginx.conf
+demo@apps1:~/work/conf$ cd ..
+demo@apps1:~/work$ cd conf/
+demo@apps1:~/work/conf$ cd ~\
+> ^C
+demo@apps1:~/work/conf$ cd ~
+demo@apps1:~$ ls
+ngx_openresty-1.5.11.1  ngx_openresty-1.5.11.1.tar.gz  work
+demo@apps1:~$ ls /usr/local
+bin  etc  games  include  lib  man  openresty  sbin  share  src
+demo@apps1:~$ cd openresty
+-bash: cd: openresty: No such file or directory
+demo@apps1:~$ cd usr/local/openresty
+-bash: cd: usr/local/openresty: No such file or directory
+demo@apps1:~$ cd /usr/local/openresty
+demo@apps1:/usr/local/openresty$ ls
+luajit  lualib  nginx
+demo@apps1:/usr/local/openresty$ cd nginx
+demo@apps1:/usr/local/openresty/nginx$ ls
+conf  html  logs  sbin
+demo@apps1:/usr/local/openresty/nginx$ cd sbin
+demo@apps1:/usr/local/openresty/nginx/sbin$ ls
+nginx
+demo@apps1:/usr/local/openresty/nginx/sbin$ PATH=/usr/local/openresty/nginx/sbin:$PATH
+demo@apps1:/usr/local/openresty/nginx/sbin$ export PATH
+demo@apps1:/usr/local/openresty/nginx/sbin$ cd ~\work
+-bash: cd: ~work: No such file or directory
+demo@apps1:/usr/local/openresty/nginx/sbin$ cd ~
+demo@apps1:~$ cd work/
+demo@apps1:~/work$ nginx -p `pwd`/ -c conf/nginx.conf
+demo@apps1:~/work$ curl http://localhost:8080/
+<p>hello, world</p>
+demo@apps1:~/work$ http_load -p 10 -s 5 http://localhost:8080/
+http_load: command not found
+demo@apps1:~/work$ uname
+Linux
+demo@apps1:~/work$ uname -a
+Linux apps1 3.8.0-29-generic #42~precise1-Ubuntu SMP Wed Aug 14 16:19:23 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+demo@apps1:~/work$ http_load
+http_load: command not found
+demo@apps1:~/work$ cd ~
+demo@apps1:~$ mkdir utils
+demo@apps1:~$ wget 'http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz'
+--2014-04-07 07:08:33--  http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz
+Resolving www.acme.com (www.acme.com)... 216.27.178.28
+Connecting to www.acme.com (www.acme.com)|216.27.178.28|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17033 (17K) [application/x-tar]
+Saving to: `http_load-12mar2006.tar.gz'
+
+100%[======================================>] 17,033      61.9K/s   in 0.3s
+
+2014-04-07 07:08:33 (61.9 KB/s) - `http_load-12mar2006.tar.gz' saved [17033/17033]
+
+demo@apps1:~$ cd util
+-bash: cd: util: No such file or directory
+demo@apps1:~$ cd utils
+demo@apps1:~/utils$ ls
+demo@apps1:~/utils$ ls
+demo@apps1:~/utils$ cd ~
+demo@apps1:~$ ls
+http_load-12mar2006.tar.gz  ngx_openresty-1.5.11.1.tar.gz  work
+ngx_openresty-1.5.11.1      utils
+demo@apps1:~$ del http_load-12mar2006.tar.gz
+No command 'del' found, did you mean:
+ Command 'mdel' from package 'mtools' (main)
+ Command 'delp' from package 'fp-utils-2.4.4' (universe)
+ Command 'el' from package 'oneliner-el' (universe)
+ Command 'tel' from package 'orville-write' (universe)
+ Command 'deal' from package 'deal' (universe)
+ Command 'hdel' from package 'hfsutils' (main)
+ Command 'bel' from package 'belier' (universe)
+ Command 'qdel' from package 'slurm-llnl-torque' (universe)
+ Command 'qdel' from package 'gridengine-client' (universe)
+ Command 'qdel' from package 'torque-client-x11' (universe)
+ Command 'qdel' from package 'torque-client' (universe)
+del: command not found
+demo@apps1:~$ delete
+.bash_history                  ngx_openresty-1.5.11.1.tar.gz
+.bash_logout                   .profile
+.bashrc                        utils/
+.cache/                        .viminfo
+http_load-12mar2006.tar.gz     work/
+ngx_openresty-1.5.11.1/
+demo@apps1:~$ delete delelete http_load-12mar2006.tar.gz
+delete: command not found
+demo@apps1:~$ rm http_load-12mar2006.tar.gz
+demo@apps1:~$ ls
+ngx_openresty-1.5.11.1  ngx_openresty-1.5.11.1.tar.gz  utils  work
+demo@apps1:~$ cd utils
+demo@apps1:~/utils$ mk httpload
+mk: command not found
+demo@apps1:~/utils$ mkdir http_load
+demo@apps1:~/utils$ wget 'http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz'
+--2014-04-07 07:10:52--  http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz
+Resolving www.acme.com (www.acme.com)... 216.27.178.28
+Connecting to www.acme.com (www.acme.com)|216.27.178.28|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17033 (17K) [application/x-tar]
+Saving to: `http_load-12mar2006.tar.gz'
+
+100%[======================================>] 17,033      64.4K/s   in 0.3s
+
+2014-04-07 07:10:52 (64.4 KB/s) - `http_load-12mar2006.tar.gz' saved [17033/17033]
+
+demo@apps1:~/utils$ http_load -p 10 -s 5 http://localhost:8080/^C
+demo@apps1:~/utils$ cd http_load
+demo@apps1:~/utils/http_load$ ls
+demo@apps1:~/utils/http_load$ ls
+demo@apps1:~/utils/http_load$ ls
+demo@apps1:~/utils/http_load$ http_load
+http_load: command not found
+demo@apps1:~/utils/http_load$ cd ..
+demo@apps1:~/utils$ ls
+http_load  http_load-12mar2006.tar.gz
+demo@apps1:~/utils$ rm http_load-12mar2006.tar.gz
+demo@apps1:~/utils$ cd http_load/
+demo@apps1:~/utils/http_load$ wget 'http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz'
+--2014-04-07 07:13:29--  http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz
+Resolving www.acme.com (www.acme.com)... 216.27.178.28
+Connecting to www.acme.com (www.acme.com)|216.27.178.28|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17033 (17K) [application/x-tar]
+Saving to: `http_load-12mar2006.tar.gz'
+
+100%[======================================>] 17,033      64.7K/s   in 0.3s
+
+2014-04-07 07:13:29 (64.7 KB/s) - `http_load-12mar2006.tar.gz' saved [17033/17033]
+
+demo@apps1:~/utils/http_load$ tar -zxvf http_load-12mar2006.tar.gz
+http_load-12mar2006/
+http_load-12mar2006/Makefile
+http_load-12mar2006/README
+http_load-12mar2006/http_load.1
+http_load-12mar2006/http_load.c
+http_load-12mar2006/make_test_files
+http_load-12mar2006/port.h
+http_load-12mar2006/timers.c
+http_load-12mar2006/timers.h
+http_load-12mar2006/version.h
+http_load-12mar2006/FILES
+demo@apps1:~/utils/http_load$ make
+make: *** No targets specified and no makefile found.  Stop.
+demo@apps1:~/utils/http_load$ make install
+make: *** No rule to make target `install'.  Stop.
+demo@apps1:~/utils/http_load$ vim readme
+demo@apps1:~/utils/http_load$ vim README
+demo@apps1:~/utils/http_load$ README
+README: command not found
+demo@apps1:~/utils/http_load$ vim Makefile
+demo@apps1:~/utils/http_load$ ls
+http_load-12mar2006  http_load-12mar2006.tar.gz
+demo@apps1:~/utils/http_load$ cd http_load-12mar2006/
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ls
+FILES        http_load.c  make_test_files  README    timers.h
+http_load.1  Makefile     port.h           timers.c  version.h
+demo@apps1:~/utils/http_load/http_load-12mar2006$ make
+gcc -Wall -O    -c http_load.c
+http_load.c: In function ‘main’:
+http_load.c:413:5: warning: implicit declaration of function ‘time’ [-Wimplicit-function-declaration]
+http_load.c: In function ‘handle_connect’:
+http_load.c:937:3: warning: pointer targets in passing argument 5 of ‘getsockopt’ differ in signedness [-Wpointer-sign]
+/usr/include/x86_64-linux-gnu/sys/socket.h:190:12: note: expected ‘socklen_t * __restrict__’ but argument is of type ‘int *’
+gcc -Wall -O    -c timers.c
+gcc -Wall -O    http_load.o timers.o -s   -o http_load
+demo@apps1:~/utils/http_load/http_load-12mar2006$ http_load
+http_load: command not found
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ls
+FILES        http_load.c  make_test_files  timers.c  version.h
+http_load    http_load.o  port.h           timers.h
+http_load.1  Makefile     README           timers.o
+demo@apps1:~/utils/http_load/http_load-12mar2006$ http_load
+http_load: command not found
+demo@apps1:~/utils/http_load/http_load-12mar2006$ make insstall
+make: *** No rule to make target `insstall'.  Stop.
+demo@apps1:~/utils/http_load/http_load-12mar2006$ http_load -p 10 -s 5 http://localhost:8080/
+http_load: command not found
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ./http_load -p 10 -s 5 http://localhost:8080/
+http://localhost:8080/: No such file or directory
+demo@apps1:~/utils/http_load/http_load-12mar2006$ cd ..
+demo@apps1:~/utils/http_load$ ls
+http_load-12mar2006  http_load-12mar2006.tar.gz
+demo@apps1:~/utils/http_load$ cd http_load-12mar2006/
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ls
+FILES        http_load.c  make_test_files  timers.c  version.h
+http_load    http_load.o  port.h           timers.h
+http_load.1  Makefile     README           timers.o
+demo@apps1:~/utils/http_load/http_load-12mar2006$ vim README
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ./http_load -p 10 -s 5 http://localhost:8080/^C
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ./http_load -man
+usage:  ./http_load [-checksum] [-throttle] [-proxy host:port] [-verbose] [-timeout secs] [-sip sip_file]
+            -parallel N | -rate N [-jitter]
+            -fetches N | -seconds N
+            url_file
+One start specifier, either -parallel or -rate, is required.
+One end specifier, either -fetches or -seconds, is required.
+demo@apps1:~/utils/http_load/http_load-12mar2006$ vim README^C
+demo@apps1:~/utils/http_load/http_load-12mar2006$ vim urls
+demo@apps1:~/utils/http_load/http_load-12mar2006$ vim urls
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ./http_load -p 10 -s 5 urls
+34178 fetches, 10 max parallel, 683560 bytes, in 5 seconds
+20 mean bytes/connection
+6835.6 fetches/sec, 136712 bytes/sec
+msecs/connect: 0.0445469 mean, 0.937 max, 0.021 min
+msecs/first-response: 1.41242 mean, 101.975 max, 0.257 min
+HTTP response codes:
+  code 200 -- 34178
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ./http_load -p 10 -s 5 urls
+33901 fetches, 10 max parallel, 678020 bytes, in 5 seconds
+20 mean bytes/connection
+6780.2 fetches/sec, 135604 bytes/sec
+msecs/connect: 0.0450803 mean, 1.012 max, 0.022 min
+msecs/first-response: 1.42492 mean, 17.848 max, 0.309 min
+HTTP response codes:
+  code 200 -- 33901
+demo@apps1:~/utils/http_load/http_load-12mar2006$ ^C
+demo@apps1:~/utils/http_load/http_load-12mar2006$
