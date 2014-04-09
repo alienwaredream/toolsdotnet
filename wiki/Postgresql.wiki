@@ -6,6 +6,8 @@ sudo -u postgres psql -d limits
 
 === Uninstalling first any existing: ===
 
+http://stackoverflow.com/questions/2748607/how-to-thoroughly-purge-and-reinstall-postgresql-on-ubuntu
+
 First: If your install isn't already damaged, you can drop unwanted PostgreSQL servers ("clusters") in Ubuntu using pg_dropcluster. Use that in preference to a full purge and reinstall if you just want to start with a freshly initdb'd PostgreSQL instance.
 
 If you really need to do a full purge and reinstall, first make sure PostgreSQL isn't running. ps -C postgres should show no results.
