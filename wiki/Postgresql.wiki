@@ -1,9 +1,7 @@
 =Objectives=
-*  Install postgresql with PostGIS and enable PostGIS
-
-*  Compile and run the most simple, but functional postgresql c program
-
-*  Find C CLI (command line) IDE or learn tricks on c programming
+  *Install postgresql with PostGIS and enable PostGIS
+  *Compile and run the most simple, but functional postgresql c program
+  *Find C CLI (command line) IDE or learn tricks on c programming
 
 
 == Installing postgis on postgre 9.1 and ubuntu 12.04 ==
