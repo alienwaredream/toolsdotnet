@@ -1,6 +1,8 @@
-== Get into the database ==
+=Objectives=
+* Install postgresql with PostGIS and enable PostGIS
+* Compile and run the most simple, but functional postgresql c program
+* Find C CLI (command line) IDE or learn tricks on c programming
 
-sudo -u postgres psql -d limits
 
 == Installing postgis on postgre 9.1 and ubuntu 12.04 ==
 
@@ -73,3 +75,7 @@ cc -o limits2 limits2.o -L/usr/lib -lpq
 sudo -u postgres ~/c/psql/limits2
 
 }}}
+
+== Get into the database ==
+
+sudo -u postgres psql -d limits
