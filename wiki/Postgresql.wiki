@@ -1,6 +1,8 @@
 =Objectives=
 *  Install postgresql with PostGIS and enable PostGIS
+
 *  Compile and run the most simple, but functional postgresql c program
+
 *  Find C CLI (command line) IDE or learn tricks on c programming
 
 
