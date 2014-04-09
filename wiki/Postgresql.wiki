@@ -53,4 +53,12 @@ sudo reboot
 pg_config --includedir
 #then compile
 cc -c -I/usr/include/postgresql limits2.c
+
+#then see what lib directory is
+pg_config --libdir
+#then link
+cc -o limits2 limits2.o -L/usr/lib -lpq
+#run
+sudo -u postgres ~/c/psql/limits2
+
 }}}
