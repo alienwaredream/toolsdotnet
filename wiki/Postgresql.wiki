@@ -9,3 +9,7 @@ http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Ubuntu1204src
 == Removing postgresql ==
 
 sudo apt-get --purge autoremove postgresql*
+
+== Reboot the machine ==
+
+sudo reboot
