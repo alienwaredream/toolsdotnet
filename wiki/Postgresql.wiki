@@ -11,18 +11,18 @@ First: If your install isn't already damaged, you can drop unwanted PostgreSQL s
 If you really need to do a full purge and reinstall, first make sure PostgreSQL isn't running. ps -C postgres should show no results.
 
 Now run:
-
+{{{
 apt-get --purge remove postgresql\*
 to remove everything PostgreSQL from your system. Just purging the postgres package isn't enough since it's just an empty meta-package.
-
+}}}
 Once all PostgreSQL packages have been removed, run:
-
+{{{
 rm -r /etc/postgresql/
 rm -r /etc/postgresql-common/
 rm -r /var/lib/postgresql/
 userdel -r postgres
 groupdel postgres
-
+}}}
 ===Installing with postGis:===
 
 http://stackoverflow.com/questions/18696078/postgresql-error-when-trying-to-create-an-extension
