@@ -44,3 +44,13 @@ sudo apt-get --purge autoremove postgresql*
 == Reboot the machine ==
 
 sudo reboot
+
+== Compile sample ==
+
+
+{{{
+#first see what's the include folder is
+pg_config --includedir
+#then compile
+cc -c -I/usr/include/postgresql limits2.c
+}}}
