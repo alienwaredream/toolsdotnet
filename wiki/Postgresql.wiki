@@ -1,0 +1,4 @@
+== Get into the database ==
+
+sudo -u postgres psql -d limits
+
