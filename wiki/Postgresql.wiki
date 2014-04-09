@@ -47,6 +47,14 @@ sudo reboot
 
 == Compile sample ==
 
+=== How to build ===
+http://www.postgresql.org/docs/9.3/static/libpq-build.html
+
+=== Sample code to start with ===
+
+http://www.postgresql.org/docs/9.3/static/libpq-example.html
+
+Sample code, good for a start as it doesn't require your db and has safe defaults (falling back to the postgres account for example)
 
 {{{
 #first see what's the include folder is
