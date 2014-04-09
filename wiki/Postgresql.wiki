@@ -80,7 +80,7 @@ sudo -u postgres ~/c/psql/limits2
 
 sudo -u postgres psql -d limits
 
----
+----
 
 == C CLI IDE with VIM ==
 
