@@ -79,3 +79,19 @@ sudo -u postgres ~/c/psql/limits2
 == Get into the database ==
 
 sudo -u postgres psql -d limits
+
+---
+
+== C CLI IDE with VIM ==
+
+=== Setting up cvim ===
+
+http://www.thegeekstuff.com/2009/01/tutorial-make-vim-as-your-cc-ide-using-cvim-plugin/
+
+=== ctags and taglist ===
+
+http://www.thegeekstuff.com/2009/04/ctags-taglist-vi-vim-editor-as-sourece-code-browser/
+
+== MRU plugin ==
+
+http://www.thegeekstuff.com/2009/08/vim-editor-how-to-setup-most-recently-used-documents-features-using-mru-plugin/
