@@ -6,6 +6,8 @@ sudo -u postgres psql -d limits
 
 === Uninstalling first any existing: ===
 
+_As I got to install 9.1 by default on Digital Ocean and then I learnt that there is no any easy way to get PostGIS on 9.1, but I found the working way for 9.3, so I had to uninstall 9.1 first as contrib-9.1 was giving me a trouble_
+
 http://stackoverflow.com/questions/2748607/how-to-thoroughly-purge-and-reinstall-postgresql-on-ubuntu
 
 First: If your install isn't already damaged, you can drop unwanted PostgreSQL servers ("clusters") in Ubuntu using pg_dropcluster. Use that in preference to a full purge and reinstall if you just want to start with a freshly initdb'd PostgreSQL instance.
@@ -25,7 +27,8 @@ rm -r /var/lib/postgresql/
 userdel -r postgres
 groupdel postgres
 }}}
-===Installing with postGis:===
+
+===Installing with postGis===
 
 http://stackoverflow.com/questions/18696078/postgresql-error-when-trying-to-create-an-extension
 
