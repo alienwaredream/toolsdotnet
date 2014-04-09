@@ -2,3 +2,7 @@
 
 sudo -u postgres psql -d limits
 
+== Installing postgis on postgre 9.1 and ubuntu 12.04 ==
+
+http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Ubuntu1204src
+
