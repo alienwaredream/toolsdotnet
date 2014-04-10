@@ -1,0 +1,2 @@
+#summary Getting data from my own table
+
