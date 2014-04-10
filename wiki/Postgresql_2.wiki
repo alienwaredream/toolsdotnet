@@ -1,5 +1,7 @@
 #summary Getting data from my own table
 
+_I learnt that just returning as a char * for everything will be ok for me. I'll be passing it by as a json anyway_
+
 == Makes ==
 
 {{{
