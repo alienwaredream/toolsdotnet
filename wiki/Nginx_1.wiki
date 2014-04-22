@@ -1,7 +1,13 @@
 #summary Starting with nginx
 
 = Installing from the source =
+{{{
+sudo apt-get remove nginx # Removes all but config files.
 
+sudo apt-get purge nginx # Removes everything.
+
+sudo apt-get autoremove # After using any of the above commands, use this in order to remove dependencies used by nginx which are no longer required.
+}}}
 http://blog.thehippo.de/2012/12/server/install-nginx-from-source-on-ubuntu/
 
 adding the postgresql module:
@@ -18,6 +24,8 @@ git clone https://github.com/FRiCKLE/ngx_postgres.git
 {{{
 cd ~/nginx/nginx-1.4.7
 ./configure --prefix=/opt/nginx --user=nginx --group=nginx --with-http_ssl_module --add-module=/home/demo/nginx/modules/ngx_postgres
+
+./configure --with-http_ssl_module --add-module=/home/demo/nginx/modules/ngx_postgres
 }}}
 
 {{{
