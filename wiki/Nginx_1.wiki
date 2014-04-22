@@ -16,6 +16,7 @@ git clone https://github.com/FRiCKLE/ngx_postgres.git
 }}}
 
 {{{
+cd ~/nginx/nginx-1.4.7
 ./configure --prefix=/opt/nginx --user=nginx --group=nginx --with-http_ssl_module --add-module=/home/demo/nginx/modules/ngx_postgres
 }}}
 
