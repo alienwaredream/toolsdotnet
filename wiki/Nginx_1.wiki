@@ -7,9 +7,18 @@ http://blog.thehippo.de/2012/12/server/install-nginx-from-source-on-ubuntu/
 adding the postgresql module:
 
 https://github.com/FRiCKLE/ngx_postgres/
+
 {{{
+
+git clone https://github.com/FRiCKLE/ngx_postgres.git
+
 ./configure --add-module=/home/demo/nginx/modules/ngx_postgres
 }}}
+
+{{{
+./configure --prefix=/opt/nginx --user=nginx --group=nginx --with-http_ssl_module --add-module=/home/demo/nginx/modules/ngx_postgres
+}}}
+
 {{{
 Configuration summary
   + using system PCRE library
