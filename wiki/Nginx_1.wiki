@@ -1,3 +1,27 @@
 #summary Starting with nginx
 
+= Installing from the source =
+
+http://blog.thehippo.de/2012/12/server/install-nginx-from-source-on-ubuntu/
+
+
+{{{
+Configuration summary
+  + using system PCRE library
+  + using system OpenSSL library
+  + md5: using OpenSSL library
+  + sha1: using OpenSSL library
+  + using system zlib library
+
+  nginx path prefix: "/opt/nginx"
+  nginx binary file: "/opt/nginx/sbin/nginx"
+  nginx configuration prefix: "/opt/nginx/conf"
+  nginx configuration file: "/opt/nginx/conf/nginx.conf"
+  nginx pid file: "/opt/nginx/logs/nginx.pid"
+  nginx error log file: "/opt/nginx/logs/error.log"
+  nginx http access log file: "/opt/nginx/logs/access.log"
+  nginx http client request body temporary files: "client_body_temp"
+  nginx http proxy temporary files: "proxy_temp"
+
+}}}
 == First handler/module ==
