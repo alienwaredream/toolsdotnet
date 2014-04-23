@@ -46,6 +46,11 @@ git clone https://github.com/FRiCKLE/ngx_postgres.git
 --add-module=/home/demo/nginx/modules/rds-json-nginx-module
 }}}
 
+copying nginx executable to /usr/sbin
+{{{
+sudo cp objs/nginx /usr/sbin
+}}}
+
 == Removing system startup links if required/screwed :) ==
 
 source: http://codedecoder.wordpress.com/2013/03/12/system-startstop-links-for-etcinit-dnginx-already-exist/comment-page-1/
