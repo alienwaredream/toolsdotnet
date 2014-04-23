@@ -1,4 +1,4 @@
-#summary User managements
+#summary User management
 
 == Users ==
 
@@ -12,6 +12,8 @@ limits=# GRANT SELECT ON limits TO limits;
 limits=# GRANT UPDATE ON limits TO limits;
 # to list rights
 limits=# \z
+# or from the command line
+sudo -u postgres psql -d limits -c 'GRANT INSERT ON limits TO limits;'
 }}}
 
 https://www.digitalocean.com/community/articles/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2
