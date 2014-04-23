@@ -22,8 +22,38 @@ https://www.digitalocean.com/community/articles/how-to-use-roles-and-manage-gran
 
 == Connecting with rds_json and postgresql ==
 
+Experimenting with GETs
 {{{
+location /limits {
+      postgres_pass database;
+      rds_json on;
+      postgres_query    HEAD GET  "SELECT * FROM limits";
+    }
+location /addlimit {
+        postgres_pass database;
+        rds_json on;
+postgres_escape $lat $arg_lat;
+      postgres_escape $long  $arg_long;
+        postgres_escape $course $arg_course;
+        postgres_escape $speed $arg_speed;
+        postgres_escape $uname $arg_uname;
+      postgres_query
+        HEAD GET "INSERT INTO limits (lat, long, course, speed, uname) VALUES($lat, $long, $course, $speed, $uname) RETURNING *";
+      postgres_rewrite  POST changes 201;
+}
+}}}
 
+Sample for post
+
+{{{
+postgres_escape $lat $arg_lat;
+      postgres_escape $long  $arg_long;
+        postgres_escape $course $arg_course;
+        postgres_escape $speed $arg_speed;
+        postgres_escape $uname $arg_uname;
+      postgres_query
+        POST "INSERT INTO limits (lat, long, course, speed, uname) VALUES($lat, $long, $course, $speed, $uname) RETURNING *";
+      postgres_rewrite  POST changes 201;
 }}}
 
 == Test urls ==
