@@ -49,6 +49,8 @@ Configuration summary
 
 == Removing system startup links if required/screwed :) ==
 
+source: http://codedecoder.wordpress.com/2013/03/12/system-startstop-links-for-etcinit-dnginx-already-exist/comment-page-1/
+
 {{{
 $ sudo update-rc.d -f nginx remove 
 #Adding defaults
