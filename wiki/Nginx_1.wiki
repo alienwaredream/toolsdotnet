@@ -46,4 +46,13 @@ Configuration summary
   nginx http client request body temporary files: "client_body_temp"
   nginx http proxy temporary files: "proxy_temp"
 }}}
+
+== Removing system startup links if required/screwed :) ==
+
+{{{
+$ sudo update-rc.d -f nginx remove 
+#Adding defaults
+$ sudo /usr/sbin/update-rc.d -f nginx defaults
+}}}
+
 == First handler/module ==
