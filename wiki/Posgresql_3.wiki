@@ -25,3 +25,9 @@ https://www.digitalocean.com/community/articles/how-to-use-roles-and-manage-gran
 {{{
 
 }}}
+
+== Test urls ==
+
+http://apps.blocoware.com/addlimit?uname=stannn&lat=12.22&long=44.4&course=12.55&speed=23.1
+
+http://apps.blocoware.com/limits
