@@ -8,7 +8,14 @@ sudo apt-get purge nginx # Removes everything.
 
 sudo apt-get autoremove # After using any of the above commands, use this in order to remove dependencies used by nginx which are no longer required.
 }}}
-http://blog.thehippo.de/2012/12/server/install-nginx-from-source-on-ubuntu/
+
+de best:
+http://www.jeffmould.com/2013/11/26/install-nginx-source-ubuntu-12-04/
+
+only left out bit is:
+{{{
+sudo mkdir /var/lib/nginx/body
+}}}
 
 adding the postgresql module:
 
