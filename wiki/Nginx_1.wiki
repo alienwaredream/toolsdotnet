@@ -71,6 +71,12 @@ See all ubuntu uders
 cut -d: -f1 /etc/passwd
 }}}
 
+Test nginx configuration and see where it is:
+
+{{{
+sudo nginx -t
+}}}
+
 == Startup script ==
 
 {{{
