@@ -75,4 +75,12 @@ $ sudo update-rc.d -f nginx remove
 $ sudo /usr/sbin/update-rc.d -f nginx defaults
 }}}
 
+== Troubleshooting ==
+
+See all ubuntu uders
+
+{{{
+cut -d: -f1 /etc/passwd
+}}}
+
 == First handler/module ==
