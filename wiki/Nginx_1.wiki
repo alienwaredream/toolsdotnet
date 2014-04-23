@@ -53,25 +53,6 @@ cd ~/nginx/nginx-1.4.7
 --add-module=/home/demo/nginx/modules/ngx_postgres
 }}}
 
-{{{
-Configuration summary
-  + using system PCRE library
-  + using system OpenSSL library
-  + md5: using OpenSSL library
-  + sha1: using OpenSSL library
-  + using system zlib library
-
-  nginx path prefix: "/opt/nginx"
-  nginx binary file: "/opt/nginx/sbin/nginx"
-  nginx configuration prefix: "/opt/nginx/conf"
-  nginx configuration file: "/opt/nginx/conf/nginx.conf"
-  nginx pid file: "/opt/nginx/logs/nginx.pid"
-  nginx error log file: "/opt/nginx/logs/error.log"
-  nginx http access log file: "/opt/nginx/logs/access.log"
-  nginx http client request body temporary files: "client_body_temp"
-  nginx http proxy temporary files: "proxy_temp"
-}}}
-
 == Removing system startup links if required/screwed :) ==
 
 source: http://codedecoder.wordpress.com/2013/03/12/system-startstop-links-for-etcinit-dnginx-already-exist/comment-page-1/
