@@ -2,7 +2,21 @@
 
 == Users ==
 
+{{{
+
+#set user password, this is a purely db user, there is no corresponding system user
+limits=# ALTER USER limits WITH PASSWORD 'xyz'
+
+
+limits=# GRANT SELECT ON limits TO limits;
+limits=# GRANT UPDATE ON limits TO limits;
+# to list rights
+limits=# \z
+}}}
+
 https://www.digitalocean.com/community/articles/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2
+
+
 
 == Connecting with rds_json and postgresql ==
 
