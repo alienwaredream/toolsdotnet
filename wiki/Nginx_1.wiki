@@ -75,6 +75,11 @@ Test nginx configuration and see where it is:
 sudo nginx -t
 }}}
 
+Seeing error log:
+{{{
+sudo vim /var/log/nginx/error.log
+}}}
+
 == Startup script ==
 
 {{{
