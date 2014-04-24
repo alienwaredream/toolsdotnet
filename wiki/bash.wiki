@@ -1,4 +1,7 @@
 #summary Bash howtos
+
+== Shortcuts ==
+
 {{{
 Ctrl + L              	Clears the Screen, similar to the clear command
 Ctrl + U	Clears the line before the cursor position. If you are at the end of the line, clears the entire line.
@@ -6,7 +9,13 @@ Ctrl + H	Same as backspace
 Ctrl + R	Let’s you search through previously used commands
 }}}
 
-Show all files and show full file info
+== ls ==
+
+
 {{{
+//Show all files and show full file info
 ls -aF
+// Order by time of change desc
+ls -t
+// ls -l shows as a table
 }}}
