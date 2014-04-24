@@ -17,5 +17,8 @@ Ctrl + R	Let’s you search through previously used commands
 ls -aF
 // Order by time of change desc
 ls -t
-// ls -l shows as a table
+//Order by name
+ls -x
+// Shows as a table
+ls -l
 }}}
