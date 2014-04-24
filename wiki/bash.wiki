@@ -5,3 +5,8 @@ Ctrl + U	Clears the line before the cursor position. If you are at the end of th
 Ctrl + H	Same as backspace
 Ctrl + R	Let’s you search through previously used commands
 }}}
+
+Show all files and show full file info
+{{{
+ls -aF
+}}}
