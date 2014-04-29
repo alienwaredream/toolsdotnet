@@ -17,3 +17,24 @@ insert into points select * from json_populate_recordset(null::points, '[{"lat":
 
 select * from points
 }}}
+
+curl for inserting the points from json array:
+{{{
+curl -X POST http://apps.blocoware.com/addlimits -d json=[{\"lat\":"12.22"\,\"long\":44.33\,\"uname\":\"standa_web\"},{\"long\":33.44}]
+}}}
+
+configuration:
+{{{
+location /addlimits {
+        postgres_pass database;
+        rds_json on;
+
+        set_form_input $json json;
+#       set_unescape_uri $ue_json $json;
+postgres_escape $j $json;
+      postgres_query
+         POST "insert into limits select * from json_populate_recordset(null::limits, $j) returning *";
+postgres_rewrite  POST changes 201;
+}
+
+}}}
