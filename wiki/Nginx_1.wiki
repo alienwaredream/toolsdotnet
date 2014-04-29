@@ -44,7 +44,9 @@ git clone https://github.com/FRiCKLE/ngx_postgres.git
 --with-debug \
 --add-module=/home/demo/nginx/modules/ngx_postgres \
 --add-module=/home/demo/nginx/modules/rds-json-nginx-module \
---add-module=/home/demo/nginx/modules/echo-nginx-module
+--add-module=/home/demo/nginx/modules/echo-nginx-module \
+--add-module=/home/demo/nginx/modules/form-input-nginx-module \
+--add-module=/home/demo/nginx/modules/ngx_devel_kit
 }}}
 
 copying nginx executable to /usr/sbin
