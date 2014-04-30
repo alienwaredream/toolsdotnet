@@ -82,6 +82,14 @@ sudo -u postgres psql -d limits
 
 ----
 
+== Troubleshooting ==
+
+Db list:
+{{{
+\list or
+SELECT datname FROM pg_database WHERE datistemplate = false;
+}}}
+
 == C CLI IDE with VIM ==
 
 === Setting up cvim ===
