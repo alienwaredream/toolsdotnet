@@ -42,6 +42,17 @@ sudo apt-get install postgresql-9.3 postgresql-9.3-postgis-2.1 postgresql-client
 sudo -u postgres psql -c 'create extension postgis;'
 }}}
 
+== PostGIS 2+ enable extensions on the concrete database ==
+
+source: http://gis.stackexchange.com/questions/19432/why-does-postgis-installation-not-create-a-template-postgis
+
+{{{
+//From version 2 Postgis is enabled by using the extension system. To //spatially enable a database, log to your database and then:
+
+ CREATE EXTENSION postgis;
+ CREATE EXTENSION postgis_topology;
+}}}
+
 == Removing postgresql ==
 
 sudo apt-get --purge autoremove postgresql*
