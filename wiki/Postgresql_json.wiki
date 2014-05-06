@@ -51,9 +51,14 @@ Permissions:
 
 }}}
 
+A json model table:
+{{{
+CREATE TABLE jlimits (lat numeric, long numeric, l numeric, a numeric, h numeric, n character varying(40));
+}}}
+
 nginx config:
 {{{
-POST "insert into limits select ST_MakePoint(lat,long) as point, l as lim, a as accuracy, h as heading, n as uname from json_populate_recordset(null::jlimits, $j) returning *";
+POST "insert into limits (point, lim, accuracy, heading, uname)  select ST_MakePoint(lat,long), l, a, h, n from json_populate_recordset(null::jlimits, $j) returning *";
 }}}
 
 Curl:
