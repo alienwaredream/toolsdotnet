@@ -38,3 +38,25 @@ postgres_rewrite  POST changes 201;
 }
 
 }}}
+
+== After PostGIS ==
+
+New table:
+{{{
+CREATE TABLE limits(gid serial PRIMARY KEY, point  geography(POINT,4326), heading numeric, lim numeric, accuracy numeric(8,2), uname character varying(40), stamp timestamp with time zone NOT NULL default now());
+}}}
+
+Permissions: 
+{{{
+
+}}}
+
+nginx config:
+{{{
+POST "insert into limits select ST_MakePoint(lat,long) as point, l as lim, a as accuracy, h as heading, n as uname from json_populate_recordset(null::jlimits, $j) returning *";
+}}}
+
+Curl:
+{{{
+curl -X POST http://apps.blocoware.com/addlimits -d json=[{\"lat\":"12.22"\,\"long\":44.33\,\"n\":\"s1\"\,\"l\":10.34\,\"a\":5\,\"h\":134},{\"lat\":"12.22"\,\"long\":44.33\,\"n\":\"s1\"\,\"l\":10.34\,\"a\":5\,\"h\":134}]
+}}}
