@@ -71,3 +71,8 @@ Curl:
 {{{
 curl -X POST http://apps.blocoware.com/addlimits -d json=[{\"lat\":"12.22"\,\"long\":44.33\,\"n\":\"s1\"\,\"l\":10.34\,\"a\":5\,\"h\":134},{\"lat\":"12.22"\,\"long\":44.33\,\"n\":\"s1\"\,\"l\":10.34\,\"a\":5\,\"h\":134}]
 }}}
+
+Select from db:
+{{{
+select ST_AsText(point) from limits;
+}}}
