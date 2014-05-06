@@ -67,3 +67,23 @@ clean data
 {{{
 sudo -u postgres psql -d limits -c 'DELETE FROM limits;'
 }}}
+
+== After PostGIS ==
+
+Remove any previous mess if required:
+
+{{{
+revoke all privileges on limits from limits;
+}}}
+
+Setup access:
+{{{
+limits=# GRANT SELECT ON limits TO limits;
+GRANT
+limits=# GRANT INSERT ON limits TO limits;
+GRANT
+limits=# GRANT USAGE, SELECT ON limits_gid_seq TO limits;
+GRANT
+limits=# \z
+}}}
+
