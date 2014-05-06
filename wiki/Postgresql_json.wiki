@@ -48,7 +48,13 @@ CREATE TABLE limits(gid serial PRIMARY KEY, point  geography(POINT,4326), headin
 
 Permissions: 
 {{{
-
+limits=# GRANT SELECT ON limits TO limits;
+GRANT
+limits=# GRANT INSERT ON limits TO limits;
+GRANT
+limits=# GRANT USAGE, SELECT ON limits_gid_seq TO limits;
+GRANT
+limits=# \z
 }}}
 
 A json model table:
