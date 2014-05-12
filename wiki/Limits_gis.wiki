@@ -37,7 +37,7 @@ postgres_rewrite  POST changes 201;
 --drop function getpoints(numeric, numeric, numeric);
 
 
-CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric) 
+CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric, tsi timestamp) 
 RETURNS  TABLE(
     i integer,
     lt numeric,
@@ -45,14 +45,15 @@ RETURNS  TABLE(
 	l numeric,
 	h numeric,
 	a numeric,
-	t int
+	t int,
+ts timestamp
 ) LANGUAGE plpgsql AS
 
 $BODY$BEGIN
 
 
 
-RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance);
+RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t, tsi as ts  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance);
 
 
 END$BODY$
@@ -61,3 +62,7 @@ GRANT EXECUTE ON FUNCTION getPoints(numeric, numeric, numeric) TO limits;
 
 select * from getPoints(12.22, 44.33001, 100);
 }}}
+
+== Set timezone ==
+
+http://www.christopherirish.com/2012/03/21/how-to-set-the-timezone-on-ubuntu-server/
