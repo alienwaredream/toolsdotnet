@@ -34,10 +34,11 @@ postgres_rewrite  POST changes 201;
 == Stored proc ==
 
 {{{
---drop function getpoints(numeric, numeric, numeric);
+--drop function getPoints(numeric, numeric, numeric, timestamp with time zone);
 
 
-CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric, tsi timestamp) 
+
+CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric, tsi timestamp with time zone) 
 RETURNS  TABLE(
     i integer,
     lt numeric,
@@ -46,21 +47,21 @@ RETURNS  TABLE(
 	h numeric,
 	a numeric,
 	t int,
-ts timestamp
+ts numeric
 ) LANGUAGE plpgsql AS
 
 $BODY$BEGIN
 
 
 
-RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t, tsi as ts  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance);
-
+RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t, extract(epoch from stamp)::numeric FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance) AND stamp > tsi;
 
 END$BODY$
 
 GRANT EXECUTE ON FUNCTION getPoints(numeric, numeric, numeric) TO limits;
 
-select * from getPoints(12.22, 44.33001, 100);
+select * from getPoints(12.22, 44.33001, 100, '2014-05-06 10:20:00-04:00');
+
 }}}
 
 == Set timezone ==
