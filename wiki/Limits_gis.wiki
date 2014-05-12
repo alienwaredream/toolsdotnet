@@ -23,12 +23,13 @@ location /getpoints {
 postgres_escape $lat $arg_lat;
       postgres_escape $long  $arg_long;
         postgres_escape $distance $arg_distance;
+#set_unescape_uri $ts $tsu;
+postgres_escape $ts $arg_ts;
       postgres_query
-        HEAD GET "SELECT * FROM getPoints ($lat, $long, $distance);";
+        HEAD GET "SELECT * FROM getPoints ($lat, $long, $distance,$ts);";
 
 postgres_rewrite  POST changes 201;
 }
-
 }}}
 
 == Stored proc ==
