@@ -7,3 +7,57 @@ Select points around the coordinate and within distance:
 {{{
 SELECT ST_AsText(point), lim, heading  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(12.00,44), 100000);
 }}}
+
+== GET ==
+
+{{{
+http://apps.blocoware.com/getpoints?lat=12.222&long=44.33&distance=400
+}}}
+
+== nginx ==
+
+{{{
+location /getpoints {
+        postgres_pass database;
+        rds_json on;
+postgres_escape $lat $arg_lat;
+      postgres_escape $long  $arg_long;
+        postgres_escape $distance $arg_distance;
+      postgres_query
+        HEAD GET "SELECT * FROM getPoints ($lat, $long, $distance);";
+
+postgres_rewrite  POST changes 201;
+}
+
+}}}
+
+== Stored proc ==
+
+{{{
+--drop function getpoints(numeric, numeric, numeric);
+
+
+CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric) 
+RETURNS  TABLE(
+    i integer,
+    lt numeric,
+	ln numeric,
+	l numeric,
+	h numeric,
+	a numeric,
+	t int
+) LANGUAGE plpgsql AS
+
+$BODY$BEGIN
+
+
+
+RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance);
+
+
+END$BODY$
+
+GRANT EXECUTE ON FUNCTION getPoints(numeric, numeric, numeric) TO limits;
+
+select * from getPoints(12.22, 44.33001, 100);
+}}}
