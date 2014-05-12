@@ -11,7 +11,7 @@ SELECT ST_AsText(point), lim, heading  FROM limits  WHERE ST_DWithin(point, ST_M
 == GET ==
 
 {{{
-http://apps.blocoware.com/getpoints?lat=12.222&long=44.33&distance=400
+http://apps.blocoware.com/getpoints?lat=12.222&long=44.33&distance=400&ts=1399386522.05032
 }}}
 
 == nginx ==
@@ -34,11 +34,11 @@ postgres_rewrite  POST changes 201;
 == Stored proc ==
 
 {{{
---drop function getPoints(numeric, numeric, numeric, timestamp with time zone);
+--drop function getPoints(numeric, numeric, numeric, numeric);
 
 
 
-CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric, tsi timestamp with time zone) 
+CREATE or REPLACE FUNCTION getPoints(lat numeric, lng numeric, distance numeric, tsi numeric) 
 RETURNS  TABLE(
     i integer,
     lt numeric,
@@ -54,13 +54,13 @@ $BODY$BEGIN
 
 
 
-RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t, extract(epoch from stamp)::numeric FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance) AND stamp > tsi;
+RETURN QUERY SELECT  gid as i, (ST_X(point::geometry))::numeric(8,6) as lt, (ST_Y(point::geometry))::numeric(9,6) as ln, lim as l, heading as h,accuracy as a, type as t, extract(epoch from stamp)::numeric FROM limits  WHERE ST_DWithin(point, ST_MakePoint(lat,lng), distance) AND stamp > (TIMESTAMP WITH TIME ZONE 'epoch' + tsi * INTERVAL '1 second');
 
 END$BODY$
 
 GRANT EXECUTE ON FUNCTION getPoints(numeric, numeric, numeric) TO limits;
 
-select * from getPoints(12.22, 44.33001, 100, '2014-05-06 10:20:00-04:00');
+select * from getPoints(12.22, 44.33001, 100, 1399386522.05031);
 
 }}}
 
