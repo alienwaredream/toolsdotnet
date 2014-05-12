@@ -1,0 +1,9 @@
+#summary Gis related server side
+
+== Queries ==
+
+Select points around the coordinate and within distance:
+
+{{{
+SELECT ST_AsText(point), lim, heading  FROM limits  WHERE ST_DWithin(point, ST_MakePoint(12.00,44), 100000);
+}}}
