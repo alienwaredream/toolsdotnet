@@ -65,6 +65,12 @@ select * from getPoints(12.22, 44.33001, 100, 1399386522.05031);
 
 }}}
 
+== Geo index ==
+
+{{{
+CREATE INDEX limits_point_gix ON limits  USING GIST ( point );
+}}}
+
 == Set timezone ==
 
 http://www.christopherirish.com/2012/03/21/how-to-set-the-timezone-on-ubuntu-server/
