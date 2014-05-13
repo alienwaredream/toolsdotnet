@@ -74,3 +74,19 @@ CREATE INDEX limits_point_gix ON limits  USING GIST ( point );
 == Set timezone ==
 
 http://www.christopherirish.com/2012/03/21/how-to-set-the-timezone-on-ubuntu-server/
+
+== Example of geography vs. geometry calcs ==
+
+{{{
+limits=# SELECT ST_Distance('LINESTRING(-122.33 47.606, 0.0 51.5)'::geography, 'POINT(-21.96 -64.15)':: geography);
+   st_distance
+------------------
+ 12965127.0564067
+(1 row)
+
+limits=# SELECT ST_Distance('LINESTRING(-122.33 47.606, 0.0 51.5)'::geometry, 'POINT(-21.96 -64.15)':: geometry);
+   st_distance
+------------------
+ 114.892776750932
+(1 row)
+}}}
