@@ -93,6 +93,16 @@ Seeing error log:
 sudo vim /var/log/nginx/error.log
 }}}
 
+See processes and kill:
+
+{{{
+
+ps aux | grep nginx
+
+sudo killall -v nginx
+
+}}}
+
 == Startup script ==
 
 {{{
