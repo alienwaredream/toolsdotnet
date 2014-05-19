@@ -22,3 +22,11 @@ ls -x
 // Shows as a table
 ls -l
 }}}
+
+== truncate ==
+
+truncate file to a zero size:
+
+{{{
+truncate -s 0 p.txt
+}}}
