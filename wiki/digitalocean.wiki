@@ -37,3 +37,13 @@ msecs/first-response: 1.42492 mean, 17.848 max, 0.309 min
 HTTP response codes:
   code 200 -- 33901
 }}}
+
+After posgre
+
+{{{
+5574 fetches, 10 max parallel, 6.22058e+06 bytes, in 5 seconds
+1116 mean bytes/connection
+1114.8 fetches/sec, 1.24412e+06 bytes/sec
+msecs/connect: 0.0561055 mean, 0.37 max, 0.023 min
+msecs/first-response: 8.68285 mean, 187.733 max, 0.812 min
+}}}
