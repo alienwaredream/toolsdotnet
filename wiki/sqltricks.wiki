@@ -109,3 +109,5 @@ ORDER BY
 s.max_elapsed_time DESC
 GO
 }}}
+
+Source: http://blog.sqlauthority.com/2009/01/02/sql-server-2008-2005-find-longest-running-query-tsql/
