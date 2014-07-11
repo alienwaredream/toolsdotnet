@@ -59,6 +59,32 @@ END
 
 }}}
 
+== See the longest running queries on MSSQL ==
+{{{
+DBCC FREEPROCCACHE
+
+Run following query to find longest running query using T-SQL.
+
+SELECT DISTINCT TOP 10
+t.TEXT QueryName,
+s.execution_count AS ExecutionCount,
+s.max_elapsed_time AS MaxElapsedTime,
+ISNULL(s.total_elapsed_time / s.execution_count, 0) AS AvgElapsedTime,
+s.creation_time AS LogCreatedOn,
+ISNULL(s.execution_count / DATEDIFF(s, s.creation_time, GETDATE()), 0) AS FrequencyPerSec
+FROM sys.dm_exec_query_stats s
+CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
+ORDER BY
+s.max_elapsed_time DESC
+GO
+}}}
+
+Source: http://blog.sqlauthority.com/2009/01/02/sql-server-2008-2005-find-longest-running-query-tsql/
+
+== Performance counters to set ==
+
+http://www.databasejournal.com/features/mssql/article.php/3932406/Top-10-SQL-Server-Counters-for-Monitoring-SQL-Server-Performance.htm
+
 = Oracle =
 
 == Troubleshooting locks ==
@@ -89,25 +115,3 @@ order by osuser, ss, obj
 {{{
 select * from cm.element e where e.name like '%' || chr(9) || '%'
 }}}
-
-== See the longest running queries on MSSQL ==
-{{{
-DBCC FREEPROCCACHE
-
-Run following query to find longest running query using T-SQL.
-
-SELECT DISTINCT TOP 10
-t.TEXT QueryName,
-s.execution_count AS ExecutionCount,
-s.max_elapsed_time AS MaxElapsedTime,
-ISNULL(s.total_elapsed_time / s.execution_count, 0) AS AvgElapsedTime,
-s.creation_time AS LogCreatedOn,
-ISNULL(s.execution_count / DATEDIFF(s, s.creation_time, GETDATE()), 0) AS FrequencyPerSec
-FROM sys.dm_exec_query_stats s
-CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
-ORDER BY
-s.max_elapsed_time DESC
-GO
-}}}
-
-Source: http://blog.sqlauthority.com/2009/01/02/sql-server-2008-2005-find-longest-running-query-tsql/
