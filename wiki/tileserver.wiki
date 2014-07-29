@@ -1,7 +1,11 @@
-
+Install apache first!
 
 http://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/
 
 {{{
 apt-get install libgeos++-dev
 }}}
+
+Mapnik installation:
+
+https://github.com/mapnik/mapnik/wiki/UbuntuInstallation
