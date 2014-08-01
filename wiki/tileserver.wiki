@@ -10,7 +10,7 @@ Mapnik installation:
 
 https://github.com/mapnik/mapnik/wiki/UbuntuInstallation
 
-Make sure to install and build from the source!!
+Make sure to install and build from the source!! http://gis.stackexchange.com/questions/31381/could-not-create-datasource
 
 == A must read for fixing issues ==
 
