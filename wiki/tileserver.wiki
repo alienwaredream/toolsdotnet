@@ -15,3 +15,7 @@ Make sure to install and build from the source!! http://gis.stackexchange.com/qu
 == A must read for fixing issues ==
 
 http://stackoverflow.com/questions/16834983/i-am-trying-to-config-my-own-map-server-with-mapnik-mod-tile-and-apache-no-tiles
+
+== Reducing the size ==
+
+https://lists.openstreetmap.org/pipermail/dev/2013-June/027140.html
