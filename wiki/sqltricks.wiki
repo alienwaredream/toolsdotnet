@@ -92,6 +92,23 @@ RESTORE FILELISTONLY
 FROM DISK = N'F:\BKP\Vodafone_MSCRM_fullbackup.bak'
 }}}
 
+== REstore into different DB with a few files ==
+{{{
+RESTORE DATABASE MSCRM_Standa 
+   FROM DISK = 'F:\BKP\Vodafone_MSCRM_fullbackup.bak'
+   WITH MOVE 'Vodafone_MSCRM' TO 'E:\Data\MSCRM_Standa.mdf',
+   MOVE 'Vodafone_MSCRM_1' TO 'E:\Data\MSCRM_Standa_1.ndf',
+   MOVE 'Vodafone_MSCRM_log' TO 'E:\Data\MSCRM_Standa_2.ldf',
+   MOVE 'Vodafone_MSCRM_log_1' TO 'F:\LOG\MSCRM_Standa_3.ldf',
+   MOVE 'Vodafone_MSCRM_log_2' TO 'F:\LOG\MSCRM_Standa_4.ldf',
+   MOVE 'sysft_ftcat_documentindex' TO 'E:\DATA\MSCRM_Standa_5.ftcat_documentindex'
+--WITH REPLACE
+GO
+
+RESTORE FILELISTONLY
+FROM DISK = N'F:\BKP\Vodafone_MSCRM_fullbackup.bak'
+}}}
+
 = Oracle =
 
 == Troubleshooting locks ==
