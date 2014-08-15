@@ -109,6 +109,19 @@ RESTORE FILELISTONLY
 FROM DISK = N'F:\BKP\Vodafone_MSCRM_fullbackup.bak'
 }}}
 
+== Using ROW_NUMBER ==
+
+{{{
+update StringMap SET DisplayOrder = om.NUM
+	from [dbo].[StringMap] sms join (select 
+		ObjectTypeCode,
+		ROW_NUMBER() OVER (PARTITION BY ObjectTypeCode ORDER BY ObjectTypeCode, Value ASC) AS 'NUM',  
+		Value,
+		StringMapId
+		from [dbo].[StringMap]
+		where AttributeName = 'v2_subcategory') as om on sms.StringMapId = om.StringMapId
+}}}
+
 = Oracle =
 
 == Troubleshooting locks ==
