@@ -85,6 +85,13 @@ Source: http://blog.sqlauthority.com/2009/01/02/sql-server-2008-2005-find-longes
 
 http://www.databasejournal.com/features/mssql/article.php/3932406/Top-10-SQL-Server-Counters-for-Monitoring-SQL-Server-Performance.htm
 
+== See files in backup ==
+
+{{{
+RESTORE FILELISTONLY
+FROM DISK = N'F:\BKP\Vodafone_MSCRM_fullbackup.bak'
+}}}
+
 = Oracle =
 
 == Troubleshooting locks ==
