@@ -122,6 +122,17 @@ update StringMap SET DisplayOrder = om.NUM
 		where AttributeName = 'v2_subcategory') as om on sms.StringMapId = om.StringMapId
 }}}
 
+== Using meta tables ==
+
+See what MS CRM entities are using certain fields:
+
+{{{
+select t.name, t.type_desc, c.name, tp.name, c.collation_name, c.max_length from sys.columns c 
+	join sys.tables t on c.object_id = t.object_id 
+	join sys.types tp on c.user_type_id = tp.user_type_id
+	where c.[name] = 'v2_activitycategoryid' OR c.[name] = 'v2_activitysubcategoryid'  
+}}}
+
 = Oracle =
 
 == Troubleshooting locks ==
