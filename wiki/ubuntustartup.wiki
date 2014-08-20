@@ -1,0 +1,28 @@
+== Add user and change root password ==
+
+Change root password
+{{{
+passwd
+}}}
+
+Add user:
+{{{
+adduser demo
+
+visudo // add line demo    ALL=(ALL:ALL) ALL
+}}}
+
+== Mosh ==
+
+{{{
+
+}}}
+
+== Install and setup apache to run at start up ==
+
+
+
+Run at start:
+{{{
+update-rc.d apache2 defaults
+}}}
