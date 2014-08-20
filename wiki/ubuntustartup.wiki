@@ -14,9 +14,7 @@ visudo // add line demo    ALL=(ALL:ALL) ALL
 
 == Mosh ==
 
-{{{
-
-}}}
+https://mosh.mit.edu/
 
 == Install and setup apache to run at start up ==
 
