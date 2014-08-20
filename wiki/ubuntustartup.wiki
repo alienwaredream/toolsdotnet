@@ -24,3 +24,7 @@ Run at start:
 {{{
 update-rc.d apache2 defaults
 }}}
+
+== OSM ==
+
+http://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/
