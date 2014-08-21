@@ -8,6 +8,13 @@ apt-get install libgeos++-dev
 
 Mapnik installation:
 
+Removing any old bits:
+{{{
+sudo rm -rf /usr/local/include/mapnik
+sudo rm /usr/local/lib/libmapnik*
+sudo rm /usr/local/lib/mapnik*
+}}}
+
 https://github.com/mapnik/mapnik/wiki/UbuntuInstallation
 
 Make sure to install and build from the source!! http://gis.stackexchange.com/questions/31381/could-not-create-datasource
