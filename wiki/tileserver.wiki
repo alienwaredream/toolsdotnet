@@ -26,3 +26,40 @@ http://stackoverflow.com/questions/16834983/i-am-trying-to-config-my-own-map-ser
 == Reducing the size ==
 
 https://lists.openstreetmap.org/pipermail/dev/2013-June/027140.html
+
+== Avoiding the planet file error ==
+
+source: http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Ubuntu1204
+
+Looks good... what's up with libGEOS?
+
+$ geos-config --version
+3.3.2
+Crud... not quite 3.3.3. On to the next step.
+
+3/4 Build GEOS 3.3.x
+
+NOTE: This step may be out of date & unnecessary as of 12/18/12.
+
+These are the instructions for building geos 3.3.3, based on instructions found elsewhere on trac.osgeo.org with some additions determined through trial and error:
+
+sudo apt-get install g++ ruby ruby1.8-dev swig swig2.0   ''--- added to other instructions, not installed by default in 12.04 & required for this make
+wget http://download.osgeo.org/geos/geos-3.3.3.tar.bz2
+tar xvfj geos-3.3.3.tar.bz2
+cd geos-3.3.3
+./configure --enable-ruby --prefix=/usr
+The end of this configure process should look something like this:
+
+Swig: true
+Python bindings: false
+Ruby bindings: true
+PHP bindings: false
+If it's so, then move on to finishing the installation:
+
+make
+sudo make install
+cd ..
+To confirm this works, do the following:
+
+$ geos-config --version
+3.3.3 
