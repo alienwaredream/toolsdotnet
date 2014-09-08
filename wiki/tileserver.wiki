@@ -28,7 +28,9 @@ http://stackoverflow.com/questions/16834983/i-am-trying-to-config-my-own-map-ser
 https://lists.openstreetmap.org/pipermail/dev/2013-June/027140.html
 
 == Avoiding the planet file error ==
-
+{{{
+osm2pgsql: PolygonBuilder.cpp:261: geos::geomgraph::EdgeRing* geos::operation::overlay::PolygonBuilder::findShell(std::vector<geos::operation::overlay::MinimalEdgeRing*>*): Assertion `shellCount <= 1' failed.
+}}}
 source: http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Ubuntu1204
 
 Looks good... what's up with libGEOS?
