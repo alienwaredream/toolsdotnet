@@ -1,2 +1,3 @@
-
 http://www.viggiosoft.com/blog/blog/2014/01/21/custom-and-offline-maps-using-overlay-tiles/
+
+Using mapquest OSM tile server http://developer.mapquest.com/web/products/open/map
