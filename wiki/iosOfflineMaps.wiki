@@ -3,3 +3,41 @@ http://www.viggiosoft.com/blog/blog/2014/01/21/custom-and-offline-maps-using-ove
 Using mapquest OSM tile server http://developer.mapquest.com/web/products/open/map
 
 Open source project from MapBox that built on top of a MapKit: https://github.com/mapbox/mbxmapkit
+
+==NOAA==
+{{{
+var slrMap = {
+ 
+	//default properties
+	map : null,
+	//class functions
+	loadMap: function(){
+ 
+			this.map = new OpenLayers.Map({
+				div: "map",
+				projection: "EPSG:900913"
+			});
+ 
+			this.map.addLayer(
+				new OpenLayers.Layer.XYZ("esri", 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}', {
+					transitionEffect: "resize",
+					sphericalMercator: true,
+					format: "image/jpg"
+			}));
+			
+			this.map.addLayer(
+				new OpenLayers.Layer.XYZ("noaa", 'http://csc.noaa.gov/arcgis/rest/services/dc_slr/marsh_000/MapServer/tile/${z}/${y}/${x}', {
+					transitionEffect: "resize",
+					//sphericalMercator: true,
+					format: "image/jpg",
+					isBaseLayer : false,
+					transparent : "true",
+					opacity : 0.9
+			}));
+			
+			this.map.addControl(new OpenLayers.Control.LayerSwitcher());
+			this.map.setCenter(new OpenLayers.LonLat(-10670712.603429, 4605008.2646843), 4);
+			//this._fetchEsriLayerData();
+		},
+};
+}}}
