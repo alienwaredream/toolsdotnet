@@ -4,6 +4,11 @@ Using mapquest OSM tile server http://developer.mapquest.com/web/products/open/m
 
 Open source project from MapBox that built on top of a MapKit: https://github.com/mapbox/mbxmapkit
 
+== ESRI ==
+
+http://www.d3noob.org/2014/02/using-esri-world-imagery-tile-server.html
+
+
 ==NOAA==
 {{{
 var slrMap = {
