@@ -12,6 +12,10 @@ http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile
 
 http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/15/20512/32306
 
+== BING ==
+
+http://stackoverflow.com/questions/14442055/use-bing-maps-tiles-with-leaflet
+
 
 ==NOAA==
 {{{
