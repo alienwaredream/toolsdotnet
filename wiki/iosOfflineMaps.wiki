@@ -8,6 +8,8 @@ Open source project from MapBox that built on top of a MapKit: https://github.co
 
 http://www.d3noob.org/2014/02/using-esri-world-imagery-tile-server.html
 
+http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/15/20512/32306
+
 
 ==NOAA==
 {{{
