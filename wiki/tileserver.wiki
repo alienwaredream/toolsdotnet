@@ -69,3 +69,8 @@ To confirm this works, do the following:
 $ geos-config --version
 3.3.3 
 }}}
+
+== safe cache settings for vps ==
+{{{
+osm2pgsql --slim -d gis -C 16000 --cache 160 --number-processes 3 planet-latest.osm.pbf &> osm.log
+}}}
