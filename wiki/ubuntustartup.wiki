@@ -28,3 +28,15 @@ update-rc.d apache2 defaults
 == OSM ==
 
 http://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/
+
+== Disk ==
+=== See the top ===
+iotop
+
+df
+
+seeing logical with partitions
+
+== Postgresql top ==
+
+pg_top
