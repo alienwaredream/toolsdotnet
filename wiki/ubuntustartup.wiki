@@ -57,6 +57,10 @@ http://www.howtoforge.com/how-to-set-up-software-raid1-on-a-running-system-incl-
 
 https://raid.wiki.kernel.org/index.php/Recovering_a_failed_software_RAID
 
+=== Software raid how to ===
+
+http://unthought.net/Software-RAID.HOWTO/Software-RAID.HOWTO-6.html
+
 == Postgresql top ==
 
 pg_top
