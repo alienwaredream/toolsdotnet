@@ -37,6 +37,26 @@ df
 
 seeing logical with partitions
 
+=== Copy my raid to a single disk ===
+
+run via live cd/usb
+
+raid should be seen as /dev/md1
+
+unmount /dev/md1, unmount /dev/sdX
+
+dd if=/dev/md1 of=/dev/sdX
+
+? That can be long, how to see the progress
+
+=== create raid while running ===
+
+http://www.howtoforge.com/how-to-set-up-software-raid1-on-a-running-system-incl-grub2-configuration-debian-squeeze-p2
+
+=== Recover the failed raid disk ===
+
+https://raid.wiki.kernel.org/index.php/Recovering_a_failed_software_RAID
+
 == Postgresql top ==
 
 pg_top
