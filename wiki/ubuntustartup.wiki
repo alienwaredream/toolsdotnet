@@ -49,9 +49,7 @@ dd if=/dev/md1 of=/dev/sdX
 
 ? That can be long, how to see the progress
 
-http://linuxcommando.blogspot.cz/2008/06/show-progress-during-dd-copy.html
-
-See comments
+http://askubuntu.com/questions/215505/how-do-you-monitor-the-progress-of-dd
 
 === create raid while running ===
 
