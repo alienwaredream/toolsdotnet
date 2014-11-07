@@ -16,6 +16,11 @@ http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer
 
 http://stackoverflow.com/questions/14442055/use-bing-maps-tiles-with-leaflet
 
+== Yandex ==
+
+http://stackoverflow.com/questions/15306111/using-yandex-map-tiles-in-google-maps-v3
+
+http://vec01.maps.yandex.net/tiles?l=map&v=2.2.3&x=19295&y=24639&z=16
 
 ==NOAA==
 {{{
