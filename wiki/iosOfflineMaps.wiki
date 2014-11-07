@@ -22,6 +22,8 @@ http://stackoverflow.com/questions/15306111/using-yandex-map-tiles-in-google-map
 
 http://vec01.maps.yandex.net/tiles?l=map&v=2.2.3&x=19295&y=24639&z=16
 
+http://vec01.maps.yandex.net/tiles?l=map&v=2.2.3&x={x}&y={y}&z={z}
+
 ==NOAA==
 {{{
 var slrMap = {
