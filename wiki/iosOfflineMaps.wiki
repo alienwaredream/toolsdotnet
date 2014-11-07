@@ -92,7 +92,7 @@ var slrMap = {
 
 == NSURLCache ==
 
-monitoring and checking the disk size and memory usage
+===monitoring and checking the disk size and memory usage===
 {{{
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)downloadURL {
 
@@ -104,5 +104,13 @@ monitoring and checking the disk size and memory usage
     DiskCache: 4096 of 209715200
     MemoryCache: 0 of 62914560
     */
+}
+}}}
+
+=== Purging ===
+
+{{{
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 }}}
