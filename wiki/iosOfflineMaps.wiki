@@ -16,7 +16,7 @@ http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer
 
 http://stackoverflow.com/questions/14442055/use-bing-maps-tiles-with-leaflet
 
-http:// ecn.t2.tiles.virtualearth.net/tiles/h[q]?g=761&mkt=en-us
+{{{http:// ecn.t2.tiles.virtualearth.net/tiles/h[q]?g=761&mkt=en-us}}}
 
 ? how to move from x,y,z to a quadkey?
 
