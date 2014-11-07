@@ -165,6 +165,11 @@ source: http://stackoverflow.com/questions/5712527/how-to-detect-total-available
 
 === Formatting size ===
 {{{
+#define MB (1024*1024)
+#define GB (MB*1024)
+
+@implementation ALDisk
+
 #pragma mark - Formatter
 
 + (NSString *)memoryFormatter:(long long)diskSpace {
@@ -181,4 +186,37 @@ source: http://stackoverflow.com/questions/5712527/how-to-detect-total-available
 
     return formatted;
 }
+
+#pragma mark - Methods
+
++ (NSString *)totalDiskSpace {
+    long long space = [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemSize] longLongValue];
+    return [self memoryFormatter:space];
+}
+
++ (NSString *)freeDiskSpace {
+    long long freeSpace = [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemFreeSize] longLongValue];
+    return [self memoryFormatter:freeSpace];
+}
+
++ (NSString *)usedDiskSpace {
+    return [self memoryFormatter:[self usedDiskSpaceInBytes]];
+}
+
++ (CGFloat)totalDiskSpaceInBytes {
+    long long space = [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemSize] longLongValue];
+    return space;
+}
+
++ (CGFloat)freeDiskSpaceInBytes {
+    long long freeSpace = [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemFreeSize] longLongValue];
+    return freeSpace;
+}
+
++ (CGFloat)usedDiskSpaceInBytes {
+    long long usedSpace = [self totalDiskSpaceInBytes] - [self freeDiskSpaceInBytes];
+    return usedSpace;
+}
 }}}
+
+source: https://github.com/andrealufino/ALSystemUtilities/blob/develop/ALSystemUtilities/ALSystemUtilities/ALDisk/ALDisk.m
