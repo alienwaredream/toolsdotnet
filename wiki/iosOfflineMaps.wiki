@@ -132,3 +132,5 @@ Note that the following SO post helped me solve my problem: Is NSURLCache persis
 }
 In addition to the sleep(1) line, also note the size of my cache; 500MB. You need a cache size that is way bigger than what you're trying to cache. So for example if you want to be able to cache a 10MB image, then a cache size of 10MB or even 20MB will not be enough. If you need to be able to cache 10MB I'd recommend a 100MB cache. Hope this helps!! Did the trick for me.
 }}}
+
+refers to: http://stackoverflow.com/questions/18451990/is-nsurlcache-persistent-across-launches/18453447#comment33390183_18453447
