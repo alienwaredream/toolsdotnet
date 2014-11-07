@@ -134,3 +134,31 @@ In addition to the sleep(1) line, also note the size of my cache; 500MB. You nee
 }}}
 
 refers to: http://stackoverflow.com/questions/18451990/is-nsurlcache-persistent-across-launches/18453447#comment33390183_18453447
+
+== Total and free space ==
+
+source: http://stackoverflow.com/questions/5712527/how-to-detect-total-available-free-disk-space-on-the-iphone-ipad-device
+
+{{{
+- (uint64_t)freeDiskspace
+{
+    uint64_t totalSpace = 0;
+    uint64_t totalFreeSpace = 0;
+
+    __autoreleasing NSError *error = nil;  
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];  
+
+    if (dictionary) {  
+        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];  
+        NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+        totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        NSLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
+    } else {  
+        NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %d", [error domain], [error code]);  
+    }  
+
+    return totalFreeSpace;
+}
+}}}
