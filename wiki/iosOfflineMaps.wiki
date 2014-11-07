@@ -89,3 +89,20 @@ var slrMap = {
 </body>
 </html>
 }}}
+
+== NSURLCache ==
+
+monitoring and checking the disk size and memory usage
+{{{
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)downloadURL {
+
+    // Added these lines...
+    NSLog(@"DiskCache: %@ of %@", @([[NSURLCache sharedURLCache] currentDiskUsage]), @([[NSURLCache sharedURLCache] diskCapacity]));
+    NSLog(@"MemoryCache: %@ of %@", @([[NSURLCache sharedURLCache] currentMemoryUsage]), @([[NSURLCache sharedURLCache] memoryCapacity]));
+    /*
+    OUTPUTS:
+    DiskCache: 4096 of 209715200
+    MemoryCache: 0 of 62914560
+    */
+}
+}}}
