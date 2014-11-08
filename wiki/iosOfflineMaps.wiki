@@ -303,3 +303,9 @@ source: http://stackoverflow.com/questions/5712527/how-to-detect-total-available
 }}}
 
 source: https://github.com/andrealufino/ALSystemUtilities/blob/develop/ALSystemUtilities/ALSystemUtilities/ALDisk/ALDisk.m
+
+== Navigation using OSM data ==
+
+http://wiki.openstreetmap.org/wiki/Navit
+
+http://wiki.openstreetmap.org/wiki/Gosmore
