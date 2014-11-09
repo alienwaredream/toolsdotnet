@@ -6,6 +6,6 @@ http://www.virten.net/2014/01/vmware-homeserver-esxi-on-mac-mini-md387-md388-md3
 
 Alza HP microserver:
 
-G2020T
+G2020T - no hyper threading
 
 http://www.alza.cz/hp-proliant-microserver-gen8-d1148689.htm
