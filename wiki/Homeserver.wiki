@@ -1,0 +1,5 @@
+== Mac mini ==
+
+388 has only space for 1 disk!
+
+http://www.virten.net/2014/01/vmware-homeserver-esxi-on-mac-mini-md387-md388-md389/
