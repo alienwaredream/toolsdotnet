@@ -265,3 +265,9 @@ if ([productIDsToRestore containsObject:transaction.transactionIdentifier]) {
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 }}}
+
+== Sample implementations ==
+
+https://github.com/mattt/CargoBay - Liked this one more
+
+https://github.com/rsanchezsaez/CargoManager/tree/master/CargoManager
