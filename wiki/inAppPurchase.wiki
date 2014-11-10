@@ -82,4 +82,23 @@ Adding a payment request to the transaction queue submits it the App Store. If y
 {{{
 [[SKPaymentQueue defaultQueue] addPayment:payment];
 }}}
+
+== Waiting for the App Store to Process Transactions==
+
 For every payment request your app submits, it gets back a corresponding transaction that it must process. Transactions and the transaction queue are discussed in Waiting for the App Store to Process Transactions.
+
+Register a transaction queue observer when your app is launched, as shown in Listing 4-1. Make sure that the observer is ready to handle a transaction at any time, not just after you add a transaction to the queue. For example, consider the case of a user buying something in your app right before going into a tunnel. Your app isn’t able to deliver the purchased content because there’s no network connection. The next time your app is launched, Store Kit calls your transaction queue observer again and delivers the purchased content at that time. Similarly, if your app fails to mark a transaction as finished, Store Kit calls the observer every time your app is launched until the transaction is properly finished.
+
+Listing 4-1  Registering the transaction queue observer
+{{{
+- (BOOL)application:(UIApplication *)application
+ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    /* ... */
+ 
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:observer];
+}
+
+}}}
+
+Implement the paymentQueue:updatedTransactions: method on your transaction queue observer. Store Kit calls this method when the status of a transaction changes—for example, when a payment request has been processed. The transaction status tells you what action your app needs to perform, as shown in Table 4-1 and Listing 4-2. Transactions in the queue can change state in any order. Your app needs to be ready to work on any active transaction at any time.
