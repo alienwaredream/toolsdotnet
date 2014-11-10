@@ -316,7 +316,7 @@ http://wiki.openstreetmap.org/wiki/Gosmore
 == More sources ==
 
 source: http://www.flink.com.au/tips-tricks/27-reasons-not-to-use-google-maps
-
+{{{
 1.
 "Bing road, satellite and hybrid layers"
 hybrid
@@ -475,3 +475,4 @@ road layer:
 "//vec0{s}.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}"
 sat:
 "//sat0{s}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}"
+}}}
