@@ -226,3 +226,42 @@ SKPaymentTransaction *transaction = <# The current payment #>;
 }}}
 
 After you finish a transaction, don’t take any actions on that transaction or do any work to deliver the product. If any work remains, your app isn’t ready to finish the transaction yet.
+
+== Restoring Purchased Products ==
+
+Users restore transactions to maintain access to content they’ve already purchased. For example, when they upgrade to a new phone, they don’t lose all of the items they purchased on the old phone. Include some mechanism in your app to let the user restore their purchases, such as a Restore Purchases button. Restoring purchases prompts for the user’s App Store credentials, which interrupts the flow of your app: because of this, don’t automatically restore purchases, especially not every time your app is launched.
+
+In most cases, all your app needs to do is refresh its receipt and deliver the products in its receipt. The refreshed receipt contains a record of the user’s purchases in this app, on this device or any other device. 
+
+=== Refreshing the App Receipt ===
+
+Create a receipt refresh request, set a delegate, and start the request. The request supports optional properties for obtaining receipts in various states during testing such as expired receipts—for details, see the values for the initWithReceiptProperties: method of SKReceiptRefreshRequest.
+{{{
+request = [[SKReceiptRefreshRequest alloc] init];
+request.delegate = self;
+[request start];
+After the receipt is refreshed, examine it and deliver any products that were added.
+}}}
+
+=== Restoring Completed Transactions ===
+
+Your app starts the process by calling the restoreCompletedTransactions method of SKPaymentQueue. This sends a request to the App Store to restore all of your app’s completed transactions. If your app sets a value for the applicationUsername property of its payment requests, as described in Detecting Irregular Activity, use the restoreCompletedTransactionsWithApplicationUsername: method to provide the same information when restoring transactions.
+
+The App Store generates a new transaction for each transaction that was previously completed. The restored transaction has a reference to the original transaction: instances of SKPaymentTransaction have a originalTransaction property, and the entries in the receipt have an Original Transaction Identifier field.
+
+Note: The date fields have slightly different meanings for restored purchases. For details, see the Purchase Date and Original Purchase Date fields in Receipt Validation Programming Guide.
+Your transaction queue observer is called with a status of SKPaymentTransactionStateRestored for each restored transaction, as described in Waiting for the App Store to Process Transactions. The action you take at this point depends on the design of your app.
+
+If your app uses the app receipt and doesn’t have Apple-hosted content, this code isn’t needed because your app doesn’t restore completed transactions. Finish any restored transactions immediately.
+If your app uses the app receipt and has Apple-hosted content, let the user select which products to restore before starting the restoration process. During restoration, re-download the user-selected content and finish any other transactions immediately.
+{{{
+NSMutableArray *productIDsToRestore = <# From the user #>;
+SKPaymentTransaction *transaction = <# Current transaction #>;
+ 
+if ([productIDsToRestore containsObject:transaction.transactionIdentifier]) {
+    // Re-download the Apple-hosted content, then finish the transaction
+    // and remove the product identifier from the array of product IDs.
+} else {
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+}}}
