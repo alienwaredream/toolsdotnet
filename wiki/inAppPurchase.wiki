@@ -143,3 +143,41 @@ After making the product available, your app needs to make a persistent record o
 
 For non-consumable products and auto-renewable subscriptions in iOS 7 and later, use the app receipt as your persistent record.
 For non-consumable products and auto-renewable subscriptions in versions of iOS earlier than iOS 7, use the User Defaults system or iCloud to keep a persistent record.
+
+=== Persisting a Value in User Defaults or iCloud ===
+To store information in User Defaults or iCloud, set the value for a key.
+{{{
+#if USE_ICLOUD_STORAGE
+NSUbiquitousKeyValueStore *storage = [NSUbiquitousKeyValueStore defaultStore];
+#else
+NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
+#endif
+ 
+[storage setBool:YES forKey:@"enable_rocket_car"];
+[storage setObject:@15 forKey:@"highest_unlocked_level"];
+ 
+[storage synchronize];
+}}}
+
+Persisting a Receipt in User Defaults or iCloud
+To store a transaction’s receipt in User Defaults or iCloud, set the value for a key to the data of that receipt.
+{{{
+#if USE_ICLOUD_STORAGE
+NSUbiquitousKeyValueStore *storage = [NSUbiquitousKeyValueStore defaultStore];
+#else
+NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
+#endif
+ 
+NSData *newReceipt = transaction.transactionReceipt;
+NSArray *savedReceipts = [storage arrayForKey:@"receipts"];
+if (!receipts) {
+    // Storing the first receipt
+    [storage setObject:@[newReceipt] forKey:@"receipts"];
+} else {
+    // Adding another receipt
+    NSArray *updatedReceipts = [savedReceipts arrayByAddingObject:newReceipt];
+    [storage setObject:updatedReceipts forKey:@"receipts"];
+}
+ 
+[storage synchronize];
+}}}
