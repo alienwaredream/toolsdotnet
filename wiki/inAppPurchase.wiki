@@ -54,3 +54,13 @@ Listing 2-2  Retrieving product information
     [self displayStoreUI]; // Custom method
 }
 }}}
+
+Listing 2-3  Formatting a product’s price
+{{{
+NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+[numberFormatter setLocale:product.priceLocale];
+NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
+After a user selects a product to buy, your app connects to the App Store to request payment for the product.
+}}}
