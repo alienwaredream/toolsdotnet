@@ -476,3 +476,7 @@ road layer:
 sat:
 "//sat0{s}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}"
 }}}
+
+== Interesting calcs for quad and not only ==
+
+https://bitbucket.org/striker2000/mapius-maps/commits/738cfae02aa75a462d97c6cb8c62dd91
