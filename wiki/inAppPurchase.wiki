@@ -102,3 +102,37 @@ Listing 4-1  Registering the transaction queue observer
 }}}
 
 Implement the paymentQueue:updatedTransactions: method on your transaction queue observer. Store Kit calls this method when the status of a transaction changes—for example, when a payment request has been processed. The transaction status tells you what action your app needs to perform, as shown in Table 4-1 and Listing 4-2. Transactions in the queue can change state in any order. Your app needs to be ready to work on any active transaction at any time.
+
+Listing 4-2  Responding to transaction statuses
+{{{
+- (void)paymentQueue:(SKPaymentQueue *)queue
+ updatedTransactions:(NSArray *)transactions
+{
+    for (SKPaymentTransaction *transaction in transactions) {
+        switch (transaction.transactionState) {
+            // Call the appropriate custom method for the transaction state.
+            case SKPaymentTransactionStatePurchasing:
+                [self showTransactionAsInProgress:transaction deferred:NO];
+                break;
+            case SKPaymentTransactionStateDeferred:
+                [self showTransactionAsInProgress:transaction deferred:YES];
+                break;
+            case SKPaymentTransactionStateFailed:
+                [self failedTransaction:transaction];
+                break;
+            case SKPaymentTransactionStatePurchased:
+                [self completeTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateRestored:
+                [self restoreTransaction:transaction];
+                break;
+            default:
+                // For debugging
+                NSLog(@"Unexpected transaction state %@", @(transaction.transactionState));
+                break;
+        }
+    }
+}
+}}}
+
+To keep your user interface up to date while waiting, the transaction queue observer can implement optional methods from the SKPaymentTransactionObserver protocol as follows. The paymentQueue:removedTransactions: method is called when transactions are removed from the queue—in your implementation of this method, remove the corresponding items from your app’s UI. The paymentQueueRestoreCompletedTransactionsFinished: or paymentQueue:restoreCompletedTransactionsFailedWithError: method is called when Store Kit finishes restoring transactions, depending on whether there was an error. In your implementation of these methods, update your app’s UI to reflect the success or error.
