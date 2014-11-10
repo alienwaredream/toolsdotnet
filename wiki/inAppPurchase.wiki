@@ -31,6 +31,7 @@ To make sure your users see only products that are actually available for purcha
 Use a products request object to query the App Store. First, create an instance of SKProductsRequest and initialize it with a list of product identifiers. The products request retrieves information about valid products, along with a list of the invalid product identifiers, and then calls its delegate to process the result. The delegate must implement the SKProductsRequestDelegate protocol to handle the response from the App Store. Listing 2-2 shows a simple implementation of both pieces of code.
 
 Listing 2-2  Retrieving product information
+{{{
 // Custom method
 - (void)validateProductIdentifiers:(NSArray *)productIdentifiers
 {
@@ -52,3 +53,4 @@ Listing 2-2  Retrieving product information
  
     [self displayStoreUI]; // Custom method
 }
+}}}
