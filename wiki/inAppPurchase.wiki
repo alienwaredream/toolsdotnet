@@ -64,3 +64,14 @@ NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
 After a user selects a product to buy, your app connects to the App Store to request payment for the product.
 }}}
+
+== Creating a Payment Request ==
+
+When the user selects a product to buy, create a payment request using a product object, and set the quantity if needed, as shown in Listing 3-1. The product object comes from the array of products returned by your app’s products request, as discussed in Retrieving Product Information.
+
+Listing 3-1  Creating a payment request
+{{{
+SKProduct *product = <# Product returned by a products request #>;
+SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+payment.quantity = 2;
+}}}
