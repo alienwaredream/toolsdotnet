@@ -312,3 +312,166 @@ source: https://github.com/andrealufino/ALSystemUtilities/blob/develop/ALSystemU
 http://wiki.openstreetmap.org/wiki/Navit
 
 http://wiki.openstreetmap.org/wiki/Gosmore
+
+== More sources ==
+
+source: http://www.flink.com.au/tips-tricks/27-reasons-not-to-use-google-maps
+
+1.
+"Bing road, satellite and hybrid layers"
+hybrid
+"//ak.dynamic.t{s}.tiles.virtualearth.net/comp/ch/{q}?it=A,G,L&shading=hill"
+"Tiles <a target="attr" href="http://www.bing.com/maps">Bing</a> &copy; Microsoft and suppliers"
+
+road
+"//ecn.t{s}.tiles.virtualearth.net/tiles/r{q}?g=1236"
+
+satellite
+"//ak.t{s}.tiles.virtualearth.net/tiles/a{q}?g=1236"
+
+2.
+"Esri Navigation Charts (parts of the world, zoom 0..10)"
+"//server.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/{z}/{y}/{x}.png"
+"Tiles &copy; <a target="attr" href="http://esri.com">Esri</a>"
+
+3.
+"Esri World Imagery (zoom 0..17)"
+"//server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png"
+
+4. 
+"Esri National Geographic (zoom 0..12)"
+"//server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.png"
+
+5.
+"Esri Physical (zoom 0..8)"
+"//server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}.png"
+
+6.
+"Esri Ocean (zoom 0..10)"
+"//server.arcgisonline.com/ArcGIS/rest/services/Ocean_BaseMap/MapServer/tile/{z}/{y}/{x}.png"
+
+7.
+"Esri Reference/World Transportation (zoom 0..18)"
+"//server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}.png"
+
+8. 
+"Esri World Topo Map (zoom 0..18)"
+"//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.png"
+
+9. 
+"Esri World Street Map (zoom 0..18)"
+"//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png"
+
+10.
+"Google hybrid"
+"//khm{s}.googleapis.com/kh?v=142&x={x}&y={y}&z={z}"
+"Map data &copy; <a target="attr" href="http://googlemaps.com">Google</a>"
+
+overlay:
+"//mt{s}.googleapis.com/vt?lyrs=h&x={x}&y={y}&z={z}"
+
+11.
+"Google satellite"
+"//khm{s}.googleapis.com/kh?v=142&x={x}&y={y}&z={z}"
+
+12.
+"Google roadmap"
+"//mt{s}.googleapis.com/vt?x={x}&y={y}&z={z}"
+
+13.
+"Google road & terrain layers, with high-res (Retina) support"
+roadmap:
+"//mt{s}.googleapis.com/vt?x={x}&y={y}&z={z}"
+terrain:
+"//mt{s}.googleapis.com/vt?lyrs=t,r&x={x}&y={y}&z={z}"
+
+14.
+"MapBox Warden (zoom 0..17)"
+"//{s}.tiles.mapbox.com/v3/mapbox.mapbox-warden/{z}/{x}/{y}.png"
+"Tiles by <a target="attr" href="http://mapbox.com">MapBox</a>. Map data &copy; <a href="http://openstreetap.org">OpenStreetMap</a> and contributors"
+
+15.
+"MapQuest Hybrid"
+base:
+"//mtile0{s}.mqcdn.com/tiles/1.0.0/vy/sat/{z}/{x}/{y}.png"
+overlay:
+"//mtile0{s}.mqcdn.com/tiles/1.0.0/vy/hyb/{z}/{x}/{y}.png"
+"Tiles by <a target="attr" href="http://mapquest.com">MapQuest</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+16.
+"MapQuest rendering of OpenStreetMap, as well as Aerial layer"
+"//mtile0{s}.mqcdn.com/tiles/1.0.0/vy/sat/{z}/{x}/{y}.png"
+"//mtile0{s}.mqcdn.com/tiles/1.0.0/vy/map/{z}/{x}/{y}.png"
+
+17.
+"OSM Thunderforest Cycle (zoom 0..18)"
+"//{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+"Thunderforest <a target="attr" href="http://thunderforest.com">OpenCycleMap</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+18.
+"OpenCycleMap with train & tram lines"
+"//{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+"Thunderforest <a target="attr" href="http://thunderforest.com">OpenCycleMap</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+19. 
+"OpenStreetMap for skiers with 3 layers"
+base:
+"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+"<a target="attr" href="http://openpistemap.org">OpenPisteMap</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+piste:
+"//tiles.openpistemap.org/nocontours/{z}/{x}/{y}.png"
+"<a target="attr" href="http://openpistemap.org">OpenPisteMap</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+relief shading:
+"//tiles.openpistemap.org/landshaded/{z}/{x}/{y}.png"
+"<a target="attr" href="http://openpistemap.org">OpenPisteMap</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+20.
+"OpenStreetMap with sea marks overlay"
+base:
+"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+sea marks:
+"//tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+"OpenSeaMap. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+21.
+"Precipitation with pressure contours"
+base:
+"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+precipitation:
+"OpenWeatherMap. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+"//{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png"
+
+pressure:
+"OpenWeatherMap. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+"//{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png"
+
+22.
+"Neutral basemap" - "Geocommons Acetate (zoom 2..18)"
+"//a{s}.acetate.geoiq.com/tiles/acetate/{z}/{x}/{y}.png"
+"Tiles by Geocommons &copy; <a target="attr" href="http://geocommons.com/overlays/acetate">Esri & Stamen</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+
+23.
+"Skobbler maps (zoom 0..18)"
+"<a target="attr" href="http://maps.skobbler.com">Skobbler</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+"//tiles{s}.api.skobbler.net/tiles/{z}/{x}/{y}.png?api_key=feb1b1f7e89cada111d31772f0206bf4"
+
+24.
+"Stamen Toner (zoom 0..18) layer."
+"Tiles by <a target="attr" href="http://stamen.com">Stamen Design</a> under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+"//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png"
+
+25.
+"Stamen Watercolor (zoom 0..18) layer."
+"Tiles by <a target="attr" href="http://stamen.com">Stamen Design</a> under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
+"//{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png"
+
+26.
+"Yandex Maps (zoom 0..7 in many areas)"
+people layer:
+"//0{s}.pvec.maps.yandex.net/tiles?l=pmap&x={x}&y={y}&z={z}"
+"Map data &copy; <a target="attr" href="http://maps.yandex.ru">Yandex.Maps</a>"
+road layer:
+"//vec0{s}.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}"
+sat:
+"//sat0{s}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}"
