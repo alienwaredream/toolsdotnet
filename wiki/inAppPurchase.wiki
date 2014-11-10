@@ -136,3 +136,10 @@ Listing 4-2  Responding to transaction statuses
 }}}
 
 To keep your user interface up to date while waiting, the transaction queue observer can implement optional methods from the SKPaymentTransactionObserver protocol as follows. The paymentQueue:removedTransactions: method is called when transactions are removed from the queue—in your implementation of this method, remove the corresponding items from your app’s UI. The paymentQueueRestoreCompletedTransactionsFinished: or paymentQueue:restoreCompletedTransactionsFailedWithError: method is called when Store Kit finishes restoring transactions, depending on whether there was an error. In your implementation of these methods, update your app’s UI to reflect the success or error.
+
+== Persisting the Purchase ==
+
+After making the product available, your app needs to make a persistent record of the purchase. Your app uses that persistent record on launch to continue to make the product available. It also uses that record to restore purchases, as described in Restoring Purchased Products. Your app’s persistence strategy depends the type of products you sell and the versions of iOS.
+
+For non-consumable products and auto-renewable subscriptions in iOS 7 and later, use the app receipt as your persistent record.
+For non-consumable products and auto-renewable subscriptions in versions of iOS earlier than iOS 7, use the User Defaults system or iCloud to keep a persistent record.
