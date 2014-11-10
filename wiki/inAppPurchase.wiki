@@ -1,4 +1,4 @@
-== Retreive list of products, show UI ==
+== Retrieve list of products, show UI ==
 
 https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/ShowUI.html#//apple_ref/doc/uid/TP40008267-CH3-SW5
 
