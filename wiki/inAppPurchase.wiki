@@ -209,3 +209,20 @@ if (rocketCarEnabled) {
     // Use the regular car.
 }
 }}}
+
+== Finishing the Transaction ==
+
+Finishing a transaction tells Store Kit that you’ve completed everything needed for the purchase. Unfinished transactions remain in the queue until they’re finished, and the transaction queue observer is called every time your app is launched so your app can finish the transactions. Your app needs to finish every transaction, regardless of whether the transaction succeeded or failed.
+
+Complete all of the following actions before you finish the transaction:
+
+Persist the purchase.
+Download associated content.
+Update your app’s UI to let the user access the product.
+To finish a transaction, call the finishTransaction: method on the payment queue.
+{{{
+SKPaymentTransaction *transaction = <# The current payment #>;
+[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}}}
+
+After you finish a transaction, don’t take any actions on that transaction or do any work to deliver the product. If any work remains, your app isn’t ready to finish the transaction yet.
