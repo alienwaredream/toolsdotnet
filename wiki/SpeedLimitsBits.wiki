@@ -1,5 +1,5 @@
 == Calculating hash in iOS ==
-
+{{{
 #import <CommonCrypto/CommonCrypto.h>
  
 // Custom method to calculate the SHA-256 hash using Common Crypto
@@ -30,3 +30,4 @@
  
     return userAccountHash;
 }
+}}}
