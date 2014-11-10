@@ -181,3 +181,31 @@ if (!receipts) {
  
 [storage synchronize];
 }}}
+
+== Unlocking App Functionality ==
+
+If the product enables app functionality, set a Boolean value to enable the code path and update your user interface as needed. To determine what functionality to unlock, consult the persistent record that your app made when the transaction occurred. Your app needs to update this Boolean value whenever a purchase is completed and at app launch.
+
+For example, using the app receipt, your code might look like the following:
+{{{
+NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+ 
+// Custom method to work with receipts
+BOOL rocketCarEnabled = [self receipt:receiptData
+        includesProductID:@"com.example.rocketCar"];
+
+}}}
+
+Or, using the User Defaults system:
+{{{
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+BOOL rocketCarEnabled = [defaults boolForKey:@"enable_rocket_car"];
+Then use that information to enable the appropriate code paths in your app.
+
+if (rocketCarEnabled) {
+    // Use the rocket car.
+} else {
+    // Use the regular car.
+}
+}}}
