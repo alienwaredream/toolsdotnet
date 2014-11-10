@@ -1,0 +1,26 @@
+== Retreive list of products, show UI ==
+
+https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/ShowUI.html#//apple_ref/doc/uid/TP40008267-CH3-SW5
+
+
+Embedding Product IDs in the App Bundle
+Include a property list file in your app bundle containing an array of product identifiers, such as the following:
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <string>com.example.level1</string>
+    <string>com.example.level2</string>
+    <string>com.example.rocket_car</string>
+</array>
+</plist>
+}}}
+To get product identifiers from the property list, locate the file in the app bundle and read it.
+{{{
+NSURL *url = [[NSBundle mainBundle] URLForResource:@"product_ids"
+                                     withExtension:@"plist"];
+NSArray *productIdentifiers = [NSArray arrayWithContentsOfURL:url];
+}}}
+
