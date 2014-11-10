@@ -75,3 +75,11 @@ SKProduct *product = <# Product returned by a products request #>;
 SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
 payment.quantity = 2;
 }}}
+
+== Submitting a Payment Request ==
+
+Adding a payment request to the transaction queue submits it the App Store. If you add a payment object to the queue multiple times, it’s submitted multiple times—the user is charged multiple times and your app is expected to deliver the product multiple times.
+{{{
+[[SKPaymentQueue defaultQueue] addPayment:payment];
+}}}
+For every payment request your app submits, it gets back a corresponding transaction that it must process. Transactions and the transaction queue are discussed in Waiting for the App Store to Process Transactions.
