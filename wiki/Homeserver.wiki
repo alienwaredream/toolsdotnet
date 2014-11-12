@@ -9,3 +9,7 @@ Alza HP microserver:
 G2020T - no hyper threading
 
 http://www.alza.cz/hp-proliant-microserver-gen8-d1148689.htm
+
+== HP MS Gen 8 CPU change ==
+
+http://homeservershow.com/hp-proliant-gen8-microserver-xeon-e3-1265lv2-cpu-upgrade.html
