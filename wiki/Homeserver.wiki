@@ -18,6 +18,9 @@ http://homeservershow.com/forums/index.php?/topic/6596-hp-microserver-gen8-proce
 
 == B120i RAID in Ubuntu ==
 
+http://alinuxpassionate.com/computing/2014/08/ubuntu-on-proliant-dl320e-gen8-with-b120i-raid/
+
+
 http://homeservershow.com/forums/index.php?/topic/8426-installing-ubuntu-to-ssd-in-odd-bay-with-b120i-raid-1/
 
 == Continued ==
