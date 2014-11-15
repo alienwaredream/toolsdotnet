@@ -1,3 +1,11 @@
+== bash ==
+
+find file with pattern:
+
+{{{
+sudo find / -print | grep -i '.*[.]mml'
+}}}
+
 == Add user and change root password ==
 
 Change root password
