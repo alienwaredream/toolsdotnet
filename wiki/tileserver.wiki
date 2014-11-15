@@ -74,3 +74,14 @@ $ geos-config --version
 {{{
 osm2pgsql --slim -d gis -C 16000 --cache 160 --number-processes 3 planet-latest.osm.pbf &> osm.log
 }}}
+
+
+== OSM Bright ==
+ 
+=== paths ===
+
+standa@bmap2:~$ sudo find / -print | grep -i '.*[.]mml'
+/usr/local/share/maps/style/osm-bright-master/build/project.mml
+/usr/local/share/maps/style/osm-bright-master/osm-bright/osm-bright.osm2pgsql.mml
+/usr/local/share/maps/style/osm-bright-master/osm-bright/osm-bright.imposm.mml
+/usr/local/share/maps/style/OSMBright/project.mml
