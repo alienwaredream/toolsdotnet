@@ -75,6 +75,14 @@ $ geos-config --version
 osm2pgsql --slim -d gis -C 16000 --cache 160 --number-processes 3 planet-latest.osm.pbf &> osm.log
 }}}
 
+== some stats ==
+
+{{{
+Node stats: total(2609086266), max(3187644577) in 2504s
+Way stats: total(260489883), max(312856439) in 107029s
+Relation stats: total(2925029), max(4196171) in 209658s
+}}}
+
 
 == OSM Bright ==
  
