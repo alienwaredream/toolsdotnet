@@ -410,7 +410,7 @@ overlay:
 
 18.
 "OpenCycleMap with train & tram lines"
-"//{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+"http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
 "Thunderforest <a target="attr" href="http://thunderforest.com">OpenCycleMap</a>. Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
 
 19. 
@@ -419,7 +419,7 @@ base:
 "//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 "<a target="attr" href="http://openpistemap.org">OpenPisteMap</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
 piste:
-"//tiles.openpistemap.org/nocontours/{z}/{x}/{y}.png"
+"http://tiles.openpistemap.org/nocontours/{z}/{x}/{y}.png"
 "<a target="attr" href="http://openpistemap.org">OpenPisteMap</a> Map data &copy; <a target="attr" href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors"
 relief shading:
 "//tiles.openpistemap.org/landshaded/{z}/{x}/{y}.png"
