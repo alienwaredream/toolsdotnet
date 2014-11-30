@@ -352,7 +352,7 @@ satellite
 
 7.
 "Esri Reference/World Transportation (zoom 0..18)"
-"//server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}.png"
+"http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}.png"
 
 8. 
 "Esri World Topo Map (zoom 0..18)"
