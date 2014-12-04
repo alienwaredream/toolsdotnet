@@ -4,6 +4,8 @@
 
 https://developer.apple.com/library/IOs/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html
 
+https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/64bitPorting/building/building.html
+
 == NSInteger and NSUInteger ==
 
 http://stackoverflow.com/questions/4445173/when-to-use-nsinteger-vs-int
