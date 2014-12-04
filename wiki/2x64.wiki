@@ -7,7 +7,7 @@ https://developer.apple.com/library/IOs/documentation/General/Conceptual/CocoaTo
 
 http://stackoverflow.com/questions/4445173/when-to-use-nsinteger-vs-int
 
-{{{
+||
 OS X is "LP64". This means that:
 
 int is always 32-bits.
@@ -19,4 +19,4 @@ NSInteger and long are always pointer-sized. That means they're 32-bits on 32-bi
 The reason NSInteger exists is because many legacy APIs incorrectly used int instead of long to hold pointer-sized variables, which meant that the APIs had to change from int to long in their 64-bit versions. In other words, an API would have different function signatures depending on whether you're compiling for 32-bit or 64-bit architectures.  NSInteger intends to mask this problem with these legacy APIs.
 
 In your new code, use int if you need a 32-bit variable, long long if you need a 64-bit integer, and long or NSInteger if you need a pointer-sized variable.
-}}}
+||
