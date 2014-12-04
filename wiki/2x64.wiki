@@ -4,6 +4,7 @@
 
 https://developer.apple.com/library/IOs/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html
 
+== NSInteger and NSUInteger ==
 
 http://stackoverflow.com/questions/4445173/when-to-use-nsinteger-vs-int
 
@@ -20,3 +21,7 @@ The reason NSInteger exists is because many legacy APIs incorrectly used int ins
 
 In your new code, use int if you need a 32-bit variable, long long if you need a 64-bit integer, and long or NSInteger if you need a pointer-sized variable.
 ||
+
+== String formatting ==
+
+https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265-SW5
