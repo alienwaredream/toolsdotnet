@@ -25,3 +25,25 @@ In your new code, use int if you need a 32-bit variable, long long if you need a
 == String formatting ==
 
 https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265-SW5
+
+== FLOAT/DOUBLE vs CGFLOAT ==
+
+EXAMPLE: FLOAT/DOUBLE vs CGFLOAT
+
+As an example we take the UITableView delegate method tableView:heightForRowAtIndexPath:.
+
+In a 32-bit only application it will work fine if it is written like this:
+
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+float is a 32-bit value and the 44 you are returning is a 32-bit value. However, if we compile/run this same piece of code in a 64-bit arm64 architecture the 44 will be a 64-bit value. Returning a 64-bit value when a 32-bit value is expected will give an unexpected row height.
+
+You can solve this issue by using the CGFloat type
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+This type represents a 32-bit float in a 32-bit environment and a 64-bit double in a 64-bit environment. Therefore when using this type the method will always receive the expected type regardless of compile/runtime environment.
