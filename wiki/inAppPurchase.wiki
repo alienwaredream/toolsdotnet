@@ -149,7 +149,35 @@ Listing 4-2  Responding to transaction statuses
 }
 }}}
 
-To keep your user interface up to date while waiting, the transaction queue observer can implement optional methods from the SKPaymentTransactionObserver protocol as follows. The paymentQueue:removedTransactions: method is called when transactions are removed from the queue—in your implementation of this method, remove the corresponding items from your app’s UI. The paymentQueueRestoreCompletedTransactionsFinished: or paymentQueue:restoreCompletedTransactionsFailedWithError: method is called when Store Kit finishes restoring transactions, depending on whether there was an error. In your implementation of these methods, update your app’s UI to reflect the success or error.
+To keep your user interface up to date while waiting, the transaction queue observer can implement optional methods from the SKPaymentTransactionObserver protocol as follows. The paymentQueue:removedTransactions: method is called when transactions are removed from the queue—in your implementation of this method, remove the corresponding items from your app’s UI. The *paymentQueueRestoreCompletedTransactionsFinished:* or *paymentQueue:restoreCompletedTransactionsFailedWithError:* method is called when Store Kit finishes restoring transactions, depending on whether there was an error. In your implementation of these methods, update your app’s UI to reflect the success or error.
+
+!!! Look how to finish
+{{{
+- (void)completeTransaction:(SKPaymentTransaction *)transaction {
+    NSLog(@"completeTransaction...");
+ 
+    [self provideContentForProductIdentifier:transaction.payment.productIdentifier];
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+ 
+- (void)restoreTransaction:(SKPaymentTransaction *)transaction {
+    NSLog(@"restoreTransaction...");
+ 
+    [self provideContentForProductIdentifier:transaction.originalTransaction.payment.productIdentifier];
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+ 
+- (void)failedTransaction:(SKPaymentTransaction *)transaction {
+ 
+    NSLog(@"failedTransaction...");
+    if (transaction.error.code != SKErrorPaymentCancelled)
+    {
+        NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+    }
+ 
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+}
+}}}
 
 == Persisting the Purchase ==
 
@@ -279,6 +307,10 @@ if ([productIDsToRestore containsObject:transaction.transactionIdentifier]) {
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 }}}
+
+== Articles ==
+
+http://www.raywenderlich.com/21081/introduction-to-in-app-purchases-in-ios-6-tutorial
 
 == Sample implementations ==
 
