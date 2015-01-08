@@ -74,3 +74,9 @@ http://unthought.net/Software-RAID.HOWTO/Software-RAID.HOWTO-6.html
 == Postgresql top ==
 
 pg_top
+
+== History ==
+
+http://askubuntu.com/questions/358867/how-to-view-the-bash-history-file-via-command-line
+
+/home/username/.bash_history
