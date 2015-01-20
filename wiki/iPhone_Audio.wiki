@@ -1,0 +1,5 @@
+
+
+https://github.com/Jawbone/AudioSessionManager
+
+http://stackoverflow.com/questions/20596756/ios-7-bluetooth-output-not-working-for-avaudiosessioncategoryplayandrecord
