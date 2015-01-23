@@ -1,0 +1,39 @@
+
+
+I'm using a GPS Datalogger to log my running sessions (time, distance, speed…). I can import a GPX into Sportstracker.
+But the speed and the distance is not read from the GPX file. Does this is a normal way the software works, or something is wrong with my file ?
+This is an extract of the GPX file :
+{{{
+<trkpt lat="47.179443333" lon="-1.573975000">
+  <ele>134.437900</ele>
+  <time>2011-09-25T18:04:55Z</time>
+  <course>344.789978</course>
+  <speed>2.884012</speed>
+  <fix>2d</fix>
+  <hdop>4710.765137</hdop>
+</trkpt>
+<trkpt lat="47.179463333" lon="-1.573978333">
+  <ele>134.438500</ele>
+  <time>2011-09-25T18:04:56Z</time>
+  <course>353.536865</course>
+  <speed>2.240630</speed>
+  <fix>2d</fix>
+  <hdop>4710.766602</hdop>
+</trkpt>
+<trkpt lat="47.179483333" lon="-1.573986667">
+  <ele>134.438700</ele>
+  <time>2011-09-25T18:04:57Z</time>
+  <course>344.187347</course>
+  <speed>2.313955</speed>
+  <fix>2d</fix>
+  <hdop>4710.767578</hdop>
+</trkpt>
+<trkpt lat="47.179508333" lon="-1.574001667">
+  <ele>134.439200</ele>
+  <time>2011-09-25T18:04:58Z</time>
+  <course>337.813263</course>
+  <speed>3.005522</speed>
+  <fix>2d</fix>
+  <hdop>4710.769043</hdop>
+</trkpt>
+}}}
