@@ -1,0 +1,4 @@
+== zoom levels ==
+
+http://stackoverflow.com/questions/14354450/how-to-calculate-gmscamera-zoom
+
