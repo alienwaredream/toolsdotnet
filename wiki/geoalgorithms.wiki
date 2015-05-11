@@ -1,13 +1,6 @@
-#summary One-sentence summary of this page.
 
-= Introduction =
+== Quad tree ==
 
-Add your content here.
+From quad tree to hashes:
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-Spatial-indexing-with-Quadtrees-and-Hilbert-Curves
