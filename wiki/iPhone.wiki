@@ -2,6 +2,45 @@
 
 = Idioms =
 
+== topLayoutGuide - manual approach ==
+
+http://jdkuzma.tumblr.com/post/79294999487/xcode-mapview-offsetting-the-compass-and-legal
+
+{{{
+@interface MapLayoutGuide : NSObject <UILayoutSupport>
+@property (nonatomic) CGFloat insetLength;
+-(id)initWithLength:(CGFloat)length;
+@end
+
+@implementation MapLayoutGuide
+@synthesize insetLength = _length;
+
+- (id)initWithLength:(CGFloat)insetlength
+{
+    self = [super init];
+    if (self) {
+        _length = insetlength;
+    }
+    return self;
+}
+
+@end
+
+And within the view controller displaying the map:
+
+- (id)topLayoutGuide
+{
+   // #define kCompassInset 128.0/2.0
+   return [[MapLayoutGuide alloc] initWithLength:kCompassInset];
+}
+
+- (id)bottomLayoutGuide
+{
+  // #define kLegalInset = 44.0
+  return [[MapLayoutGuide alloc] initWithLength:kLegalInset];
+}
+}}}
+
 = User messages =
 
 == Unavailabiliies ==
