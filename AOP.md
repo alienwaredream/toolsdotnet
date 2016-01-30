@@ -1,0 +1,3 @@
+# Weaving techniques #
+
+The difficulty of changing environments means most implementations produce compatible combination programs through a process known as **weaving**  - a special case of program transformation. An aspect weaver reads the aspect-oriented code and generates appropriate object-oriented code with the aspects integrated. The same AOP language can be implemented through a variety of weaving techniques, so the semantics of a language should never be understood in terms of the weaving implementation. Only the speed of an implementation and its ease of deployment are affected by which method of combination is used.
